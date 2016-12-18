@@ -1,5 +1,4 @@
-﻿//using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.Timers;
+﻿using System.Timers;
 using Moq;
 using BASIC_COMPONENTS;
 using NUnit.Framework;
@@ -83,7 +82,7 @@ namespace BASIC_CONTROL_LOGIC
                 StepControl.WatchForInputValueChange( true );
                 MockTimer.Raise( timer => timer.Elapsed += null, new System.EventArgs( ) as ElapsedEventArgs );
                 StepControl.WatchForInputValueChange( false );
-           }
+            }
             StepControl.Reset( );
         }
 

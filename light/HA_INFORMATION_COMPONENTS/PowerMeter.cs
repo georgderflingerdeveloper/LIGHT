@@ -22,6 +22,7 @@ namespace Equipment
         bool                      _CaptureMinuteStoreHour;
         bool                      _StartCapure;
         bool                      _StartStoring;
+		bool                      _StopStoreData;
         List<EnergyDataSet> EnergyList = new List<EnergyDataSet>();
         Timer                     TimerTick   = new Timer( Convert.ToDouble(MS_PER_SECOND) );
         EnergyDataSet             _EnergyData = new EnergyDataSet();
@@ -140,6 +141,7 @@ namespace Equipment
         public void Reset( )
         {
             _ActualCounts = 0;
+			_StopStoreData = false;
         }
         #endregion
 
@@ -171,22 +173,27 @@ namespace Equipment
         {
             try
             {
-                Directory.GetCurrentDirectory( );
-                if( !Directory.Exists( EnergyConstants.DefaultDirectory ) )
-                {
-                    Directory.CreateDirectory( EnergyConstants.DefaultDirectory );
-                }
-                XmlSerializer ser = new XmlSerializer( typeof( List<EnergyDataSet> ) );
-                string FileName = EnergyConstants.DefaultFileName + "_" + TimeUtil.GetDate_() + EnergyConstants.FileTyp;
-                string DirectoryWithFileName = EnergyConstants.DefaultDirectory + "\\" + FileName;
-                FileStream str = new FileStream( DirectoryWithFileName, FileMode.Create );
-                ser.Serialize( str, data );
-                str.Close( );
-            }
-            catch( Exception ex )
-            {
-                Services.TraceMessage_( ex.Message, Message.DataStoringFailed );
-            }
+				if( !_StopStoreData )
+				{
+					Directory.GetCurrentDirectory();
+					if (!Directory.Exists(EnergyConstants.DefaultDirectory))
+					{
+						Directory.CreateDirectory(EnergyConstants.DefaultDirectory);
+					}
+					XmlSerializer ser = new XmlSerializer(typeof(List<EnergyDataSet>));
+					string FileName = EnergyConstants.DefaultFileName + "_" + TimeUtil.GetDate_() + EnergyConstants.FileTyp;
+					string DirectoryWithFileName = EnergyConstants.DefaultDirectory + "\\" + FileName;
+					FileStream str = new FileStream(DirectoryWithFileName, FileMode.Create);
+					ser.Serialize(str, data);
+					str.Close();
+				}
+
+			}
+			catch (Exception ex)
+			{
+				Services.TraceMessage_(ex.Message, Message.DataStoringFailed);
+				_StopStoreData = true;
+			}
         }
 
         void TimedStartCapture( )
