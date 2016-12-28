@@ -12,11 +12,12 @@ using Communication.UDP;
 using Filehandling;
 using HardwareDevices;
 using HomeAutomation.Controls;
-using HomeAutomation.HardConfig;
 using HomeAutomation.rooms;
 using Phidgets;
 using SystemServices;
 using BASIC_COMPONENTS;
+using HomeAutomation.HardConfig;
+using System.Threading;
 
 namespace HomeAutomation
 {
@@ -24,11 +25,11 @@ namespace HomeAutomation
     class MyHomeMain
     {
         #region COMMON_DECLARATIONS
-        static Timer                            SelfTestTimer                   =  new Timer();
-        static Timer                            CommTestTimer                   =  new Timer();
-        static Timer                            Timer_ClientInvitation          =  new Timer( Parameters.ClientInvitationIntervall );
-        static Timer                            Timer_SendPeriodicDataToServer  =  new Timer( 1000 );
-        static Timer                            Timer_SendPeriodicDataToClient  =  new Timer( 1000 );
+		static System.Timers.Timer                            SelfTestTimer                   =  new System.Timers.Timer();
+		static System.Timers.Timer                            CommTestTimer                   =  new System.Timers.Timer();
+		static System.Timers.Timer                            Timer_ClientInvitation          =  new System.Timers.Timer( Parameters.ClientInvitationIntervall );
+		static System.Timers.Timer                            Timer_SendPeriodicDataToServer  =  new System.Timers.Timer( 1000 );
+		static System.Timers.Timer                            Timer_SendPeriodicDataToClient  =  new System.Timers.Timer( 1000 );
         static SleepingRoomNG                   MyHomeSleepingRoom;
         static Center_kitchen_living_room_NG    MyHomeKitchenLivingRoom;
         static AnteRoom                         MyHomeAnteRoom;
@@ -105,8 +106,9 @@ namespace HomeAutomation
 
 		static void WaitUntilKeyPressed( )
 		{
-			Console.WriteLine( "Press any key to terminate application ...");
-			Console.ReadKey(true);
+			Console.WriteLine( InfoString.PressEnterForTerminateApplication );
+			while(Console.ReadKey(true).Key != ConsoleKey.Enter) 
+			{ Thread.Sleep(1000); };
 		}
         #endregion
 
@@ -120,7 +122,7 @@ namespace HomeAutomation
                 Debug.AutoFlush = true;
                 Debug.Indent();
                 Console.WriteLine( InfoString.InfoStartingTime + DateTime.Now );
-                Version = Assembly.GetExecutingAssembly().GetName().Version.ToString();
+                Version         = Assembly.GetExecutingAssembly().GetName().Version.ToString();
                 CompleteVersion = InfoString.InfoVersion + Version + Seperators.Spaceholder + InfoString.InfoLastBuild + BuildDate;
                 Console.WriteLine( TimeUtil.GetTimestamp()           + 
                                    Seperators.Spaceholder            + 
@@ -130,9 +132,9 @@ namespace HomeAutomation
                                    InfoString.InfoLastBuild          + 
                                    BuildDate.ToString() );
                 Console.WriteLine( TimeUtil.GetTimestamp() + Seperators.Spaceholder + InfoString.InfoLoadingConfiguration );
-                setting_value = INIUtility.Read( InfoString.ConfigFileName, InfoString.IniSection, InfoObjectDefinitions.Room);
+                setting_value  = INIUtility.Read( InfoString.ConfigFileName, InfoString.IniSection, InfoObjectDefinitions.Room);
                 serveripadress = INIUtility.Read( InfoString.ConfigFileName, InfoString.IniSection, InfoObjectDefinitions.Server );
-                serverPort = INIUtility.Read( InfoString.ConfigFileName, InfoString.IniSection, InfoObjectDefinitions.Port);
+                serverPort     = INIUtility.Read( InfoString.ConfigFileName, InfoString.IniSection, InfoObjectDefinitions.Port);
                 try
                 {
                     PhidgetsIds     = INIUtility.ReadAllSection( InfoString.ConfigFileName, InfoString.IniSectionPhidgets );
@@ -145,8 +147,9 @@ namespace HomeAutomation
                         i++;
                     }
                 }
-                catch
+				catch( Exception ex )
                 {
+					Services.TraceMessage_( ex.Message.ToString() );
                     Console.WriteLine( TimeUtil.GetTimestamp() + Seperators.Spaceholder + InfoString.InfoNoConfiguredPhidgetIDused );
                 }
 
@@ -179,15 +182,14 @@ namespace HomeAutomation
 
                     default:
                          Console.WriteLine( TimeUtil.GetTimestamp() + Seperators.Spaceholder + InfoString.InfoIniDidNotFindProperConfiguration );
-                         Console.ReadLine( );
-                         return;
+						 break;
                 }
             }
-            catch
+			catch( Exception ex )
             {
-                // fetching configuration data failed -> abort 
+                
+				Services.TraceMessage_( ex.Message.ToString() );
                 Console.WriteLine( TimeUtil.GetTimestamp() + Seperators.Spaceholder + InfoString.FailedToLoadConfiguration );
-                Console.ReadLine( );
             }
 
             _homeAutomationCommand = setting_value;
@@ -235,7 +237,6 @@ namespace HomeAutomation
                                 MyHomeAnteRoom.StopAliveSignal( );
                                 MyHomeAnteRoom.AllOutputs( false );
                                 MyHomeAnteRoom.close( );
-                                Environment.Exit(0);
                                 break;
                             }
                         }
@@ -249,7 +250,6 @@ namespace HomeAutomation
                         {
                             MyHomeLivingRoomEast.AllCardsOutputsOff( );
                             MyHomeLivingRoomEast.Close( ); 
-                            Environment.Exit( 0 );
                             break;
                         }
                         break;
@@ -261,7 +261,6 @@ namespace HomeAutomation
                         {
                             MyHomeLivingRoomWest.AllOutputs( false );
                             MyHomeLivingRoomWest.close( );
-                            Environment.Exit( 0 );
                         }
                         break;
 
@@ -270,6 +269,13 @@ namespace HomeAutomation
 
                 #endregion
             }
+
+			Console.WriteLine( TimeUtil.GetTimestamp()                                       + 
+			                   Seperators.Spaceholder                                        + 
+			                   Assembly.GetExecutingAssembly().GetName().FullName.ToString() +
+			                   Seperators.Spaceholder                                        +
+			                   InfoString.Terminated);
+			
             Environment.Exit( 0 );
         }
 
@@ -341,10 +347,6 @@ namespace HomeAutomation
             }
         }
 
-        static void FeedWatchDogTimer_Elapsed ( object sender, ElapsedEventArgs e )
-        {
-            Console.WriteLine( "Feed Watchdog " + DateTime.Now.ToString() );
-        }
  
         static void Client__MessageReceivedFromServer ( string receivedmessage )
         {
