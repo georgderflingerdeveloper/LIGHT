@@ -674,14 +674,14 @@ namespace HomeAutomation
         #region DECLARATIONES
         LightControlAnteRoomNG               LightAnteRoom;
         LightControl                         LightWashRoom;
-        LightControl                         LightBathRoom;
-        HeaterElement                        HeatersBathRoom;
-        BasicClientComumnicator              BasicClientCommunicator_;
+        LightControl LightBathRoom;
+        HeaterElement HeatersBathRoom;
+        BasicClientComumnicator BasicClientCommunicator_;
+
         bool[]                               _DigitalInputState;
         bool[]                               _DigitalOutputState;
         home_scheduler                       scheduler         = new home_scheduler();
         FeedData                             PrevSchedulerData = new FeedData();
-        UdpReceive                           UDPReceive_;
         #endregion
 
         #region CONSTRUCTOR 

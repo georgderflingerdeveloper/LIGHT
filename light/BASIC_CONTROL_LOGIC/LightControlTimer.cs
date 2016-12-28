@@ -42,7 +42,7 @@ namespace BASIC_CONTROL_LOGIC
 
         public LightControlTimer_( double AllOnTime, double SingleOffTime, double AutomaticOffTime )
         {
-            AutomaticTurnSelectedOff = new Timer( );
+            AutomaticTurnSelectedOff          = new Timer( );
             DelayTurnAllOn.Elapsed           += DelayAllOn_Elapsed;
             SingleTurnOff.Elapsed            += SingleLightOff_Elapsed;
             AutomaticTurnSelectedOff.Elapsed += AutomaticTurnSelectedOff_Elapsed;

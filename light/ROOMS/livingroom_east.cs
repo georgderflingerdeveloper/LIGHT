@@ -217,6 +217,7 @@ namespace HomeAutomation
                 case LivingRoomWestIOAssignment.LivWestDigInputs.indDigitalInputButtonMainDownLeft:
                      LightControlMulti[IOCardID.ID_1].MakeStep( ReceivedValue );
                      break;
+
                 case LivingRoomWestIOAssignment.LivWestDigInputs.indDigitalInputButtonMainUpLeft:
                      LightControlMulti[IOCardID.ID_2].AutomaticOff( ReceivedValue );
                      LightControlMulti[IOCardID.ID_2].MakeStep( ReceivedValue );
