@@ -1377,10 +1377,10 @@ namespace HomeAutomation
             }
             for( int i = 0; i < _DigitalInputState.Length; i++ )
             {
-                if( base.Attached )
+                if( Attached )
                 {
                     // simplification - input state is written in a bool array
-                    _DigitalInputState[i] = base.inputs[i];
+                    _DigitalInputState[i] = inputs[i];
                 }
             }
             if( BasicClientCommunicator_ != null )
@@ -1486,7 +1486,7 @@ namespace HomeAutomation
 
         void TimerRecoverScheulder_Elapsed( object sender, ElapsedEventArgs e )
         {
-            schedRecover.RecoverScheduler( Directory.GetCurrentDirectory(), HomeAutomation.HardConfig.HardwareDevices.Boiler );
+            schedRecover.RecoverScheduler( Directory.GetCurrentDirectory(), HardConfig.HardwareDevices.Boiler );
             TimerRecoverScheulder.Stop();
         }
 

@@ -297,7 +297,7 @@ namespace Scheduler
             {
                 XmlSerializer ser        = new XmlSerializer( typeof( List<FeedData> ) );
                 string currentDir        = Environment.CurrentDirectory;
-                StreamReader   sr        = new StreamReader( @directory + "\\" + device  + FileExtensions.StoredDataExtension );
+                StreamReader   sr        = new StreamReader( @directory + "//" + device  + FileExtensions.StoredDataExtension );
                 List<FeedData> FeedData_ = ( List<FeedData> ) ser.Deserialize( sr );
                 sr.Close();
                 SchedFeedData?.Clear();

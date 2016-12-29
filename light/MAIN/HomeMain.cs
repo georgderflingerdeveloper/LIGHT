@@ -217,7 +217,6 @@ namespace HomeAutomation
                         {
                             MyHomeKitchenLivingRoom.TurnNextLightOn( );
 						    WaitUntilKeyPressed();
-                            MyHomeKitchenLivingRoom.StopAliveSignal( );
                             MyHomeKitchenLivingRoom.AllOutputsOff( );
                             MyHomeKitchenLivingRoom.close( );
                         }
