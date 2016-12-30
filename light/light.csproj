@@ -138,6 +138,8 @@
     <Compile Include="HA_SERVICES\SchedulerApplicationSpecifics.cs" />
     <Compile Include="ROOMS\sleepingroom.cs" />
     <Compile Include="HA_INFORMATION_COMPONENTS\WindowDoorsObserver.cs" />
+    <Compile Include="IO_CONTROL\IOHandler.cs" />
+    <Compile Include="IO_CONTROL\INTERFACES\IIOHandler.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.5">
@@ -168,6 +170,9 @@
   <ItemGroup />
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="IO_CONTROL\INTERFACES\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

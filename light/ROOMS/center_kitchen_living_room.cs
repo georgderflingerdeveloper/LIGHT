@@ -14,6 +14,8 @@ using Scheduler;
 using SystemServices;
 using Equipment;
 using HA_COMPONENTS;
+using BASIC_COMPONENTS;
+using HomeControl.BASIC_COMPONENTS.Interfaces;
 
 namespace HomeAutomation
 {
@@ -180,8 +182,8 @@ namespace HomeAutomation
                         break;
 
                    case KitchenStep.eFrontLights:
-                        int FirstFrontLight =  KitchenIOLightIndices.indFrontLight_1;
-                        int LastFrontLight =   KitchenIOLightIndices.indFrontLight_3;
+                        int FirstFrontLight =  KitchenCenterIoDevices.indFrontLight_1;
+                        int LastFrontLight =   KitchenCenterIoDevices.indFrontLight_3;
                         int IndexLightFrontSide = FirstFrontLight + IndexFS;
 
                         _lastindex = LastFrontLight;
@@ -218,10 +220,10 @@ namespace HomeAutomation
                         if( _SingleOffDone )
                         {
                             _SingleOffDone = false;
-                            outputs_[KitchenIOLightIndices.indFrontLight_1]                    = false;
-                            outputs_[KitchenIOLightIndices.indFrontLight_2]                    = false;
-                            outputs_[KitchenIOLightIndices.indFrontLight_3]                    = false;
-                            outputs_[KitchenIOLightIndices.indDigitalOutputKitchenKabinet]     = false;
+                            outputs_[KitchenCenterIoDevices.indFrontLight_1]                    = false;
+                            outputs_[KitchenCenterIoDevices.indFrontLight_2]                    = false;
+                            outputs_[KitchenCenterIoDevices.indFrontLight_3]                    = false;
+                            outputs_[KitchenCenterIoDevices.indDigitalOutputKitchenKabinet]     = false;
                             ToggleLightGroups = false;
                             KitchenStep_ = KitchenStep.eAll;
                             _lastindex = 0;
@@ -229,18 +231,18 @@ namespace HomeAutomation
                         }
                         if( !ToggleLightGroups )
                         {
-                            outputs_[KitchenIOLightIndices.indFrontLight_1]                    = true;
-                            outputs_[KitchenIOLightIndices.indFrontLight_2]                    = true;
-                            outputs_[KitchenIOLightIndices.indFrontLight_3]                    = true;
-                            outputs_[KitchenIOLightIndices.indDigitalOutputKitchenKabinet]     = true;
+                            outputs_[KitchenCenterIoDevices.indFrontLight_1]                    = true;
+                            outputs_[KitchenCenterIoDevices.indFrontLight_2]                    = true;
+                            outputs_[KitchenCenterIoDevices.indFrontLight_3]                    = true;
+                            outputs_[KitchenCenterIoDevices.indDigitalOutputKitchenKabinet]     = true;
                             ToggleLightGroups = true;
                         }
                         else
                         {
-                            outputs_[KitchenIOLightIndices.indFrontLight_1]                    = false;
-                            outputs_[KitchenIOLightIndices.indFrontLight_2]                    = false;
-                            outputs_[KitchenIOLightIndices.indFrontLight_3]                    = false;
-                            outputs_[KitchenIOLightIndices.indDigitalOutputKitchenKabinet]     = false;
+                            outputs_[KitchenCenterIoDevices.indFrontLight_1]                    = false;
+                            outputs_[KitchenCenterIoDevices.indFrontLight_2]                    = false;
+                            outputs_[KitchenCenterIoDevices.indFrontLight_3]                    = false;
+                            outputs_[KitchenCenterIoDevices.indDigitalOutputKitchenKabinet]     = false;
                             ToggleLightGroups = false; // TODO - probably this statement is no more needed-  REFACTOR
                         }
                         break;
@@ -274,26 +276,26 @@ namespace HomeAutomation
                         if( _SingleOffDone )
                         {
                             _SingleOffDone = false;
-                            outputs_[KitchenIOLightIndices.indFumeHood] = false;
-                            outputs_[KitchenIOLightIndices.indSlot]     = false;
+                            outputs_[KitchenCenterIoDevices.indFumeHood] = false;
+                            outputs_[KitchenCenterIoDevices.indSlot]     = false;
                             KitchenStep_ = KitchenStep.eNext;
                             _lastindex = 0;
                              return;
                         }
                         if( !ToggleLightGroups )
                         {
-                            outputs_[KitchenIOLightIndices.indFumeHood] = true;
-                            outputs_[KitchenIOLightIndices.indSlot]     = true;
+                            outputs_[KitchenCenterIoDevices.indFumeHood] = true;
+                            outputs_[KitchenCenterIoDevices.indSlot]     = true;
                             ToggleLightGroups = true;
                         }
                         else
                         {
-                            outputs_[KitchenIOLightIndices.indFumeHood] = false;
-                            outputs_[KitchenIOLightIndices.indSlot]     = false;
+                            outputs_[KitchenCenterIoDevices.indFumeHood] = false;
+                            outputs_[KitchenCenterIoDevices.indSlot]     = false;
                             ToggleLightGroups = false;
                         }
 
-                        _lastindex = KitchenIOLightIndices.indSlot;
+                        _lastindex = KitchenCenterIoDevices.indSlot;
                         break;
 
             }
@@ -341,8 +343,8 @@ namespace HomeAutomation
                                             ParametersLightControlKitchen.TimeDemandForAllOutputsOff,
                                             ParametersLightControl.TimeDemandForSingleOff,
                                             ParametersLightControlKitchen.TimeDemandForAutomaticOffKitchen,
-                                            KitchenIOLightIndices.indFirstKitchen,
-                                            KitchenIOLightIndices.indLastKitchen,
+                                            KitchenCenterIoDevices.indFirstKitchen,
+                                            KitchenCenterIoDevices.indLastKitchen,
                                             ref base.outputs );     // control digital outputs of primer
 
                     Outside          = new LightControlOutside(
@@ -855,7 +857,7 @@ namespace HomeAutomation
         #endregion
     }
 
-    class Center_kitchen_living_room_NG : CommonRoom, IDigitalIO
+	class Center_kitchen_living_room_NG : CommonRoom, IDigitalIO, IIOHandlerInfo
     {
         #region DECLARATION
         LightControlKitchen_NG               Kitchen;
@@ -882,6 +884,14 @@ namespace HomeAutomation
         public delegate void UpdateMatchedOutputs( object sender, bool[] _DigOut );
         public event UpdateMatchedOutputs EUpdateMatchedOutputs;
 
+		public event DigitalInputChanged  EDigitalInputChanged;
+		public event DigitalOutputChanged EDigitalOutputChanged;
+
+		DigitalInputEventargs             _DigitalInputEventargs   = new DigitalInputEventargs();
+		DigitalOutputEventargs            _DigitalOutputEventargs  = new DigitalOutputEventargs();
+
+
+
         #endregion
 
         #region CONSTRUCTOR
@@ -900,8 +910,8 @@ namespace HomeAutomation
                                         ParametersLightControlKitchen.TimeDemandForAllOutputsOff,
                                         ParametersLightControl.TimeDemandForSingleOff,
                                         ParametersLightControlKitchen.TimeDemandForAutomaticOffKitchen,
-                                        KitchenIOLightIndices.indFirstKitchen,
-                                        KitchenIOLightIndices.indLastKitchen );
+                                        KitchenCenterIoDevices.indFirstKitchen,
+                                        KitchenCenterIoDevices.indLastKitchen );
 
                 Outside = new LightControl_NG(
                                         ParametersLightControlCenterOutside.TimeDemandForAllOn,
@@ -1442,6 +1452,10 @@ namespace HomeAutomation
                     _PowerMeter?.Tick( );
                 }
             }
+			_DigitalInputEventargs.Index        = e.Index;
+			_DigitalInputEventargs.Value        = e.Value;
+			_DigitalInputEventargs.SerialNumber = base.SerialNumber;
+			EDigitalInputChanged?.Invoke( sender, _DigitalInputEventargs);
         }
 
         protected override void BuildingSection_OutputChange( object sender, OutputChangeEventArgs e )
@@ -1459,6 +1473,10 @@ namespace HomeAutomation
                 BasicClientCommunicator_.DigitalOutputs = _DigitalOutputState;
                 BasicClientCommunicator_.IndexOutput    = e.Index;
             }
+			_DigitalOutputEventargs.Index        = e.Index;
+			_DigitalOutputEventargs.Value        = e.Value;
+			_DigitalOutputEventargs.SerialNumber = SerialNumber;
+			EDigitalOutputChanged?.Invoke( sender, _DigitalOutputEventargs );
         }
         #endregion
 

@@ -50,6 +50,7 @@ namespace HomeAutomation
         static UnivPWM                          HeaterPWM;
         static string                           Version;  // General Version information - valid for all "rooms"
         static string                           CompleteVersion;
+		static bool                             _EnableConsoleIoOutput = true;
         #endregion
 
         #region helpers
@@ -215,6 +216,9 @@ namespace HomeAutomation
                         MyHomeKitchenLivingRoom = new Center_kitchen_living_room_NG( serveripadress, serverPort, CompleteVersion );
                         if ( MyHomeKitchenLivingRoom.Attached )
                         {
+						    MyHomeKitchenLivingRoom.EDigitalInputChanged += RoomsIoHandling_EDigitalInputChanged;
+						MyHomeKitchenLivingRoom.EDigitalOutputChanged += RoomIoHandling_EDigitalOutputChanged;
+						                       
                             MyHomeKitchenLivingRoom.TurnNextLightOn( );
 						    WaitUntilKeyPressed();
                             MyHomeKitchenLivingRoom.AllOutputsOff( );
@@ -279,7 +283,22 @@ namespace HomeAutomation
         }
 
         #region COMMON_EVENT_HANDLERS
-        static void Timer_SendPeriodicDataToClient_Elapsed( object sender, ElapsedEventArgs e )
+
+		static void RoomsIoHandling_EDigitalInputChanged (object sender, BASIC_COMPONENTS.DigitalInputEventargs e)
+		{
+			if( sender is Center_kitchen_living_room_NG )
+			{
+				Console.WriteLine( TimeUtil.GetTimestamp_() + "Device digital input " + KitchenCenterIoDevices.GetInputDeviceName(e.Index).ToString() + " is " + e.Value.ToString() );
+				
+			}
+		}
+
+		static void RoomIoHandling_EDigitalOutputChanged(object sender, BASIC_COMPONENTS.DigitalOutputEventargs e)
+		{
+
+		}
+
+		static void Timer_SendPeriodicDataToClient_Elapsed( object sender, ElapsedEventArgs e )
         {  
             string client = "CLIENT_1";
             if( TCPServer == null )
@@ -338,8 +357,8 @@ namespace HomeAutomation
             {
                 case UnivPWM.ePWMStatus.eIsOn:
                      Console.WriteLine( DateTime.Now + " PWM is ON " + HeaterPWM.OnCounter.ToString() ); 
-                     
                      break;
+
                 case UnivPWM.ePWMStatus.eIsOff:
                      Console.WriteLine( DateTime.Now + " PWM is OFF "  + HeaterPWM.OnCounter.ToString( ) ); 
                      break;
