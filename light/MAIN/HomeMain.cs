@@ -272,10 +272,10 @@ namespace HomeAutomation
                 #endregion
             }
 
-			Console.WriteLine( TimeUtil.GetTimestamp()                                       + 
-			                   Seperators.WhiteSpace                                        + 
-			                   Assembly.GetExecutingAssembly().GetName().FullName.ToString() +
-			                   Seperators.WhiteSpace                                        +
+			Console.WriteLine( TimeUtil.GetTimestamp()                               + 
+			                   Seperators.WhiteSpace                                 + 
+			                   Assembly.GetExecutingAssembly().GetName().FullName    +
+			                   Seperators.WhiteSpace                                 +
 			                   InfoString.Terminated);
 			
             Environment.Exit( 0 );
@@ -283,7 +283,7 @@ namespace HomeAutomation
 
         #region COMMON_EVENT_HANDLERS
 
-		static void RoomsIoHandling_EDigitalInputChanged (object sender, BASIC_COMPONENTS.DigitalInputEventargs e)
+		static void RoomsIoHandling_EDigitalInputChanged( object sender, BASIC_COMPONENTS.DigitalInputEventargs e )
 		{
 			if( !_EnableConsoleIoOutput )
 			{
@@ -292,17 +292,17 @@ namespace HomeAutomation
 
 			if( sender is Center_kitchen_living_room_NG )
 			{
-				Console.WriteLine( TimeUtil.GetTimestamp_()                                      + 
+				Console.WriteLine( TimeUtil.GetTimestamp_()                                     + 
 				                   Seperators.WhiteSpace                                        + 
-				                   InfoString.DeviceDigitalInput                                 +
+				                   InfoString.DeviceDigitalInput                                +
 				                   Seperators.WhiteSpace                                        + 
-				                   InfoString.BraceOpen                                          +
-				                   e.Index.ToString()                                            +
-				                   InfoString.BraceClose                                         +
+				                   InfoString.BraceOpen                                         +
+				                   e.Index.ToString()                                           +
+				                   InfoString.BraceClose                                        +
 				                   Seperators.WhiteSpace                                        + 
-				                   KitchenCenterIoDevices.GetInputDeviceName(e.Index).ToString() + 
+				                   KitchenCenterIoDevices.GetInputDeviceName(e.Index)           + 
 				                   Seperators.WhiteSpace                                        + 
-				                   InfoString.Is                                                 + 
+				                   InfoString.Is                                                + 
 				                   Seperators.WhiteSpace                                        + 
 				                   e.Value.ToString() );
 			}
@@ -317,7 +317,19 @@ namespace HomeAutomation
 			
 			if( sender is Center_kitchen_living_room_NG )
 			{
-				Console.WriteLine( TimeUtil.GetTimestamp_() + InfoString.DeviceDigialOutput + KitchenCenterIoDevices.GetOutputDeviceName(e.Index).ToString() + InfoString.Is + e.Value.ToString() );
+				Console.WriteLine( TimeUtil.GetTimestamp_()                                    + 
+				                  Seperators.WhiteSpace                                        + 
+				                  InfoString.DeviceDigialOutput                                +
+				                  Seperators.WhiteSpace                                        + 
+				                  InfoString.BraceOpen                                         +
+				                  e.Index.ToString()                                           +
+				                  InfoString.BraceClose                                        +
+				                  Seperators.WhiteSpace                                        + 
+				                  KitchenCenterIoDevices.GetOutputDeviceName(e.Index)          + 
+				                  Seperators.WhiteSpace                                        + 
+				                  InfoString.Is                                                + 
+				                  Seperators.WhiteSpace                                        + 
+				                  e.Value.ToString() );			
 			}
 		}
 

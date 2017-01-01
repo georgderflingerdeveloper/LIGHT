@@ -182,8 +182,8 @@ namespace HomeAutomation
                         break;
 
                    case KitchenStep.eFrontLights:
-                        int FirstFrontLight =  KitchenCenterIoDevices.indFrontLight_1;
-                        int LastFrontLight =   KitchenCenterIoDevices.indFrontLight_3;
+                        int FirstFrontLight =  KitchenCenterIoDevices.indDigitalOutputFrontLight_1;
+                        int LastFrontLight =   KitchenCenterIoDevices.indDigitalOutputFrontLight_3;
                         int IndexLightFrontSide = FirstFrontLight + IndexFS;
 
                         _lastindex = LastFrontLight;
@@ -220,9 +220,9 @@ namespace HomeAutomation
                         if( _SingleOffDone )
                         {
                             _SingleOffDone = false;
-                            outputs_[KitchenCenterIoDevices.indFrontLight_1]                    = false;
-                            outputs_[KitchenCenterIoDevices.indFrontLight_2]                    = false;
-                            outputs_[KitchenCenterIoDevices.indFrontLight_3]                    = false;
+                            outputs_[KitchenCenterIoDevices.indDigitalOutputFrontLight_1]                    = false;
+                            outputs_[KitchenCenterIoDevices.indDigitalOutputFrontLight_2]                    = false;
+                            outputs_[KitchenCenterIoDevices.indDigitalOutputFrontLight_3]                    = false;
                             outputs_[KitchenCenterIoDevices.indDigitalOutputKitchenKabinet]     = false;
                             ToggleLightGroups = false;
                             KitchenStep_ = KitchenStep.eAll;
@@ -231,17 +231,17 @@ namespace HomeAutomation
                         }
                         if( !ToggleLightGroups )
                         {
-                            outputs_[KitchenCenterIoDevices.indFrontLight_1]                    = true;
-                            outputs_[KitchenCenterIoDevices.indFrontLight_2]                    = true;
-                            outputs_[KitchenCenterIoDevices.indFrontLight_3]                    = true;
+                            outputs_[KitchenCenterIoDevices.indDigitalOutputFrontLight_1]                    = true;
+                            outputs_[KitchenCenterIoDevices.indDigitalOutputFrontLight_2]                    = true;
+                            outputs_[KitchenCenterIoDevices.indDigitalOutputFrontLight_3]                    = true;
                             outputs_[KitchenCenterIoDevices.indDigitalOutputKitchenKabinet]     = true;
                             ToggleLightGroups = true;
                         }
                         else
                         {
-                            outputs_[KitchenCenterIoDevices.indFrontLight_1]                    = false;
-                            outputs_[KitchenCenterIoDevices.indFrontLight_2]                    = false;
-                            outputs_[KitchenCenterIoDevices.indFrontLight_3]                    = false;
+                            outputs_[KitchenCenterIoDevices.indDigitalOutputFrontLight_1]                    = false;
+                            outputs_[KitchenCenterIoDevices.indDigitalOutputFrontLight_2]                    = false;
+                            outputs_[KitchenCenterIoDevices.indDigitalOutputFrontLight_3]                    = false;
                             outputs_[KitchenCenterIoDevices.indDigitalOutputKitchenKabinet]     = false;
                             ToggleLightGroups = false; // TODO - probably this statement is no more needed-  REFACTOR
                         }
@@ -276,26 +276,26 @@ namespace HomeAutomation
                         if( _SingleOffDone )
                         {
                             _SingleOffDone = false;
-                            outputs_[KitchenCenterIoDevices.indFumeHood] = false;
-                            outputs_[KitchenCenterIoDevices.indSlot]     = false;
+                            outputs_[KitchenCenterIoDevices.indDigitalOutputFumeHood] = false;
+                            outputs_[KitchenCenterIoDevices.indDigitalOutputSlot]     = false;
                             KitchenStep_ = KitchenStep.eNext;
                             _lastindex = 0;
                              return;
                         }
                         if( !ToggleLightGroups )
                         {
-                            outputs_[KitchenCenterIoDevices.indFumeHood] = true;
-                            outputs_[KitchenCenterIoDevices.indSlot]     = true;
+                            outputs_[KitchenCenterIoDevices.indDigitalOutputFumeHood] = true;
+                            outputs_[KitchenCenterIoDevices.indDigitalOutputSlot]     = true;
                             ToggleLightGroups = true;
                         }
                         else
                         {
-                            outputs_[KitchenCenterIoDevices.indFumeHood] = false;
-                            outputs_[KitchenCenterIoDevices.indSlot]     = false;
+                            outputs_[KitchenCenterIoDevices.indDigitalOutputFumeHood] = false;
+                            outputs_[KitchenCenterIoDevices.indDigitalOutputSlot]     = false;
                             ToggleLightGroups = false;
                         }
 
-                        _lastindex = KitchenCenterIoDevices.indSlot;
+                        _lastindex = KitchenCenterIoDevices.indDigitalOutputSlot;
                         break;
 
             }
@@ -343,7 +343,7 @@ namespace HomeAutomation
                                             ParametersLightControlKitchen.TimeDemandForAllOutputsOff,
                                             ParametersLightControl.TimeDemandForSingleOff,
                                             ParametersLightControlKitchen.TimeDemandForAutomaticOffKitchen,
-                                            KitchenCenterIoDevices.indFirstKitchen,
+                                            KitchenCenterIoDevices.indDigitalOutputFirstKitchen,
                                             KitchenCenterIoDevices.indLastKitchen,
                                             ref base.outputs );     // control digital outputs of primer
 
@@ -910,7 +910,7 @@ namespace HomeAutomation
                                         ParametersLightControlKitchen.TimeDemandForAllOutputsOff,
                                         ParametersLightControl.TimeDemandForSingleOff,
                                         ParametersLightControlKitchen.TimeDemandForAutomaticOffKitchen,
-                                        KitchenCenterIoDevices.indFirstKitchen,
+                                        KitchenCenterIoDevices.indDigitalOutputFirstKitchen,
                                         KitchenCenterIoDevices.indLastKitchen );
 
                 Outside = new LightControl_NG(
@@ -946,16 +946,6 @@ namespace HomeAutomation
                 
                 HeaterAnteRoom.Match = new List<int> { AnteRoomIODeviceIndices.indDigitalOutputAnteRoomHeater };
 
-                HeaterKidsRoom = new HeaterElementAnalog(
-                                         ParametersHeaterControl.TimeDemandForHeatersOnOffLonger,
-                                         ParametersHeaterControl.TimeDemandForHeatersAutomaticOffBig,
-                                         ParametersHeaterControlLivingRoom.TimeDemandForHeatersOnMiddle,
-                                         ParametersHeaterControlLivingRoom.TimeDemandForHeatersOffMiddle,
-                                         KidsRoomIODeviceIndices.indDigitalOutputHeater,
-                                         KidsRoomIODeviceIndices.indDigitalOutputHeater );
-                HeaterKidsRoom.Match = new List<int> { KidsRoomIODeviceIndices.indDigitalOutputHeater };
-                HeaterKidsRoom.ConfigOnOffCount( KidsRoomConfiguration.PushPullCountsTurnHeaterOnOff, KidsRoomConfiguration.TimeWindowTurnHeatersOnOff );
-
                 FanWashRoom = new CentralControlledElements_NG(
                                          ParametersWashRoomControl.TimeDemandForFanOn,
                                          ParametersWashRoomControl.TimeDemandForFanAutomaticOff,
@@ -975,7 +965,6 @@ namespace HomeAutomation
             Kitchen.EUpdateOutputs_           += EShowUpdatedOutputs;
             HeatersLivingRoom.EUpdateOutputs_ += EShowUpdatedOutputs;
             HeaterAnteRoom.EUpdateOutputs_    += EShowUpdatedOutputs;
-            HeaterKidsRoom.EUpdateOutputs_    += EShowUpdatedOutputs;
             FanWashRoom.EUpdateOutputs_       += EShowUpdatedOutputs;
             CirculationPump.EUpdateOutputs_   += EShowUpdatedOutputs;
             #endregion
@@ -1016,7 +1005,7 @@ namespace HomeAutomation
             }
 
             // after power fail, certain important scheduler data is recovered
-            schedRecover = new SchedulerDataRecovery( Directory.GetCurrentDirectory() );
+            schedRecover                   = new SchedulerDataRecovery( Directory.GetCurrentDirectory() );
             schedRecover.ERecover         += schedRecover_ERecover;
             schedRecover.ERecovered       += schedRecover_ERecovered;
             TimerRecoverScheulder.Elapsed += TimerRecoverScheulder_Elapsed;
@@ -1105,21 +1094,31 @@ namespace HomeAutomation
         {
             if( scheduler != null )
             {
-                string SystemIsAskingScheduler = TimeUtil.GetTimestamp() + Seperators.WhiteSpace + _GivenClientName + "...." + InfoString.Asking + Seperators.WhiteSpace + InfoString.Scheduler;
+                string SystemIsAskingScheduler = TimeUtil.GetTimestamp()            + 
+				                                 Seperators.WhiteSpace              + 
+				                                 _GivenClientName                   + 
+				                                 "...."                             + 
+				                                 InfoString.Asking                  +
+				                                 Seperators.WhiteSpace              + 
+				                                 InfoString.Scheduler;
+				
                 Console.WriteLine( SystemIsAskingScheduler );
                 SchedulerInfo.Status status = scheduler.GetJobStatus( Job );
-                string StatusInformation = TimeUtil.GetTimestamp() +
-                                           Seperators.WhiteSpace  +
-                                           _GivenClientName        +
-                                           Seperators.WhiteSpace  +
-                                           InfoString.StatusOf     +
-                                           Seperators.WhiteSpace  +
-                                           Job                     +
-                                           Seperators.WhiteSpace  +
-                                           InfoString.Is           +
-                                           Seperators.WhiteSpace  +
+
+                string StatusInformation = TimeUtil.GetTimestamp()                  +
+                                           Seperators.WhiteSpace                    +
+                                           _GivenClientName                         +
+                                           Seperators.WhiteSpace                    +
+                                           InfoString.StatusOf                      +
+                                           Seperators.WhiteSpace                    +
+                                           Job                                      +
+                                           Seperators.WhiteSpace                    +
+                                           InfoString.Is                            +
+                                           Seperators.WhiteSpace                    +
                                            status.ToString();
+				
                 Console.WriteLine( StatusInformation );
+
                 string Answer =  InfoOperationMode.CENTER_KITCHEN_AND_LIVING_ROOM   +
                                  Seperators.InfoSeperator                           +
                                  HomeAutomationAnswers.ANSWER_SCHEDULER_STATUS      +
@@ -1385,6 +1384,7 @@ namespace HomeAutomation
             {
                 return;
             }
+
             for( int i = 0; i < _DigitalInputState.Length; i++ )
             {
                 if( Attached )
