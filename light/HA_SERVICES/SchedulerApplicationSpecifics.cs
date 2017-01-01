@@ -82,8 +82,8 @@ namespace Scheduler
                     scheduler.StartJob();
                     if( PreviousJobName == JobName )
                     {
-                        Console.WriteLine( TimeUtil.GetTimestamp() + Seperators.Spaceholder + InfoString.SchedulerIsRescheduling + PrevSchedulerData.Starttime + "=>" + e.Starttime );
-                        Console.WriteLine( TimeUtil.GetTimestamp() + Seperators.Spaceholder + InfoString.SchedulerIsRescheduling + PrevSchedulerData.Stoptime + "=>" + e.Stoptime );
+                        Console.WriteLine( TimeUtil.GetTimestamp() + Seperators.WhiteSpace + InfoString.SchedulerIsRescheduling + PrevSchedulerData.Starttime + "=>" + e.Starttime );
+                        Console.WriteLine( TimeUtil.GetTimestamp() + Seperators.WhiteSpace + InfoString.SchedulerIsRescheduling + PrevSchedulerData.Stoptime + "=>" + e.Stoptime );
                     }
                     else
                     {
@@ -182,8 +182,8 @@ namespace Scheduler
                     scheduler.StartJob( );
                     if( PreviousJobName == JobName )
                     {
-                        Console.WriteLine( TimeUtil.GetTimestamp( ) + Seperators.Spaceholder + InfoString.SchedulerIsRescheduling + PrevData.Starttime + "=>" + e.Starttime );
-                        Console.WriteLine( TimeUtil.GetTimestamp( ) + Seperators.Spaceholder + InfoString.SchedulerIsRescheduling + PrevData.Stoptime + "=>" + e.Stoptime );
+                        Console.WriteLine( TimeUtil.GetTimestamp( ) + Seperators.WhiteSpace + InfoString.SchedulerIsRescheduling + PrevData.Starttime + "=>" + e.Starttime );
+                        Console.WriteLine( TimeUtil.GetTimestamp( ) + Seperators.WhiteSpace + InfoString.SchedulerIsRescheduling + PrevData.Stoptime + "=>" + e.Stoptime );
                     }
                     else
                     {

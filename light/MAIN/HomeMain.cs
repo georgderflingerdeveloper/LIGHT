@@ -25,11 +25,11 @@ namespace HomeAutomation
     class MyHomeMain
     {
         #region COMMON_DECLARATIONS
-		static System.Timers.Timer                            SelfTestTimer                   =  new System.Timers.Timer();
-		static System.Timers.Timer                            CommTestTimer                   =  new System.Timers.Timer();
-		static System.Timers.Timer                            Timer_ClientInvitation          =  new System.Timers.Timer( Parameters.ClientInvitationIntervall );
-		static System.Timers.Timer                            Timer_SendPeriodicDataToServer  =  new System.Timers.Timer( 1000 );
-		static System.Timers.Timer                            Timer_SendPeriodicDataToClient  =  new System.Timers.Timer( 1000 );
+		static System.Timers.Timer              SelfTestTimer                   =  new System.Timers.Timer();
+		static System.Timers.Timer              CommTestTimer                   =  new System.Timers.Timer();
+		static System.Timers.Timer              Timer_ClientInvitation          =  new System.Timers.Timer( Parameters.ClientInvitationIntervall );
+		static System.Timers.Timer              Timer_SendPeriodicDataToServer  =  new System.Timers.Timer( 1000 );
+		static System.Timers.Timer              Timer_SendPeriodicDataToClient  =  new System.Timers.Timer( 1000 );
         static SleepingRoomNG                   MyHomeSleepingRoom;
         static Center_kitchen_living_room_NG    MyHomeKitchenLivingRoom;
         static AnteRoom                         MyHomeAnteRoom;
@@ -124,15 +124,15 @@ namespace HomeAutomation
                 Debug.Indent();
                 Console.WriteLine( InfoString.InfoStartingTime + DateTime.Now );
                 Version         = Assembly.GetExecutingAssembly().GetName().Version.ToString();
-                CompleteVersion = InfoString.InfoVersion + Version + Seperators.Spaceholder + InfoString.InfoLastBuild + BuildDate;
+                CompleteVersion = InfoString.InfoVersion + Version + Seperators.WhiteSpace + InfoString.InfoLastBuild + BuildDate;
                 Console.WriteLine( TimeUtil.GetTimestamp()           + 
-                                   Seperators.Spaceholder            + 
+                                   Seperators.WhiteSpace            + 
                                    InfoString.InfoVersioninformation + 
                                    Version                           + 
-                                   Seperators.Spaceholder            + 
+                                   Seperators.WhiteSpace            + 
                                    InfoString.InfoLastBuild          + 
                                    BuildDate.ToString() );
-                Console.WriteLine( TimeUtil.GetTimestamp() + Seperators.Spaceholder + InfoString.InfoLoadingConfiguration );
+                Console.WriteLine( TimeUtil.GetTimestamp() + Seperators.WhiteSpace + InfoString.InfoLoadingConfiguration );
                 setting_value  = INIUtility.Read( InfoString.ConfigFileName, InfoString.IniSection, InfoObjectDefinitions.Room);
                 serveripadress = INIUtility.Read( InfoString.ConfigFileName, InfoString.IniSection, InfoObjectDefinitions.Server );
                 serverPort     = INIUtility.Read( InfoString.ConfigFileName, InfoString.IniSection, InfoObjectDefinitions.Port);
@@ -143,7 +143,7 @@ namespace HomeAutomation
                     PhidgetSerialNumbers = new int[PhidgetsIds.Count];
                     foreach( KeyValuePair<string, string> pair in PhidgetsIds )
                     {
-                        Console.WriteLine( TimeUtil.GetTimestamp() + Seperators.Spaceholder + InfoString.InfoExpectingPhidget + pair.Key + Seperators.Spaceholder + pair.Value );
+                        Console.WriteLine( TimeUtil.GetTimestamp() + Seperators.WhiteSpace + InfoString.InfoExpectingPhidget + pair.Key + Seperators.WhiteSpace + pair.Value );
                         PhidgetSerialNumbers[i] = Convert.ToInt32(pair.Value);
                         i++;
                     }
@@ -151,10 +151,10 @@ namespace HomeAutomation
 				catch( Exception ex )
                 {
 					Services.TraceMessage_( ex.Message.ToString() );
-                    Console.WriteLine( TimeUtil.GetTimestamp() + Seperators.Spaceholder + InfoString.InfoNoConfiguredPhidgetIDused );
+                    Console.WriteLine( TimeUtil.GetTimestamp() + Seperators.WhiteSpace + InfoString.InfoNoConfiguredPhidgetIDused );
                 }
 
-                Console.WriteLine( TimeUtil.GetTimestamp() + Seperators.Spaceholder + InfoString.InfoLoadingConfigurationSucessfull );
+                Console.WriteLine( TimeUtil.GetTimestamp() + Seperators.WhiteSpace + InfoString.InfoLoadingConfigurationSucessfull );
                 #endregion
 
                 switch( setting_value )
@@ -182,7 +182,7 @@ namespace HomeAutomation
                     #endregion
 
                     default:
-                         Console.WriteLine( TimeUtil.GetTimestamp() + Seperators.Spaceholder + InfoString.InfoIniDidNotFindProperConfiguration );
+                         Console.WriteLine( TimeUtil.GetTimestamp() + Seperators.WhiteSpace + InfoString.InfoIniDidNotFindProperConfiguration );
 						 break;
                 }
             }
@@ -190,7 +190,7 @@ namespace HomeAutomation
             {
                 
 				Services.TraceMessage_( ex.Message.ToString() );
-                Console.WriteLine( TimeUtil.GetTimestamp() + Seperators.Spaceholder + InfoString.FailedToLoadConfiguration );
+                Console.WriteLine( TimeUtil.GetTimestamp() + Seperators.WhiteSpace + InfoString.FailedToLoadConfiguration );
             }
 
             _homeAutomationCommand = setting_value;
@@ -216,10 +216,9 @@ namespace HomeAutomation
                         MyHomeKitchenLivingRoom = new Center_kitchen_living_room_NG( serveripadress, serverPort, CompleteVersion );
                         if ( MyHomeKitchenLivingRoom.Attached )
                         {
-						    MyHomeKitchenLivingRoom.EDigitalInputChanged += RoomsIoHandling_EDigitalInputChanged;
-						MyHomeKitchenLivingRoom.EDigitalOutputChanged += RoomIoHandling_EDigitalOutputChanged;
-						                       
-                            MyHomeKitchenLivingRoom.TurnNextLightOn( );
+						    MyHomeKitchenLivingRoom.EDigitalInputChanged  += RoomsIoHandling_EDigitalInputChanged;
+						    MyHomeKitchenLivingRoom.EDigitalOutputChanged += RoomIoHandling_EDigitalOutputChanged;
+                            MyHomeKitchenLivingRoom.ActivateDeviceControl( );
 						    WaitUntilKeyPressed();
                             MyHomeKitchenLivingRoom.AllOutputsOff( );
                             MyHomeKitchenLivingRoom.close( );
@@ -274,9 +273,9 @@ namespace HomeAutomation
             }
 
 			Console.WriteLine( TimeUtil.GetTimestamp()                                       + 
-			                   Seperators.Spaceholder                                        + 
+			                   Seperators.WhiteSpace                                        + 
 			                   Assembly.GetExecutingAssembly().GetName().FullName.ToString() +
-			                   Seperators.Spaceholder                                        +
+			                   Seperators.WhiteSpace                                        +
 			                   InfoString.Terminated);
 			
             Environment.Exit( 0 );
@@ -286,16 +285,40 @@ namespace HomeAutomation
 
 		static void RoomsIoHandling_EDigitalInputChanged (object sender, BASIC_COMPONENTS.DigitalInputEventargs e)
 		{
+			if( !_EnableConsoleIoOutput )
+			{
+				return;
+			}
+
 			if( sender is Center_kitchen_living_room_NG )
 			{
-				Console.WriteLine( TimeUtil.GetTimestamp_() + "Device digital input " + KitchenCenterIoDevices.GetInputDeviceName(e.Index).ToString() + " is " + e.Value.ToString() );
-				
+				Console.WriteLine( TimeUtil.GetTimestamp_()                                      + 
+				                   Seperators.WhiteSpace                                        + 
+				                   InfoString.DeviceDigitalInput                                 +
+				                   Seperators.WhiteSpace                                        + 
+				                   InfoString.BraceOpen                                          +
+				                   e.Index.ToString()                                            +
+				                   InfoString.BraceClose                                         +
+				                   Seperators.WhiteSpace                                        + 
+				                   KitchenCenterIoDevices.GetInputDeviceName(e.Index).ToString() + 
+				                   Seperators.WhiteSpace                                        + 
+				                   InfoString.Is                                                 + 
+				                   Seperators.WhiteSpace                                        + 
+				                   e.Value.ToString() );
 			}
 		}
 
 		static void RoomIoHandling_EDigitalOutputChanged(object sender, BASIC_COMPONENTS.DigitalOutputEventargs e)
 		{
-
+			if( !_EnableConsoleIoOutput )
+			{
+				return;
+			}
+			
+			if( sender is Center_kitchen_living_room_NG )
+			{
+				Console.WriteLine( TimeUtil.GetTimestamp_() + InfoString.DeviceDigialOutput + KitchenCenterIoDevices.GetOutputDeviceName(e.Index).ToString() + InfoString.Is + e.Value.ToString() );
+			}
 		}
 
 		static void Timer_SendPeriodicDataToClient_Elapsed( object sender, ElapsedEventArgs e )

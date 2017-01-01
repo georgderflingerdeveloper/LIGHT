@@ -2451,7 +2451,7 @@ namespace HomeAutomation
 
             #region PUBLIC_METHODS
 
-            public void TurnNextLightOn ( )
+            public void ActivateDeviceControl ( )
             {
                 SelectLightControl = LightControl.eNextLightOn;
             }

@@ -417,7 +417,7 @@ namespace HomeAutomation
                 }
                 catch( Exception ex )
                 {
-                    Console.WriteLine( TimeUtil.GetTimestamp() + Seperators.Spaceholder + ex.Message );
+                    Console.WriteLine( TimeUtil.GetTimestamp() + Seperators.WhiteSpace + ex.Message );
                     Services.TraceMessage_( InfoString.FailedToEstablishUDPReceive ); 
                 }
 
@@ -427,7 +427,7 @@ namespace HomeAutomation
                 schedRecover.ERecovered       += schedRecover_ERecovered;
                 TimerRecoverScheulder.Elapsed += TimerRecoverScheulder_Elapsed;
                 TimerRecoverScheulder.Start();
-                Console.WriteLine( TimeUtil.GetTimestamp() + Seperators.Spaceholder + InfoString.StartTimerForRecoverScheduler );
+                Console.WriteLine( TimeUtil.GetTimestamp() + Seperators.WhiteSpace + InfoString.StartTimerForRecoverScheduler );
             }
         }
         #endregion
@@ -448,11 +448,11 @@ namespace HomeAutomation
         void schedRecover_ERecover( FeedData e )
         {
             SchedulerApplication.Worker( this, e, ref scheduler );
-            Console.WriteLine( TimeUtil.GetTimestamp( ) + Seperators.Spaceholder + "Recover scheduler after booting " );
-            Console.WriteLine( TimeUtil.GetTimestamp( ) + Seperators.Spaceholder + "Start time: " + e.Starttime );
-            Console.WriteLine( TimeUtil.GetTimestamp( ) + Seperators.Spaceholder + "Stop time : " + e.Stoptime );
-            Console.WriteLine( TimeUtil.GetTimestamp( ) + Seperators.Spaceholder + "Configured days: "  + e.Days );
-            Console.WriteLine( TimeUtil.GetTimestamp( ) + Seperators.Spaceholder + "Current scheduler status: " 
+            Console.WriteLine( TimeUtil.GetTimestamp( ) + Seperators.WhiteSpace + "Recover scheduler after booting " );
+            Console.WriteLine( TimeUtil.GetTimestamp( ) + Seperators.WhiteSpace + "Start time: " + e.Starttime );
+            Console.WriteLine( TimeUtil.GetTimestamp( ) + Seperators.WhiteSpace + "Stop time : " + e.Stoptime );
+            Console.WriteLine( TimeUtil.GetTimestamp( ) + Seperators.WhiteSpace + "Configured days: "  + e.Days );
+            Console.WriteLine( TimeUtil.GetTimestamp( ) + Seperators.WhiteSpace + "Current scheduler status: " 
                 + scheduler.GetJobStatus( e.Device + Seperators.InfoSeperator + e.JobId ).ToString() );
         }
         
@@ -495,19 +495,19 @@ namespace HomeAutomation
         {
             if( scheduler != null )
             {
-                string SystemIsAskingScheduler = TimeUtil.GetTimestamp() + Seperators.Spaceholder + _GivenClientName + "...." + InfoString.Asking + Seperators.Spaceholder + InfoString.Scheduler;
+                string SystemIsAskingScheduler = TimeUtil.GetTimestamp() + Seperators.WhiteSpace + _GivenClientName + "...." + InfoString.Asking + Seperators.WhiteSpace + InfoString.Scheduler;
                 Console.WriteLine( SystemIsAskingScheduler );
                 SchedulerInfo.Status status = scheduler.GetJobStatus( Job );
                 string StatusInformation = TimeUtil.GetTimestamp()        + 
-                                           Seperators.Spaceholder         + 
+                                           Seperators.WhiteSpace         + 
                                            _GivenClientName               + 
-                                           Seperators.Spaceholder         + 
+                                           Seperators.WhiteSpace         + 
                                            InfoString.StatusOf            + 
-                                           Seperators.Spaceholder         + 
+                                           Seperators.WhiteSpace         + 
                                            Job                            + 
-                                           Seperators.Spaceholder         + 
+                                           Seperators.WhiteSpace         + 
                                            InfoString.Is                  + 
-                                           Seperators.Spaceholder         + 
+                                           Seperators.WhiteSpace         + 
                                            status.ToString();
                 Console.WriteLine( StatusInformation );
                 string Answer =  InfoOperationMode.CENTER_KITCHEN_AND_LIVING_ROOM       + 
@@ -1011,7 +1011,7 @@ namespace HomeAutomation
             }
             catch( Exception ex )
             {
-                Console.WriteLine( TimeUtil.GetTimestamp() + Seperators.Spaceholder + ex.Message );
+                Console.WriteLine( TimeUtil.GetTimestamp() + Seperators.WhiteSpace + ex.Message );
                 Services.TraceMessage_( InfoString.FailedToEstablishUDPReceive );
             }
 
@@ -1022,7 +1022,7 @@ namespace HomeAutomation
             TimerRecoverScheulder.Elapsed += TimerRecoverScheulder_Elapsed;
             TimerRecoverScheulder.Start( );
             CommonUsedTick.Start( );
-            Console.WriteLine( TimeUtil.GetTimestamp() + Seperators.Spaceholder + InfoString.StartTimerForRecoverScheduler );
+            Console.WriteLine( TimeUtil.GetTimestamp() + Seperators.WhiteSpace + InfoString.StartTimerForRecoverScheduler );
             RemainingTime = Convert.ToUInt32( (Parameters.DelayTimeStartRecoverScheduler / Parameters.MilisecondsOfSecond)  );
 
             _PowerMeter = new PowerMeter( true, PowermeterConstants.DefaultCaptureIntervallTime, PowermeterConstants.DefaultStoreTime );
@@ -1058,11 +1058,11 @@ namespace HomeAutomation
         void schedRecover_ERecover( FeedData e )
         {
             SchedulerApplication.Worker( this, e, ref scheduler );
-            Console.WriteLine( TimeUtil.GetTimestamp() + Seperators.Spaceholder + "Recover scheduler after booting " );
-            Console.WriteLine( TimeUtil.GetTimestamp() + Seperators.Spaceholder + "Start time: " + e.Starttime );
-            Console.WriteLine( TimeUtil.GetTimestamp() + Seperators.Spaceholder + "Stop time : " + e.Stoptime );
-            Console.WriteLine( TimeUtil.GetTimestamp() + Seperators.Spaceholder + "Configured days: " + e.Days );
-            Console.WriteLine( TimeUtil.GetTimestamp() + Seperators.Spaceholder + "Current scheduler status: "
+            Console.WriteLine( TimeUtil.GetTimestamp() + Seperators.WhiteSpace + "Recover scheduler after booting " );
+            Console.WriteLine( TimeUtil.GetTimestamp() + Seperators.WhiteSpace + "Start time: " + e.Starttime );
+            Console.WriteLine( TimeUtil.GetTimestamp() + Seperators.WhiteSpace + "Stop time : " + e.Stoptime );
+            Console.WriteLine( TimeUtil.GetTimestamp() + Seperators.WhiteSpace + "Configured days: " + e.Days );
+            Console.WriteLine( TimeUtil.GetTimestamp() + Seperators.WhiteSpace + "Current scheduler status: "
                 + scheduler.GetJobStatus( e.Device + Seperators.InfoSeperator + e.JobId ).ToString() );
         }
 
@@ -1105,19 +1105,19 @@ namespace HomeAutomation
         {
             if( scheduler != null )
             {
-                string SystemIsAskingScheduler = TimeUtil.GetTimestamp() + Seperators.Spaceholder + _GivenClientName + "...." + InfoString.Asking + Seperators.Spaceholder + InfoString.Scheduler;
+                string SystemIsAskingScheduler = TimeUtil.GetTimestamp() + Seperators.WhiteSpace + _GivenClientName + "...." + InfoString.Asking + Seperators.WhiteSpace + InfoString.Scheduler;
                 Console.WriteLine( SystemIsAskingScheduler );
                 SchedulerInfo.Status status = scheduler.GetJobStatus( Job );
                 string StatusInformation = TimeUtil.GetTimestamp() +
-                                           Seperators.Spaceholder  +
+                                           Seperators.WhiteSpace  +
                                            _GivenClientName        +
-                                           Seperators.Spaceholder  +
+                                           Seperators.WhiteSpace  +
                                            InfoString.StatusOf     +
-                                           Seperators.Spaceholder  +
+                                           Seperators.WhiteSpace  +
                                            Job                     +
-                                           Seperators.Spaceholder  +
+                                           Seperators.WhiteSpace  +
                                            InfoString.Is           +
-                                           Seperators.Spaceholder  +
+                                           Seperators.WhiteSpace  +
                                            status.ToString();
                 Console.WriteLine( StatusInformation );
                 string Answer =  InfoOperationMode.CENTER_KITCHEN_AND_LIVING_ROOM   +
