@@ -971,8 +971,8 @@ namespace HomeAutomation
 
             CommonUsedTick.Elapsed            += CommonUsedTick_Elapsed;
 
-            base.Attach += Center_kitchen_living_room_Attach;
-            base.Detach += Center_kitchen_living_room_Detach;
+            base.Attach                       += Center_kitchen_living_room_Attach;
+            base.Detach                       += Center_kitchen_living_room_Detach;
 
             BasicClientCommunicator_ = new BasicClientComumnicator( _GivenClientName,
                                                                     _IpAdressServer,
@@ -1176,7 +1176,7 @@ namespace HomeAutomation
         }
 
         string _PortServer;
-        int _PortNumberServer;
+        int   _PortNumberServer;
         public string PortServer
         {
             set
@@ -1246,10 +1246,10 @@ namespace HomeAutomation
         {
             int index  = e.Index;
             bool Value = e.Value;
-            TurnNextLightOn_( index, Value );
+            TurnNextDevice( index, Value );
         }
 
-        void TurnNextLightOn_( int index,  bool Value  )
+		void TurnNextDevice( int index,  bool Value  )
         {
             if( Kitchen != null )
             {
@@ -1318,10 +1318,6 @@ namespace HomeAutomation
                    // reason is that the cable conneting the actuator was easier to lay 
                    case CenterButtonRelayIOAssignment.indDigitalInputRelayAnteRoom:
                         HeaterAnteRoom?.HeaterOnFallingEdge( Value );
-                        if( Value )
-                        {
-                            HeaterKidsRoom?.TurnHeaterOnOffWithCounts( );
-                        }
                         break;
 
                     default:
@@ -1342,8 +1338,8 @@ namespace HomeAutomation
                 case KitchenIOAssignment.indKitchenPresenceDetector:
                 case KitchenIOAssignment.indKitchenMainButton:
                 case AnteRoomIOAssignment.indBathRoomMainButton:
-                    CirculationPump?.DeviceOnFallingEdgeAutomaticOff( Value );
-                    break;
+                     CirculationPump?.DeviceOnFallingEdgeAutomaticOff( Value );
+                     break;
 
                 default:
                     break;
@@ -1374,7 +1370,7 @@ namespace HomeAutomation
                 Kitchen.StateDigitalOutput = base.StateDigitalOutput;
             }
 
-            TurnNextLightOn_( index, Value );
+            TurnNextDevice( index, Value );
 
             ControlHeaters( index, Value );
 
@@ -1440,14 +1436,13 @@ namespace HomeAutomation
         #endregion
 
         #region IOEVENTHANDLERS
-        // EVENT HANDLER DIGITAL INPUTS
         protected override void BuildingSection_InputChange( object sender, InputChangeEventArgs e )
         {
             ControlSequenceOnInputChange( e.Index, e.Value );
 
             if( e.Index == CenterLivingRoomIODeviceIndices.indDigitalInputPowerMeter )
             {
-                if( e.Value == true )
+                if( e.Value )
                 {
                     _PowerMeter?.Tick( );
                 }
@@ -1512,6 +1507,7 @@ namespace HomeAutomation
         {
             string RemainingTimeInfo;
             string TimeLeft = (--RemainingTime).ToString( "000" );
+
             if( RemainingTime > 0 )
             {
                RemainingTimeInfo = InfoString.RemainingTime + TimeLeft + EscapeSequences.CR;
