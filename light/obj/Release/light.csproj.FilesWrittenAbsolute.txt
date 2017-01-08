@@ -1,0 +1,6 @@
+/Users/georgderflinger/Google Drive/CS_HA/LIGHT/light/light/obj/Release/.NETFramework,Version=v4.5.AssemblyAttribute.cs
+/Users/georgderflinger/Google Drive/CS_HA/LIGHT/light/light/obj/Release/light.exe
+/Users/georgderflinger/Google Drive/CS_HA/LIGHT/light/light/bin/Release/light.exe.mdb
+/Users/georgderflinger/Google Drive/CS_HA/LIGHT/light/light/bin/Release/light.exe
+/Users/georgderflinger/Google Drive/CS_HA/LIGHT/light/light/obj/Release/light.exe.mdb
+/Users/georgderflinger/Google Drive/CS_HA/LIGHT/light/light/bin/Release/Phidget21.NET.dll

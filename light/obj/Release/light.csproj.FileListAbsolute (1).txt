@@ -1,0 +1,7 @@
+C:\Users\GeorgDerflinger\Google Drive\CS_HA\LIGHT\light\light\bin\Release\light.exe
+C:\Users\GeorgDerflinger\Google Drive\CS_HA\LIGHT\light\light\bin\Release\light.pdb
+C:\Users\GeorgDerflinger\Google Drive\CS_HA\LIGHT\light\light\bin\Release\light.exe.CodeAnalysisLog.xml
+C:\Users\GeorgDerflinger\Google Drive\CS_HA\LIGHT\light\light\bin\Release\light.exe.lastcodeanalysissucceeded
+C:\Users\GeorgDerflinger\Google Drive\CS_HA\LIGHT\light\light\bin\Release\Phidget21.NET.dll
+C:\Users\GeorgDerflinger\Google Drive\CS_HA\LIGHT\light\light\obj\Release\light.exe
+C:\Users\GeorgDerflinger\Google Drive\CS_HA\LIGHT\light\light\obj\Release\light.pdb

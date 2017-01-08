@@ -756,7 +756,7 @@ namespace HomeAutomation
                 //// establish client
                 //BasicClientCommunicator_.Room = _GivenClientName;
                 //BasicClientCommunicator_.EFeedScheduler += BasicClientCommunicator__EFeedScheduler;
-                //scheduler.EvTriggered += scheduler_EvTriggered;
+                //scheduler.EvTriggered += Scheduler_EvTriggered;
 
                 //BasicClientCommunicator_.Primer1IsAttached = Attached;
 

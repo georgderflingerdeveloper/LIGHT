@@ -1,0 +1,177 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{EAEF1B15-06AA-4AAA-AD18-20DCB0C94A57}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Communication</RootNamespace>
+    <AssemblyName>light</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <RunCodeAnalysis>true</RunCodeAnalysis>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>ICON\light_ha.ico</ApplicationIcon>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Common.Logging">
+      <HintPath>..\..\..\LIGHT_COMMON_SOURCES\COMMON_DLL\QUARTZ\Common.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="Common.Logging.Core">
+      <HintPath>..\..\..\LIGHT_COMMON_SOURCES\COMMON_DLL\QUARTZ\Common.Logging.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="Moq">
+      <HintPath>..\..\..\DLL\Moq.4.0.10827\NET40\Moq.dll</HintPath>
+    </Reference>
+    <Reference Include="Quartz">
+      <HintPath>..\..\..\LIGHT_COMMON_SOURCES\COMMON_DLL\QUARTZ\Quartz.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Phidget21.NET">
+      <HintPath>Phidget21.NET.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\..\..\LIGHT_COMMON_SOURCES\ClientComunicator.cs">
+      <Link>COMMUNICATION\ClientComunicator.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\LIGHT_COMMON_SOURCES\HAIOInterface.cs">
+      <Link>IO_CONTROL\HAIOInterface.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\LIGHT_COMMON_SOURCES\HAProtocoll.cs">
+      <Link>COMMUNICATION\HAProtocoll.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\LIGHT_COMMON_SOURCES\home_hardconfig.cs">
+      <Link>HARDCONFIG\home_hardconfig.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\LIGHT_COMMON_SOURCES\Services.cs">
+      <Link>APPLICATION_SERVICES\Services.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\LIGHT_COMMON_SOURCES\tcpclient.cs">
+      <Link>COMMUNICATION\tcpclient.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\LIGHT_COMMON_SOURCES\tcpserver.cs">
+      <Link>COMMUNICATION\tcpserver.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\LIGHT_COMMON_SOURCES\udp_basic.cs">
+      <Link>COMMUNICATION\udp_basic.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\LIGHT_CONTROL_CLASSIC\light_visu_classic\light_visu_classic\schedulerhelpers.cs">
+      <Link>HA_SERVICES\schedulerhelpers.cs</Link>
+    </Compile>
+    <Compile Include="BASIC_COMPONENTS\AnalogHeaterControl.cs" />
+    <Compile Include="BASIC_CONTROL_LOGIC\LightControlTimer.cs" />
+    <Compile Include="BASIC_CONTROL_LOGIC\togglebuttoncontroller.cs" />
+    <Compile Include="HA_COMPONENTS\CentralControlledElement_NG.cs" />
+    <Compile Include="HA_COMPONENTS\HeaterElementAnalog.cs" />
+    <Compile Include="HA_COMPONENTS\HeaterElement_NG.cs" />
+    <Compile Include="BASIC_CONTROL_LOGIC\LightControlNG.cs" />
+    <Compile Include="HA_COMPONENTS\LightControlKitchen_NG.cs" />
+    <Compile Include="HA_COMPONENTS\LightControlOutside.cs" />
+    <Compile Include="IO_CONTROL\AnalogControl.cs" />
+    <Compile Include="BASIC_CONTROL_LOGIC\devicestepcontrol.cs" />
+    <Compile Include="BASIC_COMPONENTS\timerMockable.cs" />
+    <Compile Include="BASIC_CONTROL_LOGIC\unittest_devicestepcontrol.cs" />
+    <Compile Include="ROOMS\anteroom_bathroom_washroom.cs" />
+    <Compile Include="ROOMS\LIVING_ROOM_AND_KITCHEN\center_kitchen_living_room.cs" />
+    <Compile Include="HA_SERVICES\feed_home_scheduler.cs" />
+    <Compile Include="APPLICATION_SERVICES\GlobalSuppressions.cs" />
+    <Compile Include="BASIC_CONTROL_LOGIC\hacontrols.cs" />
+    <Compile Include="HA_SERVICES\home_scheduler.cs" />
+    <Compile Include="ROOMS\livingroom_east.cs" />
+    <Compile Include="ROOMS\livingroom_west.cs" />
+    <Compile Include="HA_INFORMATION_COMPONENTS\PowerMeter.cs" />
+    <Compile Include="HA_INFORMATION_COMPONENTS\PowerMeterData.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ADDITIONAL\effects.cs" />
+    <Compile Include="ROOMS\home_commonroom.cs" />
+    <Compile Include="APPLICATION_SERVICES\DATAHANDLING\inihandler.cs" />
+    <Compile Include="ADDITIONAL\leds.cs" />
+    <Compile Include="IO_CONTROL\phidgetshelpers.cs" />
+    <Compile Include="MAIN\HomeMain.cs" />
+    <Compile Include="HA_SERVICES\SchedulerApplicationSpecifics.cs" />
+    <Compile Include="ROOMS\sleepingroom.cs" />
+    <Compile Include="HA_INFORMATION_COMPONENTS\WindowDoorsObserver.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.5">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.5 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="ICON\light_ha.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="ROOMS\LIVING_ROOM_AND_KITCHEN\UNIT_TEST\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

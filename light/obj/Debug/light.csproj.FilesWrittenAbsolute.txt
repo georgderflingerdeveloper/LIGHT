@@ -1,0 +1,13 @@
+/Users/georgderflinger/Google Drive/CS_PROJEKTE/PROJECT/LIGHT/light/light/obj/Debug/.NETFramework,Version=v4.5.AssemblyAttribute.cs
+/Users/georgderflinger/Google Drive/CS_PROJEKTE/PROJECT/LIGHT/light/light/bin/Debug/light.exe.mdb
+/Users/georgderflinger/Google Drive/CS_PROJEKTE/PROJECT/LIGHT/light/light/bin/Debug/light.pdb
+/Users/georgderflinger/Google Drive/CS_PROJEKTE/PROJECT/LIGHT/light/light/bin/Debug/light.exe
+/Users/georgderflinger/Google Drive/CS_PROJEKTE/PROJECT/LIGHT/light/light/obj/Debug/light.exe
+/Users/georgderflinger/Google Drive/CS_PROJEKTE/PROJECT/LIGHT/light/light/obj/Debug/light.exe.mdb
+/Users/georgderflinger/Google Drive/CS_PROJEKTE/PROJECT/LIGHT/light/light/obj/Debug/light.pdb
+/Users/georgderflinger/Google Drive/CS_PROJEKTE/PROJECT/LIGHT/light/light/bin/Debug/Common.Logging.dll
+/Users/georgderflinger/Google Drive/CS_PROJEKTE/PROJECT/LIGHT/light/light/bin/Debug/Common.Logging.Core.dll
+/Users/georgderflinger/Google Drive/CS_PROJEKTE/PROJECT/LIGHT/light/light/bin/Debug/Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll
+/Users/georgderflinger/Google Drive/CS_PROJEKTE/PROJECT/LIGHT/light/light/bin/Debug/Moq.dll
+/Users/georgderflinger/Google Drive/CS_PROJEKTE/PROJECT/LIGHT/light/light/bin/Debug/Quartz.dll
+/Users/georgderflinger/Google Drive/CS_PROJEKTE/PROJECT/LIGHT/light/light/bin/Debug/Phidget21.NET.dll

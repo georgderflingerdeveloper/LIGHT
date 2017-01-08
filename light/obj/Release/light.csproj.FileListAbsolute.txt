@@ -1,0 +1,71 @@
+C:\CS_HA\LIGHT\light\light\bin\Release\light.exe
+C:\CS_HA\LIGHT\light\light\bin\Release\light.pdb
+C:\CS_HA\LIGHT\light\light\bin\Release\light.exe.CodeAnalysisLog.xml
+C:\CS_HA\LIGHT\light\light\bin\Release\light.exe.lastcodeanalysissucceeded
+C:\CS_HA\LIGHT\light\light\bin\Release\Common.Logging.Core.dll
+C:\CS_HA\LIGHT\light\light\bin\Release\Common.Logging.dll
+C:\CS_HA\LIGHT\light\light\bin\Release\Phidget21.NET.dll
+C:\CS_HA\LIGHT\light\light\bin\Release\Quartz.dll
+C:\CS_HA\LIGHT\light\light\obj\Release\light.exe
+C:\CS_HA\LIGHT\light\light\obj\Release\light.pdb
+C:\Users\GeorgDerflinger\Google Drive\CS_HA\LIGHT\light\light\bin\Release\light.exe
+C:\Users\GeorgDerflinger\Google Drive\CS_HA\LIGHT\light\light\bin\Release\light.pdb
+C:\Users\GeorgDerflinger\Google Drive\CS_HA\LIGHT\light\light\bin\Release\light.exe.CodeAnalysisLog.xml
+C:\Users\GeorgDerflinger\Google Drive\CS_HA\LIGHT\light\light\bin\Release\light.exe.lastcodeanalysissucceeded
+C:\Users\GeorgDerflinger\Google Drive\CS_HA\LIGHT\light\light\bin\Release\Common.Logging.Core.dll
+C:\Users\GeorgDerflinger\Google Drive\CS_HA\LIGHT\light\light\bin\Release\Common.Logging.dll
+C:\Users\GeorgDerflinger\Google Drive\CS_HA\LIGHT\light\light\bin\Release\Phidget21.NET.dll
+C:\Users\GeorgDerflinger\Google Drive\CS_HA\LIGHT\light\light\bin\Release\Quartz.dll
+C:\Users\GeorgDerflinger\Google Drive\CS_HA\LIGHT\light\light\obj\Release\light.exe
+C:\Users\GeorgDerflinger\Google Drive\CS_HA\LIGHT\light\light\obj\Release\light.pdb
+C:\CS_HA\LIGHT\light\light\obj\Release\light.csprojResolveAssemblyReference.cache
+C:\Users\GeorgDerflinger\Google Drive\CS_HA\PROJECT\LIGHT\light\light\bin\Release\light.exe
+C:\Users\GeorgDerflinger\Google Drive\CS_HA\PROJECT\LIGHT\light\light\bin\Release\light.pdb
+C:\Users\GeorgDerflinger\Google Drive\CS_HA\PROJECT\LIGHT\light\light\bin\Release\light.exe.CodeAnalysisLog.xml
+C:\Users\GeorgDerflinger\Google Drive\CS_HA\PROJECT\LIGHT\light\light\bin\Release\light.exe.lastcodeanalysissucceeded
+C:\Users\GeorgDerflinger\Google Drive\CS_HA\PROJECT\LIGHT\light\light\bin\Release\Common.Logging.Core.dll
+C:\Users\GeorgDerflinger\Google Drive\CS_HA\PROJECT\LIGHT\light\light\bin\Release\Common.Logging.dll
+C:\Users\GeorgDerflinger\Google Drive\CS_HA\PROJECT\LIGHT\light\light\bin\Release\Phidget21.NET.dll
+C:\Users\GeorgDerflinger\Google Drive\CS_HA\PROJECT\LIGHT\light\light\bin\Release\Quartz.dll
+C:\Users\GeorgDerflinger\Google Drive\CS_HA\PROJECT\LIGHT\light\light\obj\Release\light.csprojResolveAssemblyReference.cache
+C:\Users\GeorgDerflinger\Google Drive\CS_HA\PROJECT\LIGHT\light\light\obj\Release\light.exe
+C:\Users\GeorgDerflinger\Google Drive\CS_HA\PROJECT\LIGHT\light\light\obj\Release\light.pdb
+C:\CS_HA\PROJECT\LIGHT\light\light\obj\Release\light.exe
+C:\CS_HA\PROJECT\LIGHT\light\light\obj\Release\light.pdb
+C:\CS_HA\PROJECT\LIGHT\light\light\bin\Release\light.exe
+C:\CS_HA\PROJECT\LIGHT\light\light\bin\Release\light.pdb
+C:\CS_HA\PROJECT\LIGHT\light\light\bin\Release\light.exe.CodeAnalysisLog.xml
+C:\CS_HA\PROJECT\LIGHT\light\light\bin\Release\light.exe.lastcodeanalysissucceeded
+C:\CS_HA\PROJECT\LIGHT\light\light\bin\Release\Common.Logging.Core.dll
+C:\CS_HA\PROJECT\LIGHT\light\light\bin\Release\Common.Logging.dll
+C:\CS_HA\PROJECT\LIGHT\light\light\bin\Release\Phidget21.NET.dll
+C:\CS_HA\PROJECT\LIGHT\light\light\bin\Release\Quartz.dll
+C:\CS_HA\PROJECT\LIGHT\light\light\obj\Release\light.csprojResolveAssemblyReference.cache
+D:\PROJECT\CS_HA\LIGHT\light\light\bin\Release\light.exe
+D:\PROJECT\CS_HA\LIGHT\light\light\bin\Release\light.pdb
+D:\PROJECT\CS_HA\LIGHT\light\light\bin\Release\light.exe.CodeAnalysisLog.xml
+D:\PROJECT\CS_HA\LIGHT\light\light\bin\Release\light.exe.lastcodeanalysissucceeded
+D:\PROJECT\CS_HA\LIGHT\light\light\bin\Release\Common.Logging.Core.dll
+D:\PROJECT\CS_HA\LIGHT\light\light\bin\Release\Common.Logging.dll
+D:\PROJECT\CS_HA\LIGHT\light\light\bin\Release\Phidget21.NET.dll
+D:\PROJECT\CS_HA\LIGHT\light\light\bin\Release\Quartz.dll
+D:\PROJECT\CS_HA\LIGHT\light\light\obj\Release\light.csprojResolveAssemblyReference.cache
+D:\PROJECT\CS_HA\LIGHT\light\light\obj\Release\light.exe
+D:\PROJECT\CS_HA\LIGHT\light\light\obj\Release\light.pdb
+C:\PROJECT\LIGHT\light\light\bin\Release\light.exe
+C:\PROJECT\LIGHT\light\light\bin\Release\light.pdb
+C:\PROJECT\LIGHT\light\light\bin\Release\light.exe.CodeAnalysisLog.xml
+C:\PROJECT\LIGHT\light\light\bin\Release\light.exe.lastcodeanalysissucceeded
+C:\PROJECT\LIGHT\light\light\bin\Release\Common.Logging.Core.dll
+C:\PROJECT\LIGHT\light\light\bin\Release\Common.Logging.dll
+C:\PROJECT\LIGHT\light\light\bin\Release\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll
+C:\PROJECT\LIGHT\light\light\bin\Release\Moq.dll
+C:\PROJECT\LIGHT\light\light\bin\Release\nunit.framework.dll
+C:\PROJECT\LIGHT\light\light\bin\Release\Phidget21.NET.dll
+C:\PROJECT\LIGHT\light\light\bin\Release\Quartz.dll
+C:\PROJECT\LIGHT\light\light\bin\Release\Moq.pdb
+C:\PROJECT\LIGHT\light\light\bin\Release\Moq.xml
+C:\PROJECT\LIGHT\light\light\bin\Release\nunit.framework.xml
+C:\PROJECT\LIGHT\light\light\bin\Release\de\Microsoft.VisualStudio.QualityTools.UnitTestFramework.resources.dll
+C:\PROJECT\LIGHT\light\light\obj\Release\light.exe
+C:\PROJECT\LIGHT\light\light\obj\Release\light.pdb

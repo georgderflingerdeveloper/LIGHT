@@ -1,0 +1,5 @@
+C:\Users\GeorgDerflinger\Google Drive\CS_HA\LIGHT\light\light\bin\Debug\light.exe
+C:\Users\GeorgDerflinger\Google Drive\CS_HA\LIGHT\light\light\bin\Debug\light.pdb
+C:\Users\GeorgDerflinger\Google Drive\CS_HA\LIGHT\light\light\obj\Debug\light.csprojResolveAssemblyReference.cache
+C:\Users\GeorgDerflinger\Google Drive\CS_HA\LIGHT\light\light\obj\Debug\light.exe
+C:\Users\GeorgDerflinger\Google Drive\CS_HA\LIGHT\light\light\obj\Debug\light.pdb

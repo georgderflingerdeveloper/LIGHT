@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>SimpleFixture.Moq</name>
+    </assembly>
+    <members>
+        <member name="M:SimpleFixture.Moq.LanguageExtensions.Mock``1(SimpleFixture.Fixture,System.Action{Moq.Mock{``0}},System.Nullable{System.Boolean})">
+            <summary>
+            Mock a specific object, by default mocks are treated as singletons
+            </summary>
+            <typeparam name="T">type to mock</typeparam>
+            <param name="mockAction">action to apply to the mock</param>
+            <param name="singleton">should it be a singleton</param>
+            <returns>new mock</returns>
+        </member>
+        <member name="M:SimpleFixture.Moq.MoqFixture.Mock``1(System.Action{Moq.Mock{``0}},System.Nullable{System.Boolean})">
+            <summary>
+            Mock a specific object, by default mocks are treated as singletons
+            </summary>
+            <typeparam name="T">type to mock</typeparam>
+            <param name="mockAction">action to apply to the mock</param>
+            <param name="singleton">should it be a singleton</param>
+            <returns>new mock</returns>
+        </member>
+    </members>
+</doc>

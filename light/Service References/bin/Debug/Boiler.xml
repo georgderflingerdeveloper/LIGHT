@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<ArrayOfFeedData xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <FeedData>
+    <Device>Boiler</Device>
+    <JobId>1</JobId>
+    <Command>Start</Command>
+    <Starttime>09:34:00</Starttime>
+    <Stoptime>09:35:00</Stoptime>
+    <Days>Mon,Tue,Wed,Thu,Fri,Sat,Sun</Days>
+  </FeedData>
+</ArrayOfFeedData>

@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<ArrayOfFeedData xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <FeedData>
+    <Device>PumpWarmwater</Device>
+    <JobId>1</JobId>
+    <Command>Start</Command>
+    <Starttime>00:00:00</Starttime>
+    <Stoptime>00:00:00</Stoptime>
+    <Days>FromNow</Days>
+  </FeedData>
+</ArrayOfFeedData>

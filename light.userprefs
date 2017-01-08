@@ -1,0 +1,15 @@
+﻿<Properties StartupConfiguration="{EAEF1B15-06AA-4AAA-AD18-20DCB0C94A57}|Default">
+  <MonoDevelop.Ide.Workbench ActiveDocument="light/BASIC_CONTROL_LOGIC/LIGHTCONTROL/LightControlNG.cs">
+    <Files>
+      <File FileName="light/ROOMS/CENTER/center_kitchen_living_room.cs" Line="19" Column="1" />
+      <File FileName="light/BASIC_CONTROL_LOGIC/LIGHTCONTROL/LightControlNG.cs" Line="426" Column="15" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MultiItemStartupConfigurations />
+  <MonoDevelop.Ide.ItemProperties.light PreferredExecutionTarget="MonoDevelop.Default" />
+</Properties>

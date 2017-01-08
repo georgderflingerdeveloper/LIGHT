@@ -16,6 +16,8 @@ using Equipment;
 using HA_COMPONENTS;
 using BASIC_COMPONENTS;
 using HomeControl.BASIC_COMPONENTS.Interfaces;
+using ROOMS.CENTER.INTERFACE;
+
 
 namespace HomeAutomation
 {
@@ -99,8 +101,8 @@ namespace HomeAutomation
 
         void LightControlKitchen_EReset( object sender )
         {
-            KitchenStep_ = KitchenStep.eAll;
-            reset = true;
+            KitchenStep_   = KitchenStep.eAll;
+            reset          = true;
             _turnedAutoOff = false;
         }
 
@@ -111,7 +113,8 @@ namespace HomeAutomation
                 outputs_[i] = false;
             }
             _SingleOffDone = true;
-            KitchenStep_ = LastKitchenStep_;
+
+            KitchenStep_   = LastKitchenStep_;
             reset = true;
         }
 
@@ -223,8 +226,8 @@ namespace HomeAutomation
                             outputs_[KitchenCenterIoDevices.indDigitalOutputFrontLight_1]                    = false;
                             outputs_[KitchenCenterIoDevices.indDigitalOutputFrontLight_2]                    = false;
                             outputs_[KitchenCenterIoDevices.indDigitalOutputFrontLight_3]                    = false;
-                            outputs_[KitchenCenterIoDevices.indDigitalOutputKitchenKabinet]     = false;
-                            ToggleLightGroups = false;
+                            outputs_[KitchenCenterIoDevices.indDigitalOutputKitchenKabinet]                  = false;
+                            ToggleLightGroups                                                                = false;
                             KitchenStep_ = KitchenStep.eAll;
                             _lastindex = 0;
                             return;
@@ -234,16 +237,16 @@ namespace HomeAutomation
                             outputs_[KitchenCenterIoDevices.indDigitalOutputFrontLight_1]                    = true;
                             outputs_[KitchenCenterIoDevices.indDigitalOutputFrontLight_2]                    = true;
                             outputs_[KitchenCenterIoDevices.indDigitalOutputFrontLight_3]                    = true;
-                            outputs_[KitchenCenterIoDevices.indDigitalOutputKitchenKabinet]     = true;
-                            ToggleLightGroups = true;
+                            outputs_[KitchenCenterIoDevices.indDigitalOutputKitchenKabinet]                  = true;
+                            ToggleLightGroups                                                                = true;
                         }
                         else
                         {
                             outputs_[KitchenCenterIoDevices.indDigitalOutputFrontLight_1]                    = false;
                             outputs_[KitchenCenterIoDevices.indDigitalOutputFrontLight_2]                    = false;
                             outputs_[KitchenCenterIoDevices.indDigitalOutputFrontLight_3]                    = false;
-                            outputs_[KitchenCenterIoDevices.indDigitalOutputKitchenKabinet]     = false;
-                            ToggleLightGroups = false; // TODO - probably this statement is no more needed-  REFACTOR
+                            outputs_[KitchenCenterIoDevices.indDigitalOutputKitchenKabinet]                  = false;
+                            ToggleLightGroups                                                                = false; // TODO - probably this statement is no more needed-  REFACTOR
                         }
                         break;
 
@@ -253,9 +256,9 @@ namespace HomeAutomation
                         if( _SingleOffDone )
                         {
                             base.TurnAllLightsOff( startindex, _indexlastdevice );
-                            index = 0;
-                            KitchenStep_ = KitchenStep.eSlots;
-                            _SingleOffDone = false;
+                            index             = 0;
+                            KitchenStep_      = KitchenStep.eSlots;
+                            _SingleOffDone    = false;
                             ToggleLightGroups = false;
                             break;
                         }
@@ -449,8 +452,8 @@ namespace HomeAutomation
         {
             SchedulerApplication.Worker( this, e, ref scheduler );
             Console.WriteLine( TimeUtil.GetTimestamp( ) + Seperators.WhiteSpace + "Recover scheduler after booting " );
-            Console.WriteLine( TimeUtil.GetTimestamp( ) + Seperators.WhiteSpace + "Start time: " + e.Starttime );
-            Console.WriteLine( TimeUtil.GetTimestamp( ) + Seperators.WhiteSpace + "Stop time : " + e.Stoptime );
+            Console.WriteLine( TimeUtil.GetTimestamp( ) + Seperators.WhiteSpace + "Start time     : " + e.Starttime );
+            Console.WriteLine( TimeUtil.GetTimestamp( ) + Seperators.WhiteSpace + "Stop time      : "  + e.Stoptime );
             Console.WriteLine( TimeUtil.GetTimestamp( ) + Seperators.WhiteSpace + "Configured days: "  + e.Days );
             Console.WriteLine( TimeUtil.GetTimestamp( ) + Seperators.WhiteSpace + "Current scheduler status: " 
                 + scheduler.GetJobStatus( e.Device + Seperators.InfoSeperator + e.JobId ).ToString() );
@@ -496,20 +499,24 @@ namespace HomeAutomation
             if( scheduler != null )
             {
                 string SystemIsAskingScheduler = TimeUtil.GetTimestamp() + Seperators.WhiteSpace + _GivenClientName + "...." + InfoString.Asking + Seperators.WhiteSpace + InfoString.Scheduler;
-                Console.WriteLine( SystemIsAskingScheduler );
-                SchedulerInfo.Status status = scheduler.GetJobStatus( Job );
-                string StatusInformation = TimeUtil.GetTimestamp()        + 
-                                           Seperators.WhiteSpace         + 
-                                           _GivenClientName               + 
-                                           Seperators.WhiteSpace         + 
-                                           InfoString.StatusOf            + 
-                                           Seperators.WhiteSpace         + 
-                                           Job                            + 
-                                           Seperators.WhiteSpace         + 
-                                           InfoString.Is                  + 
-                                           Seperators.WhiteSpace         + 
+                
+				Console.WriteLine( SystemIsAskingScheduler );
+                
+				SchedulerInfo.Status status = scheduler.GetJobStatus( Job );
+                string StatusInformation = TimeUtil.GetTimestamp()                     + 
+                                           Seperators.WhiteSpace                        + 
+                                           _GivenClientName                             + 
+                                           Seperators.WhiteSpace                        + 
+                                           InfoString.StatusOf                          + 
+                                           Seperators.WhiteSpace                        + 
+                                           Job                                          + 
+                                           Seperators.WhiteSpace                        + 
+                                           InfoString.Is                                + 
+                                           Seperators.WhiteSpace                        + 
                                            status.ToString();
+				
                 Console.WriteLine( StatusInformation );
+
                 string Answer =  InfoOperationMode.CENTER_KITCHEN_AND_LIVING_ROOM       + 
                                  Seperators.InfoSeperator                               +
                                  HomeAutomationAnswers.ANSWER_SCHEDULER_STATUS          + 
@@ -759,11 +766,20 @@ namespace HomeAutomation
         #region REMOTE_CONTROLLED_UDP
         decimal receivedTransactionCounter         = 0;
         decimal PreviousreceivedTransactionCounter = 0;
+		int ExpectedDatagrammLength                = 3;
         void UDPReceive__EDataReceived( string e )
         {
             string[] DatagrammSplitted = e.Split( ComandoString.Telegram.Seperator );
 
-            receivedTransactionCounter = Convert.ToDecimal( DatagrammSplitted[ComandoString.Telegram.IndexTransactionCounter] );
+			if( ExpectedDatagrammLength != DatagrammSplitted.Length )
+			{
+				Services.TraceMessage_( "Wrong homeautomation UDP datagramm format for digital inputs transmitter" );
+				return;
+			}
+
+			string transactioncounter = DatagrammSplitted[ComandoString.Telegram.IndexTransactionCounter];
+
+			receivedTransactionCounter = Convert.ToDecimal( transactioncounter );
 
             // basic check wether counter counts up
             if( receivedTransactionCounter > PreviousreceivedTransactionCounter )
@@ -813,10 +829,6 @@ namespace HomeAutomation
 
             ControlCirculationPump( e );
 
-            if( _DigitalInputState == null )
-            {
-                return;
-            }
             for( int i = 0; i < _DigitalInputState.Length; i++ )
             {
                 // simplification - input state is written in a bool array
@@ -827,8 +839,7 @@ namespace HomeAutomation
                 BasicClientCommunicator_.DigitalInputs = _DigitalInputState;
                 BasicClientCommunicator_.IndexInput    = e.Index;
             }
-
-        }
+       }
 
         protected override void BuildingSection_OutputChange( object sender, OutputChangeEventArgs e )
         {
@@ -857,14 +868,13 @@ namespace HomeAutomation
         #endregion
     }
 
-	class Center_kitchen_living_room_NG : CommonRoom, IDigitalIO, IIOHandlerInfo
+	class Center_kitchen_living_room_NG : CommonRoom, IDigitalIO, IIOHandlerInfo, ICenter 
     {
         #region DECLARATION
         LightControlKitchen_NG               Kitchen;
         LightControl_NG                      Outside;
         HeaterElement_NG                     HeatersLivingRoom;
         HeaterElement_NG                     HeaterAnteRoom;
-        HeaterElementAnalog                  HeaterKidsRoom;
         CentralControlledElements_NG         FanWashRoom;
         CentralControlledElements_NG         CirculationPump;
         BasicClientComumnicator              BasicClientCommunicator_;
@@ -880,6 +890,7 @@ namespace HomeAutomation
         Timer                                CommonUsedTick =  new Timer( GeneralConstants.DURATION_COMMONTICK );
         long                                 RemainingTime;
         PowerMeter                           _PowerMeter;
+		int                                  _PortNumberServer;
 
         public delegate void UpdateMatchedOutputs( object sender, bool[] _DigOut );
         public event UpdateMatchedOutputs EUpdateMatchedOutputs;
@@ -889,10 +900,7 @@ namespace HomeAutomation
 
 		DigitalInputEventargs             _DigitalInputEventargs   = new DigitalInputEventargs();
 		DigitalOutputEventargs            _DigitalOutputEventargs  = new DigitalOutputEventargs();
-
-
-
-        #endregion
+		#endregion
 
         #region CONSTRUCTOR
         void Constructor( string IpAdressServer, string PortServer, string softwareversion )
@@ -967,6 +975,7 @@ namespace HomeAutomation
             HeaterAnteRoom.EUpdateOutputs_    += EShowUpdatedOutputs;
             FanWashRoom.EUpdateOutputs_       += EShowUpdatedOutputs;
             CirculationPump.EUpdateOutputs_   += EShowUpdatedOutputs;
+			Outside.EUpdateOutputs            += EShowUpdatedOutputs;
             #endregion
 
             CommonUsedTick.Elapsed            += CommonUsedTick_Elapsed;
@@ -984,7 +993,7 @@ namespace HomeAutomation
             BasicClientCommunicator_.Room                     = _GivenClientName;
             BasicClientCommunicator_.EFeedScheduler          += BasicClientCommunicator__EFeedScheduler;
             BasicClientCommunicator_.EAskSchedulerForStatus  += BasicClientCommunicator__EAskSchedulerForStatus;
-            scheduler.EvTriggered                            += scheduler_EvTriggered;
+            scheduler.EvTriggered                            += Scheduler_EvTriggered;
 
             BasicClientCommunicator_.Primer1IsAttached = Attached;
 
@@ -1078,7 +1087,7 @@ namespace HomeAutomation
             }
         }
 
-        void scheduler_EvTriggered( string time, Quartz.IJobExecutionContext context, decimal counts )
+        void Scheduler_EvTriggered( string time, Quartz.IJobExecutionContext context, decimal counts )
         {
             SchedulerApplication.WriteStatus( time, context, counts );
 
@@ -1175,17 +1184,7 @@ namespace HomeAutomation
             }
         }
 
-        string _PortServer;
-        int   _PortNumberServer;
-        public string PortServer
-        {
-            set
-            {
-                _PortServer = value;
-                _PortNumberServer = Convert.ToInt16( value );
-            }
-        }
-        #endregion
+       #endregion
 
         #region IO_CARD_OBSERVATION
         void Center_kitchen_living_room_Detach( object sender, DetachEventArgs e )
@@ -1270,7 +1269,7 @@ namespace HomeAutomation
                             else
                             {
                                 Kitchen.StopAllOnTimer();
-                                Kitchen.ResetLightControl();
+                                Kitchen.ResetDeviceControl();
                             }
                         }
                         // reset - this is a last rescue anchor in the case something went wrong ( any undiscovered bug )
@@ -1392,19 +1391,28 @@ namespace HomeAutomation
             if( BasicClientCommunicator_ != null )
             {
                 BasicClientCommunicator_.DigitalInputs = _DigitalInputState;
-                BasicClientCommunicator_.IndexInput = index;
+                BasicClientCommunicator_.IndexInput    = index;
             }
         }
         #endregion
 
         #region REMOTE_CONTROLLED_UDP
-        decimal receivedTransactionCounter         = 0;
-        decimal PreviousreceivedTransactionCounter = 0;
+        decimal receivedTransactionCounter            = 0;
+        decimal PreviousreceivedTransactionCounter    = 0;
+		const int ExpectedArrayElementsSignalTelegram = 3;
         void UDPReceive__EDataReceived( string e )
         {
             string[] DatagrammSplitted = e.Split( ComandoString.Telegram.Seperator );
 
-            receivedTransactionCounter = Convert.ToDecimal( DatagrammSplitted[ComandoString.Telegram.IndexTransactionCounter] );
+			if( DatagrammSplitted.Length != ExpectedArrayElementsSignalTelegram )
+			{
+				Services.TraceMessage_( "Wrong datagramm received" );
+				return;
+			}
+
+			string transactioncounter = DatagrammSplitted[ComandoString.Telegram.IndexTransactionCounter];
+
+			receivedTransactionCounter = Convert.ToDecimal( transactioncounter );
 
             // basic check wether counter counts up
             if( receivedTransactionCounter > PreviousreceivedTransactionCounter )
@@ -1428,7 +1436,7 @@ namespace HomeAutomation
                     if( ReceivedValue == false )
                     {
                         Outside.AutomaticOff( ReceivedValue );
-                        Outside.ToggleSingleLight( CenterOutsideIODevices.indDigitalOutputLightsOutside );
+                        Outside.ToggleSingleDevice( CenterOutsideIODevices.indDigitalOutputLightsOutside );
                     }
                     break;
             }
@@ -1520,8 +1528,19 @@ namespace HomeAutomation
         }
         #endregion
 
+        #region INTERFACE_IMPLEMENTATION
+        public void ResetDeviceController()
+        {
+            Outside.ResetDeviceControl();
+            PreviousreceivedTransactionCounter = 0;
+        }
+        #endregion
+
+
+        // so far this program was not designed by using dependency injection - thats the reason using a public 
+        // testbackdoor channel
         #region TESTBACKDOOR
-        public void TestIoChange( int index,  bool Value  )
+        public void TestBackdoor_IoChange( int index,  bool Value  )
         {
             ControlSequenceOnInputChange( index, Value );
         }
@@ -1530,9 +1549,14 @@ namespace HomeAutomation
         {
             get
             {
-                return ( _InternalDigitalOutputState );
+				return ( _InternalDigitalOutputState );
             }
         }
+
+		public void TestBackdoor_UdpReceiver( string receiveddatagramm )
+		{
+			UDPReceive__EDataReceived( receiveddatagramm );
+		}
         #endregion
     }
 }
