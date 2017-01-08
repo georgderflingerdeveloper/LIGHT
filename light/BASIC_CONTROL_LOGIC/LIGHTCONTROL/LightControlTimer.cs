@@ -87,24 +87,24 @@ namespace BASIC_CONTROL_LOGIC
 
         public void StartAutomaticOfftimer( )
         {
-            AutomaticTurnSelectedOff.Start( );
+            AutomaticTurnSelectedOff?.Start( );
         }
 
         public void StopAutomaticOfftimer( )
         {
-            AutomaticTurnSelectedOff.Stop( );
+            AutomaticTurnSelectedOff?.Stop( );
         }
 
         public void RestartAutomaticOfftimer( )
         {
-            AutomaticTurnSelectedOff.Stop( );
-            AutomaticTurnSelectedOff.Start( );
+            AutomaticTurnSelectedOff?.Stop( );
+            AutomaticTurnSelectedOff?.Start( );
         }
 
         public void StartAllTimers( )
         {
-            DelayTurnAllOn.Start( );
-            SingleTurnOff.Start( );
+            DelayTurnAllOn?.Start( );
+            SingleTurnOff?.Start( );
         }
 
         public void StopAllTimers( )

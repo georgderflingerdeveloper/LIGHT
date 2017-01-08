@@ -21,11 +21,11 @@ namespace HA_COMPONENTS
         int[]                                      _values;
         protected bool[]                           SelectedPermanentOnDevice;
         bool                                       InitPermanentDeviceSelection;
-        int                                        actualindex        = 0;
+        int                                        actualindex;
         public const int                           MaxNumberOfOutputs = 16;  // 0...15 this amount ist limited of the used IO card
         int                                        _startindex;
         int                                        _lastindex;
-        bool                                       LightsOffProceeded = false;
+        bool                                       LightsOffProceeded;
         bool                                       _LightControlSingleOffDone;
         bool                                       _PrimaryIOCardIsAttached;
         List<int>                                  Match_;
