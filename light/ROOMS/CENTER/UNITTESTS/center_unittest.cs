@@ -16,34 +16,45 @@ namespace CenterUnitTest
     [TestFixture]
 	public class CenterTests
 	{
-		Center_kitchen_living_room_NG TestCenter = new Center_kitchen_living_room_NG( "0", "0", "0", true);
+		Center_kitchen_living_room_NG TestCenter;
 
-		[Test]
-		public void TestLigthOutsideIsOn()
-		{
+        [SetUp]
+        public void Init()
+        {
+            TestCenter = new Center_kitchen_living_room_NG("0", "0", "0", true);
+        }
+
+        [Test]
+        public void TestLigthOutsideIsOn()
+        {
             TestCenter.ResetDeviceController();
 
-            TestCenter.TestBackdoor_UdpReceiver( TestConstants.DatagrammButtonRightUpside_Pressed );
-			TestCenter.TestBackdoor_UdpReceiver( TestConstants.DatagrammButtonRightUpside_Released );
+            TestCenter.TestBackdoor_UdpReceiver(TestConstants.DatagrammButtonRightUpside_Pressed);
+            TestCenter.TestBackdoor_UdpReceiver(TestConstants.DatagrammButtonRightUpside_Released);
 
-			Assert.True( TestCenter.ReferenceDigitalOutputState[CenterOutsideIODevices.indDigitalOutputLightsOutside]);
-		}
+            Assert.True(TestCenter.ReferenceDigitalOutputState[CenterOutsideIODevices.indDigitalOutputLightsOutside]);
+        }
 
-		[Test]
-		public void TestLigthOutsideIsOff()
-		{
+        [Test]
+        public void TestLigthOutsideIsOff()
+        {
             TestCenter.ResetDeviceController();
 
             // press once
-            TestCenter.TestBackdoor_UdpReceiver( TestConstants.DatagrammButtonRightUpside_Pressed );
-			TestCenter.TestBackdoor_UdpReceiver( TestConstants.DatagrammButtonRightUpside_Released );
-			// press twice
-			TestCenter.TestBackdoor_UdpReceiver( TestConstants.DatagrammButtonRightUpside_PressedTwice );
-			TestCenter.TestBackdoor_UdpReceiver( TestConstants.DatagrammButtonRightUpside_ReleasedTwice );
+            TestCenter.TestBackdoor_UdpReceiver(TestConstants.DatagrammButtonRightUpside_Pressed);
+            TestCenter.TestBackdoor_UdpReceiver(TestConstants.DatagrammButtonRightUpside_Released);
+            // press twice
+            TestCenter.TestBackdoor_UdpReceiver(TestConstants.DatagrammButtonRightUpside_PressedTwice);
+            TestCenter.TestBackdoor_UdpReceiver(TestConstants.DatagrammButtonRightUpside_ReleasedTwice);
 
-			Assert.False( TestCenter.ReferenceDigitalOutputState[CenterOutsideIODevices.indDigitalOutputLightsOutside]);
-		}
+            Assert.False(TestCenter.ReferenceDigitalOutputState[CenterOutsideIODevices.indDigitalOutputLightsOutside]);
+        }
 
-	}
+        [TearDown]
+        public void Cleanup()
+        {
+            TestCenter = null;
+        }
+    }
 }
 

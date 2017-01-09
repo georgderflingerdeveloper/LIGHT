@@ -882,7 +882,7 @@ namespace HomeAutomation
         bool[]                               _DigitalOutputState;
         bool[]                               _InternalDigitalOutputState;
         bool                                 _Test;
-        home_scheduler                       scheduler         = new home_scheduler();
+        home_scheduler                       scheduler;
         SchedulerDataRecovery                schedRecover;
         FeedData                             PrevSchedulerData = new FeedData();
         UdpReceive                           UDPReceive_;
@@ -911,7 +911,6 @@ namespace HomeAutomation
             _DigitalInputState          = new bool[GeneralConstants.NumberOfInputsIOCard];
             _DigitalOutputState         = new bool[GeneralConstants.NumberOfOutputsIOCard];
             _InternalDigitalOutputState = new bool[GeneralConstants.NumberOfOutputsIOCard];
-            TimerRecoverScheulder       = new Timer( Parameters.DelayTimeStartRecoverScheduler );
 
                 Kitchen = new LightControlKitchen_NG(
                                         ParametersLightControlKitchen.TimeDemandForAllOn,
@@ -978,6 +977,15 @@ namespace HomeAutomation
 			Outside.EUpdateOutputs            += EShowUpdatedOutputs;
             #endregion
 
+            if( _Test )
+            {
+                return;
+            }
+
+            scheduler             = new home_scheduler();
+            TimerRecoverScheulder = new Timer(Parameters.DelayTimeStartRecoverScheduler);
+
+
             CommonUsedTick.Elapsed            += CommonUsedTick_Elapsed;
 
             base.Attach                       += Center_kitchen_living_room_Attach;
@@ -1033,10 +1041,10 @@ namespace HomeAutomation
         }
 
         public Center_kitchen_living_room_NG( string IpAdressServer, string PortServer, string softwareversion, bool test )
-            : base()
+            : base(true)
         {
-            Constructor( IpAdressServer, PortServer, softwareversion );
-            _Test = test;
+           _Test = test;
+           Constructor( IpAdressServer, PortServer, softwareversion );
         }
         #endregion
 
@@ -1402,20 +1410,20 @@ namespace HomeAutomation
 		const int ExpectedArrayElementsSignalTelegram = 3;
         void UDPReceive__EDataReceived( string e )
         {
-            string[] DatagrammSplitted = e.Split( ComandoString.Telegram.Seperator );
+            string[] DatagrammSplitted = e.Split(ComandoString.Telegram.Seperator);
 
-			if( DatagrammSplitted.Length != ExpectedArrayElementsSignalTelegram )
-			{
-				Services.TraceMessage_( "Wrong datagramm received" );
-				return;
-			}
+            if (DatagrammSplitted.Length != ExpectedArrayElementsSignalTelegram)
+            {
+                Services.TraceMessage_("Wrong datagramm received");
+                return;
+            }
 
-			string transactioncounter = DatagrammSplitted[ComandoString.Telegram.IndexTransactionCounter];
+            string transactioncounter = DatagrammSplitted[ComandoString.Telegram.IndexTransactionCounter];
 
-			receivedTransactionCounter = Convert.ToDecimal( transactioncounter );
+            receivedTransactionCounter = Convert.ToDecimal(transactioncounter);
 
             // basic check wether counter counts up
-            if( receivedTransactionCounter > PreviousreceivedTransactionCounter )
+            if (receivedTransactionCounter > PreviousreceivedTransactionCounter)
             {
                 PreviousreceivedTransactionCounter = receivedTransactionCounter;
             }
@@ -1425,18 +1433,18 @@ namespace HomeAutomation
             }
 
             // received actual fired digital input as index
-            int ReceivedIndex = Convert.ToInt16( DatagrammSplitted[ComandoString.Telegram.IndexDigitalInputs] );
+            int ReceivedIndex = Convert.ToInt16(DatagrammSplitted[ComandoString.Telegram.IndexDigitalInputs]);
             // received acutal fired value of digital input
-            bool ReceivedValue = Convert.ToBoolean( DatagrammSplitted[ComandoString.Telegram.IndexValueDigitalInputs] );
+            bool ReceivedValue = Convert.ToBoolean(DatagrammSplitted[ComandoString.Telegram.IndexValueDigitalInputs]);
 
-            switch( ReceivedIndex )
+            switch (ReceivedIndex)
             {
-               case LivingRoomWestIOAssignment.LivWestDigInputs.indDigitalInputButtonMainUpLeft:
+                case LivingRoomWestIOAssignment.LivWestDigInputs.indDigitalInputButtonMainUpLeft:
                     // turn light ON / OFF when releasing the button 
-                    if( ReceivedValue == false )
+                    if (ReceivedValue == false)
                     {
-                        Outside.AutomaticOff( ReceivedValue );
-                        Outside.ToggleSingleDevice( CenterOutsideIODevices.indDigitalOutputLightsOutside );
+                        Outside.AutomaticOff(ReceivedValue);
+                        Outside.ToggleSingleDevice(CenterOutsideIODevices.indDigitalOutputLightsOutside);
                     }
                     break;
             }

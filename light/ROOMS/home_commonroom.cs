@@ -40,6 +40,10 @@ namespace HomeAutomation
             {
                 try
                 {
+                    if( serialnumber_standardio == 0 )
+                    {
+                        return;
+                    }
                     base.open( serialnumber_standardio );
                     Console.WriteLine( TimeUtil.GetTimestamp() + " " + "Waiting for InterfaceKit with serial number " + serialnumber_standardio.ToString( ) +" to be attached..." );
                     base.waitForAttachment( Parameters.AttachWaitTime );
@@ -58,6 +62,11 @@ namespace HomeAutomation
                     Console.WriteLine( TimeUtil.GetTimestamp( ) + " " + "Attached IO Card SERIAL:" + base.SerialNumber.ToString( ) );
                     _PrimaryIOCardIsAttached = true;
                 }
+                else
+                {
+                    Console.WriteLine(TimeUtil.GetTimestamp() + " " + "Attaching so far not confirmed");
+                }
+
 
             }
 
@@ -171,7 +180,6 @@ namespace HomeAutomation
                     }
                 }
             }
-
             #endregion
 
             #region PUBLIC_METHODS
@@ -2413,7 +2421,8 @@ namespace HomeAutomation
                 Constructor( );
             }
 
-            public CommonRoom( bool disable )
+            // bad style - this is used as testbackdoor
+            public CommonRoom( bool disable ) : base( 0, false )
             {
                 if( disable )
                 {
