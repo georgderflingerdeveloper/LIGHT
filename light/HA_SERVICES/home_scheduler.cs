@@ -535,10 +535,9 @@ namespace Scheduler
         public home_scheduler( ref List<ScheduledJobs> _JobItemsParameters )
         {
             JobItemsParameters_ = _JobItemsParameters;
-            // construct a scheduler factory
+
             schedFact = new StdSchedulerFactory( );
   
-            // get a scheduler
             sched = schedFact.GetScheduler( );
             sched.Start( );
 

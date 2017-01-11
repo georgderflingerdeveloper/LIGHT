@@ -146,14 +146,14 @@
     <Compile Include="IO_CONTROL\AnalogControl.cs" />
     <Compile Include="BASIC_CONTROL_LOGIC\devicestepcontrol.cs" />
     <Compile Include="BASIC_COMPONENTS\timerMockable.cs" />
-    <Compile Include="ROOMS\anteroom_bathroom_washroom.cs" />
+    <Compile Include="ROOMS\ANTEROOM_BATHROOM_WASHROOM\anteroom_bathroom_washroom.cs" />
     <Compile Include="HA_SERVICES\feed_home_scheduler.cs" />
     <Compile Include="APPLICATION_SERVICES\GlobalSuppressions.cs" />
     <Compile Include="BASIC_CONTROL_LOGIC\hacontrols.cs" />
     <Compile Include="HA_SERVICES\home_scheduler.cs" />
     <Compile Include="ROOMS\CENTER\INTERFACE\Interface_Center.cs" />
-    <Compile Include="ROOMS\livingroom_east.cs" />
-    <Compile Include="ROOMS\livingroom_west.cs" />
+    <Compile Include="ROOMS\EAST\livingroom_east.cs" />
+    <Compile Include="ROOMS\WEST\livingroom_west.cs" />
     <Compile Include="HA_INFORMATION_COMPONENTS\PowerMeter.cs" />
     <Compile Include="HA_INFORMATION_COMPONENTS\PowerMeterData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -164,7 +164,7 @@
     <Compile Include="IO_CONTROL\phidgetshelpers.cs" />
     <Compile Include="MAIN\HomeMain.cs" />
     <Compile Include="HA_SERVICES\SchedulerApplicationSpecifics.cs" />
-    <Compile Include="ROOMS\sleepingroom.cs" />
+    <Compile Include="ROOMS\SLEEPINGROOM\sleepingroom.cs" />
     <Compile Include="HA_INFORMATION_COMPONENTS\WindowDoorsObserver.cs" />
     <Compile Include="IO_CONTROL\IOHandler.cs" />
     <Compile Include="IO_CONTROL\INTERFACES\IIOHandler.cs" />
@@ -192,6 +192,7 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="HINTS\URLS\GIT_REPOSITORY_URL.txt" />
     <Content Include="ICON\light_ha.ico" />
   </ItemGroup>
   <ItemGroup>

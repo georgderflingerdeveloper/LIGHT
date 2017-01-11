@@ -968,7 +968,7 @@ namespace HomeAutomation
             HeatersLivingRoom.AllOn_ += HeatersLivingRoom_AllOn_;
             Kitchen.EReset           += Kitchen_EReset;
 
-            #region REGISTRATION_FOR_ONECOMMONHANDLER
+            #region REGISTRATION_ONE_COMMON_EVENT_HANDLER
             Kitchen.EUpdateOutputs_           += EShowUpdatedOutputs;
             HeatersLivingRoom.EUpdateOutputs_ += EShowUpdatedOutputs;
             HeaterAnteRoom.EUpdateOutputs_    += EShowUpdatedOutputs;
@@ -1065,9 +1065,9 @@ namespace HomeAutomation
         {
             SchedulerApplication.Worker( this, e, ref scheduler );
             Console.WriteLine( TimeUtil.GetTimestamp() + Seperators.WhiteSpace + "Recover scheduler after booting " );
-            Console.WriteLine( TimeUtil.GetTimestamp() + Seperators.WhiteSpace + "Start time: " + e.Starttime );
-            Console.WriteLine( TimeUtil.GetTimestamp() + Seperators.WhiteSpace + "Stop time : " + e.Stoptime );
-            Console.WriteLine( TimeUtil.GetTimestamp() + Seperators.WhiteSpace + "Configured days: " + e.Days );
+            Console.WriteLine( TimeUtil.GetTimestamp() + Seperators.WhiteSpace + "Start time:               " + e.Starttime );
+            Console.WriteLine( TimeUtil.GetTimestamp() + Seperators.WhiteSpace + "Stop time :               " + e.Stoptime );
+            Console.WriteLine( TimeUtil.GetTimestamp() + Seperators.WhiteSpace + "Configured days:          " + e.Days );
             Console.WriteLine( TimeUtil.GetTimestamp() + Seperators.WhiteSpace + "Current scheduler status: "
                 + scheduler.GetJobStatus( e.Device + Seperators.InfoSeperator + e.JobId ).ToString() );
         }

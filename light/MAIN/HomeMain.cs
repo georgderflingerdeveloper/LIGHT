@@ -399,7 +399,6 @@ namespace HomeAutomation
                      break;
             }
         }
-
  
         static void Client__MessageReceivedFromServer ( string receivedmessage )
         {
