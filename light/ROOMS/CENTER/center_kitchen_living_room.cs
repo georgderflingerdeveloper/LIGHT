@@ -1544,7 +1544,6 @@ namespace HomeAutomation
         }
         #endregion
 
-
         // so far this program was not designed by using dependency injection - thats the reason using a public 
         // testbackdoor channel
         #region TESTBACKDOOR
