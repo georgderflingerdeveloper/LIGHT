@@ -110,7 +110,7 @@ namespace HomeAutomation
                 PWMTimerOn  = new Timer( timeon );
                 PWMTimerOff = new Timer( timeoff );
                 PWMTimerOff.Elapsed += PWMTimerOff_Elapsed;
-                PWMTimerOn.Elapsed += PWMTimerOn_Elapsed;
+                PWMTimerOn.Elapsed  += PWMTimerOn_Elapsed;
                 _OnCounter = 0;
             }
 

@@ -70,15 +70,15 @@ namespace HA_COMPONENTS
             {
                 PWM_ShowHeaterActive = new UnivPWM( ParametersHeaterControl.ShowOn, ParametersHeaterControl.ShowOff, true );
                 PWM_Heater = new UnivPWM( PWM_StayOnTime, PWM_StayOffTime );
-                PWM_Heater.PWM_ += HeaterPWM_PWM_;
+                PWM_Heater.PWM_           += HeaterPWM_PWM_;
                 PWM_ShowHeaterActive.PWM_ += PWM_ShowHeaterActive_PWM_;
-                PWM_Heater.PwmTimeOn = _PWM_StayOnTime = PWM_StayOnTime;
+                PWM_Heater.PwmTimeOn  = _PWM_StayOnTime  = PWM_StayOnTime;
                 PWM_Heater.PwmTimeOff = _PWM_StayOffTime = PWM_StayOffTime;
             }
 
-            _AutomaticOffTime = AutomaticOffTime;
-            _startindex = startindex;
-            _lastindex = lastindex;
+            _AutomaticOffTime   = AutomaticOffTime;
+            _startindex         = startindex;
+            _lastindex          = lastindex;
             _TimedIntensityStep = 1;
             Tim_PermanentOnTimeWindow = new Timer( ParametersHeaterControl.TimeDemandForPermanentOnWindow );
             Tim_PermanentOnTimeWindow.Elapsed += PermanentOnTimeWindow_Elapsed;
