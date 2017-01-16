@@ -118,10 +118,7 @@ namespace HomeAutomation
             {
                 PWMTimerOn.Start( );
                 PwmStatus = ePWMStatus.eIsOn;
-                if( PWM_ != null )
-                {
-                    PWM_( this, PwmStatus );
-                }
+                PWM_?.Invoke(this, PwmStatus);
                 _OnCounter = 0;
             }
 
@@ -137,10 +134,7 @@ namespace HomeAutomation
             void pwmstop( )
             {
                 PwmStatus = ePWMStatus.eInactive;
-                if( PWM_ != null )
-                {
-                    PWM_( this, PwmStatus );
-                }
+                PWM_?.Invoke(this, PwmStatus);
                 stoptimers( );
             }
 
@@ -164,11 +158,7 @@ namespace HomeAutomation
                         StopOnReachedCounts( _presetcounts );
                     }
                 }
-
-                if( PWM_ != null )
-                {
-                    PWM_( this, PwmStatus );
-                }
+                PWM_?.Invoke(this, PwmStatus);
             }
 
             void PWMTimerOff_Elapsed ( object sender, ElapsedEventArgs e )
@@ -182,10 +172,7 @@ namespace HomeAutomation
                     StopOnReachedCounts( _presetcounts );
                 }
                 _OnCounter++;
-                if( PWM_ != null )
-                {
-                    PWM_( this, PwmStatus );
-                }
+                PWM_?.Invoke(this, PwmStatus);
             }
             #endregion
         }
