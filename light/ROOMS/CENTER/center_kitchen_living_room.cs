@@ -1408,9 +1408,21 @@ namespace HomeAutomation
         decimal receivedTransactionCounter            = 0;
         decimal PreviousreceivedTransactionCounter    = 0;
 		const int ExpectedArrayElementsSignalTelegram = 3;
+        const int ExpectedArrayElementsCommonCommand = 1;
         void UDPReceive__EDataReceived( string e )
         {
             string[] DatagrammSplitted = e.Split(ComandoString.Telegram.Seperator);
+
+            if( DatagrammSplitted.Length == ExpectedArrayElementsCommonCommand )
+            {
+                switch( DatagrammSplitted[0] )
+                {
+                    case ComandoString.TURN_ALL_LIGHTS_OFF:
+                         Kitchen.TurnSingleDevice( KitchenCenterIoDevices.indDigitalOutputFirstKitchen, GeneralConstants.OFF );
+                         break;
+                }
+                return;
+            }
 
             if (DatagrammSplitted.Length != ExpectedArrayElementsSignalTelegram)
             {
@@ -1557,6 +1569,11 @@ namespace HomeAutomation
             get
             {
 				return ( _InternalDigitalOutputState );
+            }
+
+            set
+            {
+                _InternalDigitalOutputState = value;
             }
         }
 

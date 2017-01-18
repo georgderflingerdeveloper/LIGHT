@@ -124,12 +124,12 @@ namespace HomeAutomation
                 Debug.Indent();
                 Console.WriteLine( InfoString.InfoStartingTime + DateTime.Now );
                 Version         = Assembly.GetExecutingAssembly().GetName().Version.ToString();
-                CompleteVersion = InfoString.InfoVersion + Version + Seperators.WhiteSpace + InfoString.InfoLastBuild + BuildDate;
+                CompleteVersion = InfoString.InfoVersion + Version   + Seperators.WhiteSpace + InfoString.InfoLastBuild + BuildDate;
                 Console.WriteLine( TimeUtil.GetTimestamp()           + 
-                                   Seperators.WhiteSpace            + 
+                                   Seperators.WhiteSpace             + 
                                    InfoString.InfoVersioninformation + 
                                    Version                           + 
-                                   Seperators.WhiteSpace            + 
+                                   Seperators.WhiteSpace             + 
                                    InfoString.InfoLastBuild          + 
                                    BuildDate.ToString() );
                 Console.WriteLine( TimeUtil.GetTimestamp() + Seperators.WhiteSpace + InfoString.InfoLoadingConfiguration );

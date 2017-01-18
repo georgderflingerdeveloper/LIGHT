@@ -50,6 +50,19 @@ namespace CenterUnitTest
             Assert.False(TestCenter.ReferenceDigitalOutputState[CenterOutsideIODevices.indDigitalOutputLightsOutside]);
         }
 
+        [Test]
+        public void TestTurnAllLightsOff()
+        {
+            TestCenter.ResetDeviceController( );
+
+            TestCenter.ReferenceDigitalOutputState[KitchenCenterIoDevices.indDigitalOutputFirstKitchen] = true;
+
+            TestCenter.TestBackdoor_UdpReceiver( ComandoString.TURN_ALL_LIGHTS_OFF );
+
+           // Assert.False( TestCenter.ReferenceDigitalOutputState[CenterOutsideIODevices.indDigitalOutputLightsOutside] );
+            Assert.False( TestCenter.ReferenceDigitalOutputState[KitchenCenterIoDevices.indDigitalOutputFirstKitchen] );
+        }
+
         [TearDown]
         public void Cleanup()
         {
