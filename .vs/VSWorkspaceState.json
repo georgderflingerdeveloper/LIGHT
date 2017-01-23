@@ -2,12 +2,15 @@
   "ExpandedNodes": [
     "",
     "\\light",
-    "\\light\\ROOMS",
     "\\light\\ROOMS\\CENTER",
     "\\light\\ROOMS\\CENTER\\INTERFACE",
     "\\light\\ROOMS\\CENTER\\UNITTESTS",
-    "\\light\\ROOMS\\LIVING_ROOM_AND_KITCHEN\\UNIT_TEST"
+    "\\light\\ROOMS\\EAST",
+    "\\light\\ROOMS\\LIVING_ROOM_AND_KITCHEN\\UNIT_TEST",
+    "\\light\\ROOMS\\SLEEPINGROOM",
+    "\\light\\ROOMS\\WEST",
+    "\\light\\Service References\\bin"
   ],
-  "SelectedNode": "\\light\\ROOMS\\CENTER\\center_kitchen_living_room.cs",
+  "SelectedNode": "\\light\\ROOMS",
   "PreviewInSolutionExplorer": false
 }

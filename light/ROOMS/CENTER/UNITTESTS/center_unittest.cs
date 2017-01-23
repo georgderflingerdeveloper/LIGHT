@@ -51,17 +51,32 @@ namespace CenterUnitTest
         }
 
         [Test]
-        public void TestTurnAllLightsOff()
+        public void TestTurnAllLightsOn()
         {
             TestCenter.ResetDeviceController( );
 
-            TestCenter.ReferenceDigitalOutputState[KitchenCenterIoDevices.indDigitalOutputFirstKitchen] = true;
+            TestCenter.TestBackdoor_UdpReceiver( ComandoString.TURN_ALL_LIGHTS_ON );
 
-            TestCenter.TestBackdoor_UdpReceiver( ComandoString.TURN_ALL_LIGHTS_OFF );
+            Assert.True( TestCenter.ReferenceDigitalOutputState[KitchenCenterIoDevices.indDigitalOutputFirstKitchen] );
+            Assert.True( TestCenter.ReferenceDigitalOutputState[KitchenCenterIoDevices.indDigitalOutputFrontLight_1] );
 
-           // Assert.False( TestCenter.ReferenceDigitalOutputState[CenterOutsideIODevices.indDigitalOutputLightsOutside] );
-            Assert.False( TestCenter.ReferenceDigitalOutputState[KitchenCenterIoDevices.indDigitalOutputFirstKitchen] );
         }
+
+
+        //[Test]
+        //public void TestTurnAllLightsOff()
+        //{
+        //    TestCenter.ResetDeviceController( );
+
+        //    TestCenter.TestBackdoor_UdpReceiver( ComandoString.TURN_ALL_LIGHTS_OFF );
+
+        //    Assert.True( TestCenter.ReferenceDigitalOutputState[CenterOutsideIODevices.indDigitalOutputLightsOutside] );
+
+        //          Assert.False( TestCenter.ReferenceDigitalOutputState[KitchenCenterIoDevices.indDigitalOutputFirstKitchen] );
+        //         Assert.False( TestCenter.ReferenceDigitalOutputState[KitchenCenterIoDevices.indDigitalOutputFrontLight_1] );
+        //Assert.False( TestCenter.ReferenceDigitalOutputState[KitchenCenterIoDevices.indDigitalOutputFrontLight_2] );
+
+        //  }
 
         [TearDown]
         public void Cleanup()

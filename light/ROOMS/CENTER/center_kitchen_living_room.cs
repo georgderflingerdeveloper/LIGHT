@@ -1258,8 +1258,6 @@ namespace HomeAutomation
 
 		void TurnNextDevice( int index,  bool Value  )
         {
-            if( Kitchen != null )
-            {
                 switch( index ) // the index is the assigned input number
                 {
                     // first relase start one light, next relase start neighbor light, turn previous light off
@@ -1272,12 +1270,12 @@ namespace HomeAutomation
                             // operate light only when there is no demand of manual heater control
                             if( !HeatersLivingRoom.WasHeaterSwitched() )  // this is not good OOP - any day try to refactor - "TELL - don´t ask"
                             {
-                                Kitchen.MakeStep( Value );
+                                Kitchen?.MakeStep( Value );
                             }
                             else
                             {
-                                Kitchen.StopAllOnTimer();
-                                Kitchen.ResetDeviceControl();
+                                Kitchen?.StopAllOnTimer();
+                                Kitchen?.ResetDeviceControl();
                             }
                         }
                         // reset - this is a last rescue anchor in the case something went wrong ( any undiscovered bug )
@@ -1285,26 +1283,22 @@ namespace HomeAutomation
                         break;
 
                    case KitchenIOAssignment.indKitchenPresenceDetector:
-                        Kitchen.AutomaticOff( Value );
+                        Kitchen?.AutomaticOff( Value );
                         break;
 
                     default:
                         break;
                 }
-            }
 
-            if( FanWashRoom != null )
-            {
                 switch( index ) // the index is the assigned input number
                 {
                    case CenterButtonRelayIOAssignment.indDigitalInputRelayWashRoom:
-                        FanWashRoom.DelayedDeviceOnFallingEdge( Value );
+                        FanWashRoom?.DelayedDeviceOnFallingEdge( Value );
                         break;
 
                     default:
                         break;
                 }
-            }
         }
 
         void ControlHeaters( InputChangeEventArgs e )
@@ -1358,14 +1352,14 @@ namespace HomeAutomation
         {
             if( ToggleHeatersOnOff == 0 )
             {
-                Kitchen.AnyExternalDeviceOn = true;
+                Kitchen.AnyExternalDeviceOn  = true;
                 Kitchen.AnyExternalDeviceOff = false;
             }
             ToggleHeatersOnOff++;
             if( ToggleHeatersOnOff > 1 )
             {
                 ToggleHeatersOnOff = 0;
-                Kitchen.AnyExternalDeviceOn = false;
+                Kitchen.AnyExternalDeviceOn  = false;
                 Kitchen.AnyExternalDeviceOff = true;
             }
         }
@@ -1396,6 +1390,7 @@ namespace HomeAutomation
                     _DigitalInputState[i] = inputs[i];
                 }
             }
+
             if( BasicClientCommunicator_ != null )
             {
                 BasicClientCommunicator_.DigitalInputs = _DigitalInputState;
@@ -1408,7 +1403,8 @@ namespace HomeAutomation
         decimal receivedTransactionCounter            = 0;
         decimal PreviousreceivedTransactionCounter    = 0;
 		const int ExpectedArrayElementsSignalTelegram = 3;
-        const int ExpectedArrayElementsCommonCommand = 1;
+        const int ExpectedArrayElementsCommonCommand  = 1;
+
         void UDPReceive__EDataReceived( string e )
         {
             string[] DatagrammSplitted = e.Split(ComandoString.Telegram.Seperator);
@@ -1417,14 +1413,27 @@ namespace HomeAutomation
             {
                 switch( DatagrammSplitted[0] )
                 {
-                    case ComandoString.TURN_ALL_LIGHTS_OFF:
-                         Kitchen.TurnSingleDevice( KitchenCenterIoDevices.indDigitalOutputFirstKitchen, GeneralConstants.OFF );
+                    case ComandoString.TURN_ALL_LIGHTS_ON:
+                         _InternalDigitalOutputState[KitchenCenterIoDevices.indDigitalOutputFirstKitchen] = true;
+                         _InternalDigitalOutputState[KitchenCenterIoDevices.indDigitalOutputFrontLight_1] = true;
+
                          break;
+
+                    case ComandoString.TURN_ALL_LIGHTS_OFF:
+                         break;
+                }
+
+                if( Attached )
+                {
+                    for (int i = KitchenCenterIoDevices.indDigitalOutputFirstKitchen; i <= KitchenCenterIoDevices.indLastKitchen; i++)
+                    {
+                        outputs[i] = _InternalDigitalOutputState[i];
+                    }
                 }
                 return;
             }
 
-            if (DatagrammSplitted.Length != ExpectedArrayElementsSignalTelegram)
+            if( DatagrammSplitted.Length != ExpectedArrayElementsSignalTelegram )
             {
                 Services.TraceMessage_("Wrong datagramm received");
                 return;
@@ -1432,10 +1441,10 @@ namespace HomeAutomation
 
             string transactioncounter = DatagrammSplitted[ComandoString.Telegram.IndexTransactionCounter];
 
-            receivedTransactionCounter = Convert.ToDecimal(transactioncounter);
+            receivedTransactionCounter = Convert.ToDecimal( transactioncounter );
 
             // basic check wether counter counts up
-            if (receivedTransactionCounter > PreviousreceivedTransactionCounter)
+            if( receivedTransactionCounter > PreviousreceivedTransactionCounter )
             {
                 PreviousreceivedTransactionCounter = receivedTransactionCounter;
             }
@@ -1449,13 +1458,13 @@ namespace HomeAutomation
             // received acutal fired value of digital input
             bool ReceivedValue = Convert.ToBoolean(DatagrammSplitted[ComandoString.Telegram.IndexValueDigitalInputs]);
 
-            switch (ReceivedIndex)
+            switch( ReceivedIndex )
             {
                 case LivingRoomWestIOAssignment.LivWestDigInputs.indDigitalInputButtonMainUpLeft:
                     // turn light ON / OFF when releasing the button 
-                    if (ReceivedValue == false)
+                    if( ReceivedValue == false )
                     {
-                        Outside.AutomaticOff(ReceivedValue);
+                        Outside.AutomaticOff( ReceivedValue );
                         Outside.ToggleSingleDevice(CenterOutsideIODevices.indDigitalOutputLightsOutside);
                     }
                     break;
@@ -1506,22 +1515,18 @@ namespace HomeAutomation
         #region EVENTHANDLERS
         void EShowUpdatedOutputs( object sender, bool[] _DigOut, List<int> Match)
         {
-            for( int i = 0; i < _DigOut.Length; i++ )
+            for ( int i = 0; i < _DigOut.Length; i++ )
             {
                 if( Match.Contains( i ) ) // only matching index within the defined list are written into the array
                 {
-                   _InternalDigitalOutputState[i] = _DigOut[i];
-                   if( !_Test )
-                   {
-                        if( base.Attached )
-                        {
+                    _InternalDigitalOutputState[i] = _DigOut[i];
+                    if( base.Attached )
+                    {
                             // DIGITAL OUTPUT MAPPING
-                            base.outputs[i] = _DigOut[i]; // only one location where "real" output is written!
-                        }
-                   }
+                            base.outputs[i] = _DigOut[i]; 
+                    }
                 }
             }
-
             EUpdateMatchedOutputs?.Invoke( this, _DigOut );
         }
 

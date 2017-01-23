@@ -6,7 +6,6 @@ using HomeAutomation.rooms;
 using Communication.UDP;
 using SystemServices;
 
-
 namespace HomeAutomation
 {
     class LightControlLivingRoomWest : LightControl
