@@ -674,9 +674,9 @@ namespace HomeAutomation
         #region DECLARATIONES
         LightControlAnteRoomNG               LightAnteRoom;
         LightControl                         LightWashRoom;
-        LightControl LightBathRoom;
-        HeaterElement HeatersBathRoom;
-        BasicClientComumnicator BasicClientCommunicator_;
+        LightControl                         LightBathRoom;
+        HeaterElement                        HeatersBathRoom;
+        BasicClientComumnicator              BasicClientCommunicator_;
 
         bool[]                               _DigitalInputState;
         bool[]                               _DigitalOutputState;

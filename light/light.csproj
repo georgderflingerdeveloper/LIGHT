@@ -133,9 +133,6 @@
     <Compile Include="..\..\..\LIGHT_COMMON_SOURCES\udp_basic.cs">
       <Link>COMMUNICATION\udp_basic.cs</Link>
     </Compile>
-    <Compile Include="..\..\..\LIGHT_CONTROL_CLASSIC\light_visu_classic\light_visu_classic\schedulerhelpers.cs">
-      <Link>HA_SERVICES\schedulerhelpers.cs</Link>
-    </Compile>
     <Compile Include="BASIC_COMPONENTS\AnalogHeaterControl.cs" />
     <Compile Include="BASIC_CONTROL_LOGIC\togglebuttoncontroller.cs" />
     <Compile Include="HA_COMPONENTS\CentralControlledElement_NG.cs" />
@@ -143,6 +140,7 @@
     <Compile Include="HA_COMPONENTS\HeaterElement_NG.cs" />
     <Compile Include="HA_COMPONENTS\LightControlKitchen_NG.cs" />
     <Compile Include="HA_COMPONENTS\LightControlOutside.cs" />
+    <Compile Include="HA_SERVICES\schedulerhelpers.cs" />
     <Compile Include="IO_CONTROL\AnalogControl.cs" />
     <Compile Include="BASIC_CONTROL_LOGIC\devicestepcontrol.cs" />
     <Compile Include="BASIC_COMPONENTS\timerMockable.cs" />

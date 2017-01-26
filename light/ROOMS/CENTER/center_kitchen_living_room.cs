@@ -902,6 +902,16 @@ namespace HomeAutomation
 		DigitalOutputEventargs            _DigitalOutputEventargs  = new DigitalOutputEventargs();
 		#endregion
 
+        void RegisterEventHandlers( )
+        {
+            Kitchen.EUpdateOutputs_           += EShowUpdatedOutputs;
+            HeatersLivingRoom.EUpdateOutputs_ += EShowUpdatedOutputs;
+            HeaterAnteRoom.EUpdateOutputs_    += EShowUpdatedOutputs;
+            CirculationPump.EUpdateOutputs_   += EShowUpdatedOutputs;
+            Outside.EUpdateOutputs            += EShowUpdatedOutputs;
+            FanWashRoom.EUpdateOutputs_       += EShowUpdatedOutputs;
+        }
+
         #region CONSTRUCTOR
         void Constructor( string IpAdressServer, string PortServer, string softwareversion )
         {
@@ -916,7 +926,7 @@ namespace HomeAutomation
                                         ParametersLightControlKitchen.TimeDemandForAllOn,
                                         ParametersLightControlKitchen.TimeDemandForAllOutputsOff,
                                         ParametersLightControl.TimeDemandForSingleOff,
-                                        ParametersLightControlKitchen.TimeDemandForAutomaticOffKitchen,
+                                        2000,//ParametersLightControlKitchen.TimeDemandForAutomaticOffKitchen,
                                         KitchenCenterIoDevices.indDigitalOutputFirstKitchen,
                                         KitchenCenterIoDevices.indLastKitchen );
 
@@ -953,31 +963,26 @@ namespace HomeAutomation
                 
                 HeaterAnteRoom.Match = new List<int> { AnteRoomIODeviceIndices.indDigitalOutputAnteRoomHeater };
 
-                FanWashRoom = new CentralControlledElements_NG(
-                                         ParametersWashRoomControl.TimeDemandForFanOn,
-                                         ParametersWashRoomControl.TimeDemandForFanAutomaticOff,
-                                         WashRoomIODeviceIndices.indDigitalOutputWashRoomFan );
-                FanWashRoom.Match = new List<int> { WashRoomIODeviceIndices.indDigitalOutputWashRoomFan };
+            FanWashRoom = new CentralControlledElements_NG(
+                                     ParametersWashRoomControl.TimeDemandForFanOn,
+                                     ParametersWashRoomControl.TimeDemandForFanAutomaticOff,
+                                     WashRoomIODeviceIndices.indDigitalOutputWashRoomFan );
+            FanWashRoom.Match = new List<int> { WashRoomIODeviceIndices.indDigitalOutputWashRoomFan };
 
-                CirculationPump = new CentralControlledElements_NG(
+            CirculationPump = new CentralControlledElements_NG(
                                          ParametersWaterHeatingSystem.TimeDemandForWarmCirculationPumpAutomaticOff,
                                          WaterHeatingSystemIODeviceIndices.indDigitalOutputWarmWaterCirculationPump );
-                CirculationPump.Match = new List<int> { WaterHeatingSystemIODeviceIndices.indDigitalOutputWarmWaterCirculationPump };
+             CirculationPump.Match = new List<int> { WaterHeatingSystemIODeviceIndices.indDigitalOutputWarmWaterCirculationPump };
 
 
             HeatersLivingRoom.AllOn_ += HeatersLivingRoom_AllOn_;
             Kitchen.EReset           += Kitchen_EReset;
 
             #region REGISTRATION_ONE_COMMON_EVENT_HANDLER
-            Kitchen.EUpdateOutputs_           += EShowUpdatedOutputs;
-            HeatersLivingRoom.EUpdateOutputs_ += EShowUpdatedOutputs;
-            HeaterAnteRoom.EUpdateOutputs_    += EShowUpdatedOutputs;
-            FanWashRoom.EUpdateOutputs_       += EShowUpdatedOutputs;
-            CirculationPump.EUpdateOutputs_   += EShowUpdatedOutputs;
-			Outside.EUpdateOutputs            += EShowUpdatedOutputs;
+            RegisterEventHandlers( );
             #endregion
 
-            if( _Test )
+            if ( _Test )
             {
                 return;
             }
@@ -1192,17 +1197,17 @@ namespace HomeAutomation
             }
         }
 
-       #endregion
+        #endregion
 
         #region IO_CARD_OBSERVATION
-        void Center_kitchen_living_room_Detach( object sender, DetachEventArgs e )
+         void Center_kitchen_living_room_Detach( object sender, DetachEventArgs e )
         {
             if( Kitchen != null )
             {
                 Kitchen.IsPrimaryIOCardAttached = base._PrimaryIOCardIsAttached;
                 BasicClientCommunicator_.SendInfoToServer( InfoString.InfoNoIO + e.Device.ID.ToString() );
             }
-        }
+          }
 
         void Center_kitchen_living_room_Attach( object sender, AttachEventArgs e )
         {
@@ -1224,11 +1229,11 @@ namespace HomeAutomation
         {
             if( e.Value == true )
             {
-                Kitchen.StartWaitForAllOff();
+                Kitchen?.StartWaitForAllOff();
             }
             else
             {
-                Kitchen.StopWaitForAllOff();
+                Kitchen?.StopWaitForAllOff();
             }
         }
 
@@ -1236,17 +1241,17 @@ namespace HomeAutomation
         {
             if( command == true )
             {
-                Kitchen.StartWaitForAllOff();
+                Kitchen?.StartWaitForAllOff();
             }
             else
             {
-                Kitchen.StopWaitForAllOff();
+                Kitchen?.StopWaitForAllOff();
             }
         }
 
         public void StopAliveSignal()
         {
-            Kitchen.StopAliveSignal();
+            Kitchen?.StopAliveSignal();
         }
 
         protected override void TurnNextLightOn_( InputChangeEventArgs e )
@@ -1290,15 +1295,19 @@ namespace HomeAutomation
                         break;
                 }
 
-                switch( index ) // the index is the assigned input number
-                {
-                   case CenterButtonRelayIOAssignment.indDigitalInputRelayWashRoom:
-                        FanWashRoom?.DelayedDeviceOnFallingEdge( Value );
-                        break;
+        }
 
-                    default:
-                        break;
-                }
+        void TurnFan( int index, bool Value )
+        {
+            switch (index) // the index is the assigned input number
+            {
+                case CenterButtonRelayIOAssignment.indDigitalInputRelayWashRoom:
+                     FanWashRoom?.DelayedDeviceOnFallingEdge( Value );
+                     break;
+
+                default:
+                    break;
+            }
         }
 
         void ControlHeaters( InputChangeEventArgs e )
@@ -1377,7 +1386,9 @@ namespace HomeAutomation
 
             ControlCirculationPump( index, Value );
 
-            if( _DigitalInputState == null )
+            TurnFan( index, Value );
+
+            if ( _DigitalInputState == null )
             {
                 return;
             }
@@ -1405,21 +1416,34 @@ namespace HomeAutomation
 		const int ExpectedArrayElementsSignalTelegram = 3;
         const int ExpectedArrayElementsCommonCommand  = 1;
 
+        //void AllKitchenLights( bool command )
+        //{
+        //    _InternalDigitalOutputState[KitchenCenterIoDevices.indDigitalOutputFirstKitchen]   = command;
+        //    _InternalDigitalOutputState[KitchenCenterIoDevices.indDigitalOutputFrontLight_1]   = command;
+        //    _InternalDigitalOutputState[KitchenCenterIoDevices.indDigitalOutputFrontLight_2]   = command;
+        //    _InternalDigitalOutputState[KitchenCenterIoDevices.indDigitalOutputFrontLight_3]   = command;
+        //    _InternalDigitalOutputState[KitchenCenterIoDevices.indDigitalOutputFumeHood]       = command;
+        //    _InternalDigitalOutputState[KitchenCenterIoDevices.indDigitalOutputKitchenKabinet] = command;
+        //    _InternalDigitalOutputState[KitchenCenterIoDevices.indDigitalOutputSlot]           = command;
+        //}
+
         void UDPReceive__EDataReceived( string e )
         {
-            string[] DatagrammSplitted = e.Split(ComandoString.Telegram.Seperator);
+            string[] DatagrammSplitted = e.Split( ComandoString.Telegram.Seperator );
 
             if( DatagrammSplitted.Length == ExpectedArrayElementsCommonCommand )
             {
                 switch( DatagrammSplitted[0] )
                 {
                     case ComandoString.TURN_ALL_LIGHTS_ON:
-                         _InternalDigitalOutputState[KitchenCenterIoDevices.indDigitalOutputFirstKitchen] = true;
-                         _InternalDigitalOutputState[KitchenCenterIoDevices.indDigitalOutputFrontLight_1] = true;
-
+                    case ComandoString.TURN_ALL_KITCHEN_LIGHTS_ON:
+                         Kitchen?.TurnAllDevices( true );
+                         Kitchen?.AutomaticOff( true );
                          break;
 
                     case ComandoString.TURN_ALL_LIGHTS_OFF:
+                    case ComandoString.TURN_ALL_KITCHEN_LIGHTS_OFF:
+                         Kitchen?.TurnAllDevices( false );
                          break;
                 }
 
@@ -1464,8 +1488,8 @@ namespace HomeAutomation
                     // turn light ON / OFF when releasing the button 
                     if( ReceivedValue == false )
                     {
-                        Outside.AutomaticOff( ReceivedValue );
                         Outside.ToggleSingleDevice(CenterOutsideIODevices.indDigitalOutputLightsOutside);
+                        Outside.AutomaticOff( ReceivedValue );
                     }
                     break;
             }
@@ -1522,8 +1546,8 @@ namespace HomeAutomation
                     _InternalDigitalOutputState[i] = _DigOut[i];
                     if( base.Attached )
                     {
-                            // DIGITAL OUTPUT MAPPING
-                            base.outputs[i] = _DigOut[i]; 
+                        // DIGITAL OUTPUT MAPPING
+                        base.outputs[i] = _DigOut[i]; 
                     }
                 }
             }
