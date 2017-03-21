@@ -1,4 +1,5 @@
 ﻿using System;
+using SystemServices;
 using Communication.CLIENT_Communicator;
 using Communication.HAProtocoll;
 using Communication.UDP;
@@ -51,7 +52,9 @@ namespace HomeAutomation
         LightControlEast[]                    LightControlMulti;
         BuildingSection[]                     BuildingMultiCard;
         UdpReceive                            UDPReceive_;
-        BasicClientComumnicator               BasicClientCommunicator_;
+        UdpReceive                            UDPReceiveFromGui_;
+
+        BasicClientComumnicator BasicClientCommunicator_;
 
         int                                   NumberOfAttachedPhidgets;
         int[]                                 _SerialNumbers;
@@ -133,9 +136,12 @@ namespace HomeAutomation
                 {
                     UDPReceive_ = new UdpReceive( IPConfiguration.Port.PORT_UDP_LIVINGROOM_WEST );
                     UDPReceive_.EDataReceived += UDPReceive__EDataReceived;
+                    UDPReceiveFromGui_ =  new UdpReceive( IPConfiguration.Port.PORT_UDP_LIVINGROOM_EAST );
+                    UDPReceiveFromGui_.EDataReceived += UDPReceiveFromGui__EDataReceived;
                 }
-                catch
+                catch( Exception ex )
                 {
+                    Services.TraceMessage_( "Failed to establish UDP communication " + ex.Message + " " + ex.Source );
                     LightControlMulti[IOCardID.ID_1].StopAliveSignal( );
                 }
             }
@@ -194,6 +200,24 @@ namespace HomeAutomation
         #endregion
 
         #region UDP_RECEIVE_DATA
+        private void UDPReceiveFromGui__EDataReceived(string e)
+        {
+            string[] DatagrammSplitted = e.Split( ComandoString.Telegram.Seperator );
+
+            switch (DatagrammSplitted[0])
+            {
+                case ComandoString.TURN_ALL_LIGHTS_ON:
+                case ComandoString.TURN_GALLERY_DOWN_ON:
+                     LightControlMulti[IOCardID.ID_1]?.TurnSingleLight( EastSideIOAssignment.indSpotFrontSide1_4, true );
+                     break;
+
+                case ComandoString.TURN_ALL_LIGHTS_OFF:
+                case ComandoString.TURN_GALLERY_DOWN_OFF:
+                     LightControlMulti[IOCardID.ID_1]?.TurnSingleLight( EastSideIOAssignment.indSpotFrontSide1_4, false );
+                     break;
+            }
+        }
+
         void UDPReceive__EDataReceived( string e )
         {
             string[] DatagrammSplitted = e.Split( ComandoString.Telegram.Seperator );
@@ -201,7 +225,7 @@ namespace HomeAutomation
             receivedTransactionCounter = Convert.ToDecimal( DatagrammSplitted[ComandoString.Telegram.IndexTransactionCounter] );
 
             // basic check wether counter counts up
-            if( receivedTransactionCounter > PreviousreceivedTransactionCounter )
+            if ( receivedTransactionCounter > PreviousreceivedTransactionCounter )
             {
                 PreviousreceivedTransactionCounter = receivedTransactionCounter;
             }

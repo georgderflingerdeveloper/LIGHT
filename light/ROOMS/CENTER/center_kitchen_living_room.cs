@@ -926,7 +926,7 @@ namespace HomeAutomation
                                         ParametersLightControlKitchen.TimeDemandForAllOn,
                                         ParametersLightControlKitchen.TimeDemandForAllOutputsOff,
                                         ParametersLightControl.TimeDemandForSingleOff,
-                                        2000,//ParametersLightControlKitchen.TimeDemandForAutomaticOffKitchen,
+                                        ParametersLightControlKitchen.TimeDemandForAutomaticOffKitchen,
                                         KitchenCenterIoDevices.indDigitalOutputFirstKitchen,
                                         KitchenCenterIoDevices.indLastKitchen );
 
@@ -1413,19 +1413,9 @@ namespace HomeAutomation
         #region REMOTE_CONTROLLED_UDP
         decimal receivedTransactionCounter            = 0;
         decimal PreviousreceivedTransactionCounter    = 0;
-		const int ExpectedArrayElementsSignalTelegram = 3;
+		const int ExpectedArrayElementsSignalTelegram = UdpTelegram.DelfaultExpectedArrayElementsSignalTelegram;
         const int ExpectedArrayElementsCommonCommand  = 1;
 
-        //void AllKitchenLights( bool command )
-        //{
-        //    _InternalDigitalOutputState[KitchenCenterIoDevices.indDigitalOutputFirstKitchen]   = command;
-        //    _InternalDigitalOutputState[KitchenCenterIoDevices.indDigitalOutputFrontLight_1]   = command;
-        //    _InternalDigitalOutputState[KitchenCenterIoDevices.indDigitalOutputFrontLight_2]   = command;
-        //    _InternalDigitalOutputState[KitchenCenterIoDevices.indDigitalOutputFrontLight_3]   = command;
-        //    _InternalDigitalOutputState[KitchenCenterIoDevices.indDigitalOutputFumeHood]       = command;
-        //    _InternalDigitalOutputState[KitchenCenterIoDevices.indDigitalOutputKitchenKabinet] = command;
-        //    _InternalDigitalOutputState[KitchenCenterIoDevices.indDigitalOutputSlot]           = command;
-        //}
 
         void UDPReceive__EDataReceived( string e )
         {

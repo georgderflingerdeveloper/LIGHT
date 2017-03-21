@@ -479,7 +479,7 @@ namespace HomeAutomation
             {
                 if( outputs_ != null )
                 {
-                    if( (index < outputs_.Count) && index > 0 )
+                    if( (index < outputs_.Count) && index >= 0 )
                     {
                         outputs_[index] = value;
                     }
