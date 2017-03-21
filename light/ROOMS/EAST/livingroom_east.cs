@@ -109,15 +109,18 @@ namespace HomeAutomation
                                                     ref BuildingMultiCard[IOCardID.ID_1].outputs );
                 }
 
-                if( BuildingMultiCard[IOCardID.ID_2].Attached )
+                if( BuildingMultiCard.Length > 1 )
                 {
-                    LightControlMulti[IOCardID.ID_2] 
-                        = new LightControlEast( ParametersLightControlEASTSide.TimeDemandForAllOn,
-                                                    ParametersLightControl.TimeDemandForSingleOff,
-                                                    ParametersLightControlEASTSide.TimeDemandForAutomaticOffEastSide,
-                                                    EastSideIOAssignment.indSpotGalleryFloor_1_18,
-                                                    EastSideIOAssignment.indBarGallery1_4,
-                                                    ref BuildingMultiCard[IOCardID.ID_2].outputs );
+                    if (BuildingMultiCard[IOCardID.ID_2].Attached)
+                    {
+                        LightControlMulti[IOCardID.ID_2]
+                            = new LightControlEast( ParametersLightControlEASTSide.TimeDemandForAllOn,
+                                                        ParametersLightControl.TimeDemandForSingleOff,
+                                                        ParametersLightControlEASTSide.TimeDemandForAutomaticOffEastSide,
+                                                        EastSideIOAssignment.indSpotGalleryFloor_1_18,
+                                                        EastSideIOAssignment.indBarGallery1_4,
+                                                        ref BuildingMultiCard[IOCardID.ID_2].outputs );
+                    }
                 }
 
                 if( BuildingMultiCard[IOCardID.ID_1].Attached )
@@ -266,20 +269,21 @@ namespace HomeAutomation
                 }
             }
 
-            if( EnableTestBase == false )
+            if( LightControlMulti[ActualPluggedCardId] != null )
             {
-                if( LightControlMulti[ActualPluggedCardId] != null )
+                switch( e.Index )
                 {
-                    switch( e.Index )
-                    {
-                        case EastSideIOAssignment.indTestButton:
-                             LightControlMulti[ActualPluggedCardId].MakeStep( e );
-                             break;
+                    case EastSideIOAssignment.indTestButton:
+                         LightControlMulti[ActualPluggedCardId]?.MakeStep( e );
+                         break;
 
-                        case EastSideIOAssignment.indDigitalInput_PresenceDetector:
-                             LightControlMulti[IOCardID.ID_1].AutomaticOff( e );
-                             break;
-                    }
+                    case EastSideIOAssignment.indDigitalInput_PresenceDetector:
+                         LightControlMulti[IOCardID.ID_1]?.AutomaticOff( e );
+                         break;
+
+                    case EastSideIOAssignment.indDigitalInput_MainDoorWingRight:
+                         LightControlMulti[ActualPluggedCardId].TurnSingleLight( EastSideIOAssignment.indDoorEntry_Window_Right, true );
+                         break;
                 }
             }
         }
@@ -289,14 +293,9 @@ namespace HomeAutomation
 
         public void AllCardsOutputsOff( )
         {
-            if( _SerialNumbers == null ||  BuildingMultiCard[IOCardID.ID_1] == null || BuildingMultiCard[IOCardID.ID_2] == null )
+             for( int i = 0; i < _SerialNumbers.Length; i++ )
             {
-                return;
-            }
-
-            for( int i = 0; i < _SerialNumbers.Length; i++ )
-            {
-                for( int j = 0; j < BuildingMultiCard[i].outputs.Count; j++ )
+                for( int j = 0; j < BuildingMultiCard[i]?.outputs.Count; j++ )
                 {
                     BuildingMultiCard[i].outputs[j] = false;
                 }
@@ -309,7 +308,7 @@ namespace HomeAutomation
             {
                 for( int i = 0; i < _SerialNumbers.Length; i++ )
                 {
-                    BuildingMultiCard[i].close();
+                    BuildingMultiCard[i]?.close();
                 }
             }
         }

@@ -579,6 +579,53 @@ namespace HomeAutomation
                 RestartAutomaticOffFallingEdge( e );
             }
 
+            void AutoOffSelect(InputChangeEventArgs e, params int[] values)
+            {
+                _values = values;
+                SelectDevicesOff = true;
+                bool readyForAutomaticOff = false;
+                // feeds a array with the selected permanent on devices - this devices will stay on when 
+                // others were comanded for turning off
+                if (!InitPermanentDeviceSelection)
+                {
+                    for (int i = 0; i <= _lastindex; i++)
+                    {
+                        SelectedPermanentOnDevice[i] = true;
+                    }
+                    for (int i = 0; i < _values.Length; i++)
+                    {
+                        if (_values[i] < GeneralConstants.NumberOfOutputsIOCard)
+                        {
+                            SelectedPermanentOnDevice[_values[i]] = false;
+                        }
+                    }
+                    InitPermanentDeviceSelection = true;
+                }
+
+                for (int i = 0; i <= _lastindex; i++)
+                {
+                    if (!SelectedPermanentOnDevice[i] && outputs_[i])
+                    {
+                        readyForAutomaticOff = true;
+                        break;
+                    }
+                }
+
+                if (readyForAutomaticOff)
+                {
+                    StartAutomaticOff( e );
+                }
+
+                if (LightsOffProceeded)
+                {
+                    CancelAutomaticOff( );
+                    LightsOffProceeded = false;
+                }
+
+                RestartAutomaticOff( e );
+
+            }
+
             // automatic off triggered via digital inputs with the option that devices which want to be turned off can be selected
             public void AutomaticOffSelect( InputChangeEventArgs e, params int[] values )
             {
@@ -587,49 +634,14 @@ namespace HomeAutomation
                 {
                     return;
                 }
-                _values                   = values;
-                SelectDevicesOff          = true;
-                bool readyForAutomaticOff = false;
-                // feeds a array with the selected permanent on devices - this devices will stay on when 
-                // others were comanded for turning off
-                if( !InitPermanentDeviceSelection )
-                {
-                    for( int i = 0; i <= _lastindex; i++ )
-                    {
-                        SelectedPermanentOnDevice[i] = true;
-                    }
-                    for( int i = 0; i < _values.Length; i++ )
-                    {
-                        if( _values[i] < GeneralConstants.NumberOfOutputsIOCard )
-                        {
-                            SelectedPermanentOnDevice[_values[i]] = false;
-                        }
-                    }
-                    InitPermanentDeviceSelection = true;
-                }
-
-                for( int i = 0; i <= _lastindex; i++ )
-                {
-                    if( !SelectedPermanentOnDevice[i] && outputs_[i] )
-                    {
-                        readyForAutomaticOff = true;
-                        break;
-                    }
-                }
-
-                if( readyForAutomaticOff )
-                {
-                    StartAutomaticOff( e );
-                }
-
-                if( LightsOffProceeded )
-                {
-                    CancelAutomaticOff( );
-                    LightsOffProceeded = false;
-                }
-
-                RestartAutomaticOff( e );
+                AutoOffSelect( e, values );
             }
+
+            public void AutomaticOffSelect(bool ignore, InputChangeEventArgs e, params int[] values )
+            {
+                AutoOffSelect( e, values );
+            }
+
 
             public void AutomaticOffSelect( bool command, params int[] values )
             {

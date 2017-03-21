@@ -252,7 +252,6 @@ namespace HomeAutomation
                         {
                             MyHomeLivingRoomEast.AllCardsOutputsOff( );
                             MyHomeLivingRoomEast.Close( ); 
-                            break;
                         }
                         break;
 
