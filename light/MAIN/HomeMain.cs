@@ -247,12 +247,10 @@ namespace HomeAutomation
                    case InfoOperationMode.LIVING_ROOM_EAST:
                         MyHomeLivingRoomEast = new livingroom_east( PhidgetSerialNumbers, serveripadress, serverPort, CompleteVersion );
                         MyHomeLivingRoomEast.SoftwareVersion = CompleteVersion;
-                        ComandInput( out AbortComand, InfoString.InfoTypeExit );
-                        if ( IsProgrammAborted(AbortComand) )
-                        {
-                            MyHomeLivingRoomEast.AllCardsOutputsOff( );
-                            MyHomeLivingRoomEast.Close( ); 
-                        }
+                        MyHomeLivingRoomEast.EDigitalInputChanged += RoomsIoHandling_EDigitalInputChanged;
+                        WaitUntilKeyPressed( );
+                        MyHomeLivingRoomEast.AllCardsOutputsOff( );
+                        MyHomeLivingRoomEast.Close( ); 
                         break;
 
                    case InfoOperationMode.LIVING_ROOM_WEST:
@@ -305,7 +303,24 @@ namespace HomeAutomation
 				                   Seperators.WhiteSpace                                        + 
 				                   e.Value.ToString() );
 			}
-		}
+            if( sender is livingroom_east )
+            {
+                Console.WriteLine( TimeUtil.GetTimestamp_( )                                    +
+                                   Seperators.WhiteSpace                                        +
+                                   InfoString.DeviceDigitalInput                                +
+                                   Seperators.WhiteSpace                                        +
+                                   InfoString.BraceOpen                                         +
+                                   e.Index.ToString( )                                          +
+                                   InfoString.BraceClose                                        +
+                                   Seperators.WhiteSpace                                        +
+                                   EastSideIOAssignment.GetInputDeviceName( e.Index )           +
+                                   Seperators.WhiteSpace                                        +
+                                   InfoString.Is                                                +
+                                   Seperators.WhiteSpace                                        +
+                                   e.Value.ToString( ) );
+
+            }
+        }
 
 		static void RoomIoHandling_EDigitalOutputChanged(object sender, BASIC_COMPONENTS.DigitalOutputEventargs e)
 		{
@@ -316,19 +331,19 @@ namespace HomeAutomation
 			
 			if( sender is Center_kitchen_living_room_NG )
 			{
-				Console.WriteLine( TimeUtil.GetTimestamp_()                                    + 
-				                  Seperators.WhiteSpace                                        + 
-				                  InfoString.DeviceDigialOutput                                +
-				                  Seperators.WhiteSpace                                        + 
-				                  InfoString.BraceOpen                                         +
-				                  e.Index.ToString()                                           +
-				                  InfoString.BraceClose                                        +
-				                  Seperators.WhiteSpace                                        + 
-				                  KitchenCenterIoDevices.GetOutputDeviceName(e.Index)          + 
-				                  Seperators.WhiteSpace                                        + 
-				                  InfoString.Is                                                + 
-				                  Seperators.WhiteSpace                                        + 
-				                  e.Value.ToString() );			
+				Console.WriteLine( TimeUtil.GetTimestamp_()                                     + 
+				                   Seperators.WhiteSpace                                        + 
+				                   InfoString.DeviceDigialOutput                                +
+				                   Seperators.WhiteSpace                                        + 
+				                   InfoString.BraceOpen                                         +
+				                   e.Index.ToString()                                           +
+				                   InfoString.BraceClose                                        +
+				                   Seperators.WhiteSpace                                        + 
+				                   KitchenCenterIoDevices.GetOutputDeviceName(e.Index)          + 
+				                   Seperators.WhiteSpace                                        + 
+				                   InfoString.Is                                                + 
+				                   Seperators.WhiteSpace                                        + 
+				                   e.Value.ToString() );			
 			}
 		}
 

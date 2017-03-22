@@ -7,6 +7,7 @@ using HomeAutomation.HardConfig;
 using HomeAutomation.rooms;
 using Phidgets;
 using Phidgets.Events;
+using BASIC_COMPONENTS;
 
 namespace HomeAutomation
 {
@@ -56,7 +57,14 @@ namespace HomeAutomation
 
         BasicClientComumnicator BasicClientCommunicator_;
 
-        int                                   NumberOfAttachedPhidgets;
+        public event DigitalInputChanged  EDigitalInputChanged;
+        public event DigitalOutputChanged EDigitalOutputChanged;
+
+        DigitalInputEventargs  _DigitalInputEventargs  = new DigitalInputEventargs( );
+        DigitalOutputEventargs _DigitalOutputEventargs = new DigitalOutputEventargs( );
+
+
+        int NumberOfAttachedPhidgets;
         int[]                                 _SerialNumbers;
         int                                   ActualPluggedCardId;
         // Testmode for phidget IO card
@@ -204,16 +212,25 @@ namespace HomeAutomation
         {
             string[] DatagrammSplitted = e.Split( ComandoString.Telegram.Seperator );
 
+            bool Command = false;
+
             switch (DatagrammSplitted[0])
             {
                 case ComandoString.TURN_ALL_LIGHTS_ON:
                 case ComandoString.TURN_GALLERY_DOWN_ON:
-                     LightControlMulti[IOCardID.ID_1]?.TurnSingleLight( EastSideIOAssignment.indSpotFrontSide1_4, true );
+                     Command = true;
+                     LightControlMulti[IOCardID.ID_1]?.TurnSingleLight( EastSideIOAssignment.indSpotFrontSide1_4, Command );
+                     LightControlMulti[IOCardID.ID_1]?.TurnSingleLight( EastSideIOAssignment.indSpotFrontSide5_8, Command );
+                     LightControlMulti[IOCardID.ID_1]?.TurnSingleLight( EastSideIOAssignment.indSpotBackSide1_3,  Command );
+                     LightControlMulti[IOCardID.ID_1]?.TurnSingleLight( EastSideIOAssignment.indSpotBackSide4_8,  Command );
                      break;
 
                 case ComandoString.TURN_ALL_LIGHTS_OFF:
                 case ComandoString.TURN_GALLERY_DOWN_OFF:
-                     LightControlMulti[IOCardID.ID_1]?.TurnSingleLight( EastSideIOAssignment.indSpotFrontSide1_4, false );
+                     LightControlMulti[IOCardID.ID_1]?.TurnSingleLight( EastSideIOAssignment.indSpotFrontSide1_4, Command );
+                     LightControlMulti[IOCardID.ID_1]?.TurnSingleLight( EastSideIOAssignment.indSpotFrontSide5_8, Command );
+                     LightControlMulti[IOCardID.ID_1]?.TurnSingleLight( EastSideIOAssignment.indSpotBackSide1_3,  Command );
+                     LightControlMulti[IOCardID.ID_1]?.TurnSingleLight( EastSideIOAssignment.indSpotBackSide4_8,  Command );
                      break;
             }
         }
@@ -293,7 +310,9 @@ namespace HomeAutomation
                 }
             }
 
-            if( LightControlMulti[ActualPluggedCardId] != null )
+            EastSideIOAssignment.SerialCard1 = Convert.ToUInt32(_SerialNumbers[0]);
+
+            if ( LightControlMulti[ActualPluggedCardId] != null )
             {
                 switch( e.Index )
                 {
@@ -310,7 +329,13 @@ namespace HomeAutomation
                          break;
                 }
             }
-        }
+
+            _DigitalInputEventargs.Index        = e.Index;
+            _DigitalInputEventargs.Value        = e.Value;
+            _DigitalInputEventargs.SerialNumber = EventComesFromCardWithSerial;
+             
+            EDigitalInputChanged?.Invoke( this, _DigitalInputEventargs );
+       }
         #endregion
 
         #region PUBLIC_METHODS
