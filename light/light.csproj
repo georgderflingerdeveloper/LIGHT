@@ -109,29 +109,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\..\..\LIGHT_COMMON_SOURCES\ClientComunicator.cs">
-      <Link>COMMUNICATION\ClientComunicator.cs</Link>
-    </Compile>
     <Compile Include="..\..\..\LIGHT_COMMON_SOURCES\HAIOInterface.cs">
       <Link>IO_CONTROL\HAIOInterface.cs</Link>
-    </Compile>
-    <Compile Include="..\..\..\LIGHT_COMMON_SOURCES\HAProtocoll.cs">
-      <Link>COMMUNICATION\HAProtocoll.cs</Link>
     </Compile>
     <Compile Include="..\..\..\LIGHT_COMMON_SOURCES\home_hardconfig.cs">
       <Link>HARDCONFIG\home_hardconfig.cs</Link>
     </Compile>
     <Compile Include="..\..\..\LIGHT_COMMON_SOURCES\Services.cs">
       <Link>APPLICATION_SERVICES\Services.cs</Link>
-    </Compile>
-    <Compile Include="..\..\..\LIGHT_COMMON_SOURCES\tcpclient.cs">
-      <Link>COMMUNICATION\tcpclient.cs</Link>
-    </Compile>
-    <Compile Include="..\..\..\LIGHT_COMMON_SOURCES\tcpserver.cs">
-      <Link>COMMUNICATION\tcpserver.cs</Link>
-    </Compile>
-    <Compile Include="..\..\..\LIGHT_COMMON_SOURCES\udp_basic.cs">
-      <Link>COMMUNICATION\udp_basic.cs</Link>
     </Compile>
     <Compile Include="BASIC_COMPONENTS\AnalogHeaterControl.cs" />
     <Compile Include="BASIC_CONTROL_LOGIC\togglebuttoncontroller.cs" />
@@ -201,6 +186,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="BASIC_CONTROL_LOGIC\LIGHTCONTROL\INTERFACES\" />
+    <Folder Include="COMMUNICATION\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
