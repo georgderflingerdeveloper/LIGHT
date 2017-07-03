@@ -45,3 +45,15 @@ $RECYCLE.BIN/
 Network Trash Folder
 Temporary Items
 .apdisk
+
+.sync.ffs_db
+
+.vs/LIGHT/v15/.suo
+
+*.json
+
+HOME_AUTOMATION_LEGACY/
+
+.vs/slnx.sqlite
+
+light/
