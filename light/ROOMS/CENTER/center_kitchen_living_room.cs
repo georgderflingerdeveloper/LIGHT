@@ -1017,7 +1017,7 @@ namespace HomeAutomation
 
             try
             {
-                UDPReceive_ = new UdpReceive( IPConfiguration.Port.PORT_LIGHT_CONTROL_COMMON );
+                UDPReceive_ = new UdpReceive( IPConfiguration.Port.PORT_UDP_WEB_FORWARDER_CENTER );
                 UDPReceive_.EDataReceived += UDPReceive__EDataReceived;
             }
             catch( Exception ex )
@@ -1410,12 +1410,18 @@ namespace HomeAutomation
         }
         #endregion
 
+        #region SWITCH_DEVICE_GROUPS
+        void TurnBoiler( bool commando )
+        {
+            base.outputs[CenterLivingRoomIODeviceIndices.indDigitalOutputBoiler] = commando;
+        }
+        #endregion 
+
         #region REMOTE_CONTROLLED_UDP
         decimal receivedTransactionCounter            = 0;
         decimal PreviousreceivedTransactionCounter    = 0;
 		const int ExpectedArrayElementsSignalTelegram = UdpTelegram.DelfaultExpectedArrayElementsSignalTelegram;
         const int ExpectedArrayElementsCommonCommand  = 1;
-
 
         void UDPReceive__EDataReceived( string e )
         {
@@ -1426,24 +1432,32 @@ namespace HomeAutomation
                 switch( DatagrammSplitted[0] )
                 {
                     case ComandoString.TURN_ALL_LIGHTS_ON:
-                    case ComandoString.TURN_ALL_KITCHEN_LIGHTS_ON:
                          Kitchen?.TurnAllDevices( true );
                          Kitchen?.AutomaticOff( true );
                          break;
 
                     case ComandoString.TURN_ALL_LIGHTS_OFF:
-                    case ComandoString.TURN_ALL_KITCHEN_LIGHTS_OFF:
                          Kitchen?.TurnAllDevices( false );
                          break;
+
+                    case ComandoString.TURN_ALL_KITCHEN_LIGHTS_OFF:
+                         break;
+
+                    case ComandoString.TURN_ALL_KITCHEN_LIGHTS_ON:
+                         break;
+
+                    case ComandoString.TURN_BOILER_ON:
+                         TurnBoiler( GeneralConstants.ON );
+                         break;
+
+                    case ComandoString.TURN_BOILER_OFF:
+                         TurnBoiler( GeneralConstants.OFF );
+                         break;
+
+                    
                 }
 
-                if( Attached )
-                {
-                    for (int i = KitchenCenterIoDevices.indDigitalOutputFirstKitchen; i <= KitchenCenterIoDevices.indLastKitchen; i++)
-                    {
-                        outputs[i] = _InternalDigitalOutputState[i];
-                    }
-                }
+ 
                 return;
             }
 

@@ -289,8 +289,8 @@ namespace HomeAutomation
 
             public static class Port
             {
-                public const int PORT_LIGHT_CONTROL_COMMON           = 5000; // TODO REFACTOR name and number
-                public const int PORT_LIGHT_CONTROL_LIVING_ROOM_EAST = 5000; // TODO REFACTOR name and number
+                public const int PORT_LIGHT_CONTROL_COMMON           = 5000; 
+                public const int PORT_LIGHT_CONTROL_LIVING_ROOM_EAST = 5000; 
                 public const int PORT_CLIENT                         = 6000;
 				public const int PORT_SERVER                         = 5000;
                 public const int PORT_CLIENT_INVITE                  = 8000;
