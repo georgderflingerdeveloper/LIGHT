@@ -109,26 +109,25 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\..\..\LIGHT_COMMON_SOURCES\HAIOInterface.cs">
-      <Link>IO_CONTROL\HAIOInterface.cs</Link>
-    </Compile>
-    <Compile Include="..\..\..\LIGHT_COMMON_SOURCES\home_hardconfig.cs">
-      <Link>HARDCONFIG\home_hardconfig.cs</Link>
-    </Compile>
-    <Compile Include="..\..\..\LIGHT_COMMON_SOURCES\Services.cs">
-      <Link>APPLICATION_SERVICES\Services.cs</Link>
-    </Compile>
     <Compile Include="BASIC_COMPONENTS\AnalogHeaterControl.cs" />
     <Compile Include="BASIC_CONTROL_LOGIC\togglebuttoncontroller.cs" />
+    <Compile Include="COMMUNICATION\ClientComunicator.cs" />
+    <Compile Include="COMMUNICATION\HAProtocoll.cs" />
+    <Compile Include="COMMUNICATION\tcpclient.cs" />
+    <Compile Include="COMMUNICATION\tcpserver.cs" />
+    <Compile Include="COMMUNICATION\udp_basic.cs" />
+    <Compile Include="HARDCONFIG\home_hardconfig.cs" />
     <Compile Include="HA_COMPONENTS\CentralControlledElement_NG.cs" />
     <Compile Include="HA_COMPONENTS\HeaterElementAnalog.cs" />
     <Compile Include="HA_COMPONENTS\HeaterElement_NG.cs" />
     <Compile Include="HA_COMPONENTS\LightControlKitchen_NG.cs" />
     <Compile Include="HA_COMPONENTS\LightControlOutside.cs" />
     <Compile Include="HA_SERVICES\schedulerhelpers.cs" />
+    <Compile Include="HA_SERVICES\Services.cs" />
     <Compile Include="IO_CONTROL\AnalogControl.cs" />
     <Compile Include="BASIC_CONTROL_LOGIC\devicestepcontrol.cs" />
     <Compile Include="BASIC_COMPONENTS\timerMockable.cs" />
+    <Compile Include="IO_CONTROL\HAIOInterface.cs" />
     <Compile Include="ROOMS\ANTEROOM_BATHROOM_WASHROOM\anteroom_bathroom_washroom.cs" />
     <Compile Include="HA_SERVICES\feed_home_scheduler.cs" />
     <Compile Include="APPLICATION_SERVICES\GlobalSuppressions.cs" />
@@ -186,7 +185,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="BASIC_CONTROL_LOGIC\LIGHTCONTROL\INTERFACES\" />
-    <Folder Include="COMMUNICATION\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

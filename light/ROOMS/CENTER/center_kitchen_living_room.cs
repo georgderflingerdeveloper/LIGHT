@@ -307,7 +307,7 @@ namespace HomeAutomation
         #endregion
     }
     
-    class Center_kitchen_living_room : CommonRoom, IDigitalIO
+    class Center_kitchen_living_room : CommonRoom
     {
         #region DECLARATION
         LightControlKitchen                  Kitchen;
@@ -868,7 +868,7 @@ namespace HomeAutomation
         #endregion
     }
 
-	class Center_kitchen_living_room_NG : CommonRoom, IDigitalIO, IIOHandlerInfo, ICenter 
+	class Center_kitchen_living_room_NG : CommonRoom, IIOHandlerInfo, ICenter 
     {
         #region DECLARATION
         LightControlKitchen_NG               Kitchen;

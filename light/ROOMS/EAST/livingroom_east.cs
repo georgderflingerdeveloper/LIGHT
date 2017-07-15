@@ -115,7 +115,7 @@ namespace HomeAutomation
                         = new LightControlEast( ParametersLightControlEASTSide.TimeDemandForAllOn,
                                                     ParametersLightControl.TimeDemandForSingleOff,
                                                     ParametersLightControlEASTSide.TimeDemandForAutomaticOffEastSide,
-                                                    EastSideIOAssignment.indSpotFrontSide1_4,
+                                                    EastSideIOAssignment.indDigitalOutput_SpotFrontSide_1_4,
                                                     EastSideIOAssignment.indWindowLEDEastUpside,
                                                     ref BuildingMultiCard[IOCardID.ID_1].outputs );
                 }
@@ -219,17 +219,17 @@ namespace HomeAutomation
                 case ComandoString.TURN_ALL_LIGHTS_ON:
                 case ComandoString.TURN_GALLERY_DOWN_ON:
                      Command = true;
-                     LightControlMulti[IOCardID.ID_1]?.TurnSingleLight( EastSideIOAssignment.indSpotFrontSide1_4, Command );
-                     LightControlMulti[IOCardID.ID_1]?.TurnSingleLight( EastSideIOAssignment.indSpotFrontSide5_8, Command );
-                     LightControlMulti[IOCardID.ID_1]?.TurnSingleLight( EastSideIOAssignment.indSpotBackSide1_3,  Command );
+                     LightControlMulti[IOCardID.ID_1]?.TurnSingleLight( EastSideIOAssignment.indDigitalOutput_SpotFrontSide_1_4, Command );
+                     LightControlMulti[IOCardID.ID_1]?.TurnSingleLight( EastSideIOAssignment.indDigitalOutput_SpotFrontSide_5_8, Command );
+                     LightControlMulti[IOCardID.ID_1]?.TurnSingleLight( EastSideIOAssignment.indDigitalOutput_SpotBackSide_1_3,  Command );
                      LightControlMulti[IOCardID.ID_1]?.TurnSingleLight( EastSideIOAssignment.indSpotBackSide4_8,  Command );
                      break;
 
                 case ComandoString.TURN_ALL_LIGHTS_OFF:
                 case ComandoString.TURN_GALLERY_DOWN_OFF:
-                     LightControlMulti[IOCardID.ID_1]?.TurnSingleLight( EastSideIOAssignment.indSpotFrontSide1_4, Command );
-                     LightControlMulti[IOCardID.ID_1]?.TurnSingleLight( EastSideIOAssignment.indSpotFrontSide5_8, Command );
-                     LightControlMulti[IOCardID.ID_1]?.TurnSingleLight( EastSideIOAssignment.indSpotBackSide1_3,  Command );
+                     LightControlMulti[IOCardID.ID_1]?.TurnSingleLight( EastSideIOAssignment.indDigitalOutput_SpotFrontSide_1_4, Command );
+                     LightControlMulti[IOCardID.ID_1]?.TurnSingleLight( EastSideIOAssignment.indDigitalOutput_SpotFrontSide_5_8, Command );
+                     LightControlMulti[IOCardID.ID_1]?.TurnSingleLight( EastSideIOAssignment.indDigitalOutput_SpotBackSide_1_3,  Command );
                      LightControlMulti[IOCardID.ID_1]?.TurnSingleLight( EastSideIOAssignment.indSpotBackSide4_8,  Command );
                      break;
             }
