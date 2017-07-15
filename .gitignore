@@ -57,3 +57,8 @@ HOME_AUTOMATION_LEGACY/
 .vs/slnx.sqlite
 
 light/
+*.exe
+light/bin/Debug/light.pdb
+light/obj/Debug/light.csprojResolveAssemblyReference.cache
+*.exe
+light/obj/Debug/light.pdb
