@@ -36,6 +36,7 @@ namespace HomeAutomation
         static ServerQueue                      TCPServer;
         static ClientTalktive_                  Client_;
         static UdpSend                          UDP_SendClientInvitation;
+        static UdpSend                          UDP_IoEcho;
         static UdpReceive                       UDP_ReceiveClientInvitation;
         static livingroom_east                  MyHomeLivingRoomEast;
         static livingroom_west                  MyHomeLivingRoomWest;
@@ -188,9 +189,18 @@ namespace HomeAutomation
             }
 			catch( Exception ex )
             {
-                
-				Services.TraceMessage_( ex.Message.ToString() );
+ 				Services.TraceMessage_( ex.Message.ToString() );
                 Console.WriteLine( TimeUtil.GetTimestamp() + Seperators.WhiteSpace + InfoString.FailedToLoadConfiguration );
+            }
+
+            try
+            {
+                UDP_IoEcho = new UdpSend( IPConfiguration.Address.IP_ADRESS_BROADCAST, IPConfiguration.Port.PORT_UDP_IO_ECHO );
+            }
+            catch( Exception ex )
+            {
+                Services.TraceMessage_( ex.Message.ToString( ) );
+                Console.WriteLine( TimeUtil.GetTimestamp( ) + Seperators.WhiteSpace + InfoString.FailedToEstablishUDPSend );
             }
 
             _homeAutomationCommand = setting_value;
@@ -302,7 +312,7 @@ namespace HomeAutomation
 				                   InfoString.Is                                                + 
 				                   Seperators.WhiteSpace                                        + 
 				                   e.Value.ToString() );
-			}
+ 			}
             if( sender is livingroom_east )
             {
                 Console.WriteLine( TimeUtil.GetTimestamp_( )                                    +
@@ -343,8 +353,26 @@ namespace HomeAutomation
 				                   Seperators.WhiteSpace                                        + 
 				                   InfoString.Is                                                + 
 				                   Seperators.WhiteSpace                                        + 
-				                   e.Value.ToString() );			
-			}
+				                   e.Value.ToString() );
+
+                string DeviceName = KitchenCenterIoDevices.GetOutputDeviceName(e.Index);
+                string TranslatedDeviceName;
+                HADictionaries.DeviceDictionaryTranslatorForNetworkCommands.TryGetValue( DeviceName, out TranslatedDeviceName );
+                string Echo;
+
+                if ( e.Value )
+                {
+                    Echo = TranslatedDeviceName + "-" + "IS" + "-" + "ON";
+                }
+                else
+                {
+                    Echo = TranslatedDeviceName + "-" + "IS" + "-" + "OFF";
+                }
+
+                Console.WriteLine( TimeUtil.GetTimestamp_( ) + " Send UDP echo " + Echo );
+
+                UDP_IoEcho.SendString( Echo );
+            }
 		}
 
 		static void Timer_SendPeriodicDataToClient_Elapsed( object sender, ElapsedEventArgs e )

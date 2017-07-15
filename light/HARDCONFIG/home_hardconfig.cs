@@ -131,6 +131,7 @@ namespace HomeAutomation
             public const string FailedToEstablishClient                                =  "Failed to establish client! ";
             public const string FailedToEstablishUDPBroadcast                          =  "Failed to establish UDP invitation Broadcast! ";
             public const string FailedToEstablishUDPReceive                            =  "Failed to establisch UDP receive!";
+            public const string FailedToEstablishUDPSend                               =  "Failed to establisch UDP send!";
             public const string FailedToEstablishServer                                =  "Failed to establish server! ";
             public const string ReceiveInvitationNotPossible                           =  "Receive invitation data is not possible! reason:";
             public const string GreetingToServer                                       =  "Hello Server - This is ";
