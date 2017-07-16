@@ -1415,6 +1415,13 @@ namespace HomeAutomation
         {
             base.outputs[CenterLivingRoomIODeviceIndices.indDigitalOutputBoiler] = commando;
         }
+
+        void TurnFrontLights( bool commando )
+        {
+            base.outputs[KitchenCenterIoDevices.indDigitalOutputFrontLight_1] = commando; 
+            base.outputs[KitchenCenterIoDevices.indDigitalOutputFrontLight_2] = commando; 
+            base.outputs[KitchenCenterIoDevices.indDigitalOutputFrontLight_3] = commando; 
+        }
         #endregion 
 
         #region REMOTE_CONTROLLED_UDP
