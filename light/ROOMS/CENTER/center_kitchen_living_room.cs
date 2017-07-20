@@ -1480,6 +1480,14 @@ namespace HomeAutomation
                     case ComandoString.TURN_FRONT_LIGHTS_ON:
                          TurnFrontLights( GeneralConstants.ON );
                          break;
+
+                    case ComandoString.TURN_LIGHT_OUTSIDE_ON:
+                         Outside.TurnAllDevices( GeneralConstants.ON );
+                         break;
+
+                    case ComandoString.TURN_LIGHT_OUTSIDE_OFF:
+                         Outside.TurnAllDevices( GeneralConstants.OFF );
+                         break;
                 }
 
 
