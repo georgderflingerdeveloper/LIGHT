@@ -1432,6 +1432,11 @@ namespace HomeAutomation
             base.outputs[KitchenCenterIoDevices.indDigitalOutputFumeHood] = commando;
             base.outputs[KitchenCenterIoDevices.indDigitalOutputSlot] = commando;
         }
+
+        void TurnWindowLedgeEast( bool command )
+        {
+            base.outputs[KitchenCenterIoDevices.indDigitalOutputWindowBoardEastDown] = command;
+        }
         #endregion 
 
         #region REMOTE_CONTROLLED_UDP
@@ -1488,6 +1493,15 @@ namespace HomeAutomation
                     case ComandoString.TURN_LIGHT_OUTSIDE_OFF:
                          Outside.TurnAllDevices( GeneralConstants.OFF );
                          break;
+
+                    case ComandoString.TURN_WINDOW_LEDGE_EAST_ON:
+                         TurnWindowLedgeEast( GeneralConstants.ON );
+                         break;
+
+                    case ComandoString.TURN_WINDOW_LEDGE_EAST_OFF:
+                         TurnWindowLedgeEast( GeneralConstants.OFF );
+                         break;
+
                 }
 
 
