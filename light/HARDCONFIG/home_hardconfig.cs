@@ -375,7 +375,10 @@ namespace HomeAutomation
             public const string TURN_FRONT_LIGHTS_ON        = "TURN-FRONT-LIGHTS-ON";
             public const string TURN_FRONT_LIGHTS_OFF       = "TURN-FRONT-LIGHTS-OFF";
             public const string TURN_WINDOW_LEDGE_EAST_ON   = "TURN-WINDOW-LEDGE-EAST-ON";
-            public const string TURN_WINDOW_LEDGE_EAST_OFF  = "TURN-WINDOW-LEDGE-EAST-OFF";   
+            public const string TURN_WINDOW_LEDGE_EAST_OFF  = "TURN-WINDOW-LEDGE-EAST-OFF";
+            public const string TURN_LIGHT_OUTSIDE_ON       = "TURN-LIGHT-OUTSIDE-ON";
+            public const string TURN_LIGHT_OUTSIDE_OFF      = "TURN-LIGHT-OUTSIDE-OFF";
+
 
 
             static Dictionary<uint, string> ComandoDictionary = new Dictionary<uint, string>
