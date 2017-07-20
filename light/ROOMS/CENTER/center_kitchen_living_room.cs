@@ -1422,6 +1422,16 @@ namespace HomeAutomation
             base.outputs[KitchenCenterIoDevices.indDigitalOutputFrontLight_2] = commando; 
             base.outputs[KitchenCenterIoDevices.indDigitalOutputFrontLight_3] = commando; 
         }
+
+        void TurnKitchenLights( bool commando )
+        {
+            base.outputs[KitchenCenterIoDevices.indDigitalOutputFirstKitchen] = commando;
+            base.outputs[KitchenCenterIoDevices.indDigitalOutputFrontLight_1] = commando;
+            base.outputs[KitchenCenterIoDevices.indDigitalOutputFrontLight_2] = commando;
+            base.outputs[KitchenCenterIoDevices.indDigitalOutputFrontLight_3] = commando;
+            base.outputs[KitchenCenterIoDevices.indDigitalOutputFumeHood] = commando;
+            base.outputs[KitchenCenterIoDevices.indDigitalOutputSlot] = commando;
+        }
         #endregion 
 
         #region REMOTE_CONTROLLED_UDP
@@ -1448,9 +1458,11 @@ namespace HomeAutomation
                          break;
 
                     case ComandoString.TURN_ALL_KITCHEN_LIGHTS_OFF:
+                         TurnKitchenLights( GeneralConstants.OFF );
                          break;
 
                     case ComandoString.TURN_ALL_KITCHEN_LIGHTS_ON:
+                         TurnKitchenLights( GeneralConstants.ON );
                          break;
 
                     case ComandoString.TURN_BOILER_ON:
@@ -1461,10 +1473,16 @@ namespace HomeAutomation
                          TurnBoiler( GeneralConstants.OFF );
                          break;
 
-                    
+                    case ComandoString.TURN_FRONT_LIGHTS_OFF:
+                         TurnFrontLights( GeneralConstants.OFF );
+                         break;
+
+                    case ComandoString.TURN_FRONT_LIGHTS_ON:
+                         TurnFrontLights( GeneralConstants.ON );
+                         break;
                 }
 
- 
+
                 return;
             }
 
