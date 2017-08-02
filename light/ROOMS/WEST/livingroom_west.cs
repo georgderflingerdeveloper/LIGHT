@@ -5,6 +5,7 @@ using HomeAutomation.HardConfig;
 using HomeAutomation.rooms;
 using Communication.UDP;
 using SystemServices;
+using Communication.HAProtocoll;
 
 namespace HomeAutomation
 {
@@ -13,7 +14,7 @@ namespace HomeAutomation
         int _startindex;
         int _lastindex;
         bool turnedDeviceGroupManuallyOff = false;
-        bool turnedAutoOff = false;
+        bool turnedAutoOff                = false;
 
         enum LivingRooWestStep
         {
@@ -178,10 +179,13 @@ namespace HomeAutomation
             LastLivingRoomWest_ = LivingRoomWestStep_;
         }
     }
+
     class livingroom_west : CommonRoom
     {
         LightControlLivingRoomWest LightControlLivingRoomWest_;
         UdpSend                    UdpSend_;
+        UdpReceive                 UDPReceive_;
+
 
         public livingroom_west( )
             : base( )
@@ -199,8 +203,10 @@ namespace HomeAutomation
                 LightControlLivingRoomWest_.StartAliveSignal( );
                 try
                 {
-                    UdpSend_ = new UdpSend( IPConfiguration.Address.IP_ADRESS_BROADCAST, IPConfiguration.Port.PORT_UDP_LIVINGROOM_WEST );
-                }
+                    UdpSend_    = new UdpSend( IPConfiguration.Address.IP_ADRESS_BROADCAST, IPConfiguration.Port.PORT_UDP_LIVINGROOM_WEST );
+                    UDPReceive_ = new UdpReceive( IPConfiguration.Port.PORT_UDP_WEB_FORWARDER_CENTER );
+                    UDPReceive_.EDataReceived += UDPReceive__EDataReceived;
+               }
                 catch( Exception ex )
                 {
                     Services.TraceMessage_( ex.Message );
@@ -208,6 +214,67 @@ namespace HomeAutomation
                 }
             }
         }
+
+        void TurnWindowLedgeEast( bool command )
+        {
+            base.outputs[LivingRoomWestIOAssignment.LivWestDigOutputs.indDigitalOutLightWindowBoardLeft] = command;
+            base.outputs[LivingRoomWestIOAssignment.LivWestDigOutputs.indDigitalOutLightWindowBoardRight] = command;
+        }
+
+        void TurnAllLights( bool command )
+        {
+
+        }
+
+        #region REMOTE_CONTROLLED_UDP
+        decimal receivedTransactionCounter            = 0;
+        decimal PreviousreceivedTransactionCounter    = 0;
+        const int ExpectedArrayElementsSignalTelegram = UdpTelegram.DelfaultExpectedArrayElementsSignalTelegram;
+        const int ExpectedArrayElementsCommonCommand  = 1;
+
+        void UDPReceive__EDataReceived( string e )
+        {
+            string[] DatagrammSplitted = e.Split( ComandoString.Telegram.Seperator );
+
+            if ( DatagrammSplitted.Length == ExpectedArrayElementsCommonCommand )
+            {
+                switch ( DatagrammSplitted[0] )
+                {
+                    case ComandoString.TURN_ALL_LIGHTS_ON:
+                         break;
+
+                    case ComandoString.TURN_ALL_LIGHTS_OFF:
+                         break;
+
+                }
+
+
+                return;
+            }
+
+            if ( DatagrammSplitted.Length != ExpectedArrayElementsSignalTelegram )
+            {
+                Services.TraceMessage_( "Wrong datagramm received" );
+                return;
+            }
+
+            string transactioncounter = DatagrammSplitted[ComandoString.Telegram.IndexTransactionCounter];
+
+            receivedTransactionCounter = Convert.ToDecimal( transactioncounter );
+
+            // basic check wether counter counts up
+            if ( receivedTransactionCounter > PreviousreceivedTransactionCounter )
+            {
+                PreviousreceivedTransactionCounter = receivedTransactionCounter;
+            }
+            else
+            {
+                return;
+            }
+
+
+        }
+        #endregion
 
         protected override void TurnNextLightOn_( InputChangeEventArgs e )
         {
