@@ -553,6 +553,16 @@ namespace HomeAutomation
                 RestartAutomaticOff( e );
             }
 
+            public void DelayedOff(  )
+            {
+                StartAutomaticOff( false );
+            }
+
+            public void ResetDelayedOff( )
+            {
+                StopAutomaticOfftimer( );
+            }
+
             public new void AutomaticOff( bool value )
             {
                 SelectDevicesOff = false;

@@ -183,9 +183,8 @@ namespace HomeAutomation
     class livingroom_west : CommonRoom
     {
         LightControlLivingRoomWest LightControlLivingRoomWest_;
-        UdpSend                    UdpSend_;
+        UdpSend                    UdpSend_, UdpSendEcho;
         UdpReceive                 UDPReceive_;
-
 
         public livingroom_west( )
             : base( )
@@ -195,7 +194,7 @@ namespace HomeAutomation
                 LightControlLivingRoomWest_ 
                     = new LightControlLivingRoomWest( ParametersLightControlLivingRoomWest.TimeDemandForAllOnWest,
                                                       ParametersLightControl.TimeDemandForSingleOff,
-                                                      ParametersLightControlLivingRoomWest.TimeDemandForAutomaticOffWest,
+                                                      3000,//ParametersLightControlLivingRoomWest.TimeDemandForAutomaticOffWest,
                                                       LivingRoomWestIOAssignment.indFirstLight,
                                                       LivingRoomWestIOAssignment.indLastLight,
                                                       ref base.outputs );
@@ -204,6 +203,7 @@ namespace HomeAutomation
                 try
                 {
                     UdpSend_    = new UdpSend( IPConfiguration.Address.IP_ADRESS_BROADCAST, IPConfiguration.Port.PORT_UDP_LIVINGROOM_WEST );
+                    UdpSendEcho = new UdpSend( "127.0.0.255"/* IPConfiguration.Address.IP_ADRESS_BROADCAST */, IPConfiguration.Port.PORT_UDP_IO_ECHO );
                     UDPReceive_ = new UdpReceive( IPConfiguration.Port.PORT_UDP_WEB_FORWARDER_CENTER );
                     UDPReceive_.EDataReceived += UDPReceive__EDataReceived;
                }
@@ -213,17 +213,43 @@ namespace HomeAutomation
                     LightControlLivingRoomWest_.StopAliveSignal( );
                 }
             }
+            LightControlLivingRoomWest_.AutomaticOff_ += LightControlLivingRoomWest__AutomaticOff_;
         }
 
-        void TurnWindowLedgeEast( bool command )
+        private void LightControlLivingRoomWest__AutomaticOff_( object sender )
         {
-            base.outputs[LivingRoomWestIOAssignment.LivWestDigOutputs.indDigitalOutLightWindowBoardLeft] = command;
+            LightControlLivingRoomWest_.ResetDelayedOff( );
+            UdpSendEcho.SendString( DeviceStatus.LIGHTS_LIVING_ROOM_WEST_ARE_OFF );
+        }
+
+        void TurnWindowLedgeWest( bool command )
+        {
+            base.outputs[LivingRoomWestIOAssignment.LivWestDigOutputs.indDigitalOutLightWindowBoardLeft]  = command;
             base.outputs[LivingRoomWestIOAssignment.LivWestDigOutputs.indDigitalOutLightWindowBoardRight] = command;
+        }
+
+        void TurLightKitchenBoardDownLights( bool command )
+        {
+            base.outputs[LivingRoomWestIOAssignment.LivWestDigOutputs.indDigitalOutLightKitchenDown_1] = command;
+            base.outputs[LivingRoomWestIOAssignment.LivWestDigOutputs.indDigitalOutLightKitchenDown_2] = command;
+        }
+
+        void TurnLightWindowDoorEntryLeft( bool command )
+        {
+            base.outputs[LivingRoomWestIOAssignment.LivWestDigOutputs.indDigitalOutLightWindowDoorEntryLeft] = command;
+        }
+
+        void TurnLightWall( bool command )
+        {
+            base.outputs[LivingRoomWestIOAssignment.LivWestDigOutputs.indDigitalOutLightWall] = command;
         }
 
         void TurnAllLights( bool command )
         {
-
+            TurnWindowLedgeWest( command );
+            TurLightKitchenBoardDownLights( command );
+            TurnLightWindowDoorEntryLeft( command );
+            TurnLightWall( command );
         }
 
         #region REMOTE_CONTROLLED_UDP
@@ -241,14 +267,16 @@ namespace HomeAutomation
                 switch ( DatagrammSplitted[0] )
                 {
                     case ComandoString.TURN_ALL_LIGHTS_ON:
+                    case ComandoString.TURN_ALL_LIGHTS_WEST_ON:
+                         TurnAllLights( GeneralConstants.ON );
+                         LightControlLivingRoomWest_.DelayedOff( );
                          break;
 
                     case ComandoString.TURN_ALL_LIGHTS_OFF:
+                    case ComandoString.TURN_ALL_LIGHTS_WEST_OFF:
+                         TurnAllLights( GeneralConstants.OFF );
                          break;
-
                 }
-
-
                 return;
             }
 

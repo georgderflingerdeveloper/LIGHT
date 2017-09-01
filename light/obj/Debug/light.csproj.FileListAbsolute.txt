@@ -169,3 +169,4 @@ C:\PROJECT\LIGHT\light\bin\Debug\Microsoft.Practices.Unity.RegistrationByConvent
 C:\PROJECT\LIGHT\light\obj\Debug\light.csprojResolveAssemblyReference.cache
 C:\PROJECT\LIGHT\light\obj\Debug\light.exe
 C:\PROJECT\LIGHT\light\obj\Debug\light.pdb
+C:\PROJECT\LIGHT\light\obj\Debug\light.csproj.CoreCompileInputs.cache

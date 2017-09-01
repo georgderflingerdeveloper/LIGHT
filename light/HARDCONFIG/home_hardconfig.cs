@@ -356,6 +356,14 @@ namespace HomeAutomation
         }
         #endregion
 
+        #region STATUS_STRINGS
+        public static class DeviceStatus
+        {
+            public const string LIGHTS_LIVING_ROOM_WEST_ARE_OFF = "LIGHTS-LIVING-ROOM-WEST-ARE-OFF";
+            public const string LIGHTS_LIVING_ROOM_WEST_ARE_ON  = "LIGHTS-LIVING-ROOM-WEST-ARE-ON";
+        }
+        #endregion
+
         #region COMAND_STRINGS
         public static class ComandoString
         {
@@ -376,6 +384,12 @@ namespace HomeAutomation
             public const string TURN_FRONT_LIGHTS_OFF       = "TURN-FRONT-LIGHTS-OFF";
             public const string TURN_WINDOW_LEDGE_EAST_ON   = "TURN-WINDOW-LEDGE-EAST-ON";
             public const string TURN_WINDOW_LEDGE_EAST_OFF  = "TURN-WINDOW-LEDGE-EAST-OFF";
+            public const string TURN_WINDOW_LEDGE_WEST_ON   = "TURN-WINDOW-LEDGE-WEST-ON";
+            public const string TURN_WINDOW_LEDGE_WEST_OFF  = "TURN-WINDOW-LEDGE-WEST-OFF";
+            public const string TURN_ALL_LIGHTS_WEST_OFF    = "TURN-ALL-LIGHTS-WEST-OFF";
+            public const string TURN_ALL_LIGHTS_WEST_ON     = "TURN-ALL-LIGHTS-WEST-ON";
+
+
             public const string TURN_LIGHT_OUTSIDE_ON       = "TURN-LIGHT-OUTSIDE-ON";
             public const string TURN_LIGHT_OUTSIDE_OFF      = "TURN-LIGHT-OUTSIDE-OFF";
 
