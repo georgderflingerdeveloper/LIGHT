@@ -203,7 +203,7 @@ namespace HomeAutomation
                 try
                 {
                     UdpSend_    = new UdpSend( IPConfiguration.Address.IP_ADRESS_BROADCAST, IPConfiguration.Port.PORT_UDP_LIVINGROOM_WEST );
-                    UdpSendEcho = new UdpSend( "127.0.0.255"/* IPConfiguration.Address.IP_ADRESS_BROADCAST */, IPConfiguration.Port.PORT_UDP_IO_ECHO );
+                    UdpSendEcho = new UdpSend( "127.0.0.255"/* IPConfiguration.Address.IP_ADRESS_BROADCAST */, IPConfiguration.Port.PORT_UDP_IO_ECHO ); // use this adress when working under localhost: "127.0.0.255"
                     UDPReceive_ = new UdpReceive( IPConfiguration.Port.PORT_UDP_WEB_FORWARDER_CENTER );
                     UDPReceive_.EDataReceived += UDPReceive__EDataReceived;
                }
@@ -228,7 +228,7 @@ namespace HomeAutomation
             base.outputs[LivingRoomWestIOAssignment.LivWestDigOutputs.indDigitalOutLightWindowBoardRight] = command;
         }
 
-        void TurLightKitchenBoardDownLights( bool command )
+        void TurnLightKitchenBoardDownLights( bool command )
         {
             base.outputs[LivingRoomWestIOAssignment.LivWestDigOutputs.indDigitalOutLightKitchenDown_1] = command;
             base.outputs[LivingRoomWestIOAssignment.LivWestDigOutputs.indDigitalOutLightKitchenDown_2] = command;
@@ -247,7 +247,7 @@ namespace HomeAutomation
         void TurnAllLights( bool command )
         {
             TurnWindowLedgeWest( command );
-            TurLightKitchenBoardDownLights( command );
+            TurnLightKitchenBoardDownLights( command );
             TurnLightWindowDoorEntryLeft( command );
             TurnLightWall( command );
         }
@@ -276,6 +276,39 @@ namespace HomeAutomation
                     case ComandoString.TURN_ALL_LIGHTS_WEST_OFF:
                          TurnAllLights( GeneralConstants.OFF );
                          break;
+
+                    case ComandoString.TURN_WINDOW_LEDGE_WEST_ON:
+                         TurnWindowLedgeWest( GeneralConstants.ON );
+                         break;
+
+                    case ComandoString.TURN_WINDOW_LEDGE_WEST_OFF:
+                         TurnWindowLedgeWest( GeneralConstants.OFF );
+                         break;
+
+                    case ComandoString.TURN_KITCHEN_BOARD_DOWN_LIGHTS_ON:
+                         TurnLightKitchenBoardDownLights( GeneralConstants.ON );
+                         break;
+
+                    case ComandoString.TURN_KITCHEN_BOARD_DOWN_LIGHTS_OFF:
+                         TurnLightKitchenBoardDownLights( GeneralConstants.OFF );
+                         break;
+
+                    case ComandoString.TURN_WINDOW_LIGHT_DOOR_ENTRY_LEFT_ON:
+                         TurnLightWindowDoorEntryLeft( GeneralConstants.ON );
+                         break;
+
+                    case ComandoString.TURN_WINDOW_LIGHT_DOOR_ENTRY_LEFT_OFF:
+                         TurnLightWindowDoorEntryLeft( GeneralConstants.OFF );
+                         break;
+
+                    case ComandoString.TURN_LIGHTS_WALL_WEST_ON:
+                         TurnLightWall( GeneralConstants.ON );
+                         break;
+
+                    case ComandoString.TURN_LIGHTS_WALL_WEST_OFF:
+                         TurnLightWall( GeneralConstants.OFF );
+                         break;
+
                 }
                 return;
             }

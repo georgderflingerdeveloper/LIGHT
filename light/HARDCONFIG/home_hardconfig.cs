@@ -367,27 +367,33 @@ namespace HomeAutomation
         #region COMAND_STRINGS
         public static class ComandoString
         {
-            public const string NONE                        = "NONE";
-            public const string ON                          = "ON";
-            public const string OFF                         = "OFF";
-            public const string EXIT                        = "EXIT";
-            public const string BLINK                       = "BLINK";
-            public const string TURN_ALL_LIGHTS_OFF         = "TURN-ALL-LIGHTS-OFF";
-            public const string TURN_ALL_LIGHTS_ON          = "TURN-ALL-LIGHTS-ON";
-            public const string TURN_ALL_KITCHEN_LIGHTS_OFF = "TURN-ALL-KITCHEN-LIGHTS-OFF";
-            public const string TURN_ALL_KITCHEN_LIGHTS_ON  = "TURN-ALL-KITCHEN-LIGHTS-ON";
-            public const string TURN_GALLERY_DOWN_ON        = "TURN-GALLERY-DOWN-ON";
-            public const string TURN_GALLERY_DOWN_OFF       = "TURN-GALLERY-DOWN-OFF";
-            public const string TURN_BOILER_ON              = "TURN-BOILER-ON";
-            public const string TURN_BOILER_OFF             = "TURN-BOILER-OFF";
-            public const string TURN_FRONT_LIGHTS_ON        = "TURN-FRONT-LIGHTS-ON";
-            public const string TURN_FRONT_LIGHTS_OFF       = "TURN-FRONT-LIGHTS-OFF";
-            public const string TURN_WINDOW_LEDGE_EAST_ON   = "TURN-WINDOW-LEDGE-EAST-ON";
-            public const string TURN_WINDOW_LEDGE_EAST_OFF  = "TURN-WINDOW-LEDGE-EAST-OFF";
-            public const string TURN_WINDOW_LEDGE_WEST_ON   = "TURN-WINDOW-LEDGE-WEST-ON";
-            public const string TURN_WINDOW_LEDGE_WEST_OFF  = "TURN-WINDOW-LEDGE-WEST-OFF";
-            public const string TURN_ALL_LIGHTS_WEST_OFF    = "TURN-ALL-LIGHTS-WEST-OFF";
-            public const string TURN_ALL_LIGHTS_WEST_ON     = "TURN-ALL-LIGHTS-WEST-ON";
+            public const string NONE                                       = "NONE";
+            public const string ON                                         = "ON";
+            public const string OFF                                        = "OFF";
+            public const string EXIT                                       = "EXIT";
+            public const string BLINK                                      = "BLINK";
+            public const string TURN_ALL_LIGHTS_OFF                        = "TURN-ALL-LIGHTS-OFF";
+            public const string TURN_ALL_LIGHTS_ON                         = "TURN-ALL-LIGHTS-ON";
+            public const string TURN_ALL_KITCHEN_LIGHTS_OFF                = "TURN-ALL-KITCHEN-LIGHTS-OFF";
+            public const string TURN_ALL_KITCHEN_LIGHTS_ON                 = "TURN-ALL-KITCHEN-LIGHTS-ON";
+            public const string TURN_GALLERY_DOWN_ON                       = "TURN-GALLERY-DOWN-ON";
+            public const string TURN_GALLERY_DOWN_OFF                      = "TURN-GALLERY-DOWN-OFF";
+            public const string TURN_BOILER_ON                             = "TURN-BOILER-ON";
+            public const string TURN_BOILER_OFF                            = "TURN-BOILER-OFF";
+            public const string TURN_FRONT_LIGHTS_ON                       = "TURN-FRONT-LIGHTS-ON";
+            public const string TURN_FRONT_LIGHTS_OFF                      = "TURN-FRONT-LIGHTS-OFF";              // Vorderlichter Küche über der Arbeitsfläche
+            public const string TURN_WINDOW_LEDGE_EAST_ON                  = "TURN-WINDOW-LEDGE-EAST-ON";
+            public const string TURN_WINDOW_LEDGE_EAST_OFF                 = "TURN-WINDOW-LEDGE-EAST-OFF";         // Fensterbank ost seitig
+            public const string TURN_WINDOW_LEDGE_WEST_ON                  = "TURN-WINDOW-LEDGE-WEST-ON";
+            public const string TURN_WINDOW_LEDGE_WEST_OFF                 = "TURN-WINDOW-LEDGE-WEST-OFF";         // Fensterbank westseitig
+            public const string TURN_ALL_LIGHTS_WEST_OFF                   = "TURN-ALL-LIGHTS-WEST-OFF";
+            public const string TURN_ALL_LIGHTS_WEST_ON                    = "TURN-ALL-LIGHTS-WEST-ON";
+            public const string TURN_KITCHEN_BOARD_DOWN_LIGHTS_ON          = "TURN-KITCHEN-BOARD-DOWN-LIGHTS-ON";      // Lichter unter der Blende Arbeitsfläche
+            public const string TURN_KITCHEN_BOARD_DOWN_LIGHTS_OFF         = "TURN-KITCHEN-BOARD-DOWN-LIGHTS-OFF";     // Lichter unter der Blende Arbeitsfläche
+            public const string TURN_WINDOW_LIGHT_DOOR_ENTRY_LEFT_ON       = "TURN-WINDOW-LIGHT-DOOR-ENTRY-LEFT-ON";   // Lichtbalken neben der Eingangstüre beim grossen Tür Fenster links
+            public const string TURN_WINDOW_LIGHT_DOOR_ENTRY_LEFT_OFF      = "TURN-WINDOW-LIGHT-DOOR-ENTRY-LEFT-OFF";  // Lichtbalken neben der Eingangstüre beim grossen Tür Fenster links
+            public const string TURN_LIGHTS_WALL_WEST_ON                   = "TURN-LIGHTS-WALL-WEST-ON";               // Lichterleiste auf der Wand West Seitig
+            public const string TURN_LIGHTS_WALL_WEST_OFF                  = "TURN-LIGHTS-WALL-WEST-OFF";              // Lichterleiste auf der Wand West Seitig
 
 
             public const string TURN_LIGHT_OUTSIDE_ON       = "TURN-LIGHT-OUTSIDE-ON";

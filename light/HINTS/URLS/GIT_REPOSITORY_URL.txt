@@ -1,1 +1,3 @@
 ﻿https://github.com/georgderflingerdeveloper/LIGHT/commits/master/light/
+USERNAME: georgderflingerdeveloper
+PASSWORD: strong standardpassword
