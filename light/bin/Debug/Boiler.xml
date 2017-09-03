@@ -4,7 +4,7 @@
     <Device>Boiler</Device>
     <JobId>1</JobId>
     <Command>Start</Command>
-    <Starttime>22:00:00</Starttime>
+    <Starttime>20:27:00</Starttime>
     <Stoptime>07:00:00</Stoptime>
     <Days>Mon,Tue,Wed,Thu,Fri,Sat,Sun</Days>
   </FeedData>

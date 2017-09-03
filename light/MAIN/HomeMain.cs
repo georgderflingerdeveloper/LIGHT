@@ -299,7 +299,13 @@ namespace HomeAutomation
 
 			if( sender is Center_kitchen_living_room_NG )
 			{
-				Console.WriteLine( TimeUtil.GetTimestamp_()                                     + 
+                // no need for output
+                if ( e.Index == CenterLivingRoomIODeviceIndices.indDigitalInputPowerMeter )
+                {
+                    return;
+                }
+
+                Console.WriteLine( TimeUtil.GetTimestamp_()                                     + 
 				                   Seperators.WhiteSpace                                        + 
 				                   InfoString.DeviceDigitalInput                                +
 				                   Seperators.WhiteSpace                                        + 
@@ -341,6 +347,7 @@ namespace HomeAutomation
 			
 			if( sender is Center_kitchen_living_room_NG )
 			{
+
 				Console.WriteLine( TimeUtil.GetTimestamp_()                                     + 
 				                   Seperators.WhiteSpace                                        + 
 				                   InfoString.DeviceDigialOutput                                +
@@ -357,21 +364,23 @@ namespace HomeAutomation
 
                 string DeviceName = KitchenCenterIoDevices.GetOutputDeviceName(e.Index);
                 string TranslatedDeviceName;
-                HADictionaries.DeviceDictionaryTranslatorForNetworkCommands.TryGetValue( DeviceName, out TranslatedDeviceName );
-                string Echo;
 
-                if ( e.Value )
+                if( HADictionaries.DeviceDictionaryTranslatorForNetworkCommands.TryGetValue( DeviceName, out TranslatedDeviceName ) )
                 {
-                    Echo = TranslatedDeviceName + "-" + "IS" + "-" + "ON";
-                }
-                else
-                {
-                    Echo = TranslatedDeviceName + "-" + "IS" + "-" + "OFF";
-                }
+                    string Echo;
+                    if ( e.Value )
+                    {
+                        Echo = TranslatedDeviceName + "-" + "IS" + "-" + "ON";
+                    }
+                    else
+                    {
+                        Echo = TranslatedDeviceName + "-" + "IS" + "-" + "OFF";
+                    }
 
-                Console.WriteLine( TimeUtil.GetTimestamp_( ) + " Send UDP echo " + Echo );
+                    Console.WriteLine( TimeUtil.GetTimestamp_( ) + " Send UDP echo " + Echo );
+                    UDP_IoEcho.SendString( Echo );
+               }
 
-                UDP_IoEcho.SendString( Echo );
             }
 		}
 

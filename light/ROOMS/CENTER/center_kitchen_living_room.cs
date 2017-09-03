@@ -1079,9 +1079,7 @@ namespace HomeAutomation
 
         void ControlScheduledDevice( Quartz.IJobExecutionContext context, decimal counts, string device )
         {
-            int index = 0;
-            if( context.JobDetail.Key.Name.Contains( device ) )
-            {
+                int index = 0;
                 HADictionaries.DeviceDictionaryCenterdigitalOut.TryGetValue( device, out index );
                 if( base.outputs != null )
                 {
@@ -1097,7 +1095,6 @@ namespace HomeAutomation
                         }
                     }
                 }
-            }
         }
 
         void Scheduler_EvTriggered( string time, Quartz.IJobExecutionContext context, decimal counts )
