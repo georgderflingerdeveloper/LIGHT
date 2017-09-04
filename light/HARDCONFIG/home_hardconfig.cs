@@ -209,7 +209,8 @@ namespace HomeAutomation
 
 		public static class HardwareDevices
         {
-            public const string Boiler                                                  = "BOILER";
+            public const string Devices                                                 = "Devices";
+            public const string Boiler                                                  = "Boiler";
             public const string PumpWarmwater                                           = "PumpWarmwater";           // Zirkulationspumpe für Warmwasser ( Küche, Bad, Dusche )
             public const string PumpCirculation                                         = "PumpCirculation";         // Zirkulationspumpe Heizkreis
             public const string DoorEntryAnteRoom                                       = "DoorEntryAnteRoom";       // Eingangstür Vorhaus

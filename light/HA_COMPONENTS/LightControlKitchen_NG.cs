@@ -32,7 +32,7 @@ namespace HA_COMPONENTS
         bool      ToggleLightGroups = false;
         bool      ToggleLightWindowBoardEastDown;
 
-        KitchenStep KitchenStep_;
+        KitchenStep ActualKitchenStep_;
         KitchenStep LastKitchenStep_;
         KitchenStep NextKitchenStep_;
 
@@ -60,7 +60,7 @@ namespace HA_COMPONENTS
             base.EUpdateOutputs         += LightControlKitchen_NG_EUpdateOutputs;
 
             _startindex                  = startindex;
-            KitchenStep_                 = KitchenStep.eAll;
+            ActualKitchenStep_                 = KitchenStep.eAll;
 
             // this list keeps information about which items can acess digital output
             // only booleans with this configured index can write to an digital output
@@ -111,19 +111,15 @@ namespace HA_COMPONENTS
             }
         }
 
-        public KitchenStep ActualKitchenLightStep
-        {
-            get
-            {
-                return ( KitchenStep_ );
-            }
-        }
+  
+
+        public  KitchenStep ActualKitchenStep { get => ActualKitchenStep_; set => ActualKitchenStep_ = value; }
         #endregion
 
         #region EVENTHANDLERS
         void LightControlKitchen_EReset( object sender )
         {
-            KitchenStep_   = KitchenStep.eAll;
+            ActualKitchenStep_   = KitchenStep.eAll;
             reset          = true;
             _turnedAutoOff = false;
         }
@@ -135,20 +131,20 @@ namespace HA_COMPONENTS
                 base._DigitalOutput[i] = false;
             }
             _SingleOffDone = true;
-            KitchenStep_   = NextKitchenStep_;
+            ActualKitchenStep_   = NextKitchenStep_;
             reset          = true;
             DoUpDateIO( base._DigitalOutput );
         }
 
         void LightControlKitchen_AllSelectedDevicesOff_( object sender, int firstdevice, int lastdevice )
         {
-            KitchenStep_ = LastKitchenStep_;
+            ActualKitchenStep_ = LastKitchenStep_;
             reset        = true;
         }
 
         void LightControlKitchen_AutomaticOff_( object sender )
         {
-            KitchenStep_      = LastKitchenStep_;
+            ActualKitchenStep_      = LastKitchenStep_;
             IndexFS           = 0;
             ToggleLightGroups = false;
             _turnedAutoOff    = true;
@@ -176,7 +172,7 @@ namespace HA_COMPONENTS
             {
                 index = 0;
                 reset = false;
-                if( KitchenStep_ == KitchenStep.eNext )
+                if( ActualKitchenStep_ == KitchenStep.eNext )
                 {
                     if( _lastindex > 0 )
                     {
@@ -185,19 +181,19 @@ namespace HA_COMPONENTS
                 }
             }
 
-            if( LastKitchenStep_ != KitchenStep_ )
+            if( LastKitchenStep_ != ActualKitchenStep_ )
             {
                 _SingleOffDone    = false;
                 ToggleLightGroups = false;
                 index = 0;
             }
 
-            switch( KitchenStep_ )
+            switch( ActualKitchenStep_ )
             {
 	               case KitchenStep.eNext:
 		                if( ToggleLightWindowBoardEastDown )
 		                {
-		                    KitchenStep_ = KitchenStep.eFrontLights;
+		                    ActualKitchenStep_ = KitchenStep.eFrontLights;
 		                    ToggleLightWindowBoardEastDown = false;
 		                    base._DigitalOutput[KitchenCenterIoDevices.indDigitalOutputWindowBoardEastDown] = false;
 		                    break;
@@ -351,7 +347,7 @@ namespace HA_COMPONENTS
 		                _lastindex = KitchenCenterIoDevices.indDigitalOutputSlot;
 		                break;
             }
-            LastKitchenStep_ = KitchenStep_;
+            LastKitchenStep_ = ActualKitchenStep_;
             DoUpDateIO( base._DigitalOutput );
         }
         #endregion

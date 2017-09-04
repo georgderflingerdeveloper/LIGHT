@@ -145,10 +145,7 @@ namespace Scheduler
                 // prevent unecessary saving of the same contens
                 if( _DataRecovered )
                 {
-                    if( EAnyJobChange != null )
-                    {
-                        EAnyJobChange( e );
-                    }
+                    EAnyJobChange?.Invoke( e );
                 }
             }
 

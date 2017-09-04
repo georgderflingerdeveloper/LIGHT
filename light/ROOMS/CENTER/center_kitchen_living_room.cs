@@ -878,16 +878,16 @@ namespace HomeAutomation
         CentralControlledElements_NG         FanWashRoom;
         CentralControlledElements_NG         CirculationPump;
         BasicClientComumnicator              BasicClientCommunicator_;
-        bool[]                               _DigitalInputState;
-        bool[]                               _DigitalOutputState;
-        bool[]                               _InternalDigitalOutputState;
-        bool                                 _Test;
         home_scheduler                       scheduler;
         SchedulerDataRecovery                schedRecover;
         FeedData                             PrevSchedulerData = new FeedData();
         UdpReceive                           UDPReceive_;
         Timer                                TimerRecoverScheulder;
         Timer                                CommonUsedTick =  new Timer( GeneralConstants.DURATION_COMMONTICK );
+        bool[]                               _DigitalInputState;
+        bool[]                               _DigitalOutputState;
+        bool[]                               _InternalDigitalOutputState;
+        bool                                 _Test;
         long                                 RemainingTime;
         PowerMeter                           _PowerMeter;
 		int                                  _PortNumberServer;
@@ -1069,23 +1069,53 @@ namespace HomeAutomation
         void schedRecover_ERecover( FeedData e )
         {
             SchedulerApplication.Worker( this, e, ref scheduler );
-            Console.WriteLine( TimeUtil.GetTimestamp() + Seperators.WhiteSpace + "Recover scheduler after booting " );
-            Console.WriteLine( TimeUtil.GetTimestamp() + Seperators.WhiteSpace + "Start time:               " + e.Starttime );
-            Console.WriteLine( TimeUtil.GetTimestamp() + Seperators.WhiteSpace + "Stop time :               " + e.Stoptime );
-            Console.WriteLine( TimeUtil.GetTimestamp() + Seperators.WhiteSpace + "Configured days:          " + e.Days );
-            Console.WriteLine( TimeUtil.GetTimestamp() + Seperators.WhiteSpace + "Current scheduler status: "
+            Console.WriteLine( TimeUtil.GetTimestamp()  + Seperators.WhiteSpace + "Recover scheduler after booting " );
+            Console.WriteLine( TimeUtil.GetTimestamp( ) + Seperators.WhiteSpace + "Device:                   " + e.Device );
+            Console.WriteLine( TimeUtil.GetTimestamp()  + Seperators.WhiteSpace + "Start time:               " + e.Starttime );
+            Console.WriteLine( TimeUtil.GetTimestamp()  + Seperators.WhiteSpace + "Stop time :               " + e.Stoptime );
+            Console.WriteLine( TimeUtil.GetTimestamp()  + Seperators.WhiteSpace + "Configured days:          " + e.Days );
+            Console.WriteLine( TimeUtil.GetTimestamp()  + Seperators.WhiteSpace + "Current scheduler status: "
                 + scheduler.GetJobStatus( e.Device + Seperators.InfoSeperator + e.JobId ).ToString() );
+        }
+
+        void Scheduler_EvTriggered( string time, Quartz.IJobExecutionContext context, decimal counts )
+        {
+            SchedulerApplication.WriteStatus( time, context, counts );
+
+            if ( !Attached )
+            {
+                return;
+            }
+
+            ControlScheduledDevice( context, counts, context.JobDetail.Key.Name );
         }
 
         void ControlScheduledDevice( Quartz.IJobExecutionContext context, decimal counts, string device )
         {
-                int index = 0;
-                HADictionaries.DeviceDictionaryCenterdigitalOut.TryGetValue( device, out index );
-                if( base.outputs != null )
+            int index = 0;
+            string[] DeviceParts;
+            DeviceParts = device.Split( '_' );
+            HADictionaries.DeviceDictionaryCenterdigitalOut.TryGetValue( DeviceParts[0], out index );
+   
+            if( device.Contains( nameof( CenterKitchenDeviceNames.FumeHood ) ) )
+            {
+                if ( counts % 2 == 0 )
                 {
-                    if( index >= 0 && index < GeneralConstants.NumberOfOutputsIOCard )
+                    Kitchen.ActualKitchenStep = LightControlKitchen_NG.KitchenStep.eFrontLights;
+                }
+                else
+                {
+                    Kitchen.ActualKitchenStep = LightControlKitchen_NG.KitchenStep.eSlots;
+                }
+            }
+
+            if ( device.Contains( nameof( HardConfig.HardwareDevices.Boiler ) ) )
+            {
+                if ( base.outputs != null )
+                {
+                    if ( index >= 0 && index < GeneralConstants.NumberOfOutputsIOCard )
                     {
-                        if( counts % 2 == 0 )
+                        if ( counts % 2 == 0 )
                         {
                             base.outputs[index] = GeneralConstants.OFF;
                         }
@@ -1095,19 +1125,10 @@ namespace HomeAutomation
                         }
                     }
                 }
-        }
-
-        void Scheduler_EvTriggered( string time, Quartz.IJobExecutionContext context, decimal counts )
-        {
-            SchedulerApplication.WriteStatus( time, context, counts );
-
-            if( !Attached )
-            {
-                return;
             }
-
-            ControlScheduledDevice( context, counts, HomeAutomation.HardConfig.HardwareDevices.Boiler );
         }
+
+ 
 
         void BasicClientCommunicator__EAskSchedulerForStatus( object sender, string Job )
         {
@@ -1604,10 +1625,10 @@ namespace HomeAutomation
 
         void TimerRecoverScheulder_Elapsed( object sender, ElapsedEventArgs e )
         {
-            schedRecover.RecoverScheduler( Directory.GetCurrentDirectory(), HardConfig.HardwareDevices.Boiler );
+            schedRecover.RecoverScheduler( Directory.GetCurrentDirectory(), HardConfig.HardwareDevices.Devices );
             TimerRecoverScheulder.Stop();
         }
-
+        
         private void CommonUsedTick_Elapsed( object sender, ElapsedEventArgs e )
         {
             string RemainingTimeInfo;
