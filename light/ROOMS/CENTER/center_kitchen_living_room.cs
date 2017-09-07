@@ -1128,8 +1128,6 @@ namespace HomeAutomation
             }
         }
 
- 
-
         void BasicClientCommunicator__EAskSchedulerForStatus( object sender, string Job )
         {
             if( scheduler != null )
@@ -1294,6 +1292,7 @@ namespace HomeAutomation
                             if( !HeatersLivingRoom.WasHeaterSwitched() )  // this is not good OOP - any day try to refactor - "TELL - don´t ask"
                             {
                                 Kitchen?.MakeStep( Value );
+                                Kitchen?.AutomaticOff( Value );
                             }
                             else
                             {
