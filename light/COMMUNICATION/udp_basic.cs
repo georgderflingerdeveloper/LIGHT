@@ -168,9 +168,32 @@ namespace Communication
                 }
             }
 
+            private void sendStringNoneAsync( string message )
+            {
+                if ( String.IsNullOrWhiteSpace( message ) )
+                {
+                    Services.TraceMessage_( "Tried to send empty string!" );
+                    return;
+                }
+                try
+                {
+                    byte[] data = Encoding.UTF8.GetBytes( message );
+                    client?.Send( data, data.Length, remoteEndPoint );
+                }
+                catch ( Exception err )
+                {
+                    Services.TraceMessage_( err.Message + " " + err.Data + " " );
+                }
+            }
+
             public void SendString( string message )
             {
                 sendString ( message );
+            }
+
+            public void SendStringNoneAsync( string message )
+            {
+                sendStringNoneAsync( message );
             }
 
             string _SendText;

@@ -1442,12 +1442,13 @@ namespace HomeAutomation
 
         void TurnKitchenLights( bool commando )
         {
-            base.outputs[KitchenCenterIoDevices.indDigitalOutputFirstKitchen] = commando;
-            base.outputs[KitchenCenterIoDevices.indDigitalOutputFrontLight_1] = commando;
-            base.outputs[KitchenCenterIoDevices.indDigitalOutputFrontLight_2] = commando;
-            base.outputs[KitchenCenterIoDevices.indDigitalOutputFrontLight_3] = commando;
-            base.outputs[KitchenCenterIoDevices.indDigitalOutputFumeHood] = commando;
-            base.outputs[KitchenCenterIoDevices.indDigitalOutputSlot] = commando;
+            base.outputs[KitchenCenterIoDevices.indDigitalOutputFirstKitchen]   = commando;
+            base.outputs[KitchenCenterIoDevices.indDigitalOutputFrontLight_1]   = commando;
+            base.outputs[KitchenCenterIoDevices.indDigitalOutputFrontLight_2]   = commando;
+            base.outputs[KitchenCenterIoDevices.indDigitalOutputFrontLight_3]   = commando;
+            base.outputs[KitchenCenterIoDevices.indDigitalOutputFumeHood]       = commando;
+            base.outputs[KitchenCenterIoDevices.indDigitalOutputSlot]           = commando;
+            base.outputs[KitchenCenterIoDevices.indDigitalOutputKitchenKabinet] = commando;
         }
 
         void TurnWindowLedgeEast( bool command )

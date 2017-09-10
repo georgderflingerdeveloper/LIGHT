@@ -375,11 +375,11 @@ namespace HomeAutomation
                  return;
              }
              TransactionCounter++;
-             UdpSend_.SendString( TransactionCounter.ToString( )   +
-                                  ComandoString.Telegram.Seperator +
-                                  e.Index.ToString( )              + 
-                                  ComandoString.Telegram.Seperator +
-                                  e.Value.ToString( ) );
+             UdpSend_.SendStringNoneAsync( TransactionCounter.ToString( )   +
+                                           ComandoString.Telegram.Seperator +
+                                           e.Index.ToString( )              + 
+                                           ComandoString.Telegram.Seperator +
+                                           e.Value.ToString( ) );
         }
 
         protected override void BuildingSection_InputChange( object sender, InputChangeEventArgs e )

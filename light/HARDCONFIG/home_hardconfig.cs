@@ -300,7 +300,7 @@ namespace HomeAutomation
                 public const int PORT_UDP_ANTEROOM                   = 5002;
                 public const int PORT_UDP_CENTER                     = 5003;
                 public const int PORT_UDP_LIVINGROOM_EAST            = 5009;
-                public const int PORT_UDP_LIVINGROOM_WEST            = 5010;
+                public const int PORT_UDP_LIVINGROOM_WEST            = 5020;
                 public const int PORT_UDP_WEB_FORWARDER_CENTER       = 10000;
                 public const int PORT_UDP_IO_ECHO                    = 12000;
             }
