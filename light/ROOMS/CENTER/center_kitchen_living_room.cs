@@ -1099,11 +1099,11 @@ namespace HomeAutomation
    
             if( device.Contains( nameof( CenterKitchenDeviceNames.FumeHood ) ) )
             {
-                if ( counts % 2 == 0 )
+                if ( counts % 2 == 0 ) // STOP scheduler
                 {
                     Kitchen.ActualKitchenStep = LightControlKitchen_NG.KitchenStep.eFrontLights;
                 }
-                else
+                else // start scheduler
                 {
                     Kitchen.ActualKitchenStep = LightControlKitchen_NG.KitchenStep.eSlots;
                 }

@@ -395,7 +395,8 @@ namespace HomeAutomation
             public const string TURN_WINDOW_LIGHT_DOOR_ENTRY_LEFT_OFF      = "TURN-WINDOW-LIGHT-DOOR-ENTRY-LEFT-OFF";  // Lichtbalken neben der Eingangstüre beim grossen Tür Fenster links
             public const string TURN_LIGHTS_WALL_WEST_ON                   = "TURN-LIGHTS-WALL-WEST-ON";               // Lichterleiste auf der Wand West Seitig
             public const string TURN_LIGHTS_WALL_WEST_OFF                  = "TURN-LIGHTS-WALL-WEST-OFF";              // Lichterleiste auf der Wand West Seitig
-
+            public const string TURN_LIGHT_TRIANGLE_SMALL_WEST_ON          = "TURN-LIGHT-TRIANGLE-SMALL-WEST-ON";      // Lichtleiste am Dreieckfenster West Seitig - kleine Leist
+            public const string TURN_LIGHT_TRIANGLE_SMALL_WEST_OFF         = "TURN-LIGHT-TRIANGLE-SMALL-WEST-OFF";      // Lichtleiste am Dreieckfenster West Seitig - kleine Leist
 
             public const string TURN_LIGHT_OUTSIDE_ON       = "TURN-LIGHT-OUTSIDE-ON";
             public const string TURN_LIGHT_OUTSIDE_OFF      = "TURN-LIGHT-OUTSIDE-OFF";
@@ -951,12 +952,13 @@ namespace HomeAutomation
 
             public static class LivWestDigOutputs
             {
-                public const int indDigitalOutLightWindowDoorEntryLeft  = 0;
-                public const int indDigitalOutLightKitchenDown_1        = 1;
-                public const int indDigitalOutLightKitchenDown_2        = 2;
-                public const int indDigitalOutLightWindowBoardLeft      = 4;
-                public const int indDigitalOutLightWindowBoardRight     = 5;
-                public const int indDigitalOutLightWall                 = 7;
+                public const int indDigitalOutLightWindowDoorEntryLeft   = 0;
+                public const int indDigitalOutLightKitchenDown_1         = 1;
+                public const int indDigitalOutLightKitchenDown_2         = 2;
+                public const int indDigitalOutLightWindowBoardLeft       = 4;
+                public const int indDigitalOutLightWindowBoardRight      = 5;
+                public const int indDigitalOutputWindowTriangleLeftSmall = 6;
+                public const int indDigitalOutLightWall                  = 7;
             }
 
             public const int indFirstLight                      = 0;

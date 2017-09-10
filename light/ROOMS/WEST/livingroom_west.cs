@@ -194,7 +194,7 @@ namespace HomeAutomation
                 LightControlLivingRoomWest_ 
                     = new LightControlLivingRoomWest( ParametersLightControlLivingRoomWest.TimeDemandForAllOnWest,
                                                       ParametersLightControl.TimeDemandForSingleOff,
-                                                      3000,//ParametersLightControlLivingRoomWest.TimeDemandForAutomaticOffWest,
+                                                      ParametersLightControlLivingRoomWest.TimeDemandForAutomaticOffWest,
                                                       LivingRoomWestIOAssignment.indFirstLight,
                                                       LivingRoomWestIOAssignment.indLastLight,
                                                       ref base.outputs );
@@ -203,7 +203,7 @@ namespace HomeAutomation
                 try
                 {
                     UdpSend_    = new UdpSend( IPConfiguration.Address.IP_ADRESS_BROADCAST, IPConfiguration.Port.PORT_UDP_LIVINGROOM_WEST );
-                    UdpSendEcho = new UdpSend( "127.0.0.255"/* IPConfiguration.Address.IP_ADRESS_BROADCAST */, IPConfiguration.Port.PORT_UDP_IO_ECHO ); // use this adress when working under localhost: "127.0.0.255"
+                    UdpSendEcho = new UdpSend(  IPConfiguration.Address.IP_ADRESS_BROADCAST, IPConfiguration.Port.PORT_UDP_IO_ECHO ); // use this adress when working under localhost: "127.0.0.255"
                     UDPReceive_ = new UdpReceive( IPConfiguration.Port.PORT_UDP_WEB_FORWARDER_CENTER );
                     UDPReceive_.EDataReceived += UDPReceive__EDataReceived;
                }
@@ -244,12 +244,18 @@ namespace HomeAutomation
             base.outputs[LivingRoomWestIOAssignment.LivWestDigOutputs.indDigitalOutLightWall] = command;
         }
 
+        void TurnTriangle( bool command )
+        {
+            base.outputs[LivingRoomWestIOAssignment.LivWestDigOutputs.indDigitalOutputWindowTriangleLeftSmall] = command;
+        }
+
         void TurnAllLights( bool command )
         {
             TurnWindowLedgeWest( command );
             TurnLightKitchenBoardDownLights( command );
             TurnLightWindowDoorEntryLeft( command );
             TurnLightWall( command );
+            TurnTriangle( command );
         }
 
         #region REMOTE_CONTROLLED_UDP
@@ -307,6 +313,14 @@ namespace HomeAutomation
 
                     case ComandoString.TURN_LIGHTS_WALL_WEST_OFF:
                          TurnLightWall( GeneralConstants.OFF );
+                         break;
+
+                    case ComandoString.TURN_LIGHT_TRIANGLE_SMALL_WEST_ON:
+                         TurnTriangle( GeneralConstants.ON ); 
+                         break;
+
+                    case ComandoString.TURN_LIGHT_TRIANGLE_SMALL_WEST_OFF:
+                         TurnTriangle( GeneralConstants.OFF );
                          break;
 
                 }
