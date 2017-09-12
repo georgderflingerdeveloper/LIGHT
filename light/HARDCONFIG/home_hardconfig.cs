@@ -377,8 +377,21 @@ namespace HomeAutomation
             public const string TURN_ALL_LIGHTS_ON                         = "TURN-ALL-LIGHTS-ON";
             public const string TURN_ALL_KITCHEN_LIGHTS_OFF                = "TURN-ALL-KITCHEN-LIGHTS-OFF";
             public const string TURN_ALL_KITCHEN_LIGHTS_ON                 = "TURN-ALL-KITCHEN-LIGHTS-ON";
+
+            public const string TURN_GALLERY_UP_ON                         = "TURN-GALLERY-UP-ON";
+            public const string TURN_GALLERY_UP_OFF                        = "TURN-GALLERY-UP-OFF";
+
             public const string TURN_GALLERY_DOWN_ON                       = "TURN-GALLERY-DOWN-ON";
             public const string TURN_GALLERY_DOWN_OFF                      = "TURN-GALLERY-DOWN-OFF";
+            public const string TURN_GALLERY_DOWN_1_ON                     = "TURN-GALLERY-DOWN-1-ON";   // Reihe 1 vorne
+            public const string TURN_GALLERY_DOWN_2_ON                     = "TURN-GALLERY-DOWN-2-ON";   // Reihe 2 vorne
+            public const string TURN_GALLERY_DOWN_3_ON                     = "TURN-GALLERY-DOWN-3-ON";   // Reihe 3 hinten
+            public const string TURN_GALLERY_DOWN_4_ON                     = "TURN-GALLERY-DOWN-4-ON";   // Reihe 4 hinten
+            public const string TURN_GALLERY_DOWN_1_OFF                    = "TURN-GALLERY-DOWN-1-OFF";   
+            public const string TURN_GALLERY_DOWN_2_OFF                    = "TURN-GALLERY-DOWN-2-OFF";   
+            public const string TURN_GALLERY_DOWN_3_OFF                    = "TURN-GALLERY-DOWN-3-OFF";   
+            public const string TURN_GALLERY_DOWN_4_OFF                    = "TURN-GALLERY-DOWN-4-OFF";  
+
             public const string TURN_BOILER_ON                             = "TURN-BOILER-ON";
             public const string TURN_BOILER_OFF                            = "TURN-BOILER-OFF";
             public const string TURN_FRONT_LIGHTS_ON                       = "TURN-FRONT-LIGHTS-ON";
@@ -897,37 +910,37 @@ namespace HomeAutomation
 
         static class EastSideIOAssignment
         {
-            public const int indTestButton                           = 0;
-            public const int indDigitalOutput_SpotFrontSide_1_4      = 0;
-            public const int indDigitalOutput_SpotFrontSide_5_8      = 1;
-            public const int indDigitalOutput_SpotBackSide_1_3       = 2;
-            public const int indSpotBackSide4_8                      = 3;
-            public const int indLightsTriangleGalleryBack            = 4;
-            public const int indDoorEntry_Window_Right               = 5;
-            public const int indWindowBesideDoorRight                = 6;
-            public const int indWindowLEDEastUpside                  = 7;
-            public const int indWindowLimitSwitchWestUpside          = 2;
-            public const int indSpotGalleryFloor_1_18                = 0;
-            public const int indSpotGalleryFloor_2_4                 = 1;
-            public const int indSpotGalleryFloor_5_6                 = 3;
-            public const int indSpotGalleryFloor_7                   = 4;
-            public const int indSpotGalleryFloor_8_10                = 5;
-            public const int indSpotGalleryFloor_11_12               = 6;
-            public const int indSpotGalleryFloor_13                  = 7;
-            public const int indSpotGalleryFloor_14_15               = 8;
-            public const int indSpotGalleryFloor_16                  = 9;
-            public const int indSpotGalleryFloor_17_19_20_21         = 10;
-            public const int indBarGallery1_4                        = 11;
-            public const int indDigitalInput_PresenceDetector        = 5;
-            public const int indDigitalInput_MainDoorWingRight       = 4;
-            public const int indDigitalInput_DoorSwitchMainRight     = 3;
+            public const int indTestButton                            = 0;
+            public const int indDigitalOutput_SpotFrontSide_1_4       = 0;
+            public const int indDigitalOutput_SpotFrontSide_5_8       = 1;
+            public const int indDigitalOutput_SpotBackSide_1_3        = 2;
+            public const int indDigitalOutput_SpotBackSide_4_8        = 3;
+            public const int indLightsTriangleGalleryBack             = 4;
+            public const int indDoorEntry_Window_Right                = 5;
+            public const int indWindowBesideDoorRight                 = 6;
+            public const int indWindowLEDEastUpside                   = 7;
+            public const int indWindowLimitSwitchWestUpside           = 2;
+            public const int indSpotGalleryFloor_1_18                 = 0;
+            public const int indSpotGalleryFloor_2_4                  = 1;
+            public const int indSpotGalleryFloor_5_6                  = 3;
+            public const int indSpotGalleryFloor_7                    = 4;
+            public const int indSpotGalleryFloor_8_10                 = 5;
+            public const int indSpotGalleryFloor_11_12                = 6;
+            public const int indSpotGalleryFloor_13                   = 7;
+            public const int indSpotGalleryFloor_14_15                = 8;
+            public const int indSpotGalleryFloor_16                   = 9;
+            public const int indSpotGalleryFloor_17_19_20_21          = 10;
+            public const int indBarGallery1_4                         = 11;
+            public const int indDigitalInput_PresenceDetector         = 5;
+            public const int indDigitalInput_DoorContactSideWingRight = 4;
+            public const int indDigitalInput_DoorContactMainRight     = 3;
 
             public static uint SerialCard1;
 
             static Dictionary<uint, string> EastInputDeviceDictionary = new Dictionary<uint, string>
             {
                 { indTestButton                       + SerialCard1,             EastDeviceNames.TestButton         },
-                { indDigitalInput_DoorSwitchMainRight + SerialCard1,             EastDeviceNames.DoorSwitch        },
+                { indDigitalInput_DoorContactMainRight + SerialCard1,             EastDeviceNames.DoorSwitch        },
             };
 
             public static string GetInputDeviceName(int key)

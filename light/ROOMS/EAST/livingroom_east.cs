@@ -67,6 +67,7 @@ namespace HomeAutomation
         int NumberOfAttachedPhidgets;
         int[]                                 _SerialNumbers;
         int                                   ActualPluggedCardId;
+        const int FORSEEN_PHIDGET_CARDS   = 2;
         // Testmode for phidget IO card
         bool                                  EnableTestBase = false;
         decimal                               receivedTransactionCounter         = 0;
@@ -93,13 +94,13 @@ namespace HomeAutomation
 
                 for( int i = 0; i < SerialNumbers.Length; i++ )
                 {
-                     BuildingMultiCard[i] = new BuildingSection( SerialNumbers[i], EnableTestBase );  
+                     BuildingMultiCard[i] = new BuildingSection( SerialNumbers[i], EnableTestBase );
                      BuildingMultiCard[i].InputChange += livingroom_east_InputChange;
-                    
-                     if( BuildingMultiCard[i].Attached )
-                     {
+                     
+                    if( BuildingMultiCard[i].Attached )
+                    {
                          NumberOfAttachedPhidgets++;
-                     }
+                    }
                 }
              }
 
@@ -107,7 +108,7 @@ namespace HomeAutomation
             {
                 AllCardsOutputsOff( );
 
-                LightControlMulti = new LightControlEast[NumberOfAttachedPhidgets];
+                LightControlMulti = new LightControlEast[FORSEEN_PHIDGET_CARDS];
 
                 if( BuildingMultiCard[IOCardID.ID_1].Attached )
                 {
@@ -122,15 +123,18 @@ namespace HomeAutomation
 
                 if( BuildingMultiCard.Length > 1 )
                 {
-                    if (BuildingMultiCard[IOCardID.ID_2].Attached)
+                    if ( BuildingMultiCard[IOCardID.ID_2] != null )
                     {
-                        LightControlMulti[IOCardID.ID_2]
-                            = new LightControlEast( ParametersLightControlEASTSide.TimeDemandForAllOn,
-                                                        ParametersLightControl.TimeDemandForSingleOff,
-                                                        ParametersLightControlEASTSide.TimeDemandForAutomaticOffEastSide,
-                                                        EastSideIOAssignment.indSpotGalleryFloor_1_18,
-                                                        EastSideIOAssignment.indBarGallery1_4,
-                                                        ref BuildingMultiCard[IOCardID.ID_2].outputs );
+                        if ( BuildingMultiCard[IOCardID.ID_2].Attached )
+                        {
+                            LightControlMulti[IOCardID.ID_2]
+                                = new LightControlEast( ParametersLightControlEASTSide.TimeDemandForAllOn,
+                                                            ParametersLightControl.TimeDemandForSingleOff,
+                                                            ParametersLightControlEASTSide.TimeDemandForAutomaticOffEastSide,
+                                                            EastSideIOAssignment.indSpotGalleryFloor_1_18,
+                                                            EastSideIOAssignment.indBarGallery1_4,
+                                                            ref BuildingMultiCard[IOCardID.ID_2].outputs );
+                        }
                     }
                 }
 
@@ -144,7 +148,7 @@ namespace HomeAutomation
                 {
                     UDPReceive_ = new UdpReceive( IPConfiguration.Port.PORT_UDP_LIVINGROOM_WEST );
                     UDPReceive_.EDataReceived += UDPReceive__EDataReceived;
-                    UDPReceiveFromGui_ =  new UdpReceive( IPConfiguration.Port.PORT_UDP_LIVINGROOM_EAST );
+                    UDPReceiveFromGui_ =  new UdpReceive( IPConfiguration.Port.PORT_UDP_WEB_FORWARDER_CENTER );
                     UDPReceiveFromGui_.EDataReceived += UDPReceiveFromGui__EDataReceived;
                 }
                 catch( Exception ex )
@@ -207,31 +211,63 @@ namespace HomeAutomation
         }
         #endregion
 
+        #region HELPERFUNCTIONS
+        void TurnCeilingGalleryDownside( bool command )
+        {
+            LightControlMulti[IOCardID.ID_1]?.TurnSingleLight( EastSideIOAssignment.indDigitalOutput_SpotFrontSide_1_4, command );
+            LightControlMulti[IOCardID.ID_1]?.TurnSingleLight( EastSideIOAssignment.indDigitalOutput_SpotFrontSide_5_8, command );
+            LightControlMulti[IOCardID.ID_1]?.TurnSingleLight( EastSideIOAssignment.indDigitalOutput_SpotBackSide_1_3,  command );
+            LightControlMulti[IOCardID.ID_1]?.TurnSingleLight( EastSideIOAssignment.indDigitalOutput_SpotBackSide_4_8,  command );
+        }
+
+        void TurnGalleryUpSide( bool command )
+        {
+            LightControlMulti[IOCardID.ID_2]?.TurnSingleLight( EastSideIOAssignment.indSpotGalleryFloor_1_18, command );
+            LightControlMulti[IOCardID.ID_2]?.TurnSingleLight( EastSideIOAssignment.indSpotGalleryFloor_2_4, command );
+            LightControlMulti[IOCardID.ID_2]?.TurnSingleLight( EastSideIOAssignment.indSpotGalleryFloor_5_6, command );
+            LightControlMulti[IOCardID.ID_2]?.TurnSingleLight( EastSideIOAssignment.indSpotGalleryFloor_7, command );
+            LightControlMulti[IOCardID.ID_2]?.TurnSingleLight( EastSideIOAssignment.indSpotGalleryFloor_8_10, command );
+            LightControlMulti[IOCardID.ID_2]?.TurnSingleLight( EastSideIOAssignment.indSpotGalleryFloor_17_19_20_21, command );
+            LightControlMulti[IOCardID.ID_2]?.TurnSingleLight( EastSideIOAssignment.indSpotGalleryFloor_16, command );
+            LightControlMulti[IOCardID.ID_2]?.TurnSingleLight( EastSideIOAssignment.indSpotGalleryFloor_14_15, command );
+            LightControlMulti[IOCardID.ID_2]?.TurnSingleLight( EastSideIOAssignment.indSpotGalleryFloor_13, command );
+            LightControlMulti[IOCardID.ID_2]?.TurnSingleLight( EastSideIOAssignment.indSpotGalleryFloor_11_12, command );
+        }
+        #endregion
+
         #region UDP_RECEIVE_DATA
         private void UDPReceiveFromGui__EDataReceived(string e)
         {
             string[] DatagrammSplitted = e.Split( ComandoString.Telegram.Seperator );
 
-            bool Command = false;
-
-            switch (DatagrammSplitted[0])
+            switch( DatagrammSplitted[0] )
             {
                 case ComandoString.TURN_ALL_LIGHTS_ON:
-                case ComandoString.TURN_GALLERY_DOWN_ON:
-                     Command = true;
-                     LightControlMulti[IOCardID.ID_1]?.TurnSingleLight( EastSideIOAssignment.indDigitalOutput_SpotFrontSide_1_4, Command );
-                     LightControlMulti[IOCardID.ID_1]?.TurnSingleLight( EastSideIOAssignment.indDigitalOutput_SpotFrontSide_5_8, Command );
-                     LightControlMulti[IOCardID.ID_1]?.TurnSingleLight( EastSideIOAssignment.indDigitalOutput_SpotBackSide_1_3,  Command );
-                     LightControlMulti[IOCardID.ID_1]?.TurnSingleLight( EastSideIOAssignment.indSpotBackSide4_8,  Command );
+                     TurnCeilingGalleryDownside( GeneralConstants.ON );
+                     TurnGalleryUpSide( GeneralConstants.ON );
                      break;
 
                 case ComandoString.TURN_ALL_LIGHTS_OFF:
-                case ComandoString.TURN_GALLERY_DOWN_OFF:
-                     LightControlMulti[IOCardID.ID_1]?.TurnSingleLight( EastSideIOAssignment.indDigitalOutput_SpotFrontSide_1_4, Command );
-                     LightControlMulti[IOCardID.ID_1]?.TurnSingleLight( EastSideIOAssignment.indDigitalOutput_SpotFrontSide_5_8, Command );
-                     LightControlMulti[IOCardID.ID_1]?.TurnSingleLight( EastSideIOAssignment.indDigitalOutput_SpotBackSide_1_3,  Command );
-                     LightControlMulti[IOCardID.ID_1]?.TurnSingleLight( EastSideIOAssignment.indSpotBackSide4_8,  Command );
+                     TurnCeilingGalleryDownside( GeneralConstants.OFF );
+                     TurnGalleryUpSide( GeneralConstants.OFF );
                      break;
+
+                case ComandoString.TURN_GALLERY_DOWN_ON:
+                     TurnCeilingGalleryDownside( GeneralConstants.ON );
+                     break;
+
+                case ComandoString.TURN_GALLERY_DOWN_OFF:
+                     TurnCeilingGalleryDownside( GeneralConstants.OFF );
+                     break;
+
+                case ComandoString.TURN_GALLERY_UP_ON:
+                     TurnGalleryUpSide( GeneralConstants.ON );
+                     break;
+
+                case ComandoString.TURN_GALLERY_UP_OFF:
+                     TurnGalleryUpSide( GeneralConstants.OFF );
+                     break;
+
             }
         }
 
@@ -324,7 +360,7 @@ namespace HomeAutomation
                          LightControlMulti[IOCardID.ID_1]?.AutomaticOff( e );
                          break;
 
-                    case EastSideIOAssignment.indDigitalInput_MainDoorWingRight:
+                    case EastSideIOAssignment.indDigitalInput_DoorContactSideWingRight:
                          LightControlMulti[ActualPluggedCardId].TurnSingleLight( EastSideIOAssignment.indDoorEntry_Window_Right, true );
                          break;
                 }
