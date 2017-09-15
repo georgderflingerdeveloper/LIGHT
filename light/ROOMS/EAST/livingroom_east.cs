@@ -358,19 +358,21 @@ namespace HomeAutomation
                 switch ( e.Index )
                 {
                     case EastSideIOAssignment.indTestButton:
-                         LightControlMulti[ActualPluggedCardId]?.MakeStep( e );
-                         LightControlMulti[IOCardID.ID_1]?.AutomaticOff( e );
-                         break;
+                        LightControlMulti[ActualPluggedCardId]?.MakeStep( e );
+                        LightControlMulti[IOCardID.ID_1]?.AutomaticOff( e );
+                        break;
 
                     case EastSideIOAssignment.indDigitalInput_PresenceDetector:
-                         LightControlMulti[IOCardID.ID_1]?.AutomaticOff( e );
-                         LightControlMulti[IOCardID.ID_2].AutomaticOff( e );
-                         break;
+                        LightControlMulti[IOCardID.ID_1]?.AutomaticOff( e );
+                        LightControlMulti[IOCardID.ID_2].AutomaticOff( e );
+                        break;
 
                     case EastSideIOAssignment.indDigitalInput_DoorContactMainRight:
-                         TurnOffTimer?.Start( );
-                         LightControlMulti[IOCardID.ID_1]?.TurnSingleLight( EastSideIOAssignment.indDoorEntry_Window_Right, true );
-                         break;
+                        TurnOffTimer?.Start( );
+                        LightControlMulti[IOCardID.ID_1]?.TurnSingleLight( EastSideIOAssignment.indDoorEntry_Window_Right, true );
+                        break;
+                    default:
+                        break;
                 }
             }
 
@@ -418,15 +420,8 @@ namespace HomeAutomation
         #region PROPERTIES
         public string SoftwareVersion
         {
-            set
-            {
-                _SoftwareVersion = value;
-            }
-
-            get
-            {
-                return ( _SoftwareVersion );
-            }
+            set => _SoftwareVersion = value;
+            get => ( _SoftwareVersion );
         }
         #endregion
     }
