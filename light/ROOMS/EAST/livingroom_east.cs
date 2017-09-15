@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Timers;
 using SystemServices;
 using Communication.CLIENT_Communicator;
 using Communication.HAProtocoll;
@@ -54,6 +55,7 @@ namespace HomeAutomation
         BuildingSection[]                     BuildingMultiCard;
         UdpReceive                            UDPReceive_;
         UdpReceive                            UDPReceiveFromGui_;
+        Timer                                 TurnOffTimer;
 
         BasicClientComumnicator BasicClientCommunicator_;
 
@@ -88,7 +90,10 @@ namespace HomeAutomation
             _IpAdressServer   = IpAdressServer;
             _PortNumberServer = Convert.ToInt16( PortServer );
 
-            if( _SerialNumbers != null )
+            TurnOffTimer = new Timer( ParametersLightControl.TimeDemandForSingleOffEastSide );
+            TurnOffTimer.Elapsed += TurnOffTimer_Elapsed;
+
+            if ( _SerialNumbers != null )
             {
                 BuildingMultiCard = new BuildingSection[SerialNumbers.Length];
 
@@ -114,7 +119,7 @@ namespace HomeAutomation
                 {
                     LightControlMulti[IOCardID.ID_1]
                         = new LightControlEast( ParametersLightControlEASTSide.TimeDemandForAllOn,
-                                                    ParametersLightControl.TimeDemandForSingleOff,
+                                                    ParametersLightControl.TimeDemandForSingleOffEastSide,
                                                     ParametersLightControlEASTSide.TimeDemandForAutomaticOffEastSide,
                                                     EastSideIOAssignment.indDigitalOutput_SpotFrontSide_1_4,
                                                     EastSideIOAssignment.indWindowLEDEastUpside,
@@ -130,7 +135,7 @@ namespace HomeAutomation
                             LightControlMulti[IOCardID.ID_2]
                                 = new LightControlEast( ParametersLightControlEASTSide.TimeDemandForAllOn,
                                                             ParametersLightControl.TimeDemandForSingleOff,
-                                                            ParametersLightControlEASTSide.TimeDemandForAutomaticOffEastSide,
+                                                            ParametersLightControlEASTSide.TimeDemandForAutomaticOffEastSideGalleryUpside,
                                                             EastSideIOAssignment.indSpotGalleryFloor_1_18,
                                                             EastSideIOAssignment.indBarGallery1_4,
                                                             ref BuildingMultiCard[IOCardID.ID_2].outputs );
@@ -305,7 +310,7 @@ namespace HomeAutomation
 
                 case LivingRoomWestIOAssignment.LivWestDigInputs.indDigitalInputPresenceDetector:
                      LightControlMulti[IOCardID.ID_1].AutomaticOff( ReceivedValue );
-                     // TODO - Automatic off light gallery - condition - relative long time ( f.e. 3hours )
+                     LightControlMulti[IOCardID.ID_2].AutomaticOff( ReceivedValue );
                      break;
             }
         }
@@ -348,30 +353,40 @@ namespace HomeAutomation
 
             EastSideIOAssignment.SerialCard1 = Convert.ToUInt32(_SerialNumbers[0]);
 
-            if ( LightControlMulti[ActualPluggedCardId] != null )
+            if ( LightControlMulti != null )
             {
-                switch( e.Index )
+                switch ( e.Index )
                 {
                     case EastSideIOAssignment.indTestButton:
                          LightControlMulti[ActualPluggedCardId]?.MakeStep( e );
+                         LightControlMulti[IOCardID.ID_1]?.AutomaticOff( e );
                          break;
 
                     case EastSideIOAssignment.indDigitalInput_PresenceDetector:
                          LightControlMulti[IOCardID.ID_1]?.AutomaticOff( e );
+                         LightControlMulti[IOCardID.ID_2].AutomaticOff( e );
                          break;
 
                     case EastSideIOAssignment.indDigitalInput_DoorContactMainRight:
+                         TurnOffTimer?.Start( );
                          LightControlMulti[IOCardID.ID_1]?.TurnSingleLight( EastSideIOAssignment.indDoorEntry_Window_Right, true );
                          break;
                 }
             }
+
 
             _DigitalInputEventargs.Index        = e.Index;
             _DigitalInputEventargs.Value        = e.Value;
             _DigitalInputEventargs.SerialNumber = EventComesFromCardWithSerial;
              
             EDigitalInputChanged?.Invoke( this, _DigitalInputEventargs );
-       }
+        }
+
+        private void TurnOffTimer_Elapsed( object sender, ElapsedEventArgs e )
+        {
+            LightControlMulti[IOCardID.ID_1]?.TurnSingleLight( EastSideIOAssignment.indDoorEntry_Window_Right, false );
+        }
+
         #endregion
 
         #region PUBLIC_METHODS

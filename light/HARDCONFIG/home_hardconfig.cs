@@ -523,7 +523,8 @@ namespace HomeAutomation
             public const double TimeDemandForAllOn                     = 2500;
             public const double TimeDemandForSingleOff                 = 700;
             public const double TimeDemandForBroadcastAllOff           = 3000;
-            static readonly public double TimeDemandForAutomaticOff    = TimeConverter.ToMiliseconds( 15, 0 );
+            static readonly public double TimeDemandForSingleOffEastSide  = TimeConverter.ToMiliseconds( 5, 0 );
+            static readonly public double TimeDemandForAutomaticOff       = TimeConverter.ToMiliseconds( 15, 0 );
         }
   
         static class ParametersLightControlSleepingRoom
@@ -898,6 +899,7 @@ namespace HomeAutomation
         static class ParametersLightControlEASTSide
         {
             static readonly public double TimeDemandForAutomaticOffEastSide                     = TimeConverter.ToMiliseconds( 1, 0, 0 );
+            static readonly public double TimeDemandForAutomaticOffEastSideGalleryUpside        = TimeConverter.ToMiliseconds( 3, 0, 0 );
             static readonly public double TimeDemandForAllOn                                    = TimeConverter.ToMiliseconds( 2.5 );
         }
 
