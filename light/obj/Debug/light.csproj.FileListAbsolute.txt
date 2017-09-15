@@ -140,6 +140,7 @@ C:/PROJECT/LIGHT/light/light/obj/Debug/light.pdb
 /Users/georgderflinger/Projects/georgderflingerdeveloper/LIGHT/light/obj/Debug/light.csproj.CoreCompileInputs.cache
 /Users/georgderflinger/Projects/georgderflingerdeveloper/LIGHT/light/obj/Debug/light.exe
 /Users/georgderflinger/Projects/georgderflingerdeveloper/LIGHT/light/obj/Debug/light.pdb
+C:\PROJECT\LIGHT\light\obj\Debug\light.csproj.CoreCompileInputs.cache
 C:\PROJECT\LIGHT\light\bin\Debug\light.exe.config
 C:\PROJECT\LIGHT\light\bin\Debug\light.exe
 C:\PROJECT\LIGHT\light\bin\Debug\light.pdb
@@ -166,7 +167,6 @@ C:\PROJECT\LIGHT\light\bin\Debug\Microsoft.Practices.ServiceLocation.xml
 C:\PROJECT\LIGHT\light\bin\Debug\Microsoft.Practices.Unity.Configuration.xml
 C:\PROJECT\LIGHT\light\bin\Debug\Microsoft.Practices.Unity.xml
 C:\PROJECT\LIGHT\light\bin\Debug\Microsoft.Practices.Unity.RegistrationByConvention.xml
-C:\PROJECT\LIGHT\light\obj\Debug\light.csprojResolveAssemblyReference.cache
-C:\PROJECT\LIGHT\light\obj\Debug\light.csproj.CoreCompileInputs.cache
 C:\PROJECT\LIGHT\light\obj\Debug\light.exe
 C:\PROJECT\LIGHT\light\obj\Debug\light.pdb
+C:\PROJECT\LIGHT\light\obj\Debug\light.csprojResolveAssemblyReference.cache

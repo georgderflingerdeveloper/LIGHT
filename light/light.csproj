@@ -86,9 +86,6 @@
       <HintPath>..\packages\EntityFramework.6.0.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="System.ComponentModel.DataAnnotations" />
-    <Reference Include="SystemServices">
-      <HintPath>..\..\HomeAutomationLibraries\HomeAutomationLibraries-master\HomeAutomationLibs\bin\Debug\SystemServices.dll</HintPath>
-    </Reference>
     <Reference Include="TestFramework.NUnit.Ninject.Moq">
       <HintPath>..\packages\TestFramework.NUnit.Ninject.Moq.1.1.0\lib\net40\TestFramework.NUnit.Ninject.Moq.dll</HintPath>
     </Reference>

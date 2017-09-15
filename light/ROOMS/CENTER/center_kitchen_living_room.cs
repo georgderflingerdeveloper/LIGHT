@@ -1472,20 +1472,14 @@ namespace HomeAutomation
                 switch( DatagrammSplitted[0] )
                 {
                     case ComandoString.TURN_ALL_LIGHTS_ON:
-                         Kitchen?.TurnAllDevices( true );
+                    case ComandoString.TURN_ALL_KITCHEN_LIGHTS_ON:
+                         TurnKitchenLights( GeneralConstants.ON );
                          Kitchen?.AutomaticOff( true );
                          break;
 
                     case ComandoString.TURN_ALL_LIGHTS_OFF:
-                         Kitchen?.TurnAllDevices( false );
-                         break;
-
                     case ComandoString.TURN_ALL_KITCHEN_LIGHTS_OFF:
                          TurnKitchenLights( GeneralConstants.OFF );
-                         break;
-
-                    case ComandoString.TURN_ALL_KITCHEN_LIGHTS_ON:
-                         TurnKitchenLights( GeneralConstants.ON );
                          break;
 
                     case ComandoString.TURN_BOILER_ON:
