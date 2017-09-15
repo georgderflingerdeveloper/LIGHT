@@ -360,8 +360,8 @@ namespace HomeAutomation
                          LightControlMulti[IOCardID.ID_1]?.AutomaticOff( e );
                          break;
 
-                    case EastSideIOAssignment.indDigitalInput_DoorContactSideWingRight:
-                         LightControlMulti[ActualPluggedCardId].TurnSingleLight( EastSideIOAssignment.indDoorEntry_Window_Right, true );
+                    case EastSideIOAssignment.indDigitalInput_DoorContactMainRight:
+                         LightControlMulti[IOCardID.ID_1]?.TurnSingleLight( EastSideIOAssignment.indDoorEntry_Window_Right, true );
                          break;
                 }
             }
