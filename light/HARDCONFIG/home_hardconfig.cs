@@ -378,8 +378,18 @@ namespace HomeAutomation
             public const string TURN_ALL_KITCHEN_LIGHTS_OFF                = "TURN-ALL-KITCHEN-LIGHTS-OFF";
             public const string TURN_ALL_KITCHEN_LIGHTS_ON                 = "TURN-ALL-KITCHEN-LIGHTS-ON";
 
-            public const string TURN_GALLERY_UP_ON                         = "TURN-GALLERY-UP-ON";
-            public const string TURN_GALLERY_UP_OFF                        = "TURN-GALLERY-UP-OFF";
+            public const string TURN_GALLERY_UP_ON                              = "TURN-GALLERY-UP-ON";
+            public const string TURN_GALLERY_UP_OFF                             = "TURN-GALLERY-UP-OFF";
+            public const string TURN_TRIANGLE_DOWNSTAIRS_ON                     = "TURN-TRIANAGLE-DOWNSTAIRS-ON";
+            public const string TURN_TRIANGLE_DOWNSTAIRS_OFF                    = "TURN-TRIANAGLE-DOWNSTAIRS-OFF";
+            public const string TURN_LIGHTBAR_OVER_DOOR_ENTRY_ON                = "TURN-LIGHTBAR-OVER-DOOR-ENTRY-ON";
+            public const string TURN_LIGHTBAR_OVER_DOOR_ENTRY_OFF               = "TURN-LIGHTBAR-OVER-DOOR-ENTRY-OFF";
+            public const string TURN_LIGHTBAR_OVER_RIGHTWINDOW_BESIDE_DOOR_ON   = "TURN-LIGHTBAR-OVER-RIGHTWINDOW-BESIDE-DOOR-ON";
+            public const string TURN_LIGHTBAR_OVER_RIGHTWINDOW_BESIDE_DOOR_OFF  = "TURN-LIGHTBAR-OVER-RIGHTWINDOW-BESIDE-DOOR-OFF";
+            public const string TURN_LIGHT_WINDOW_SOUTHEAST_UPSIDE_ON           = "TURN_LIGHT_WINDOW_SOUTHEAST_UPSIDE_ON";
+            public const string TURN_LIGHT_WINDOW_SOUTHEAST_UPSIDE_OFF          = "TURN_LIGHT_WINDOW_SOUTHEAST_UPSIDE_OFF";
+
+
 
             public const string TURN_GALLERY_DOWN_ON                       = "TURN-GALLERY-DOWN-ON";
             public const string TURN_GALLERY_DOWN_OFF                      = "TURN-GALLERY-DOWN-OFF";
