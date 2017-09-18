@@ -227,16 +227,16 @@ namespace HomeAutomation
 
         void TurnGalleryUpSide( bool command )
         {
-            LightControlMulti[IOCardID.ID_2]?.TurnSingleLight( EastSideIOAssignment.indSpotGalleryFloor_1_18, command );
-            LightControlMulti[IOCardID.ID_2]?.TurnSingleLight( EastSideIOAssignment.indSpotGalleryFloor_2_4, command );
-            LightControlMulti[IOCardID.ID_2]?.TurnSingleLight( EastSideIOAssignment.indSpotGalleryFloor_5_6, command );
-            LightControlMulti[IOCardID.ID_2]?.TurnSingleLight( EastSideIOAssignment.indSpotGalleryFloor_7, command );
-            LightControlMulti[IOCardID.ID_2]?.TurnSingleLight( EastSideIOAssignment.indSpotGalleryFloor_8_10, command );
+            LightControlMulti[IOCardID.ID_2]?.TurnSingleLight( EastSideIOAssignment.indSpotGalleryFloor_1_18,        command );
+            LightControlMulti[IOCardID.ID_2]?.TurnSingleLight( EastSideIOAssignment.indSpotGalleryFloor_2_4,         command );
+            LightControlMulti[IOCardID.ID_2]?.TurnSingleLight( EastSideIOAssignment.indSpotGalleryFloor_5_6,         command );
+            LightControlMulti[IOCardID.ID_2]?.TurnSingleLight( EastSideIOAssignment.indSpotGalleryFloor_7,           command );
+            LightControlMulti[IOCardID.ID_2]?.TurnSingleLight( EastSideIOAssignment.indSpotGalleryFloor_8_10,        command );
             LightControlMulti[IOCardID.ID_2]?.TurnSingleLight( EastSideIOAssignment.indSpotGalleryFloor_17_19_20_21, command );
-            LightControlMulti[IOCardID.ID_2]?.TurnSingleLight( EastSideIOAssignment.indSpotGalleryFloor_16, command );
-            LightControlMulti[IOCardID.ID_2]?.TurnSingleLight( EastSideIOAssignment.indSpotGalleryFloor_14_15, command );
-            LightControlMulti[IOCardID.ID_2]?.TurnSingleLight( EastSideIOAssignment.indSpotGalleryFloor_13, command );
-            LightControlMulti[IOCardID.ID_2]?.TurnSingleLight( EastSideIOAssignment.indSpotGalleryFloor_11_12, command );
+            LightControlMulti[IOCardID.ID_2]?.TurnSingleLight( EastSideIOAssignment.indSpotGalleryFloor_16,          command );
+            LightControlMulti[IOCardID.ID_2]?.TurnSingleLight( EastSideIOAssignment.indSpotGalleryFloor_14_15,       command );
+            LightControlMulti[IOCardID.ID_2]?.TurnSingleLight( EastSideIOAssignment.indSpotGalleryFloor_13,          command );
+            LightControlMulti[IOCardID.ID_2]?.TurnSingleLight( EastSideIOAssignment.indSpotGalleryFloor_11_12,       command );
         }
         #endregion
 
@@ -271,6 +271,116 @@ namespace HomeAutomation
 
                 case ComandoString.TURN_GALLERY_UP_OFF:
                      TurnGalleryUpSide( GeneralConstants.OFF );
+                     break;
+
+                case ComandoString.TURN_TRIANGLE_UPSTAIRS_ON:
+                    LightControlMulti[IOCardID.ID_1]?.TurnSingleLight( EastSideIOAssignment.indLightsTriangleGalleryBack, true );
+                    break;
+
+                case ComandoString.TURN_TRIANGLE_UPSTAIRS_OFF:
+                     LightControlMulti[IOCardID.ID_1]?.TurnSingleLight( EastSideIOAssignment.indLightsTriangleGalleryBack, false );
+                     break;
+
+                case ComandoString.TURN_LIGHT_WINDOW_SOUTHEAST_UPSIDE_ON:
+                     break;
+
+                case ComandoString.TURN_LIGHT_WINDOW_SOUTHEAST_UPSIDE_OFF:
+                     break;
+
+                case ComandoString.TURN_LIGHTBAR_OVER_DOOR_ENTRY_ON:
+                     break;
+
+                case ComandoString.TURN_LIGHTBAR_OVER_DOOR_ENTRY_OFF:
+                     break;
+
+                case ComandoString.TURN_LIGHTBAR_OVER_RIGHTWINDOW_BESIDE_DOOR_ON:
+                     break;
+
+                case ComandoString.TURN_LIGHTBAR_OVER_RIGHTWINDOW_BESIDE_DOOR_OFF:
+                     break;
+
+                case ComandoString.TURN_GALLERY_DOWN_1_ON:
+                     break;
+
+                case ComandoString.TURN_GALLERY_DOWN_1_OFF:
+                     break;
+
+                case ComandoString.TURN_GALLERY_DOWN_2_ON:
+                     break;
+
+                case ComandoString.TURN_GALLERY_DOWN_2_OFF:
+                     break;
+
+                case ComandoString.TURN_GALLERY_DOWN_3_ON:
+                     break;
+
+                case ComandoString.TURN_GALLERY_DOWN_3_OFF:
+                     break;
+
+                case ComandoString.TURN_GALLERY_DOWN_4_ON:
+                     break;
+
+                case ComandoString.TURN_GALLERY_DOWN_4_OFF:
+                     break;
+
+                case ComandoString.TURN_GALLERY_UP1_ON:
+                     break;
+
+                case ComandoString.TURN_GALLERY_UP2_ON:
+                     break;
+
+                case ComandoString.TURN_GALLERY_UP3_ON:
+                     break;
+
+                case ComandoString.TURN_GALLERY_UP4_ON:
+                     break;
+
+                case ComandoString.TURN_GALLERY_UP5_ON:
+                     break;
+
+                case ComandoString.TURN_GALLERY_UP6_ON:
+                     break;
+
+                case ComandoString.TURN_GALLERY_UP7_ON:
+                     break;
+
+                case ComandoString.TURN_GALLERY_UP8_ON:
+                     break;
+
+                case ComandoString.TURN_GALLERY_UP9_ON:
+                     break;
+
+                case ComandoString.TURN_GALLERY_UP10_ON:
+                     break;
+
+                case ComandoString.TURN_GALLERY_UP1_OFF:
+                     break;
+
+                case ComandoString.TURN_GALLERY_UP2_OFF:
+                     break;
+
+                case ComandoString.TURN_GALLERY_UP3_OFF:
+                     break;
+
+                case ComandoString.TURN_GALLERY_UP4_OFF:
+                     break;
+
+                case ComandoString.TURN_GALLERY_UP5_OFF:
+                     break;
+
+                case ComandoString.TURN_GALLERY_UP6_OFF:
+                     break;
+
+                case ComandoString.TURN_GALLERY_UP7_OFF:
+                     break;
+
+                case ComandoString.TURN_GALLERY_UP8_OFF:
+                     break;
+
+                case ComandoString.TURN_GALLERY_UP9_OFF:
+                     break;
+
+                case ComandoString.TURN_GALLERY_UP10_OFF:
                      break;
 
             }
@@ -357,20 +467,22 @@ namespace HomeAutomation
             {
                 switch ( e.Index )
                 {
-                    case EastSideIOAssignment.indTestButton:
+                   case EastSideIOAssignment.indTestButton:
                         LightControlMulti[ActualPluggedCardId]?.MakeStep( e );
                         LightControlMulti[IOCardID.ID_1]?.AutomaticOff( e );
                         break;
 
-                    case EastSideIOAssignment.indDigitalInput_PresenceDetector:
+                   case EastSideIOAssignment.indDigitalInput_PresenceDetector:
                         LightControlMulti[IOCardID.ID_1]?.AutomaticOff( e );
                         LightControlMulti[IOCardID.ID_2].AutomaticOff( e );
                         break;
 
-                    case EastSideIOAssignment.indDigitalInput_DoorContactMainRight:
+                   case EastSideIOAssignment.indDigitalInput_DoorContactMainRight:
+                        TurnOffTimer?.Stop( );
                         TurnOffTimer?.Start( );
                         LightControlMulti[IOCardID.ID_1]?.TurnSingleLight( EastSideIOAssignment.indDoorEntry_Window_Right, true );
                         break;
+
                     default:
                         break;
                 }

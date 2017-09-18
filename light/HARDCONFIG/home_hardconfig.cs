@@ -377,19 +377,47 @@ namespace HomeAutomation
             public const string TURN_ALL_LIGHTS_ON                         = "TURN-ALL-LIGHTS-ON";
             public const string TURN_ALL_KITCHEN_LIGHTS_OFF                = "TURN-ALL-KITCHEN-LIGHTS-OFF";
             public const string TURN_ALL_KITCHEN_LIGHTS_ON                 = "TURN-ALL-KITCHEN-LIGHTS-ON";
+            public const string TURN_KITCHEN_LIGHTS_CABINET_ON             = "TURN-KITCHEN-LIGHTS-CABINET-ON"; // Lichter über Küschenschrank
+            public const string TURN_KITCHEN_LIGHTS_CABINET_OFF            = "TURN-KITCHEN-LIGHTS-CABINET-OFF";
+            public const string TURN_KITCHEN_LIGHT_FUMEHOOD_ON             = "TURN-KITCHEN-LIGHT-FUMEHOOD-ON";  // Lichbalken an der Dunstabzughaube
+            public const string TURN_KITCHEN_LIGHT_FUMEHOOD_OFF            = "TURN-KITCHEN-LIGHT-FUMEHOOD-OFF";
+            public const string TURN_KITCHEN_LIGHT_SLOT_ON                 = "TURN-KITCHEN-LIGHT-SLOT-ON";     // Lichter in der Ecke neben den Dustabzug
+            public const string TURN_KITCHEN_LIGHT_SLOT_OFF                = "TURN-KITCHEN-LIGHT-SLOT-OFF";
+            public const string TURN_KITCHEN_LIGHT_OVER_CABINET_RIGHT_ON   = "TURN-KITCHEN-LIGHT-OVER-CABINET-RIGHT-ON"; // Lichtbalken über Schrank rechts ( E - Verteiler )
+            public const string TURN_KITCHEN_LIGHT_OVER_CABINET_RIGHT_OFF  = "TURN-KITCHEN-LIGHT-OVER-CABINET-RIGHT-OFF";
 
             public const string TURN_GALLERY_UP_ON                              = "TURN-GALLERY-UP-ON";
             public const string TURN_GALLERY_UP_OFF                             = "TURN-GALLERY-UP-OFF";
-            public const string TURN_TRIANGLE_DOWNSTAIRS_ON                     = "TURN-TRIANAGLE-DOWNSTAIRS-ON";
-            public const string TURN_TRIANGLE_DOWNSTAIRS_OFF                    = "TURN-TRIANAGLE-DOWNSTAIRS-OFF";
+            public const string TURN_GALLERY_UP1_ON                             = "TURN-GALLERY-UP1-ON";
+            public const string TURN_GALLERY_UP2_ON                             = "TURN-GALLERY-UP2-ON";
+            public const string TURN_GALLERY_UP3_ON                             = "TURN-GALLERY-UP3-ON";
+            public const string TURN_GALLERY_UP4_ON                             = "TURN-GALLERY-UP4-ON";
+            public const string TURN_GALLERY_UP5_ON                             = "TURN-GALLERY-UP5-ON";
+            public const string TURN_GALLERY_UP6_ON                             = "TURN-GALLERY-UP6-ON";
+            public const string TURN_GALLERY_UP7_ON                             = "TURN-GALLERY-UP7-ON";
+            public const string TURN_GALLERY_UP8_ON                             = "TURN-GALLERY-UP8-ON";
+            public const string TURN_GALLERY_UP9_ON                             = "TURN-GALLERY-UP9-ON";
+            public const string TURN_GALLERY_UP10_ON                            = "TURN-GALLERY-UP10-ON";
+
+            public const string TURN_GALLERY_UP1_OFF                             = "TURN-GALLERY-UP1-OFF";
+            public const string TURN_GALLERY_UP2_OFF                             = "TURN-GALLERY-UP2-OFF";
+            public const string TURN_GALLERY_UP3_OFF                             = "TURN-GALLERY-UP3-OFF";
+            public const string TURN_GALLERY_UP4_OFF                             = "TURN-GALLERY-UP4-OFF";
+            public const string TURN_GALLERY_UP5_OFF                             = "TURN-GALLERY-UP5-OFF";
+            public const string TURN_GALLERY_UP6_OFF                             = "TURN-GALLERY-UP6-OFF";
+            public const string TURN_GALLERY_UP7_OFF                             = "TURN-GALLERY-UP7-OFF";
+            public const string TURN_GALLERY_UP8_OFF                             = "TURN-GALLERY-UP8-OFF";
+            public const string TURN_GALLERY_UP9_OFF                             = "TURN-GALLERY-UP9-OFF";
+            public const string TURN_GALLERY_UP10_OFF                            = "TURN-GALLERY-UP10-OFF";
+
+            public const string TURN_TRIANGLE_UPSTAIRS_ON                       = "TURN-TRIANAGLE-UPSTAIRS-ON";                   // ganz oben 2 Leuchten beim "Dreieck"
+            public const string TURN_TRIANGLE_UPSTAIRS_OFF                      = "TURN-TRIANAGLE-UPSTAIRS-OFF";
             public const string TURN_LIGHTBAR_OVER_DOOR_ENTRY_ON                = "TURN-LIGHTBAR-OVER-DOOR-ENTRY-ON";
             public const string TURN_LIGHTBAR_OVER_DOOR_ENTRY_OFF               = "TURN-LIGHTBAR-OVER-DOOR-ENTRY-OFF";
             public const string TURN_LIGHTBAR_OVER_RIGHTWINDOW_BESIDE_DOOR_ON   = "TURN-LIGHTBAR-OVER-RIGHTWINDOW-BESIDE-DOOR-ON";
             public const string TURN_LIGHTBAR_OVER_RIGHTWINDOW_BESIDE_DOOR_OFF  = "TURN-LIGHTBAR-OVER-RIGHTWINDOW-BESIDE-DOOR-OFF";
             public const string TURN_LIGHT_WINDOW_SOUTHEAST_UPSIDE_ON           = "TURN_LIGHT_WINDOW_SOUTHEAST_UPSIDE_ON";
             public const string TURN_LIGHT_WINDOW_SOUTHEAST_UPSIDE_OFF          = "TURN_LIGHT_WINDOW_SOUTHEAST_UPSIDE_OFF";
-
-
 
             public const string TURN_GALLERY_DOWN_ON                       = "TURN-GALLERY-DOWN-ON";
             public const string TURN_GALLERY_DOWN_OFF                      = "TURN-GALLERY-DOWN-OFF";
@@ -423,8 +451,6 @@ namespace HomeAutomation
 
             public const string TURN_LIGHT_OUTSIDE_ON       = "TURN-LIGHT-OUTSIDE-ON";
             public const string TURN_LIGHT_OUTSIDE_OFF      = "TURN-LIGHT-OUTSIDE-OFF";
-
-
 
             static Dictionary<uint, string> ComandoDictionary = new Dictionary<uint, string>
             {
