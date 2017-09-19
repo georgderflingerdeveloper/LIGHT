@@ -255,6 +255,12 @@ namespace HomeAutomation
                 case ComandoString.TURN_ALL_LIGHTS_OFF:
                      TurnCeilingGalleryDownside( GeneralConstants.OFF );
                      TurnGalleryUpSide( GeneralConstants.OFF );
+                     LightControlMulti[IOCardID.ID_1]?.TurnSingleLight( EastSideIOAssignment.indLightsTriangleGalleryBack, false );
+                     LightControlMulti[IOCardID.ID_1]?.TurnSingleLight( EastSideIOAssignment.indWindowLEDEastUpside, false );
+                     LightControlMulti[IOCardID.ID_1]?.TurnSingleLight( EastSideIOAssignment.indDoorEntry_Window_Right, false );
+                     LightControlMulti[IOCardID.ID_1]?.TurnSingleLight( EastSideIOAssignment.indWindowBesideDoorRight, false );
+                     LightControlMulti[IOCardID.ID_1]?.ResetForSyncingWithRemoteControl( );
+                     LightControlMulti[IOCardID.ID_2]?.ResetForSyncingWithRemoteControl( );
                      break;
 
                 case ComandoString.TURN_GALLERY_DOWN_ON:
@@ -274,29 +280,35 @@ namespace HomeAutomation
                      break;
 
                 case ComandoString.TURN_TRIANGLE_UPSTAIRS_ON:
-                    LightControlMulti[IOCardID.ID_1]?.TurnSingleLight( EastSideIOAssignment.indLightsTriangleGalleryBack, true );
-                    break;
+                     LightControlMulti[IOCardID.ID_1]?.TurnSingleLight( EastSideIOAssignment.indLightsTriangleGalleryBack, true );
+                     break;
 
                 case ComandoString.TURN_TRIANGLE_UPSTAIRS_OFF:
                      LightControlMulti[IOCardID.ID_1]?.TurnSingleLight( EastSideIOAssignment.indLightsTriangleGalleryBack, false );
                      break;
 
                 case ComandoString.TURN_LIGHT_WINDOW_SOUTHEAST_UPSIDE_ON:
+                     LightControlMulti[IOCardID.ID_1]?.TurnSingleLight( EastSideIOAssignment.indWindowLEDEastUpside, true );
                      break;
 
                 case ComandoString.TURN_LIGHT_WINDOW_SOUTHEAST_UPSIDE_OFF:
+                     LightControlMulti[IOCardID.ID_1]?.TurnSingleLight( EastSideIOAssignment.indWindowLEDEastUpside, false );
                      break;
 
                 case ComandoString.TURN_LIGHTBAR_OVER_DOOR_ENTRY_ON:
+                     LightControlMulti[IOCardID.ID_1]?.TurnSingleLight( EastSideIOAssignment.indDoorEntry_Window_Right, true );
                      break;
 
                 case ComandoString.TURN_LIGHTBAR_OVER_DOOR_ENTRY_OFF:
+                     LightControlMulti[IOCardID.ID_1]?.TurnSingleLight( EastSideIOAssignment.indDoorEntry_Window_Right, false );
                      break;
 
                 case ComandoString.TURN_LIGHTBAR_OVER_RIGHTWINDOW_BESIDE_DOOR_ON:
+                     LightControlMulti[IOCardID.ID_1]?.TurnSingleLight( EastSideIOAssignment.indWindowBesideDoorRight, true );
                      break;
 
                 case ComandoString.TURN_LIGHTBAR_OVER_RIGHTWINDOW_BESIDE_DOOR_OFF:
+                     LightControlMulti[IOCardID.ID_1]?.TurnSingleLight( EastSideIOAssignment.indWindowBesideDoorRight, false );
                      break;
 
                 case ComandoString.TURN_GALLERY_DOWN_1_ON:
@@ -410,17 +422,17 @@ namespace HomeAutomation
             switch( ReceivedIndex )
             {
                 case LivingRoomWestIOAssignment.LivWestDigInputs.indDigitalInputButtonMainDownLeft:
-                     LightControlMulti[IOCardID.ID_1].MakeStep( ReceivedValue );
+                     LightControlMulti[IOCardID.ID_1]?.MakeStep( ReceivedValue );
                      break;
 
                 case LivingRoomWestIOAssignment.LivWestDigInputs.indDigitalInputButtonMainUpLeft:
-                     LightControlMulti[IOCardID.ID_2].AutomaticOff( ReceivedValue );
-                     LightControlMulti[IOCardID.ID_2].MakeStep( ReceivedValue );
+                     LightControlMulti[IOCardID.ID_2]?.AutomaticOff( ReceivedValue );
+                     LightControlMulti[IOCardID.ID_2]?.MakeStep( ReceivedValue );
                      break;
 
                 case LivingRoomWestIOAssignment.LivWestDigInputs.indDigitalInputPresenceDetector:
-                     LightControlMulti[IOCardID.ID_1].AutomaticOff( ReceivedValue );
-                     LightControlMulti[IOCardID.ID_2].AutomaticOff( ReceivedValue );
+                     LightControlMulti[IOCardID.ID_1]?.AutomaticOff( ReceivedValue );
+                     LightControlMulti[IOCardID.ID_2]?.AutomaticOff( ReceivedValue );
                      break;
             }
         }
@@ -474,7 +486,7 @@ namespace HomeAutomation
 
                    case EastSideIOAssignment.indDigitalInput_PresenceDetector:
                         LightControlMulti[IOCardID.ID_1]?.AutomaticOff( e );
-                        LightControlMulti[IOCardID.ID_2].AutomaticOff( e );
+                        LightControlMulti[IOCardID.ID_2]?.AutomaticOff( e );
                         break;
 
                    case EastSideIOAssignment.indDigitalInput_DoorContactMainRight:

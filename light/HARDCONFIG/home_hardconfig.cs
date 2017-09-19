@@ -416,8 +416,8 @@ namespace HomeAutomation
             public const string TURN_LIGHTBAR_OVER_DOOR_ENTRY_OFF               = "TURN-LIGHTBAR-OVER-DOOR-ENTRY-OFF";
             public const string TURN_LIGHTBAR_OVER_RIGHTWINDOW_BESIDE_DOOR_ON   = "TURN-LIGHTBAR-OVER-RIGHTWINDOW-BESIDE-DOOR-ON";
             public const string TURN_LIGHTBAR_OVER_RIGHTWINDOW_BESIDE_DOOR_OFF  = "TURN-LIGHTBAR-OVER-RIGHTWINDOW-BESIDE-DOOR-OFF";
-            public const string TURN_LIGHT_WINDOW_SOUTHEAST_UPSIDE_ON           = "TURN_LIGHT_WINDOW_SOUTHEAST_UPSIDE_ON";
-            public const string TURN_LIGHT_WINDOW_SOUTHEAST_UPSIDE_OFF          = "TURN_LIGHT_WINDOW_SOUTHEAST_UPSIDE_OFF";
+            public const string TURN_LIGHT_WINDOW_SOUTHEAST_UPSIDE_ON           = "TURN-LIGHT-WINDOW-SOUTHEAST-UPSIDE-ON";
+            public const string TURN_LIGHT_WINDOW_SOUTHEAST_UPSIDE_OFF          = "TURN-LIGHT-WINDOW-SOUTHEAST-UPSIDE-OFF";
 
             public const string TURN_GALLERY_DOWN_ON                       = "TURN-GALLERY-DOWN-ON";
             public const string TURN_GALLERY_DOWN_OFF                      = "TURN-GALLERY-DOWN-OFF";

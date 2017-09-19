@@ -563,6 +563,13 @@ namespace HomeAutomation
                 StopAutomaticOfftimer( );
             }
 
+            public void ResetForSyncingWithRemoteControl( )
+            {
+                StopAutomaticOfftimer( );
+                FinalAllAutomaticOff?.Stop( );
+                actualindex = _startindex;
+            }
+
             public new void AutomaticOff( bool value )
             {
                 SelectDevicesOff = false;
