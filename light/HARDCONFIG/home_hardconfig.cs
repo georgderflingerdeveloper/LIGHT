@@ -398,6 +398,8 @@ namespace HomeAutomation
             public const string TURN_GALLERY_UP8_ON                             = "TURN-GALLERY-UP8-ON";
             public const string TURN_GALLERY_UP9_ON                             = "TURN-GALLERY-UP9-ON";
             public const string TURN_GALLERY_UP10_ON                            = "TURN-GALLERY-UP10-ON";
+            public const string TURN_GALLERY_UP11_ON                            = "TURN-GALLERY-UP11-ON";
+            public const string TURN_GALLERY_UP12_ON                            = "TURN-GALLERY-UP12-ON";
 
             public const string TURN_GALLERY_UP1_OFF                             = "TURN-GALLERY-UP1-OFF";
             public const string TURN_GALLERY_UP2_OFF                             = "TURN-GALLERY-UP2-OFF";
@@ -409,6 +411,8 @@ namespace HomeAutomation
             public const string TURN_GALLERY_UP8_OFF                             = "TURN-GALLERY-UP8-OFF";
             public const string TURN_GALLERY_UP9_OFF                             = "TURN-GALLERY-UP9-OFF";
             public const string TURN_GALLERY_UP10_OFF                            = "TURN-GALLERY-UP10-OFF";
+            public const string TURN_GALLERY_UP11_OFF                            = "TURN-GALLERY-UP11-OFF";
+            public const string TURN_GALLERY_UP12_OFF                            = "TURN-GALLERY-UP12-OFF";
 
             public const string TURN_TRIANGLE_UPSTAIRS_ON                       = "TURN-TRIANAGLE-UPSTAIRS-ON";                   // ganz oben 2 Leuchten beim "Dreieck"
             public const string TURN_TRIANGLE_UPSTAIRS_OFF                      = "TURN-TRIANAGLE-UPSTAIRS-OFF";

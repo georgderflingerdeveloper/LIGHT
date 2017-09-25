@@ -312,88 +312,133 @@ namespace HomeAutomation
                      break;
 
                 case ComandoString.TURN_GALLERY_DOWN_1_ON:
+                     LightControlMulti[IOCardID.ID_1]?.TurnSingleLight( EastSideIOAssignment.indDigitalOutput_SpotFrontSide_1_4, true );
                      break;
 
                 case ComandoString.TURN_GALLERY_DOWN_1_OFF:
+                     LightControlMulti[IOCardID.ID_1]?.TurnSingleLight( EastSideIOAssignment.indDigitalOutput_SpotFrontSide_1_4, false );
                      break;
 
                 case ComandoString.TURN_GALLERY_DOWN_2_ON:
+                     LightControlMulti[IOCardID.ID_1]?.TurnSingleLight( EastSideIOAssignment.indDigitalOutput_SpotFrontSide_5_8, true );
                      break;
 
                 case ComandoString.TURN_GALLERY_DOWN_2_OFF:
+                     LightControlMulti[IOCardID.ID_1]?.TurnSingleLight( EastSideIOAssignment.indDigitalOutput_SpotFrontSide_5_8, false );
                      break;
 
                 case ComandoString.TURN_GALLERY_DOWN_3_ON:
+                     LightControlMulti[IOCardID.ID_1]?.TurnSingleLight( EastSideIOAssignment.indDigitalOutput_SpotBackSide_1_3, true );
                      break;
 
                 case ComandoString.TURN_GALLERY_DOWN_3_OFF:
+                     LightControlMulti[IOCardID.ID_1]?.TurnSingleLight( EastSideIOAssignment.indDigitalOutput_SpotBackSide_1_3, false );
                      break;
 
                 case ComandoString.TURN_GALLERY_DOWN_4_ON:
+                     LightControlMulti[IOCardID.ID_1]?.TurnSingleLight( EastSideIOAssignment.indDigitalOutput_SpotBackSide_4_8, true );
                      break;
 
                 case ComandoString.TURN_GALLERY_DOWN_4_OFF:
+                     LightControlMulti[IOCardID.ID_1]?.TurnSingleLight( EastSideIOAssignment.indDigitalOutput_SpotBackSide_4_8, false );
                      break;
 
                 case ComandoString.TURN_GALLERY_UP1_ON:
+                     LightControlMulti[IOCardID.ID_2]?.TurnSingleLight( EastSideIOAssignment.indSpotGalleryFloor_1_18, true );
                      break;
 
                 case ComandoString.TURN_GALLERY_UP2_ON:
+                     LightControlMulti[IOCardID.ID_2]?.TurnSingleLight( EastSideIOAssignment.indSpotGalleryFloor_2_4, true );
                      break;
 
                 case ComandoString.TURN_GALLERY_UP3_ON:
+                     LightControlMulti[IOCardID.ID_2]?.TurnSingleLight( EastSideIOAssignment.indDigitalOutput_SpotBackSide_4_8, true );
                      break;
 
                 case ComandoString.TURN_GALLERY_UP4_ON:
+                     LightControlMulti[IOCardID.ID_2]?.TurnSingleLight( EastSideIOAssignment.indSpotGalleryFloor_5_6, true );
                      break;
 
                 case ComandoString.TURN_GALLERY_UP5_ON:
+                     LightControlMulti[IOCardID.ID_2]?.TurnSingleLight( EastSideIOAssignment.indSpotGalleryFloor_7, true );
                      break;
 
                 case ComandoString.TURN_GALLERY_UP6_ON:
+                     LightControlMulti[IOCardID.ID_2]?.TurnSingleLight( EastSideIOAssignment.indSpotGalleryFloor_8_10, true );
                      break;
 
                 case ComandoString.TURN_GALLERY_UP7_ON:
+                     LightControlMulti[IOCardID.ID_2]?.TurnSingleLight( EastSideIOAssignment.indSpotGalleryFloor_11_12, true );
                      break;
 
                 case ComandoString.TURN_GALLERY_UP8_ON:
+                     LightControlMulti[IOCardID.ID_2]?.TurnSingleLight( EastSideIOAssignment.indSpotGalleryFloor_13, true );
                      break;
 
                 case ComandoString.TURN_GALLERY_UP9_ON:
+                     LightControlMulti[IOCardID.ID_2]?.TurnSingleLight( EastSideIOAssignment.indSpotGalleryFloor_14_15, true );
                      break;
 
                 case ComandoString.TURN_GALLERY_UP10_ON:
+                     LightControlMulti[IOCardID.ID_2]?.TurnSingleLight( EastSideIOAssignment.indSpotGalleryFloor_16, true );
+                     break;
+
+                case ComandoString.TURN_GALLERY_UP11_ON:
+                     LightControlMulti[IOCardID.ID_2]?.TurnSingleLight( EastSideIOAssignment.indSpotGalleryFloor_17_19_20_21, true );
+                     break;
+
+                case ComandoString.TURN_GALLERY_UP12_ON:
+                     LightControlMulti[IOCardID.ID_2]?.TurnSingleLight( EastSideIOAssignment.indBarGallery1_4, true );
                      break;
 
                 case ComandoString.TURN_GALLERY_UP1_OFF:
+                     LightControlMulti[IOCardID.ID_2]?.TurnSingleLight( EastSideIOAssignment.indSpotGalleryFloor_1_18, false );
                      break;
 
                 case ComandoString.TURN_GALLERY_UP2_OFF:
+                     LightControlMulti[IOCardID.ID_2]?.TurnSingleLight( EastSideIOAssignment.indSpotGalleryFloor_2_4, false );
                      break;
 
                 case ComandoString.TURN_GALLERY_UP3_OFF:
+                     LightControlMulti[IOCardID.ID_2]?.TurnSingleLight( EastSideIOAssignment.indDigitalOutput_SpotBackSide_4_8, false );
                      break;
 
                 case ComandoString.TURN_GALLERY_UP4_OFF:
+                     LightControlMulti[IOCardID.ID_2]?.TurnSingleLight( EastSideIOAssignment.indSpotGalleryFloor_5_6, false );
                      break;
 
                 case ComandoString.TURN_GALLERY_UP5_OFF:
+                     LightControlMulti[IOCardID.ID_2]?.TurnSingleLight( EastSideIOAssignment.indSpotGalleryFloor_7, false );
                      break;
 
                 case ComandoString.TURN_GALLERY_UP6_OFF:
+                     LightControlMulti[IOCardID.ID_2]?.TurnSingleLight( EastSideIOAssignment.indSpotGalleryFloor_8_10, false );
                      break;
 
                 case ComandoString.TURN_GALLERY_UP7_OFF:
+                     LightControlMulti[IOCardID.ID_2]?.TurnSingleLight( EastSideIOAssignment.indSpotGalleryFloor_11_12, false );
                      break;
 
                 case ComandoString.TURN_GALLERY_UP8_OFF:
+                     LightControlMulti[IOCardID.ID_2]?.TurnSingleLight( EastSideIOAssignment.indSpotGalleryFloor_13, false );
                      break;
 
                 case ComandoString.TURN_GALLERY_UP9_OFF:
+                     LightControlMulti[IOCardID.ID_2]?.TurnSingleLight( EastSideIOAssignment.indSpotGalleryFloor_14_15, false );
                      break;
 
                 case ComandoString.TURN_GALLERY_UP10_OFF:
+                     LightControlMulti[IOCardID.ID_2]?.TurnSingleLight( EastSideIOAssignment.indSpotGalleryFloor_16, false );
                      break;
+
+                case ComandoString.TURN_GALLERY_UP11_OFF:
+                     LightControlMulti[IOCardID.ID_2]?.TurnSingleLight( EastSideIOAssignment.indSpotGalleryFloor_17_19_20_21, false );
+                     break;
+
+                case ComandoString.TURN_GALLERY_UP12_OFF:
+                     LightControlMulti[IOCardID.ID_2]?.TurnSingleLight( EastSideIOAssignment.indBarGallery1_4, false );
+                     break;
+
 
             }
         }
