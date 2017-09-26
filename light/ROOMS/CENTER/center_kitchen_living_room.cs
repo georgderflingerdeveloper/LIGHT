@@ -990,7 +990,6 @@ namespace HomeAutomation
             scheduler             = new home_scheduler();
             TimerRecoverScheulder = new Timer(Parameters.DelayTimeStartRecoverScheduler);
 
-
             CommonUsedTick.Elapsed            += CommonUsedTick_Elapsed;
 
             base.Attach                       += Center_kitchen_living_room_Attach;
@@ -1068,14 +1067,15 @@ namespace HomeAutomation
         // scheduler starts with recovered data
         void schedRecover_ERecover( FeedData e )
         {
+            string Job = e.Device + Seperators.InfoSeperator + e.JobId.ToString();
             SchedulerApplication.Worker( this, e, ref scheduler );
             Console.WriteLine( TimeUtil.GetTimestamp()  + Seperators.WhiteSpace + "Recover scheduler after booting " );
             Console.WriteLine( TimeUtil.GetTimestamp( ) + Seperators.WhiteSpace + "Device:                   " + e.Device );
             Console.WriteLine( TimeUtil.GetTimestamp()  + Seperators.WhiteSpace + "Start time:               " + e.Starttime );
             Console.WriteLine( TimeUtil.GetTimestamp()  + Seperators.WhiteSpace + "Stop time :               " + e.Stoptime );
             Console.WriteLine( TimeUtil.GetTimestamp()  + Seperators.WhiteSpace + "Configured days:          " + e.Days );
-            Console.WriteLine( TimeUtil.GetTimestamp()  + Seperators.WhiteSpace + "Current scheduler status: "
-                + scheduler.GetJobStatus( e.Device + Seperators.InfoSeperator + e.JobId ).ToString() );
+            Console.WriteLine( TimeUtil.GetTimestamp( ) + Seperators.WhiteSpace + "Job:                      " + Job );
+            Console.WriteLine( TimeUtil.GetTimestamp()  + Seperators.WhiteSpace + "Current scheduler status: " + scheduler.GetJobStatus( Job ) );
         }
 
         void Scheduler_EvTriggered( string time, Quartz.IJobExecutionContext context, decimal counts )
@@ -1092,58 +1092,56 @@ namespace HomeAutomation
 
         void ControlScheduledDevice( Quartz.IJobExecutionContext context, decimal counts, string device )
         {
-            int index = 0;
             string[] DeviceParts;
             DeviceParts = device.Split( '_' );
-            HADictionaries.DeviceDictionaryCenterdigitalOut.TryGetValue( DeviceParts[0], out index );
-   
+            HADictionaries.DeviceDictionaryCenterdigitalOut.TryGetValue( DeviceParts[0], out int index );
+            bool SchedulerIsStartingAnyAction = (counts % 2 != 0) ? true : false;
+
             if( device.Contains( nameof( CenterKitchenDeviceNames.FumeHood ) ) )
             {
-                if ( counts % 2 == 0 ) // STOP scheduler
-                {
-                    Kitchen.ActualKitchenStep = LightControlKitchen_NG.KitchenStep.eFrontLights;
-                }
-                else // start scheduler
-                {
-                    Kitchen.ActualKitchenStep = LightControlKitchen_NG.KitchenStep.eSlots;
-                }
+               if( SchedulerIsStartingAnyAction ) 
+               {
+                   Kitchen.ActualKitchenStep = LightControlKitchen_NG.KitchenStep.eSlots;
+               }
+               else 
+               {
+                   Kitchen.ActualKitchenStep = LightControlKitchen_NG.KitchenStep.eFrontLights;
+               }
             }
 
             if ( device.Contains( nameof( HardConfig.HardwareDevices.Boiler ) ) )
             {
-                if ( base.outputs != null )
+                if( base.outputs != null )
                 {
                     if ( index >= 0 && index < GeneralConstants.NumberOfOutputsIOCard )
                     {
-                        if ( counts % 2 == 0 )
+                        if ( SchedulerIsStartingAnyAction )
                         {
-                            base.outputs[index] = GeneralConstants.OFF;
+                            base.outputs[index] = GeneralConstants.ON;
                         }
                         else
                         {
-                            base.outputs[index] = GeneralConstants.ON;
+                            base.outputs[index] = GeneralConstants.OFF;
                         }
                     }
                 }
             }
         }
 
-        void BasicClientCommunicator__EAskSchedulerForStatus( object sender, string Job )
+        string AskForSchedulerStatus( string Job )
         {
-            if( scheduler != null )
-            {
-                string SystemIsAskingScheduler = TimeUtil.GetTimestamp()            + 
-				                                 Seperators.WhiteSpace              + 
-				                                 _GivenClientName                   + 
-				                                 "...."                             + 
-				                                 InfoString.Asking                  +
-				                                 Seperators.WhiteSpace              + 
-				                                 InfoString.Scheduler;
-				
-                Console.WriteLine( SystemIsAskingScheduler );
-                SchedulerInfo.Status status = scheduler.GetJobStatus( Job );
+            string SystemIsAskingScheduler = TimeUtil.GetTimestamp()                +
+                                                 Seperators.WhiteSpace              +
+                                                 _GivenClientName                   +
+                                                 "...."                             +
+                                                 InfoString.Asking                  +
+                                                 Seperators.WhiteSpace              +
+                                                 InfoString.Scheduler;
 
-                string StatusInformation = TimeUtil.GetTimestamp()                  +
+            Console.WriteLine( SystemIsAskingScheduler );
+            SchedulerInfo.Status status = scheduler.GetJobStatus( Job );
+
+            string StatusInformation = TimeUtil.GetTimestamp()                      +
                                            Seperators.WhiteSpace                    +
                                            _GivenClientName                         +
                                            Seperators.WhiteSpace                    +
@@ -1154,19 +1152,25 @@ namespace HomeAutomation
                                            InfoString.Is                            +
                                            Seperators.WhiteSpace                    +
                                            status.ToString();
-				
-                Console.WriteLine( StatusInformation );
 
-                string Answer =  InfoOperationMode.CENTER_KITCHEN_AND_LIVING_ROOM   +
+            Console.WriteLine( StatusInformation );
+
+            return    InfoOperationMode.CENTER_KITCHEN_AND_LIVING_ROOM   +
                                  Seperators.InfoSeperator                           +
                                  HomeAutomationAnswers.ANSWER_SCHEDULER_STATUS      +
                                  Seperators.InfoSeperator                           +
                                  Job                                                +
                                  Seperators.InfoSeperator                           +
                                  status.ToString();
-                BasicClientCommunicator_.SendInfoToServer( Answer );
-            }
+
+
         }
+
+        void BasicClientCommunicator__EAskSchedulerForStatus( object sender, string Job )
+        {
+            string Answer = AskForSchedulerStatus( Job );
+            BasicClientCommunicator_.SendInfoToServer( Answer );
+         }
         #endregion
 
         #region PROPERTIES_IO_INTERFACE
@@ -1549,13 +1553,13 @@ namespace HomeAutomation
             switch( ReceivedIndex )
             {
                 case LivingRoomWestIOAssignment.LivWestDigInputs.indDigitalInputButtonMainUpLeft:
-                    // turn light ON / OFF when releasing the button 
-                    if( ReceivedValue == false )
-                    {
-                        Outside.ToggleSingleDevice(CenterOutsideIODevices.indDigitalOutputLightsOutside);
-                        Outside.AutomaticOff( ReceivedValue );
-                    }
-                    break;
+                     // turn light ON / OFF when releasing the button 
+                     if( ReceivedValue == false )
+                     {
+                         Outside.ToggleSingleDevice(CenterOutsideIODevices.indDigitalOutputLightsOutside);
+                         Outside.AutomaticOff( ReceivedValue );
+                     }
+                     break;
             }
         }
         #endregion

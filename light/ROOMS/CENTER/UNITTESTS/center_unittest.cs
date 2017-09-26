@@ -63,21 +63,6 @@ namespace CenterUnitTest
         }
 
 
-        //[Test]
-        //public void TestTurnAllLightsOff()
-        //{
-        //    TestCenter.ResetDeviceController( );
-
-        //    TestCenter.TestBackdoor_UdpReceiver( ComandoString.TURN_ALL_LIGHTS_OFF );
-
-        //    Assert.True( TestCenter.ReferenceDigitalOutputState[CenterOutsideIODevices.indDigitalOutputLightsOutside] );
-
-        //          Assert.False( TestCenter.ReferenceDigitalOutputState[KitchenCenterIoDevices.indDigitalOutputFirstKitchen] );
-        //         Assert.False( TestCenter.ReferenceDigitalOutputState[KitchenCenterIoDevices.indDigitalOutputFrontLight_1] );
-        //Assert.False( TestCenter.ReferenceDigitalOutputState[KitchenCenterIoDevices.indDigitalOutputFrontLight_2] );
-
-        //  }
-
         [TearDown]
         public void Cleanup()
         {
