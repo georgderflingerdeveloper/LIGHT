@@ -21,47 +21,46 @@ namespace CenterUnitTest
         [SetUp]
         public void Init()
         {
-            TestCenter = new Center_kitchen_living_room_NG("0", "0", "0", true);
+            TestCenter = new Center_kitchen_living_room_NG( "0", "0", "0", true );
         }
 
-        [Test]
-        public void TestLigthOutsideIsOn()
-        {
-            TestCenter.ResetDeviceController();
+        //[Test]
+        //public void TestLigthOutsideIsOn()
+        //{
+        //    TestCenter.ResetDeviceController();
 
-            TestCenter.TestBackdoor_UdpReceiver(TestConstants.DatagrammButtonRightUpside_Pressed);
-            TestCenter.TestBackdoor_UdpReceiver(TestConstants.DatagrammButtonRightUpside_Released);
+        //    TestCenter.TestBackdoor_UdpReceiver(TestConstants.DatagrammButtonRightUpside_Pressed);
+        //    TestCenter.TestBackdoor_UdpReceiver(TestConstants.DatagrammButtonRightUpside_Released);
 
-            Assert.True(TestCenter.ReferenceDigitalOutputState[CenterOutsideIODevices.indDigitalOutputLightsOutside]);
-        }
+        //    Assert.True(TestCenter.ReferenceDigitalOutputState[CenterOutsideIODevices.indDigitalOutputLightsOutside]);
+        //}
 
-        [Test]
-        public void TestLigthOutsideIsOff()
-        {
-            TestCenter.ResetDeviceController();
+        //[Test]
+        //public void TestLigthOutsideIsOff()
+        //{
+        //    TestCenter.ResetDeviceController();
 
-            // press once
-            TestCenter.TestBackdoor_UdpReceiver(TestConstants.DatagrammButtonRightUpside_Pressed);
-            TestCenter.TestBackdoor_UdpReceiver(TestConstants.DatagrammButtonRightUpside_Released);
-            // press twice
-            TestCenter.TestBackdoor_UdpReceiver(TestConstants.DatagrammButtonRightUpside_PressedTwice);
-            TestCenter.TestBackdoor_UdpReceiver(TestConstants.DatagrammButtonRightUpside_ReleasedTwice);
+        //    // press once
+        //    TestCenter.TestBackdoor_UdpReceiver(TestConstants.DatagrammButtonRightUpside_Pressed);
+        //    TestCenter.TestBackdoor_UdpReceiver(TestConstants.DatagrammButtonRightUpside_Released);
+        //    // press twice
+        //    TestCenter.TestBackdoor_UdpReceiver(TestConstants.DatagrammButtonRightUpside_PressedTwice);
+        //    TestCenter.TestBackdoor_UdpReceiver(TestConstants.DatagrammButtonRightUpside_ReleasedTwice);
 
-            Assert.False(TestCenter.ReferenceDigitalOutputState[CenterOutsideIODevices.indDigitalOutputLightsOutside]);
-        }
+        //    Assert.False(TestCenter.ReferenceDigitalOutputState[CenterOutsideIODevices.indDigitalOutputLightsOutside]);
+        //}
 
-        [Test]
-        public void TestTurnAllLightsOn()
-        {
-            TestCenter.ResetDeviceController( );
+        //[Test]
+        //public void TestTurnAllLightsOn()
+        //{
+        //    TestCenter.ResetDeviceController( );
 
-            TestCenter.TestBackdoor_UdpReceiver( ComandoString.TURN_ALL_LIGHTS_ON );
+        //    TestCenter.TestBackdoor_UdpReceiver( ComandoString.TURN_ALL_LIGHTS_ON );
 
-            Assert.True( TestCenter.ReferenceDigitalOutputState[KitchenCenterIoDevices.indDigitalOutputFirstKitchen] );
-            Assert.True( TestCenter.ReferenceDigitalOutputState[KitchenCenterIoDevices.indDigitalOutputFrontLight_1] );
+        //    Assert.True( TestCenter.ReferenceDigitalOutputState[KitchenCenterIoDevices.indDigitalOutputFirstKitchen] );
+        //    Assert.True( TestCenter.ReferenceDigitalOutputState[KitchenCenterIoDevices.indDigitalOutputFrontLight_1] );
 
-        }
-
+        //}
 
         [TearDown]
         public void Cleanup()
