@@ -1502,6 +1502,62 @@ namespace HomeAutomation
                          TurnFrontLights( GeneralConstants.ON );
                          break;
 
+                    case ComandoString.TURN_KITCHEN_LIGHTS_CABINET_ON:
+                         base.outputs[KitchenCenterIoDevices.indDigitalOutputKitchenKabinet] = true;
+                         break;
+
+                    case ComandoString.TURN_KITCHEN_LIGHTS_CABINET_OFF:
+                         base.outputs[KitchenCenterIoDevices.indDigitalOutputKitchenKabinet] = false;
+                         break;
+
+                    case ComandoString.TURN_KITCHEN_LIGHT_FUMEHOOD_ON:
+                         base.outputs[KitchenCenterIoDevices.indDigitalOutputFumeHood] = true;
+                         break;
+
+                    case ComandoString.TURN_KITCHEN_LIGHT_FUMEHOOD_OFF:
+                         base.outputs[KitchenCenterIoDevices.indDigitalOutputFumeHood] = false;
+                         break;
+
+                    case ComandoString.TURN_KITCHEN_LIGHT_OVER_CABINET_RIGHT_ON:
+                         base.outputs[KitchenCenterIoDevices.indDigitalOutputFirstKitchen] = true;
+                         break;
+
+                    case ComandoString.TURN_KITCHEN_LIGHT_OVER_CABINET_RIGHT_OFF:
+                         base.outputs[KitchenCenterIoDevices.indDigitalOutputFirstKitchen] = false;
+                         break;
+
+                    case ComandoString.TURN_KITCHEN_LIGHT_SLOT_ON:
+                         base.outputs[KitchenCenterIoDevices.indDigitalOutputSlot] = true;
+                         break;
+
+                    case ComandoString.TURN_KITCHEN_LIGHT_SLOT_OFF:
+                         base.outputs[KitchenCenterIoDevices.indDigitalOutputSlot] = false;
+                         break;
+
+                    case ComandoString.TURN_KITCHEN_FRONT_LIGHT_1_ON:
+                         base.outputs[KitchenCenterIoDevices.indDigitalOutputFrontLight_1] = true;
+                         break;
+
+                    case ComandoString.TURN_KITCHEN_FRONT_LIGHT_2_ON:
+                         base.outputs[KitchenCenterIoDevices.indDigitalOutputFrontLight_2] = true;
+                         break;
+
+                    case ComandoString.TURN_KITCHEN_FRONT_LIGHT_3_ON:
+                         base.outputs[KitchenCenterIoDevices.indDigitalOutputFrontLight_3] = true;
+                         break;
+
+                    case ComandoString.TURN_KITCHEN_FRONT_LIGHT_1_OFF:
+                         base.outputs[KitchenCenterIoDevices.indDigitalOutputFrontLight_1] = false;
+                         break;
+
+                    case ComandoString.TURN_KITCHEN_FRONT_LIGHT_2_OFF:
+                         base.outputs[KitchenCenterIoDevices.indDigitalOutputFrontLight_2] = false;
+                         break;
+
+                    case ComandoString.TURN_KITCHEN_FRONT_LIGHT_3_OFF:
+                         base.outputs[KitchenCenterIoDevices.indDigitalOutputFrontLight_3] = false;
+                         break;
+
                     case ComandoString.TURN_LIGHT_OUTSIDE_ON:
                          Outside.TurnAllDevices( GeneralConstants.ON );
                          break;

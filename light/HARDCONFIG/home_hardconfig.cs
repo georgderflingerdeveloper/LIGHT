@@ -385,6 +385,13 @@ namespace HomeAutomation
             public const string TURN_KITCHEN_LIGHT_SLOT_OFF                = "TURN-KITCHEN-LIGHT-SLOT-OFF";
             public const string TURN_KITCHEN_LIGHT_OVER_CABINET_RIGHT_ON   = "TURN-KITCHEN-LIGHT-OVER-CABINET-RIGHT-ON"; // Lichtbalken über Schrank rechts ( E - Verteiler )
             public const string TURN_KITCHEN_LIGHT_OVER_CABINET_RIGHT_OFF  = "TURN-KITCHEN-LIGHT-OVER-CABINET-RIGHT-OFF";
+            public const string TURN_KITCHEN_FRONT_LIGHT_1_ON              = "TURN-KITCHEN-FRONT-LIGHT-1-ON";
+            public const string TURN_KITCHEN_FRONT_LIGHT_2_ON              = "TURN-KITCHEN-FRONT-LIGHT-2-ON";
+            public const string TURN_KITCHEN_FRONT_LIGHT_3_ON              = "TURN-KITCHEN-FRONT-LIGHT-3-ON";
+            public const string TURN_KITCHEN_FRONT_LIGHT_1_OFF             = "TURN-KITCHEN-FRONT-LIGHT-1_OFF";
+            public const string TURN_KITCHEN_FRONT_LIGHT_2_OFF             = "TURN-KITCHEN-FRONT-LIGHT-2_OFF";
+            public const string TURN_KITCHEN_FRONT_LIGHT_3_OFF             = "TURN-KITCHEN-FRONT-LIGHT-3_OFF";
+
 
             public const string TURN_GALLERY_UP_ON                              = "TURN-GALLERY-UP-ON";
             public const string TURN_GALLERY_UP_OFF                             = "TURN-GALLERY-UP-OFF";
