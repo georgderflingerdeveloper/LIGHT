@@ -1,6 +1,8 @@
 ﻿using NUnit.Framework;
+using Moq;
 using HomeAutomation;
 using HomeAutomation.HardConfig;
+using Quartz;
 
 namespace CenterUnitTest
 {
@@ -17,6 +19,7 @@ namespace CenterUnitTest
 	public class CenterTests
 	{
 		Center_kitchen_living_room_NG TestCenter;
+
 
         [SetUp]
         public void Init()

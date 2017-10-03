@@ -53,14 +53,14 @@ namespace HA_COMPONENTS
                                       )
             : base( AllOnTime, AllOutputsOffTime, SingleOffTime, AutomaticOffTime, startindex, lastindex )
         {
-            base.AutomaticOff_          += LightControlKitchen_AutomaticOff_;
-            base.EReset                 += LightControlKitchen_EReset;
-            base.AllSelectedDevicesOff_ += LightControlKitchen_AllSelectedDevicesOff_;
-            base.SingleOff_             += LightControlKitchen_SingleOff_;
-            base.EUpdateOutputs         += LightControlKitchen_NG_EUpdateOutputs;
+            AutomaticOff_          += LightControlKitchen_AutomaticOff_;
+            EReset                 += LightControlKitchen_EReset;
+            AllSelectedDevicesOff_ += LightControlKitchen_AllSelectedDevicesOff_;
+            SingleOff_             += LightControlKitchen_SingleOff_;
+            EUpdateOutputs         += LightControlKitchen_NG_EUpdateOutputs;
 
             _startindex                  = startindex;
-            ActualKitchenStep_                 = KitchenStep.eAll;
+            ActualKitchenStep_           = KitchenStep.eAll;
 
             // this list keeps information about which items can acess digital output
             // only booleans with this configured index can write to an digital output
@@ -74,7 +74,7 @@ namespace HA_COMPONENTS
                                         KitchenCenterIoDevices.indDigitalOutputSlot,
 				                        CenterOutsideIODevices.indDigitalOutputLightsOutside
                                       };
-            base.Match = Match_;
+            Match = Match_;
         }
 
 
@@ -128,12 +128,12 @@ namespace HA_COMPONENTS
         {
             for( int i = _index; i <= _lastindex; i++ )
             {
-                base._DigitalOutput[i] = false;
+                _DigitalOutput[i] = false;
             }
             _SingleOffDone = true;
             ActualKitchenStep_   = NextKitchenStep_;
             reset          = true;
-            DoUpDateIO( base._DigitalOutput );
+            DoUpDateIO( _DigitalOutput );
         }
 
         void LightControlKitchen_AllSelectedDevicesOff_( object sender, int firstdevice, int lastdevice )
@@ -195,7 +195,7 @@ namespace HA_COMPONENTS
 		                {
 		                    ActualKitchenStep_ = KitchenStep.eFrontLights;
 		                    ToggleLightWindowBoardEastDown = false;
-		                    base._DigitalOutput[KitchenCenterIoDevices.indDigitalOutputWindowBoardEastDown] = false;
+		                    _DigitalOutput[KitchenCenterIoDevices.indDigitalOutputWindowBoardEastDown] = false;
 		                    break;
 		                }
 
@@ -208,18 +208,18 @@ namespace HA_COMPONENTS
 
 		                if( _index <= _indexlastdevice )
 		                {
-		                    base._DigitalOutput[_index] = true;
+		                    _DigitalOutput[_index] = true;
 		                    if( index > 0 )
 		                    {
-		                        base._DigitalOutput[_index - 1] = false;
+		                        _DigitalOutput[_index - 1] = false;
 		                    }
 		                    index++;
 		                }
 		                else
 		                {
-		                    base._DigitalOutput[_index - 1] = false;
+		                    _DigitalOutput[_index - 1] = false;
 		                    index = 0;
-		                    base._DigitalOutput[KitchenCenterIoDevices.indDigitalOutputWindowBoardEastDown] = true;
+		                    _DigitalOutput[KitchenCenterIoDevices.indDigitalOutputWindowBoardEastDown] = true;
 		                    ToggleLightWindowBoardEastDown = true;
 		                }
 
@@ -248,7 +248,7 @@ namespace HA_COMPONENTS
 		                {
 		                    for( int i = FirstFrontLight; i <= LastFrontLight; i++ )
 		                    {
-		                        base._DigitalOutput[i] = false;
+		                        _DigitalOutput[i] = false;
 		                    }
 		                    IndexFS = 0;
 		                    if( _SingleOffDone )
@@ -258,7 +258,7 @@ namespace HA_COMPONENTS
 		                    }
 		                    break;
 		                }
-		                base._DigitalOutput[IndexLightFrontSide] = true;
+		                _DigitalOutput[IndexLightFrontSide] = true;
 		                IndexFS++;
 		                break;
 
@@ -268,10 +268,10 @@ namespace HA_COMPONENTS
 		                if( _SingleOffDone )
 		                {
 		                    _SingleOffDone = false;
-							base._DigitalOutput[KitchenCenterIoDevices.indDigitalOutputFrontLight_1]   = false;
-		                    base._DigitalOutput[KitchenCenterIoDevices.indDigitalOutputFrontLight_2]   = false;
-		                    base._DigitalOutput[KitchenCenterIoDevices.indDigitalOutputFrontLight_3]   = false;
-		                    base._DigitalOutput[KitchenCenterIoDevices.indDigitalOutputKitchenKabinet] = false;
+							_DigitalOutput[KitchenCenterIoDevices.indDigitalOutputFrontLight_1]   = false;
+		                    _DigitalOutput[KitchenCenterIoDevices.indDigitalOutputFrontLight_2]   = false;
+		                    _DigitalOutput[KitchenCenterIoDevices.indDigitalOutputFrontLight_3]   = false;
+		                    _DigitalOutput[KitchenCenterIoDevices.indDigitalOutputKitchenKabinet] = false;
 		                    ToggleLightGroups = false;
 		                    _lastindex = 0;
 		                    return;
@@ -279,18 +279,18 @@ namespace HA_COMPONENTS
 
 		                if( !ToggleLightGroups )
 		                {
-							base._DigitalOutput[KitchenCenterIoDevices.indDigitalOutputFrontLight_1]   = true;
-		                    base._DigitalOutput[KitchenCenterIoDevices.indDigitalOutputFrontLight_2]   = true;
-		                    base._DigitalOutput[KitchenCenterIoDevices.indDigitalOutputFrontLight_3]   = true;
-		                    base._DigitalOutput[KitchenCenterIoDevices.indDigitalOutputKitchenKabinet] = true;
+							_DigitalOutput[KitchenCenterIoDevices.indDigitalOutputFrontLight_1]   = true;
+		                    _DigitalOutput[KitchenCenterIoDevices.indDigitalOutputFrontLight_2]   = true;
+		                    _DigitalOutput[KitchenCenterIoDevices.indDigitalOutputFrontLight_3]   = true;
+		                    _DigitalOutput[KitchenCenterIoDevices.indDigitalOutputKitchenKabinet] = true;
 		                    ToggleLightGroups = true;
 		                }
 		                else
 		                {
-							base._DigitalOutput[KitchenCenterIoDevices.indDigitalOutputFrontLight_1]   = false;
-		                    base._DigitalOutput[KitchenCenterIoDevices.indDigitalOutputFrontLight_2]   = false;
-		                    base._DigitalOutput[KitchenCenterIoDevices.indDigitalOutputFrontLight_3]   = false;
-		                    base._DigitalOutput[KitchenCenterIoDevices.indDigitalOutputKitchenKabinet] = false;
+							_DigitalOutput[KitchenCenterIoDevices.indDigitalOutputFrontLight_1]   = false;
+		                    _DigitalOutput[KitchenCenterIoDevices.indDigitalOutputFrontLight_2]   = false;
+		                    _DigitalOutput[KitchenCenterIoDevices.indDigitalOutputFrontLight_3]   = false;
+		                    _DigitalOutput[KitchenCenterIoDevices.indDigitalOutputKitchenKabinet] = false;
 		                    ToggleLightGroups = false;
 		                }
 		                break;
@@ -302,7 +302,7 @@ namespace HA_COMPONENTS
 
 		                if( _SingleOffDone )
 		                {
-		                    base.TurnAllLightsOff( startindex, _indexlastdevice );
+		                    TurnAllLightsOff( startindex, _indexlastdevice );
 		                    index = 0;
 		                    _SingleOffDone    = false;
 		                    ToggleLightGroups = false;
@@ -310,12 +310,12 @@ namespace HA_COMPONENTS
 		                }
 		                if( !ToggleLightGroups )
 		                {
-		                    base.AllLightsOn( startindex, _indexlastdevice );
+		                    AllLightsOn( startindex, _indexlastdevice );
 		                    ToggleLightGroups = true;
 		                }
 		                else
 		                {
-		                    base.TurnAllLightsOff( startindex, _indexlastdevice );
+		                    TurnAllLightsOff( startindex, _indexlastdevice );
 		                    ToggleLightGroups = false;
 		                }
 
@@ -327,28 +327,28 @@ namespace HA_COMPONENTS
 		                if( _SingleOffDone )
 		                {
 		                    _SingleOffDone = false;
-		                    base._DigitalOutput[KitchenCenterIoDevices.indDigitalOutputFumeHood] = false;
-		                    base._DigitalOutput[KitchenCenterIoDevices.indDigitalOutputSlot]     = false;
+		                    _DigitalOutput[KitchenCenterIoDevices.indDigitalOutputFumeHood] = false;
+		                    _DigitalOutput[KitchenCenterIoDevices.indDigitalOutputSlot]     = false;
 		                    _lastindex = 0;
 		                    return;
 		                }
 		                if( !ToggleLightGroups )
 		                {
-		                    base._DigitalOutput[KitchenCenterIoDevices.indDigitalOutputFumeHood] = true;
-		                    base._DigitalOutput[KitchenCenterIoDevices.indDigitalOutputSlot]     = true;
+		                    _DigitalOutput[KitchenCenterIoDevices.indDigitalOutputFumeHood] = true;
+		                    _DigitalOutput[KitchenCenterIoDevices.indDigitalOutputSlot]     = true;
 		                    ToggleLightGroups = true;
 		                }
 		                else
 		                {
-		                    base._DigitalOutput[KitchenCenterIoDevices.indDigitalOutputFumeHood] = false;
-		                    base._DigitalOutput[KitchenCenterIoDevices.indDigitalOutputSlot]     = false;
+		                    _DigitalOutput[KitchenCenterIoDevices.indDigitalOutputFumeHood] = false;
+		                    _DigitalOutput[KitchenCenterIoDevices.indDigitalOutputSlot]     = false;
 		                    ToggleLightGroups = false;
 		                }
 		                _lastindex = KitchenCenterIoDevices.indDigitalOutputSlot;
 		                break;
             }
             LastKitchenStep_ = ActualKitchenStep_;
-            DoUpDateIO( base._DigitalOutput );
+            DoUpDateIO( _DigitalOutput );
         }
         #endregion
 

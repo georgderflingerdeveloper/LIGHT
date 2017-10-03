@@ -17,6 +17,7 @@ using HA_COMPONENTS;
 using BASIC_COMPONENTS;
 using HomeControl.BASIC_COMPONENTS.Interfaces;
 using ROOMS.CENTER.INTERFACE;
+using Quartz;
 
 
 namespace HomeAutomation
@@ -26,6 +27,7 @@ namespace HomeAutomation
     {
         #region DECLARATION
         LightControlKitchen_NG               Kitchen;
+        LightControlKitchen_NG.KitchenStep   DesiredLightGroupInKitchen;
         LightControl_NG                      Outside;
         HeaterElement_NG                     HeatersLivingRoom;
         HeaterElement_NG                     HeaterAnteRoom;
@@ -236,19 +238,19 @@ namespace HomeAutomation
             Console.WriteLine( TimeUtil.GetTimestamp()  + Seperators.WhiteSpace + "Current scheduler status: " + scheduler.GetJobStatus( Job ) );
         }
 
-        void Scheduler_EvTriggered( string time, Quartz.IJobExecutionContext context, decimal counts )
+        void Scheduler_EvTriggered( string time, IJobExecutionContext context, decimal counts )
         {
             SchedulerApplication.WriteStatus( time, context, counts );
 
-            if ( !Attached )
+            if( !Attached )
             {
                 return;
             }
 
-            ControlScheduledDevice( context, counts, context.JobDetail.Key.Name );
+            ControlScheduledDevice( counts, context.JobDetail.Key.Name );
         }
 
-        void ControlScheduledDevice( Quartz.IJobExecutionContext context, decimal counts, string device )
+        void ControlScheduledDevice( decimal counts, string device )
         {
             string[] DeviceParts;
             DeviceParts = device.Split( '_' );
@@ -269,17 +271,17 @@ namespace HomeAutomation
 
             if( device.Contains( nameof( HardConfig.HardwareDevices.Boiler ) ) )
             {
-                if( base.outputs != null )
+                if( outputs != null )
                 {
                     if( index >= 0 && index < GeneralConstants.NumberOfOutputsIOCard )
                     {
                         if( SchedulerIsStartingAnyAction )
                         {
-                            base.outputs[index] = GeneralConstants.ON;
+                            outputs[index] = GeneralConstants.ON;
                         }
                         else
                         {
-                            base.outputs[index] = GeneralConstants.OFF;
+                            outputs[index] = GeneralConstants.OFF;
                         }
                     }
                 }
@@ -627,6 +629,8 @@ namespace HomeAutomation
 
         void UDPReceive__EDataReceived( string e )
         {
+            Kitchen?.StopAutomaticOfftimer( );
+
             string[] DatagrammSplitted = e.Split( ComandoString.Telegram.Seperator );
 
             if( DatagrammSplitted.Length == ExpectedArrayElementsCommonCommand )
@@ -661,59 +665,59 @@ namespace HomeAutomation
                          break;
 
                     case ComandoString.TURN_KITCHEN_LIGHTS_CABINET_ON:
-                         base.outputs[KitchenCenterIoDevices.indDigitalOutputKitchenKabinet] = true;
+                         outputs[KitchenCenterIoDevices.indDigitalOutputKitchenKabinet] = true;
                          break;
 
                     case ComandoString.TURN_KITCHEN_LIGHTS_CABINET_OFF:
-                         base.outputs[KitchenCenterIoDevices.indDigitalOutputKitchenKabinet] = false;
+                         outputs[KitchenCenterIoDevices.indDigitalOutputKitchenKabinet] = false;
                          break;
 
                     case ComandoString.TURN_KITCHEN_LIGHT_FUMEHOOD_ON:
-                         base.outputs[KitchenCenterIoDevices.indDigitalOutputFumeHood] = true;
+                         outputs[KitchenCenterIoDevices.indDigitalOutputFumeHood] = true;
                          break;
 
                     case ComandoString.TURN_KITCHEN_LIGHT_FUMEHOOD_OFF:
-                         base.outputs[KitchenCenterIoDevices.indDigitalOutputFumeHood] = false;
+                         outputs[KitchenCenterIoDevices.indDigitalOutputFumeHood] = false;
                          break;
 
                     case ComandoString.TURN_KITCHEN_LIGHT_OVER_CABINET_RIGHT_ON:
-                         base.outputs[KitchenCenterIoDevices.indDigitalOutputFirstKitchen] = true;
+                         outputs[KitchenCenterIoDevices.indDigitalOutputFirstKitchen] = true;
                          break;
 
                     case ComandoString.TURN_KITCHEN_LIGHT_OVER_CABINET_RIGHT_OFF:
-                         base.outputs[KitchenCenterIoDevices.indDigitalOutputFirstKitchen] = false;
+                         outputs[KitchenCenterIoDevices.indDigitalOutputFirstKitchen] = false;
                          break;
 
                     case ComandoString.TURN_KITCHEN_LIGHT_SLOT_ON:
-                         base.outputs[KitchenCenterIoDevices.indDigitalOutputSlot] = true;
+                         outputs[KitchenCenterIoDevices.indDigitalOutputSlot] = true;
                          break;
 
                     case ComandoString.TURN_KITCHEN_LIGHT_SLOT_OFF:
-                         base.outputs[KitchenCenterIoDevices.indDigitalOutputSlot] = false;
+                         outputs[KitchenCenterIoDevices.indDigitalOutputSlot] = false;
                          break;
 
                     case ComandoString.TURN_KITCHEN_FRONT_LIGHT_1_ON:
-                         base.outputs[KitchenCenterIoDevices.indDigitalOutputFrontLight_1] = true;
+                         outputs[KitchenCenterIoDevices.indDigitalOutputFrontLight_1] = true;
                          break;
 
                     case ComandoString.TURN_KITCHEN_FRONT_LIGHT_2_ON:
-                         base.outputs[KitchenCenterIoDevices.indDigitalOutputFrontLight_2] = true;
+                         outputs[KitchenCenterIoDevices.indDigitalOutputFrontLight_2] = true;
                          break;
 
                     case ComandoString.TURN_KITCHEN_FRONT_LIGHT_3_ON:
-                         base.outputs[KitchenCenterIoDevices.indDigitalOutputFrontLight_3] = true;
+                         outputs[KitchenCenterIoDevices.indDigitalOutputFrontLight_3] = true;
                          break;
 
                     case ComandoString.TURN_KITCHEN_FRONT_LIGHT_1_OFF:
-                         base.outputs[KitchenCenterIoDevices.indDigitalOutputFrontLight_1] = false;
+                         outputs[KitchenCenterIoDevices.indDigitalOutputFrontLight_1] = false;
                          break;
 
                     case ComandoString.TURN_KITCHEN_FRONT_LIGHT_2_OFF:
-                         base.outputs[KitchenCenterIoDevices.indDigitalOutputFrontLight_2] = false;
+                         outputs[KitchenCenterIoDevices.indDigitalOutputFrontLight_2] = false;
                          break;
 
                     case ComandoString.TURN_KITCHEN_FRONT_LIGHT_3_OFF:
-                         base.outputs[KitchenCenterIoDevices.indDigitalOutputFrontLight_3] = false;
+                         outputs[KitchenCenterIoDevices.indDigitalOutputFrontLight_3] = false;
                          break;
 
                     case ComandoString.TURN_LIGHT_OUTSIDE_ON:
@@ -889,6 +893,11 @@ namespace HomeAutomation
 		{
 			UDPReceive__EDataReceived( receiveddatagramm );
 		}
+
+        public void TestBackdoorSchedulerControl( IJobExecutionContext context, decimal counts, string device )
+        {
+            ControlScheduledDevice( counts,  device );
+        }
         #endregion
     }
 }
