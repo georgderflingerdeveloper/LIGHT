@@ -37,8 +37,9 @@ namespace HomeAutomation
         home_scheduler                       scheduler;
         SchedulerDataRecovery                schedRecover;
         FeedData                             PrevSchedulerData = new FeedData();
-        UdpReceive                           UDPReceive_;
-        Timer                                TimerRecoverScheulder;
+        UdpReceive                           UDPReceiveDataFromWebForwarder;
+        UdpReceive                           UdpReceiveDataFromEastController;
+        Timer TimerRecoverScheulder;
         Timer                                CommonUsedTick =  new Timer( GeneralConstants.DURATION_COMMONTICK );
         bool[]                               _DigitalInputState;
         bool[]                               _DigitalOutputState;
@@ -176,10 +177,12 @@ namespace HomeAutomation
 
             try
             {
-                UDPReceive_ = new UdpReceive( IPConfiguration.Port.PORT_UDP_WEB_FORWARDER_CENTER );
-                UDPReceive_.EDataReceived += UDPReceive__EDataReceived;
+                UDPReceiveDataFromWebForwarder = new UdpReceive( IPConfiguration.Port.PORT_UDP_WEB_FORWARDER_CENTER );
+                UDPReceiveDataFromWebForwarder.EDataReceived += UdpDataReceived;
+                UdpReceiveDataFromEastController = new UdpReceive( IPConfiguration.Port.PORT_LIGHT_CONTROL_LIVING_ROOM_EAST );
+                UdpReceiveDataFromEastController.EDataReceived += UdpDataReceived;
             }
-            catch( Exception ex )
+            catch ( Exception ex )
             {
                 Console.WriteLine( TimeUtil.GetTimestamp() + Seperators.WhiteSpace + ex.Message );
                 Services.TraceMessage_( InfoString.FailedToEstablishUDPReceive );
@@ -627,7 +630,7 @@ namespace HomeAutomation
 		const int ExpectedArrayElementsSignalTelegram = UdpTelegram.DelfaultExpectedArrayElementsSignalTelegram;
         const int ExpectedArrayElementsCommonCommand  = 1;
 
-        void UDPReceive__EDataReceived( string e )
+        void UdpDataReceived( string e )
         {
             Kitchen?.StopAutomaticOfftimer( );
 
@@ -891,7 +894,7 @@ namespace HomeAutomation
 
 		public void TestBackdoor_UdpReceiver( string receiveddatagramm )
 		{
-			UDPReceive__EDataReceived( receiveddatagramm );
+			UdpDataReceived( receiveddatagramm );
 		}
 
         public void TestBackdoorSchedulerControl( IJobExecutionContext context, decimal counts, string device )

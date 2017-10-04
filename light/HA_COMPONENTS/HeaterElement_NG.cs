@@ -146,7 +146,7 @@ namespace HA_COMPONENTS
         }
 
         // todo
-        public void UseThermostatDigital( InputChangeEventArgs e )
+        public void UseThermostatDigital( )
         {
         }
 

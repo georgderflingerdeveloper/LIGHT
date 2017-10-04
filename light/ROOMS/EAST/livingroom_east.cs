@@ -55,6 +55,7 @@ namespace HomeAutomation
         BuildingSection[]                     BuildingMultiCard;
         UdpReceive                            UDPReceive_;
         UdpReceive                            UDPReceiveFromGui_;
+        UdpSend                               UDPSendData;
         Timer                                 TurnOffTimer;
 
         BasicClientComumnicator BasicClientCommunicator_;
@@ -155,6 +156,7 @@ namespace HomeAutomation
                     UDPReceive_.EDataReceived += UDPReceive__EDataReceived;
                     UDPReceiveFromGui_ =  new UdpReceive( IPConfiguration.Port.PORT_UDP_WEB_FORWARDER_CENTER );
                     UDPReceiveFromGui_.EDataReceived += UDPReceiveFromGui__EDataReceived;
+                    UDPSendData = new UdpSend( IPConfiguration.Address.IP_ADRESS_BROADCAST, IPConfiguration.Port.PORT_LIGHT_CONTROL_LIVING_ROOM_EAST );
                 }
                 catch( Exception ex )
                 {
@@ -533,6 +535,7 @@ namespace HomeAutomation
                         TurnOffTimer?.Stop( );
                         TurnOffTimer?.Start( );
                         LightControlMulti[IOCardID.ID_1]?.TurnSingleLight( EastSideIOAssignment.indDoorEntry_Window_Right, true );
+                        UDPSendData.SendStringNoneAsync( ComandoString.TURN_LIGHT_OUTSIDE_ON );
                         break;
 
                     default:
@@ -551,6 +554,7 @@ namespace HomeAutomation
         private void TurnOffTimer_Elapsed( object sender, ElapsedEventArgs e )
         {
             LightControlMulti[IOCardID.ID_1]?.TurnSingleLight( EastSideIOAssignment.indDoorEntry_Window_Right, false );
+            UDPSendData.SendStringNoneAsync( ComandoString.TURN_LIGHT_OUTSIDE_OFF );
         }
 
         #endregion
