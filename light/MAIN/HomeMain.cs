@@ -1,27 +1,21 @@
 ﻿//Needed for the InterfaceKit class, phidget base classes, and the PhidgetException class
+using Communication.Client_;
+using Communication.Server_;
+using Communication.UDP;
+using Filehandling;
+using HomeAutomation.Controls;
+using HomeAutomation.HardConfig_Collected;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Reflection;
-using System.Timers;
-using Auxiliary;
-using Communication.Client_;
-using Communication.Server_;
-using Communication.UDP;
-using Filehandling;
-using HardwareDevices;
-using HomeAutomation.Controls;
-using HomeAutomation.rooms;
-using Phidgets;
-using SystemServices;
-using BASIC_COMPONENTS;
-using HomeAutomation.HardConfig;
 using System.Threading;
+using System.Timers;
+using SystemServices;
 
 namespace HomeAutomation
 {
- 
     class MyHomeMain
     {
         #region COMMON_DECLARATIONS

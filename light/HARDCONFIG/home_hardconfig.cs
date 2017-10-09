@@ -1,11 +1,10 @@
 using System;
 using System.Collections.Generic;
 using SystemServices;
-using System.Data.Odbc;
 
 namespace HomeAutomation
 {
-    namespace HardConfig
+    namespace HardConfig_Collected
     {
         #region GENERAL_CONFIGS
         static class HADictionaries

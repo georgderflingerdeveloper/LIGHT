@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Timers;
 using Communication;
 using Communication.HAProtocoll;
-using HomeAutomation.HardConfig;
+using HomeAutomation.HardConfig_Collected;
 using Phidgets;
 using HomeAutomation.Controls;
 

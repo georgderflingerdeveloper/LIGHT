@@ -1,29 +1,27 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Timers;
+﻿using BASIC_COMPONENTS;
 using Communication.CLIENT_Communicator;
 using Communication.HAProtocoll;
 using Communication.UDP;
-using HAHardware;
-using HomeAutomation.HardConfig;
-using HomeAutomation.rooms;
-using Phidgets;
-using Phidgets.Events;
-using Scheduler;
-using SystemServices;
 using Equipment;
 using HA_COMPONENTS;
-using BASIC_COMPONENTS;
+using HomeAutomation.HardConfig_Collected;
+using HomeAutomation.rooms;
 using HomeControl.BASIC_COMPONENTS.Interfaces;
-using ROOMS.CENTER.INTERFACE;
+using Phidgets.Events;
 using Quartz;
+using ROOMS.CENTER.INTERFACE;
+using Scheduler;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Timers;
+using SystemServices;
 
 
 namespace HomeAutomation
 {
 
-	class Center_kitchen_living_room_NG : CommonRoom, IIOHandlerInfo, ICenter 
+    class Center_kitchen_living_room_NG : CommonRoom, IIOHandlerInfo, ICenter 
     {
         #region DECLARATION
         LightControlKitchen_NG               Kitchen;
@@ -272,7 +270,7 @@ namespace HomeAutomation
                }
             }
 
-            if( device.Contains( nameof( HardConfig.HardwareDevices.Boiler ) ) )
+            if( device.Contains( nameof( HardConfig_Collected.HardwareDevices.Boiler ) ) )
             {
                 if( outputs != null )
                 {
@@ -842,7 +840,7 @@ namespace HomeAutomation
 
         void TimerRecoverScheulder_Elapsed( object sender, ElapsedEventArgs e )
         {
-            schedRecover.RecoverScheduler( Directory.GetCurrentDirectory(), HardConfig.HardwareDevices.Devices );
+            schedRecover.RecoverScheduler( Directory.GetCurrentDirectory(), HardConfig_Collected.HardwareDevices.Devices );
             TimerRecoverScheulder.Stop();
         }
         

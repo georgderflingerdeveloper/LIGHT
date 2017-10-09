@@ -139,7 +139,6 @@
     <Compile Include="HA_INFORMATION_COMPONENTS\PowerMeter.cs" />
     <Compile Include="HA_INFORMATION_COMPONENTS\PowerMeterData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ADDITIONAL\effects.cs" />
     <Compile Include="ROOMS\home_commonroom.cs" />
     <Compile Include="APPLICATION_SERVICES\DATAHANDLING\inihandler.cs" />
     <Compile Include="ADDITIONAL\leds.cs" />
@@ -174,6 +173,13 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="CONFIGS\EAST\FOR_TEST_1\conf.ini" />
+    <Content Include="CONFIGS\EAST\FOR_TEST_2\conf.ini" />
+    <Content Include="CONFIGS\EAST\ORIGINAL\conf.ini" />
+    <Content Include="CONFIGS\KITCHENCENTER\conf.ini" />
+    <Content Include="CONFIGS\KITCHENCENTER\Devices.xml" />
+    <Content Include="CONFIGS\SLEEPINGROOM\conf.ini" />
+    <Content Include="CONFIGS\WEST\conf.ini" />
     <Content Include="HINTS\URLS\GIT_REPOSITORY_URL.txt" />
     <Content Include="ICON\light_ha.ico" />
   </ItemGroup>

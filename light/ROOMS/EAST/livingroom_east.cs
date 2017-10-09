@@ -1,14 +1,14 @@
-﻿using System;
-using System.Timers;
-using SystemServices;
+﻿using BASIC_COMPONENTS;
 using Communication.CLIENT_Communicator;
 using Communication.HAProtocoll;
 using Communication.UDP;
-using HomeAutomation.HardConfig;
+using HomeAutomation.HardConfig_Collected;
 using HomeAutomation.rooms;
 using Phidgets;
 using Phidgets.Events;
-using BASIC_COMPONENTS;
+using System;
+using System.Timers;
+using SystemServices;
 
 namespace HomeAutomation
 {

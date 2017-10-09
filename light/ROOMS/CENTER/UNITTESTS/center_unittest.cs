@@ -1,7 +1,7 @@
 ﻿using NUnit.Framework;
 using Moq;
 using HomeAutomation;
-using HomeAutomation.HardConfig;
+using HomeAutomation.HardConfig_Collected;
 using Quartz;
 
 namespace CenterUnitTest

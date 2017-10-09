@@ -1,6 +1,6 @@
 ﻿using System;
 using Communication.UDP;
-using HomeAutomation.HardConfig;
+using HomeAutomation.HardConfig_Collected;
 using HomeAutomation.rooms;
 using Phidgets.Events;
 using SystemServices;

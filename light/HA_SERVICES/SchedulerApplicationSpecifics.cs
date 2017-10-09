@@ -4,7 +4,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
 using System.Xml.Serialization;
 using SystemServices;
-using HomeAutomation.HardConfig;
+using HomeAutomation.HardConfig_Collected;
 
 #region ApplicationSpecificUsing
 using light_visu_classic;

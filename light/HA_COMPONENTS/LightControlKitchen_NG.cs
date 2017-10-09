@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using HomeAutomation.HardConfig;
+using HomeAutomation.HardConfig_Collected;
 
 namespace HA_COMPONENTS
 {

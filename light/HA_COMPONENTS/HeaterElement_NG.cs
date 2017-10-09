@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Timers;
-using HomeAutomation.HardConfig;
+using HomeAutomation.HardConfig_Collected;
 using HomeAutomation.Controls;
 using Phidgets.Events;
 using HomeAutomation.rooms;

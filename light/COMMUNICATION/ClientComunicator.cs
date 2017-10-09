@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Phidgets;
-using HomeAutomation.HardConfig;
+using HomeAutomation.HardConfig_Collected;
 using Communication.Client_;
 using Communication.UDP;
 using Communication.HAProtocoll;

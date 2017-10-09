@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Timers;
-using HomeAutomation.HardConfig;
+using HomeAutomation.HardConfig_Collected;
 
 
 namespace BASIC_CONTROL_LOGIC

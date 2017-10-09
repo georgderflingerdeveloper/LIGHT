@@ -4,7 +4,7 @@ using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading;
-using HomeAutomation.HardConfig;
+using HomeAutomation.HardConfig_Collected;
 using SystemServices;
 
 

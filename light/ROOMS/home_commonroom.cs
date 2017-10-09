@@ -1,16 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Timers;
-using Communication.Server_;
+﻿using BASIC_CONTROL_LOGIC;
 using HomeAutomation.Controls;
-using HomeAutomation.HardConfig;
+using HomeAutomation.HardConfig_Collected;
 using Phidgets;
 using Phidgets.Events;
 using PhidgetsHelpers;
+using System;
+using System.Collections.Generic;
+using System.Timers;
 using SystemServices;
-using BASIC_CONTROL_LOGIC;
-using BASIC_COMPONENTS;
-using HA_COMPONENTS;
 
 namespace HomeAutomation
 {

@@ -1,7 +1,7 @@
 ﻿
 using System.Collections.Generic;
 using BASIC_CONTROL_LOGIC;
-using HomeAutomation.HardConfig;
+using HomeAutomation.HardConfig_Collected;
 
 namespace HA_COMPONENTS
 {

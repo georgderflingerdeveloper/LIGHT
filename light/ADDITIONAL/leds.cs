@@ -1,6 +1,6 @@
 ﻿using System;
 using Phidgets;
-using HomeAutomation.HardConfig;
+using HomeAutomation.HardConfig_Collected;
 using PhidgetsHelpers;
 
 namespace HardwareDevices                 

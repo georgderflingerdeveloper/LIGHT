@@ -6,7 +6,7 @@ using System.Net.NetworkInformation;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading;
-using HomeAutomation.HardConfig;
+using HomeAutomation.HardConfig_Collected;
 using SystemServices;
 
 namespace Communication
