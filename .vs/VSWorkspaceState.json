@@ -1,16 +1,6 @@
 {
   "ExpandedNodes": [
-    "",
-    "\\light",
-    "\\light\\ROOMS\\CENTER",
-    "\\light\\ROOMS\\CENTER\\INTERFACE",
-    "\\light\\ROOMS\\CENTER\\UNITTESTS",
-    "\\light\\ROOMS\\EAST",
-    "\\light\\ROOMS\\LIVING_ROOM_AND_KITCHEN\\UNIT_TEST",
-    "\\light\\ROOMS\\SLEEPINGROOM",
-    "\\light\\ROOMS\\WEST",
-    "\\light\\Service References\\bin"
+    ""
   ],
-  "SelectedNode": "\\light\\ROOMS",
   "PreviewInSolutionExplorer": false
 }

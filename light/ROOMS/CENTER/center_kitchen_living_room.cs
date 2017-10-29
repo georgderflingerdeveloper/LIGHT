@@ -16,6 +16,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Timers;
 using SystemServices;
+//using HomeAutomationHeater;
 
 
 namespace HomeAutomation
@@ -24,8 +25,9 @@ namespace HomeAutomation
     class Center_kitchen_living_room_NG : CommonRoom, IIOHandlerInfo, ICenter 
     {
         #region DECLARATION
-        LightControlKitchen_NG               Kitchen;
+//        HeaterController                     Heater;
         LightControlKitchen_NG.KitchenStep   DesiredLightGroupInKitchen;
+        LightControlKitchen_NG               Kitchen;
         LightControl_NG                      Outside;
         HeaterElement_NG                     HeatersLivingRoom;
         HeaterElement_NG                     HeaterAnteRoom;
@@ -37,7 +39,7 @@ namespace HomeAutomation
         FeedData                             PrevSchedulerData = new FeedData();
         UdpReceive                           UDPReceiveDataFromWebForwarder;
         UdpReceive                           UdpReceiveDataFromEastController;
-        Timer TimerRecoverScheulder;
+        Timer                                TimerRecoverScheulder;
         Timer                                CommonUsedTick =  new Timer( GeneralConstants.DURATION_COMMONTICK );
         bool[]                               _DigitalInputState;
         bool[]                               _DigitalOutputState;
