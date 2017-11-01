@@ -367,31 +367,30 @@ namespace HomeAutomation
         #region COMAND_STRINGS
         public static class ComandoString
         {
-            public const string NONE                                       = "NONE";
-            public const string ON                                         = "ON";
-            public const string OFF                                        = "OFF";
-            public const string EXIT                                       = "EXIT";
-            public const string BLINK                                      = "BLINK";
-            public const string TURN_ALL_LIGHTS_OFF                        = "TURN-ALL-LIGHTS-OFF";
-            public const string TURN_ALL_LIGHTS_ON                         = "TURN-ALL-LIGHTS-ON";
-            public const string TURN_ALL_KITCHEN_LIGHTS_OFF                = "TURN-ALL-KITCHEN-LIGHTS-OFF";
-            public const string TURN_ALL_KITCHEN_LIGHTS_ON                 = "TURN-ALL-KITCHEN-LIGHTS-ON";
-            public const string TURN_KITCHEN_LIGHTS_CABINET_ON             = "TURN-KITCHEN-LIGHTS-CABINET-ON"; // Lichter über Küschenschrank
-            public const string TURN_KITCHEN_LIGHTS_CABINET_OFF            = "TURN-KITCHEN-LIGHTS-CABINET-OFF";
-            public const string TURN_KITCHEN_LIGHT_FUMEHOOD_ON             = "TURN-KITCHEN-LIGHT-FUMEHOOD-ON";  // Lichbalken an der Dunstabzughaube
-            public const string TURN_KITCHEN_LIGHT_FUMEHOOD_OFF            = "TURN-KITCHEN-LIGHT-FUMEHOOD-OFF";
-            public const string TURN_KITCHEN_LIGHT_SLOT_ON                 = "TURN-KITCHEN-LIGHT-SLOT-ON";     // Lichter in der Ecke neben den Dustabzug
-            public const string TURN_KITCHEN_LIGHT_SLOT_OFF                = "TURN-KITCHEN-LIGHT-SLOT-OFF";
-            public const string TURN_KITCHEN_LIGHT_OVER_CABINET_RIGHT_ON   = "TURN-KITCHEN-LIGHT-OVER-CABINET-RIGHT-ON"; // Lichtbalken über Schrank rechts ( E - Verteiler )
-            public const string TURN_KITCHEN_LIGHT_OVER_CABINET_RIGHT_OFF  = "TURN-KITCHEN-LIGHT-OVER-CABINET-RIGHT-OFF";
-            public const string TURN_KITCHEN_FRONT_LIGHT_1_ON              = "TURN-KITCHEN-FRONT-LIGHT-1-ON";
-            public const string TURN_KITCHEN_FRONT_LIGHT_2_ON              = "TURN-KITCHEN-FRONT-LIGHT-2-ON";
-            public const string TURN_KITCHEN_FRONT_LIGHT_3_ON              = "TURN-KITCHEN-FRONT-LIGHT-3-ON";
-            public const string TURN_KITCHEN_FRONT_LIGHT_1_OFF             = "TURN-KITCHEN-FRONT-LIGHT-1_OFF";
-            public const string TURN_KITCHEN_FRONT_LIGHT_2_OFF             = "TURN-KITCHEN-FRONT-LIGHT-2_OFF";
-            public const string TURN_KITCHEN_FRONT_LIGHT_3_OFF             = "TURN-KITCHEN-FRONT-LIGHT-3_OFF";
-
-
+            public const string NONE                                            = "NONE";
+            public const string ON                                              = "ON";
+            public const string OFF                                             = "OFF";
+            public const string EXIT                                            = "EXIT";
+            public const string BLINK                                           = "BLINK";
+            public const string TURN_ALL_LIGHTS_OFF                             = "TURN-ALL-LIGHTS-OFF";
+            public const string TURN_ALL_LIGHTS_ON                              = "TURN-ALL-LIGHTS-ON";
+            public const string TURN_ALL_KITCHEN_LIGHTS_OFF                     = "TURN-ALL-KITCHEN-LIGHTS-OFF";
+            public const string TURN_ALL_KITCHEN_LIGHTS_ON                      = "TURN-ALL-KITCHEN-LIGHTS-ON";
+            public const string TURN_KITCHEN_LIGHTS_CABINET_ON                  = "TURN-KITCHEN-LIGHTS-CABINET-ON"; // Lichter über Küschenschrank
+            public const string TURN_KITCHEN_LIGHTS_CABINET_OFF                 = "TURN-KITCHEN-LIGHTS-CABINET-OFF";
+            public const string TURN_KITCHEN_LIGHT_FUMEHOOD_ON                  = "TURN-KITCHEN-LIGHT-FUMEHOOD-ON";  // Lichbalken an der Dunstabzughaube
+            public const string TURN_KITCHEN_LIGHT_FUMEHOOD_OFF                 = "TURN-KITCHEN-LIGHT-FUMEHOOD-OFF";
+            public const string TURN_KITCHEN_LIGHT_SLOT_ON                      = "TURN-KITCHEN-LIGHT-SLOT-ON";     // Lichter in der Ecke neben den Dustabzug
+            public const string TURN_KITCHEN_LIGHT_SLOT_OFF                     = "TURN-KITCHEN-LIGHT-SLOT-OFF";
+            public const string TURN_KITCHEN_LIGHT_OVER_CABINET_RIGHT_ON        = "TURN-KITCHEN-LIGHT-OVER-CABINET-RIGHT-ON"; // Lichtbalken über Schrank rechts ( E - Verteiler )
+            public const string TURN_KITCHEN_LIGHT_OVER_CABINET_RIGHT_OFF       = "TURN-KITCHEN-LIGHT-OVER-CABINET-RIGHT-OFF";
+            public const string TURN_KITCHEN_FRONT_LIGHT_1_ON                   = "TURN-KITCHEN-FRONT-LIGHT-1-ON";
+            public const string TURN_KITCHEN_FRONT_LIGHT_2_ON                   = "TURN-KITCHEN-FRONT-LIGHT-2-ON";
+            public const string TURN_KITCHEN_FRONT_LIGHT_3_ON                   = "TURN-KITCHEN-FRONT-LIGHT-3-ON";
+            public const string TURN_KITCHEN_FRONT_LIGHT_1_OFF                  = "TURN-KITCHEN-FRONT-LIGHT-1-OFF";
+            public const string TURN_KITCHEN_FRONT_LIGHT_2_OFF                  = "TURN-KITCHEN-FRONT-LIGHT-2-OFF";
+            public const string TURN_KITCHEN_FRONT_LIGHT_3_OFF                  = "TURN-KITCHEN-FRONT-LIGHT-3-OFF";
+            
             public const string TURN_GALLERY_UP_ON                              = "TURN-GALLERY-UP-ON";
             public const string TURN_GALLERY_UP_OFF                             = "TURN-GALLERY-UP-OFF";
             public const string TURN_GALLERY_UP1_ON                             = "TURN-GALLERY-UP1-ON";
@@ -420,47 +419,47 @@ namespace HomeAutomation
             public const string TURN_GALLERY_UP11_OFF                            = "TURN-GALLERY-UP11-OFF";
             public const string TURN_GALLERY_UP12_OFF                            = "TURN-GALLERY-UP12-OFF";
 
-            public const string TURN_TRIANGLE_UPSTAIRS_ON                       = "TURN-TRIANAGLE-UPSTAIRS-ON";                   // ganz oben 2 Leuchten beim "Dreieck"
-            public const string TURN_TRIANGLE_UPSTAIRS_OFF                      = "TURN-TRIANAGLE-UPSTAIRS-OFF";
-            public const string TURN_LIGHTBAR_OVER_DOOR_ENTRY_ON                = "TURN-LIGHTBAR-OVER-DOOR-ENTRY-ON";
-            public const string TURN_LIGHTBAR_OVER_DOOR_ENTRY_OFF               = "TURN-LIGHTBAR-OVER-DOOR-ENTRY-OFF";
-            public const string TURN_LIGHTBAR_OVER_RIGHTWINDOW_BESIDE_DOOR_ON   = "TURN-LIGHTBAR-OVER-RIGHTWINDOW-BESIDE-DOOR-ON";
-            public const string TURN_LIGHTBAR_OVER_RIGHTWINDOW_BESIDE_DOOR_OFF  = "TURN-LIGHTBAR-OVER-RIGHTWINDOW-BESIDE-DOOR-OFF";
-            public const string TURN_LIGHT_WINDOW_SOUTHEAST_UPSIDE_ON           = "TURN-LIGHT-WINDOW-SOUTHEAST-UPSIDE-ON";
-            public const string TURN_LIGHT_WINDOW_SOUTHEAST_UPSIDE_OFF          = "TURN-LIGHT-WINDOW-SOUTHEAST-UPSIDE-OFF";
+            public const string TURN_TRIANGLE_UPSTAIRS_ON                        = "TURN-TRIANAGLE-UPSTAIRS-ON";                   // ganz oben 2 Leuchten beim "Dreieck"
+            public const string TURN_TRIANGLE_UPSTAIRS_OFF                       = "TURN-TRIANAGLE-UPSTAIRS-OFF";
+            public const string TURN_LIGHTBAR_OVER_DOOR_ENTRY_ON                 = "TURN-LIGHTBAR-OVER-DOOR-ENTRY-ON";
+            public const string TURN_LIGHTBAR_OVER_DOOR_ENTRY_OFF                = "TURN-LIGHTBAR-OVER-DOOR-ENTRY-OFF";
+            public const string TURN_LIGHTBAR_OVER_RIGHTWINDOW_BESIDE_DOOR_ON    = "TURN-LIGHTBAR-OVER-RIGHTWINDOW-BESIDE-DOOR-ON";
+            public const string TURN_LIGHTBAR_OVER_RIGHTWINDOW_BESIDE_DOOR_OFF   = "TURN-LIGHTBAR-OVER-RIGHTWINDOW-BESIDE-DOOR-OFF";
+            public const string TURN_LIGHT_WINDOW_SOUTHEAST_UPSIDE_ON            = "TURN-LIGHT-WINDOW-SOUTHEAST-UPSIDE-ON";
+            public const string TURN_LIGHT_WINDOW_SOUTHEAST_UPSIDE_OFF           = "TURN-LIGHT-WINDOW-SOUTHEAST-UPSIDE-OFF";
 
-            public const string TURN_GALLERY_DOWN_ON                       = "TURN-GALLERY-DOWN-ON";
-            public const string TURN_GALLERY_DOWN_OFF                      = "TURN-GALLERY-DOWN-OFF";
-            public const string TURN_GALLERY_DOWN_1_ON                     = "TURN-GALLERY-DOWN-1-ON";   // Reihe 1 vorne
-            public const string TURN_GALLERY_DOWN_2_ON                     = "TURN-GALLERY-DOWN-2-ON";   // Reihe 2 vorne
-            public const string TURN_GALLERY_DOWN_3_ON                     = "TURN-GALLERY-DOWN-3-ON";   // Reihe 3 hinten
-            public const string TURN_GALLERY_DOWN_4_ON                     = "TURN-GALLERY-DOWN-4-ON";   // Reihe 4 hinten
-            public const string TURN_GALLERY_DOWN_1_OFF                    = "TURN-GALLERY-DOWN-1-OFF";   
-            public const string TURN_GALLERY_DOWN_2_OFF                    = "TURN-GALLERY-DOWN-2-OFF";   
-            public const string TURN_GALLERY_DOWN_3_OFF                    = "TURN-GALLERY-DOWN-3-OFF";   
-            public const string TURN_GALLERY_DOWN_4_OFF                    = "TURN-GALLERY-DOWN-4-OFF";  
+            public const string TURN_GALLERY_DOWN_ON                             = "TURN-GALLERY-DOWN-ON";
+            public const string TURN_GALLERY_DOWN_OFF                            = "TURN-GALLERY-DOWN-OFF";
+            public const string TURN_GALLERY_DOWN_1_ON                           = "TURN-GALLERY-DOWN-1-ON";   // Reihe 1 vorne
+            public const string TURN_GALLERY_DOWN_2_ON                           = "TURN-GALLERY-DOWN-2-ON";   // Reihe 2 vorne
+            public const string TURN_GALLERY_DOWN_3_ON                           = "TURN-GALLERY-DOWN-3-ON";   // Reihe 3 hinten
+            public const string TURN_GALLERY_DOWN_4_ON                           = "TURN-GALLERY-DOWN-4-ON";   // Reihe 4 hinten
+            public const string TURN_GALLERY_DOWN_1_OFF                          = "TURN-GALLERY-DOWN-1-OFF";   
+            public const string TURN_GALLERY_DOWN_2_OFF                          = "TURN-GALLERY-DOWN-2-OFF";   
+            public const string TURN_GALLERY_DOWN_3_OFF                          = "TURN-GALLERY-DOWN-3-OFF";   
+            public const string TURN_GALLERY_DOWN_4_OFF                          = "TURN-GALLERY-DOWN-4-OFF";  
 
-            public const string TURN_BOILER_ON                             = "TURN-BOILER-ON";
-            public const string TURN_BOILER_OFF                            = "TURN-BOILER-OFF";
-            public const string TURN_FRONT_LIGHTS_ON                       = "TURN-FRONT-LIGHTS-ON";
-            public const string TURN_FRONT_LIGHTS_OFF                      = "TURN-FRONT-LIGHTS-OFF";              // Vorderlichter Küche über der Arbeitsfläche
-            public const string TURN_WINDOW_LEDGE_EAST_ON                  = "TURN-WINDOW-LEDGE-EAST-ON";
-            public const string TURN_WINDOW_LEDGE_EAST_OFF                 = "TURN-WINDOW-LEDGE-EAST-OFF";         // Fensterbank ost seitig
-            public const string TURN_WINDOW_LEDGE_WEST_ON                  = "TURN-WINDOW-LEDGE-WEST-ON";
-            public const string TURN_WINDOW_LEDGE_WEST_OFF                 = "TURN-WINDOW-LEDGE-WEST-OFF";         // Fensterbank westseitig
-            public const string TURN_ALL_LIGHTS_WEST_OFF                   = "TURN-ALL-LIGHTS-WEST-OFF";
-            public const string TURN_ALL_LIGHTS_WEST_ON                    = "TURN-ALL-LIGHTS-WEST-ON";
-            public const string TURN_KITCHEN_BOARD_DOWN_LIGHTS_ON          = "TURN-KITCHEN-BOARD-DOWN-LIGHTS-ON";      // Lichter unter der Blende Arbeitsfläche
-            public const string TURN_KITCHEN_BOARD_DOWN_LIGHTS_OFF         = "TURN-KITCHEN-BOARD-DOWN-LIGHTS-OFF";     // Lichter unter der Blende Arbeitsfläche
-            public const string TURN_WINDOW_LIGHT_DOOR_ENTRY_LEFT_ON       = "TURN-WINDOW-LIGHT-DOOR-ENTRY-LEFT-ON";   // Lichtbalken neben der Eingangstüre beim grossen Tür Fenster links
-            public const string TURN_WINDOW_LIGHT_DOOR_ENTRY_LEFT_OFF      = "TURN-WINDOW-LIGHT-DOOR-ENTRY-LEFT-OFF";  // Lichtbalken neben der Eingangstüre beim grossen Tür Fenster links
-            public const string TURN_LIGHTS_WALL_WEST_ON                   = "TURN-LIGHTS-WALL-WEST-ON";               // Lichterleiste auf der Wand West Seitig
-            public const string TURN_LIGHTS_WALL_WEST_OFF                  = "TURN-LIGHTS-WALL-WEST-OFF";              // Lichterleiste auf der Wand West Seitig
-            public const string TURN_LIGHT_TRIANGLE_SMALL_WEST_ON          = "TURN-LIGHT-TRIANGLE-SMALL-WEST-ON";      // Lichtleiste am Dreieckfenster West Seitig - kleine Leist
-            public const string TURN_LIGHT_TRIANGLE_SMALL_WEST_OFF         = "TURN-LIGHT-TRIANGLE-SMALL-WEST-OFF";      // Lichtleiste am Dreieckfenster West Seitig - kleine Leist
+            public const string TURN_BOILER_ON                                   = "TURN-BOILER-ON";
+            public const string TURN_BOILER_OFF                                  = "TURN-BOILER-OFF";
+            public const string TURN_FRONT_LIGHTS_ON                             = "TURN-FRONT-LIGHTS-ON";
+            public const string TURN_FRONT_LIGHTS_OFF                            = "TURN-FRONT-LIGHTS-OFF";              // Vorderlichter Küche über der Arbeitsfläche
+            public const string TURN_WINDOW_LEDGE_EAST_ON                        = "TURN-WINDOW-LEDGE-EAST-ON";
+            public const string TURN_WINDOW_LEDGE_EAST_OFF                       = "TURN-WINDOW-LEDGE-EAST-OFF";         // Fensterbank ost seitig
+            public const string TURN_WINDOW_LEDGE_WEST_ON                        = "TURN-WINDOW-LEDGE-WEST-ON";
+            public const string TURN_WINDOW_LEDGE_WEST_OFF                       = "TURN-WINDOW-LEDGE-WEST-OFF";         // Fensterbank westseitig
+            public const string TURN_ALL_LIGHTS_WEST_OFF                         = "TURN-ALL-LIGHTS-WEST-OFF";
+            public const string TURN_ALL_LIGHTS_WEST_ON                          = "TURN-ALL-LIGHTS-WEST-ON";
+            public const string TURN_KITCHEN_BOARD_DOWN_LIGHTS_ON                = "TURN-KITCHEN-BOARD-DOWN-LIGHTS-ON";      // Lichter unter der Blende Arbeitsfläche
+            public const string TURN_KITCHEN_BOARD_DOWN_LIGHTS_OFF               = "TURN-KITCHEN-BOARD-DOWN-LIGHTS-OFF";     // Lichter unter der Blende Arbeitsfläche
+            public const string TURN_WINDOW_LIGHT_DOOR_ENTRY_LEFT_ON             = "TURN-WINDOW-LIGHT-DOOR-ENTRY-LEFT-ON";   // Lichtbalken neben der Eingangstüre beim grossen Tür Fenster links
+            public const string TURN_WINDOW_LIGHT_DOOR_ENTRY_LEFT_OFF            = "TURN-WINDOW-LIGHT-DOOR-ENTRY-LEFT-OFF";  // Lichtbalken neben der Eingangstüre beim grossen Tür Fenster links
+            public const string TURN_LIGHTS_WALL_WEST_ON                         = "TURN-LIGHTS-WALL-WEST-ON";               // Lichterleiste auf der Wand West Seitig
+            public const string TURN_LIGHTS_WALL_WEST_OFF                        = "TURN-LIGHTS-WALL-WEST-OFF";              // Lichterleiste auf der Wand West Seitig
+            public const string TURN_LIGHT_TRIANGLE_SMALL_WEST_ON                = "TURN-LIGHT-TRIANGLE-SMALL-WEST-ON";      // Lichtleiste am Dreieckfenster West Seitig - kleine Leist
+            public const string TURN_LIGHT_TRIANGLE_SMALL_WEST_OFF               = "TURN-LIGHT-TRIANGLE-SMALL-WEST-OFF";      // Lichtleiste am Dreieckfenster West Seitig - kleine Leist
 
-            public const string TURN_LIGHT_OUTSIDE_ON       = "TURN-LIGHT-OUTSIDE-ON";
-            public const string TURN_LIGHT_OUTSIDE_OFF      = "TURN-LIGHT-OUTSIDE-OFF";
+            public const string TURN_LIGHT_OUTSIDE_ON                            = "TURN-LIGHT-OUTSIDE-ON";
+            public const string TURN_LIGHT_OUTSIDE_OFF                           = "TURN-LIGHT-OUTSIDE-OFF";
 
             static Dictionary<uint, string> ComandoDictionary = new Dictionary<uint, string>
             {
