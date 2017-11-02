@@ -204,3 +204,7 @@ C:\PROJECT\LIGHT\light\obj\Debug\light.csprojResolveAssemblyReference.cache
 C:\PROJECT\LIGHT\light\obj\Debug\light.csproj.CoreCompileInputs.cache
 C:\PROJECT\LIGHT\light\obj\Debug\light.exe
 C:\PROJECT\LIGHT\light\obj\Debug\light.pdb
+C:\Projekte\LIGHT\light\bin\Debug\HeaterController.dll
+C:\Projekte\LIGHT\light\bin\Debug\TimerMockable.dll
+C:\Projekte\LIGHT\light\bin\Debug\HeaterController.pdb
+C:\Projekte\LIGHT\light\bin\Debug\TimerMockable.pdb
