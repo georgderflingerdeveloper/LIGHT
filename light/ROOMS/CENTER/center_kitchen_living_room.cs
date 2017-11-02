@@ -48,6 +48,7 @@ namespace HomeAutomation
         long                                 RemainingTime;
         PowerMeter                           _PowerMeter;
 		int                                  _PortNumberServer;
+        bool                                 RemoteHeaterControlActive;
 
         public delegate void UpdateMatchedOutputs( object sender, bool[] _DigOut );
         public event UpdateMatchedOutputs EUpdateMatchedOutputs;
@@ -103,13 +104,13 @@ namespace HomeAutomation
                                          ParametersHeaterControl.TimeDemandForHeatersAutomaticOffHalfDay,
                                          ParametersHeaterControlLivingRoom.TimeDemandForHeatersOnMiddle,
                                          ParametersHeaterControlLivingRoom.TimeDemandForHeatersOffMiddle,
-                                         KitchenLivingRoomIOAssignment.indFirstHeater,
-                                         KitchenLivingRoomIOAssignment.indLastHeater );
+                                         KitchenLivingRoomIOAssignment.indDigitalOutputHeaterEast,
+                                         KitchenLivingRoomIOAssignment.indDigitalOutputHeaterWest );
 
             HeatersLivingRoom.Match = new List<int>
                                          { 
-                                             KitchenLivingRoomIOAssignment.indFirstHeater,
-                                             KitchenLivingRoomIOAssignment.indLastHeater 
+                                             KitchenLivingRoomIOAssignment.indDigitalOutputHeaterEast,
+                                             KitchenLivingRoomIOAssignment.indDigitalOutputHeaterWest 
                                          };
 
             HeaterAnteRoom = new HeaterElement_NG(
@@ -272,13 +273,13 @@ namespace HomeAutomation
                }
             }
 
-            if( device.Contains( nameof( HardConfig_Collected.HardwareDevices.Boiler ) ) )
+            if (outputs != null)
             {
-                if( outputs != null )
+                if (device.Contains( nameof( HardConfig_Collected.HardwareDevices.Boiler ) ))
                 {
-                    if( index >= 0 && index < GeneralConstants.NumberOfOutputsIOCard )
+                    if (index >= 0 && index < GeneralConstants.NumberOfOutputsIOCard)
                     {
-                        if( SchedulerIsStartingAnyAction )
+                        if (SchedulerIsStartingAnyAction)
                         {
                             outputs[index] = GeneralConstants.ON;
                         }
@@ -286,6 +287,20 @@ namespace HomeAutomation
                         {
                             outputs[index] = GeneralConstants.OFF;
                         }
+                    }
+                }
+
+                if( device.Contains( HeaterIdentifiers.HeatersEastAndWest ) )
+                {
+                    if (SchedulerIsStartingAnyAction)
+                    {
+                        outputs[KitchenLivingRoomIOAssignment.indDigitalOutputHeaterEast] = true;
+                        outputs[KitchenLivingRoomIOAssignment.indDigitalOutputHeaterWest] = true;
+                    }
+                    else
+                    {
+                        outputs[KitchenLivingRoomIOAssignment.indDigitalOutputHeaterEast] = false;
+                        outputs[KitchenLivingRoomIOAssignment.indDigitalOutputHeaterWest] = false;
                     }
                 }
             }
@@ -739,6 +754,21 @@ namespace HomeAutomation
                          TurnWindowLedgeEast( GeneralConstants.OFF );
                          break;
 
+                    case ComandoString.TURN_HEATER_BODY_EAST_ON:
+                         outputs[KitchenLivingRoomIOAssignment.indDigitalOutputHeaterEast] = true;
+                         break;
+
+                    case ComandoString.TURN_HEATER_BODY_EAST_OFF:
+                         outputs[KitchenLivingRoomIOAssignment.indDigitalOutputHeaterEast] = false;
+                         break;
+
+                    case ComandoString.TURN_HEATER_BODY_WEST_ON:
+                         outputs[KitchenLivingRoomIOAssignment.indDigitalOutputHeaterWest] = true;
+                         break;
+
+                    case ComandoString.TURN_HEATER_BODY_WEST_OFF:
+                         outputs[KitchenLivingRoomIOAssignment.indDigitalOutputHeaterWest] = false;
+                         break;
                 }
                 return;
             }

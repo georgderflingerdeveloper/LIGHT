@@ -181,7 +181,9 @@
     <Content Include="CONFIGS\EAST\FOR_TEST_2\conf.ini" />
     <Content Include="CONFIGS\EAST\ORIGINAL\conf.ini" />
     <Content Include="CONFIGS\KITCHENCENTER\conf.ini" />
-    <Content Include="CONFIGS\KITCHENCENTER\Devices.xml" />
+    <Content Include="CONFIGS\KITCHENCENTER\Devices.xml">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="CONFIGS\SLEEPINGROOM\conf.ini" />
     <Content Include="CONFIGS\WEST\conf.ini" />
     <Content Include="HINTS\URLS\GIT_REPOSITORY_URL.txt" />
