@@ -465,6 +465,8 @@ namespace HomeAutomation
             public const string TURN_HEATER_BODY_WEST_OFF                        = "TURN-HEATER-BODY-WEST-OFF";
 
             public const string TURN_LIGHT_OUTSIDE_ON                            = "TURN-LIGHT-OUTSIDE-ON";                           // Aussenbeleuchtung
+            public const string TURN_LIGHT_OUTSIDE_ON_BY_OPEN_DOOR_CONTACT       = "TURN-LIGHT-OUTSIDE-BY-OPEN-DOOR-CONTACT-ON";                           // Aussenbeleuchtung
+            public const string TURN_LIGHT_OUTSIDE_OFF_BY_OPEN_DOOR_CONTACT      = "TURN-LIGHT-OUTSIDE-BY-OPEN-DOOR-CONTACT-OFF";                           // Aussenbeleuchtung
             public const string TURN_LIGHT_OUTSIDE_OFF                           = "TURN-LIGHT-OUTSIDE-OFF";
 
             public const string POWER_FAIL_ON                                    = "POWER-FAIL-ON";                                   // Stromausfall

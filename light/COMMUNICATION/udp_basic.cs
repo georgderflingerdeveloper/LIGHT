@@ -168,7 +168,7 @@ namespace Communication
                 }
             }
 
-            private void sendStringNoneAsync( string message )
+            private void SendString_Sync( string message )
             {
                 if ( String.IsNullOrWhiteSpace( message ) )
                 {
@@ -191,9 +191,9 @@ namespace Communication
                 sendString ( message );
             }
 
-            public void SendStringNoneAsync( string message )
+            public void SendStringSync( string message )
             {
-                sendStringNoneAsync( message );
+                SendString_Sync( message );
             }
 
             string _SendText;

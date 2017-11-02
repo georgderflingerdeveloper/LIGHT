@@ -375,7 +375,7 @@ namespace HomeAutomation
                  return;
              }
              TransactionCounter++;
-             UdpSend_.SendStringNoneAsync( TransactionCounter.ToString( )   +
+             UdpSend_.SendStringSync( TransactionCounter.ToString( )   +
                                            ComandoString.Telegram.Seperator +
                                            e.Index.ToString( )              + 
                                            ComandoString.Telegram.Seperator +
