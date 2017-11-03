@@ -48,7 +48,8 @@ namespace HomeAutomation
         long                                 RemainingTime;
         PowerMeter                           _PowerMeter;
 		int                                  _PortNumberServer;
-        bool                                 RemoteHeaterControlActive;
+        bool                                 RemoteControlHeaterActive;
+        bool                                 RemoteControlLightOutsideActivated;
 
         public delegate void UpdateMatchedOutputs( object sender, bool[] _DigOut );
         public event UpdateMatchedOutputs EUpdateMatchedOutputs;
@@ -612,30 +613,48 @@ namespace HomeAutomation
         #region SWITCH_DEVICE_GROUPS
         void TurnBoiler( bool commando )
         {
-            base.outputs[CenterLivingRoomIODeviceIndices.indDigitalOutputBoiler] = commando;
+            outputs[CenterLivingRoomIODeviceIndices.indDigitalOutputBoiler] = commando;
         }
 
         void TurnFrontLights( bool commando )
         {
-            base.outputs[KitchenCenterIoDevices.indDigitalOutputFrontLight_1] = commando; 
-            base.outputs[KitchenCenterIoDevices.indDigitalOutputFrontLight_2] = commando; 
-            base.outputs[KitchenCenterIoDevices.indDigitalOutputFrontLight_3] = commando; 
+            outputs[KitchenCenterIoDevices.indDigitalOutputFrontLight_1] = commando; 
+            outputs[KitchenCenterIoDevices.indDigitalOutputFrontLight_2] = commando; 
+            outputs[KitchenCenterIoDevices.indDigitalOutputFrontLight_3] = commando; 
         }
 
         void TurnKitchenLights( bool commando )
         {
-            base.outputs[KitchenCenterIoDevices.indDigitalOutputFirstKitchen]   = commando;
-            base.outputs[KitchenCenterIoDevices.indDigitalOutputFrontLight_1]   = commando;
-            base.outputs[KitchenCenterIoDevices.indDigitalOutputFrontLight_2]   = commando;
-            base.outputs[KitchenCenterIoDevices.indDigitalOutputFrontLight_3]   = commando;
-            base.outputs[KitchenCenterIoDevices.indDigitalOutputFumeHood]       = commando;
-            base.outputs[KitchenCenterIoDevices.indDigitalOutputSlot]           = commando;
-            base.outputs[KitchenCenterIoDevices.indDigitalOutputKitchenKabinet] = commando;
+            outputs[KitchenCenterIoDevices.indDigitalOutputFirstKitchen]   = commando;
+            outputs[KitchenCenterIoDevices.indDigitalOutputFrontLight_1]   = commando;
+            outputs[KitchenCenterIoDevices.indDigitalOutputFrontLight_2]   = commando;
+            outputs[KitchenCenterIoDevices.indDigitalOutputFrontLight_3]   = commando;
+            outputs[KitchenCenterIoDevices.indDigitalOutputFumeHood]       = commando;
+            outputs[KitchenCenterIoDevices.indDigitalOutputSlot]           = commando;
+            outputs[KitchenCenterIoDevices.indDigitalOutputKitchenKabinet] = commando;
         }
 
         void TurnWindowLedgeEast( bool command )
         {
-            base.outputs[KitchenCenterIoDevices.indDigitalOutputWindowBoardEastDown] = command;
+            outputs[KitchenCenterIoDevices.indDigitalOutputWindowBoardEastDown] = command;
+        }
+
+        void TurnHeaterBodyEast( bool command )
+        {
+            outputs[KitchenLivingRoomIOAssignment.indDigitalOutputHeaterEast] = command;
+        }
+
+        void TurLightOutside( bool command )
+        {
+            if (!RemoteControlLightOutsideActivated)
+            {
+                outputs[CenterOutsideIODevices.indDigitalOutputLightsOutside] = command;
+            }
+        }
+
+        void ResetInternals()
+        {
+            RemoteControlLightOutsideActivated = false;
         }
         #endregion 
 
@@ -664,6 +683,7 @@ namespace HomeAutomation
                     case ComandoString.TURN_ALL_LIGHTS_OFF:
                     case ComandoString.TURN_ALL_KITCHEN_LIGHTS_OFF:
                          TurnKitchenLights( GeneralConstants.OFF );
+                         RemoteControlLightOutsideActivated = false;
                          break;
 
                     case ComandoString.TURN_BOILER_ON:
@@ -740,10 +760,20 @@ namespace HomeAutomation
 
                     case ComandoString.TURN_LIGHT_OUTSIDE_ON:
                          Outside.TurnAllDevices( GeneralConstants.ON );
+                         RemoteControlLightOutsideActivated = true;
                          break;
 
                     case ComandoString.TURN_LIGHT_OUTSIDE_OFF:
                          Outside.TurnAllDevices( GeneralConstants.OFF );
+                         RemoteControlLightOutsideActivated = false;
+                         break;
+
+                    case ComandoString.TURN_LIGHT_OUTSIDE_BY_OPEN_DOOR_CONTACT_ON:
+                         TurLightOutside( GeneralConstants.ON );
+                         break;
+
+                    case ComandoString.TURN_LIGHT_OUTSIDE_BY_OPEN_DOOR_CONTACT_OFF:
+                         TurLightOutside( GeneralConstants.OFF );
                          break;
 
                     case ComandoString.TURN_WINDOW_LEDGE_EAST_ON:

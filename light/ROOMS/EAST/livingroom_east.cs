@@ -535,7 +535,7 @@ namespace HomeAutomation
                         TurnOffTimer?.Stop( );
                         TurnOffTimer?.Start( );
                         LightControlMulti[IOCardID.ID_1]?.TurnSingleLight( EastSideIOAssignment.indDoorEntry_Window_Right, true );
-                        UDPSendData.SendStringSync( ComandoString.TURN_LIGHT_OUTSIDE_ON_BY_OPEN_DOOR_CONTACT );
+                        UDPSendData.SendStringSync( ComandoString.TURN_LIGHT_OUTSIDE_BY_OPEN_DOOR_CONTACT_ON );
                         break;
 
                     default:
@@ -554,7 +554,7 @@ namespace HomeAutomation
         private void TurnOffTimer_Elapsed( object sender, ElapsedEventArgs e )
         {
             LightControlMulti[IOCardID.ID_1]?.TurnSingleLight( EastSideIOAssignment.indDoorEntry_Window_Right, false );
-            UDPSendData.SendStringSync( ComandoString.TURN_LIGHT_OUTSIDE_OFF_BY_OPEN_DOOR_CONTACT );
+            UDPSendData.SendStringSync( ComandoString.TURN_LIGHT_OUTSIDE_BY_OPEN_DOOR_CONTACT_OFF );
         }
 
         #endregion
