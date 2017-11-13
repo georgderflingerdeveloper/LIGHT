@@ -14,10 +14,10 @@ namespace Scheduler
 {
     static class SchedulerApplication
     {
-        static  string  Device;
-        static  string  JobId_;
-        static  bool    JobIsPaused      = false;
-        static  string  PreviousJobName = "";
+        static string Device;
+        static string JobId_;
+        static bool JobIsPaused = false;
+        static string PreviousJobName = "";
         public delegate void JobDataChange( FeedData data );
         public static event JobDataChange EAnyJobChange;
         static bool _DataRecovered;
@@ -36,26 +36,26 @@ namespace Scheduler
             Device = e.Device;
             JobId_ = e.JobId;
 
-            if( 
-                ( PrevSchedulerData.Command   !=              e.Command      ) ||
-                ( PrevSchedulerData.Days      !=              e.Days         ) ||
-                ( PrevSchedulerData.Device    !=              e.Device       ) ||
-                ( PrevSchedulerData.JobId     !=              e.JobId        ) ||
-                ( PrevSchedulerData.Starttime !=              e.Starttime    ) ||
-                ( PrevSchedulerData.Stoptime  !=              e.Stoptime     )
+            if (
+                ( PrevSchedulerData.Command != e.Command ) ||
+                ( PrevSchedulerData.Days != e.Days ) ||
+                ( PrevSchedulerData.Device != e.Device ) ||
+                ( PrevSchedulerData.JobId != e.JobId ) ||
+                ( PrevSchedulerData.Starttime != e.Starttime ) ||
+                ( PrevSchedulerData.Stoptime != e.Stoptime )
               )
             {
                 // prevent unecessary saving of the same contens
-                if( _DataRecovered )
+                if (_DataRecovered)
                 {
                     EAnyJobChange?.Invoke( e );
                 }
             }
 
             // we got a new job ID
-            if( PrevSchedulerData.JobId != e.JobId )
+            if (PrevSchedulerData.JobId != e.JobId)
             {
-                if( e.Days == SComand.FromNow )
+                if (e.Days == SComand.FromNow)
                 {
                     scheduler.NewJob( JobName, new Params( e.Starttime, e.Stoptime ) );
                 }
@@ -63,15 +63,15 @@ namespace Scheduler
                 {
                     scheduler.NewJob( JobName, new Params( e.Starttime, e.Stoptime, e.Days ) );
                 }
-                scheduler.StartJob();
-             }
+                scheduler.StartJob( );
+            }
             else
             {
                 // any time setting changed - reschedule
-                if( PrevSchedulerData.Starttime != e.Starttime || PrevSchedulerData.Stoptime != e.Stoptime )
+                if (PrevSchedulerData.Starttime != e.Starttime || PrevSchedulerData.Stoptime != e.Stoptime)
                 {
                     scheduler.RemoveJob( JobName );
-                    if( e.Days == SComand.FromNow )
+                    if (e.Days == SComand.FromNow)
                     {
                         scheduler.NewJob( JobName, new Params( e.Starttime, e.Stoptime ) );
                     }
@@ -79,11 +79,11 @@ namespace Scheduler
                     {
                         scheduler.NewJob( JobName, new Params( e.Starttime, e.Stoptime, e.Days ) );
                     }
-                    scheduler.StartJob();
-                    if( PreviousJobName == JobName )
+                    scheduler.StartJob( );
+                    if (PreviousJobName == JobName)
                     {
-                        Console.WriteLine( TimeUtil.GetTimestamp() + Seperators.WhiteSpace + InfoString.SchedulerIsRescheduling + PrevSchedulerData.Starttime + "=>" + e.Starttime );
-                        Console.WriteLine( TimeUtil.GetTimestamp() + Seperators.WhiteSpace + InfoString.SchedulerIsRescheduling + PrevSchedulerData.Stoptime + "=>" + e.Stoptime );
+                        Console.WriteLine( TimeUtil.GetTimestamp( ) + Seperators.WhiteSpace + InfoString.SchedulerIsRescheduling + PrevSchedulerData.Starttime + "=>" + e.Starttime );
+                        Console.WriteLine( TimeUtil.GetTimestamp( ) + Seperators.WhiteSpace + InfoString.SchedulerIsRescheduling + PrevSchedulerData.Stoptime + "=>" + e.Stoptime );
                     }
                     else
                     {
@@ -93,16 +93,16 @@ namespace Scheduler
             }
 
             // STOP means pause a job
-            if( e.Command == SComand.Stop )
+            if (e.Command == SComand.Stop)
             {
                 scheduler.PauseJob( JobName );
                 JobIsPaused = true;
             }
 
             // starts again
-            if( e.Command == SComand.Start )
+            if (e.Command == SComand.Start)
             {
-                if( JobIsPaused )
+                if (JobIsPaused)
                 {
                     scheduler.StartPausedJob( JobName );
                     JobIsPaused = false;
@@ -110,9 +110,9 @@ namespace Scheduler
             }
 
             // CREATE a deep copy of feed object!
-            using( MemoryStream ms = new MemoryStream() )
+            using (MemoryStream ms = new MemoryStream( ))
             {
-                BinaryFormatter fmt = new BinaryFormatter();
+                BinaryFormatter fmt = new BinaryFormatter( );
 
                 // Original serialisieren:
                 fmt.Serialize( ms, e );
@@ -126,33 +126,33 @@ namespace Scheduler
             }
         }
 
-        static FeedData PrevData = new FeedData();
+        static FeedData PrevData = new FeedData( );
         static public void Worker( object sender, FeedData e, ref home_scheduler scheduler )
         {
             string JobName = e.Device + "_" + e.JobId;
             Device = e.Device;
             JobId_ = e.JobId;
 
-            if(
-                ( PrevData.Command   !=              e.Command )   ||
-                ( PrevData.Days      !=              e.Days )      ||
-                ( PrevData.Device    !=              e.Device )    ||
-                ( PrevData.JobId     !=              e.JobId )     ||
-                ( PrevData.Starttime !=              e.Starttime ) ||
-                ( PrevData.Stoptime  !=              e.Stoptime )
+            if (
+                ( PrevData.Command != e.Command ) ||
+                ( PrevData.Days != e.Days ) ||
+                ( PrevData.Device != e.Device ) ||
+                ( PrevData.JobId != e.JobId ) ||
+                ( PrevData.Starttime != e.Starttime ) ||
+                ( PrevData.Stoptime != e.Stoptime )
               )
             {
                 // prevent unecessary saving of the same contens
-                if( _DataRecovered )
+                if (_DataRecovered)
                 {
                     EAnyJobChange?.Invoke( e );
                 }
             }
 
             // we got a new job ID
-            if( PrevData.JobId != e.JobId )
+            if (PrevData.JobId != e.JobId)
             {
-                if( e.Days == SComand.FromNow )
+                if (e.Days == SComand.FromNow)
                 {
                     scheduler.NewJob( JobName, new Params( e.Starttime, e.Stoptime ) );
                 }
@@ -161,14 +161,15 @@ namespace Scheduler
                     scheduler.NewJob( JobName, new Params( e.Starttime, e.Stoptime, e.Days ) );
                 }
                 scheduler.StartJob( );
+                PrevData.JobId = e.JobId;
             }
             else
             {
                 // any time setting changed - reschedule
-                if( PrevData.Starttime != e.Starttime || PrevData.Stoptime != e.Stoptime )
+                if (PrevData.Starttime != e.Starttime || PrevData.Stoptime != e.Stoptime)
                 {
                     scheduler.RemoveJob( JobName );
-                    if( e.Days == SComand.FromNow )
+                    if (e.Days == SComand.FromNow)
                     {
                         scheduler.NewJob( JobName, new Params( e.Starttime, e.Stoptime ) );
                     }
@@ -177,7 +178,7 @@ namespace Scheduler
                         scheduler.NewJob( JobName, new Params( e.Starttime, e.Stoptime, e.Days ) );
                     }
                     scheduler.StartJob( );
-                    if( PreviousJobName == JobName )
+                    if (PreviousJobName == JobName)
                     {
                         Console.WriteLine( TimeUtil.GetTimestamp( ) + Seperators.WhiteSpace + InfoString.SchedulerIsRescheduling + PrevData.Starttime + "=>" + e.Starttime );
                         Console.WriteLine( TimeUtil.GetTimestamp( ) + Seperators.WhiteSpace + InfoString.SchedulerIsRescheduling + PrevData.Stoptime + "=>" + e.Stoptime );
@@ -190,16 +191,16 @@ namespace Scheduler
             }
 
             // STOP means pause a job
-            if( e.Command == SComand.Stop )
+            if (e.Command == SComand.Stop)
             {
                 scheduler.PauseJob( JobName );
                 JobIsPaused = true;
             }
 
             // starts again
-            if( e.Command == SComand.Start )
+            if (e.Command == SComand.Start)
             {
-                if( JobIsPaused )
+                if (JobIsPaused)
                 {
                     scheduler.StartPausedJob( JobName );
                     JobIsPaused = false;
@@ -207,7 +208,7 @@ namespace Scheduler
             }
 
             // CREATE a deep copy of feed object!
-            using( MemoryStream ms = new MemoryStream( ) )
+            using (MemoryStream ms = new MemoryStream( ))
             {
                 BinaryFormatter fmt = new BinaryFormatter( );
 
@@ -225,36 +226,36 @@ namespace Scheduler
 
         static int AskForStartOrStop( decimal counts )
         {
-            return ( ( counts % 2 ) == 0 ? SchedulerConstants.StopDevice : SchedulerConstants.StartDevice ); 
+            return ( ( counts % 2 ) == 0 ? SchedulerConstants.StopDevice : SchedulerConstants.StartDevice );
         }
 
         static public void WriteStatus( string time, Quartz.IJobExecutionContext context, decimal counts )
         {
-            if( AskForStartOrStop( counts ) == SchedulerConstants.StartDevice )
+            if (AskForStartOrStop( counts ) == SchedulerConstants.StartDevice)
             {
-                Console.WriteLine( InfoString.SchedulerIsStartingDevice + time + " " + context.JobDetail.Key.Name + " " + context.Trigger.Key.Name + " " + counts.ToString() );
+                Console.WriteLine( InfoString.SchedulerIsStartingDevice + time + " " + context.JobDetail.Key.Name + " " + context.Trigger.Key.Name + " " + counts.ToString( ) );
             }
 
-            if( AskForStartOrStop( counts ) == SchedulerConstants.StopDevice )
+            if (AskForStartOrStop( counts ) == SchedulerConstants.StopDevice)
             {
-                Console.WriteLine( InfoString.SchedulerIsStopingDevice + time + " " + context.JobDetail.Key.Name + " " + context.Trigger.Key.Name + " " + counts.ToString() );
+                Console.WriteLine( InfoString.SchedulerIsStopingDevice + time + " " + context.JobDetail.Key.Name + " " + context.Trigger.Key.Name + " " + counts.ToString( ) );
             }
         }
     }
 
     class SchedulerDataRecovery
     {
-        List<FeedData>  SchedFeedData;
+        List<FeedData> SchedFeedData;
         string _directory = "";
 
         public delegate void RecoverJobs( FeedData e );
-        public event         RecoverJobs   ERecover;
-        public event         EventHandler  ERecovered = delegate {};
-        event                EventHandler  EHelper    = delegate {};
-        string PrevJobID;        
+        public event RecoverJobs ERecover;
+        public event EventHandler ERecovered = delegate { };
+        event EventHandler EHelper = delegate { };
+        string PrevJobID;
         public SchedulerDataRecovery( string directory )
         {
-            SchedFeedData = new List<FeedData>();
+            SchedFeedData = new List<FeedData>( );
             _directory = directory;
             SchedulerApplication.EAnyJobChange += SchedulerApplication_EAnyJobChange;
         }
@@ -263,24 +264,24 @@ namespace Scheduler
         {
             DetectDataChange( e );
         }
-   
+
         public void RecoverScheduler( string directory, string device )
         {
             List<FeedData> RecoveredData = Recover( directory, device );
-            if( RecoveredData != null )
+            if (RecoveredData != null)
             {
-                foreach( var elements in RecoveredData )
+                foreach (var elements in RecoveredData)
                 {
-                   ERecover?.Invoke( elements );
+                    ERecover?.Invoke( elements );
                 }
                 ERecovered?.Invoke( null, EventArgs.Empty );
             }
-        } 
+        }
 
         void DetectDataChange( FeedData feed )
         {
             bool GotNewJob = false;
-            if( PrevJobID != feed.JobId )
+            if (PrevJobID != feed.JobId)
             {
                 GotNewJob = true;
                 PrevJobID = feed.JobId;
@@ -292,15 +293,15 @@ namespace Scheduler
         {
             try
             {
-                XmlSerializer ser        = new XmlSerializer( typeof( List<FeedData> ) );
-                string currentDir        = Environment.CurrentDirectory;
-				StreamReader   sr        = new StreamReader( @directory + GeneralConstants.SlashUsedInLinux + device  + FileExtensions.StoredDataExtension );
+                XmlSerializer ser = new XmlSerializer( typeof( List<FeedData> ) );
+                string currentDir = Environment.CurrentDirectory;
+                StreamReader sr = new StreamReader( @directory + GeneralConstants.SlashUsedInLinux + device + FileExtensions.StoredDataExtension );
                 List<FeedData> FeedData_ = ( List<FeedData> ) ser.Deserialize( sr );
-                sr.Close();
-                SchedFeedData?.Clear();
+                sr.Close( );
+                SchedFeedData?.Clear( );
                 return FeedData_;
             }
-            catch( Exception ex )
+            catch (Exception ex)
             {
                 Console.WriteLine( TimeUtil.GetTimestamp( ) + " " + InfoString.FailedToRecoverSchedulerData );
                 Services.TraceMessage_( ex.Message );
@@ -309,32 +310,32 @@ namespace Scheduler
             }
         }
 
-        public  void Store( FeedData data, bool GotNewJob )
+        public void Store( FeedData data, bool GotNewJob )
         {
             try
             {
-                if( SchedFeedData != null )
+                if (SchedFeedData != null)
                 {
-                    if( GotNewJob )
+                    if (GotNewJob)
                     {
                         SchedFeedData.Add( data );
                     }
                     else
-                    {   
-                        int index = Convert.ToInt32(data.JobId) - 1;
-                        if( (index >= 0) && (index < SchedFeedData.Count) )
+                    {
+                        int index = Convert.ToInt32( data.JobId ) - 1;
+                        if (( index >= 0 ) && ( index < SchedFeedData.Count ))
                         {
                             SchedFeedData[index] = data;
                         }
                     }
                     XmlSerializer ser = new XmlSerializer( typeof( List<FeedData> ) );
                     string currentDir = Environment.CurrentDirectory;
-					FileStream str = new FileStream( @currentDir + GeneralConstants.SlashUsedInLinux + data.Device + FileExtensions.StoredDataExtension, FileMode.Create );
+                    FileStream str = new FileStream( @currentDir + GeneralConstants.SlashUsedInLinux + data.Device + FileExtensions.StoredDataExtension, FileMode.Create );
                     ser.Serialize( str, SchedFeedData );
                     str.Close( );
                 }
             }
-            catch( Exception ex )
+            catch (Exception ex)
             {
                 Services.TraceMessage_( ex.Message, "Data save error" );
             }
