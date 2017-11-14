@@ -31,7 +31,7 @@ namespace HomeAutomation
         static ClientTalktive_                  Client_;
         static UdpSend                          UDP_SendClientInvitation;
         static UdpSend                          UDP_IoEcho;
-        static livingroom_east                  MyHomeLivingRoomEast;
+        static Livingroom_east                  MyHomeLivingRoomEast;
         static livingroom_west                  MyHomeLivingRoomWest;
         static string                           _homeAutomationCommand = "";
         static string                           AbortComand            = "";
@@ -248,7 +248,7 @@ namespace HomeAutomation
                         break;
 
                    case InfoOperationMode.LIVING_ROOM_EAST:
-                        MyHomeLivingRoomEast = new livingroom_east( PhidgetSerialNumbers, serveripadress, serverPort, CompleteVersion )
+                        MyHomeLivingRoomEast = new Livingroom_east( PhidgetSerialNumbers, serveripadress, serverPort, CompleteVersion )
                         {
                            SoftwareVersion = CompleteVersion
                         };
@@ -314,7 +314,7 @@ namespace HomeAutomation
 				                   Seperators.WhiteSpace                                        + 
 				                   e.Value.ToString() );
  			}
-            if( sender is livingroom_east )
+            if( sender is Livingroom_east )
             {
                 Console.WriteLine( TimeUtil.GetTimestamp_( )                                    +
                                    Seperators.WhiteSpace                                        +

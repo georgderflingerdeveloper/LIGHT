@@ -48,7 +48,7 @@ namespace HomeAutomation
         }
     }
 
-    class livingroom_east
+    class Livingroom_east
     {
         #region DECLARATIONES
         LightControlEast[]                    LightControlMulti;
@@ -83,7 +83,7 @@ namespace HomeAutomation
         #endregion
 
         #region CONSTRUCTOR
-        public livingroom_east( int[] SerialNumbers, string IpAdressServer, string PortServer, string softwareversion ) 
+        public Livingroom_east( int[] SerialNumbers, string IpAdressServer, string PortServer, string softwareversion ) 
         {
             _SerialNumbers    = SerialNumbers;
             _GivenClientName  = InfoOperationMode.LIVING_ROOM_EAST;
@@ -100,7 +100,7 @@ namespace HomeAutomation
                 for( int i = 0; i < SerialNumbers.Length; i++ )
                 {
                      BuildingMultiCard[i] = new BuildingSection( SerialNumbers[i], EnableTestBase );
-                     BuildingMultiCard[i].InputChange += livingroom_east_InputChange;
+                     BuildingMultiCard[i].InputChange += Livingroom_east_InputChange;
                      
                     if( BuildingMultiCard[i].Attached )
                     {
@@ -501,7 +501,7 @@ namespace HomeAutomation
             }
         }
 
-        void livingroom_east_InputChange( object sender, InputChangeEventArgs e )
+        void Livingroom_east_InputChange( object sender, InputChangeEventArgs e )
         {
             // identify which card raised the event
             int EventComesFromCardWithSerial = ( sender as BuildingSection ).SerialNumber;

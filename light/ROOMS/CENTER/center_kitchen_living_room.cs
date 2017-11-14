@@ -199,8 +199,8 @@ namespace HomeAutomation
 
             // after power fail, certain important scheduler data is recovered
             schedRecover                   = new SchedulerDataRecovery( Directory.GetCurrentDirectory() );
-            schedRecover.ERecover         += schedRecover_ERecover;
-            schedRecover.ERecovered       += schedRecover_ERecovered;
+            schedRecover.ERecover         += SchedRecover_ERecover;
+            schedRecover.ERecovered       += SchedRecover_ERecovered;
             TimerRecoverScheulder.Elapsed += TimerRecoverScheulder_Elapsed;
             TimerRecoverScheulder.Start( );
             CommonUsedTick.Start( );
@@ -231,13 +231,13 @@ namespace HomeAutomation
             SchedulerApplication.Worker( sender, e, ref scheduler );
         }
 
-        void schedRecover_ERecovered( object sender, EventArgs e )
+        void SchedRecover_ERecovered( object sender, EventArgs e )
         {
             SchedulerApplication.DataRecovered = true;
         }
 
         // scheduler starts with recovered data
-        void schedRecover_ERecover( FeedData e )
+        void SchedRecover_ERecover( FeedData e )
         {
             string Job = e.Device + Seperators.InfoSeperator + e.JobId.ToString();
             SchedulerApplication.Worker( this, e, ref scheduler );
