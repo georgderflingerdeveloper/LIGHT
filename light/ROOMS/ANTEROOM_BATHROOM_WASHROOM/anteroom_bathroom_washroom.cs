@@ -13,7 +13,7 @@ namespace HomeAutomation
     #region COMMON_CLASSES
     static class AnteRoomID
     {
-        public enum eID
+        public enum EID
         {
             eAnteRoom   = 0,
             eWashRoom   = 1,
@@ -808,7 +808,7 @@ namespace HomeAutomation
             }
         }
 
-        void scheduler_EvTriggered( string time, Quartz.IJobExecutionContext context, decimal counts )
+        void Scheduler_EvTriggered( string time, Quartz.IJobExecutionContext context, decimal counts )
         {
             SchedulerApplication.WriteStatus( time, context, counts );
 

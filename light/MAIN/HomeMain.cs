@@ -248,8 +248,10 @@ namespace HomeAutomation
                         break;
 
                    case InfoOperationMode.LIVING_ROOM_EAST:
-                        MyHomeLivingRoomEast = new livingroom_east( PhidgetSerialNumbers, serveripadress, serverPort, CompleteVersion );
-                        MyHomeLivingRoomEast.SoftwareVersion = CompleteVersion;
+                        MyHomeLivingRoomEast = new livingroom_east( PhidgetSerialNumbers, serveripadress, serverPort, CompleteVersion )
+                        {
+                           SoftwareVersion = CompleteVersion
+                        };
                         MyHomeLivingRoomEast.EDigitalInputChanged += RoomsIoHandling_EDigitalInputChanged;
                         WaitUntilKeyPressed( );
                         MyHomeLivingRoomEast.AllCardsOutputsOff( );
@@ -356,12 +358,11 @@ namespace HomeAutomation
 				                   e.Value.ToString() );
 
                 string DeviceName = KitchenCenterIoDevices.GetOutputDeviceName(e.Index);
-                string TranslatedDeviceName;
 
-                if( HADictionaries.DeviceDictionaryTranslatorForNetworkCommands.TryGetValue( DeviceName, out TranslatedDeviceName ) )
+                if (HADictionaries.DeviceDictionaryTranslatorForNetworkCommands.TryGetValue( DeviceName, out string TranslatedDeviceName ))
                 {
                     string Echo;
-                    if ( e.Value )
+                    if (e.Value)
                     {
                         Echo = TranslatedDeviceName + "-" + "IS" + "-" + "ON";
                     }
@@ -372,7 +373,7 @@ namespace HomeAutomation
 
                     Console.WriteLine( TimeUtil.GetTimestamp_( ) + " Send UDP echo " + Echo );
                     UDP_IoEcho.SendString( Echo );
-               }
+                }
 
             }
 		}

@@ -770,11 +770,8 @@ namespace Scheduler
                           status = SchedulerInfo.Status.Error;
                           break;
                  }
-                 if( EJobStatus != null )
-                 {
-                     EJobStatus( JobNameAndTimestamp, status );
-                 }
-                 return( status );
+                    EJobStatus?.Invoke( JobNameAndTimestamp, status );
+                    return ( status );
              }
            }
            #endregion
@@ -790,11 +787,8 @@ namespace Scheduler
                            if( !JobItemsParametersInternal[foundtriggerindex].IsStarted )
                            {
                                status = SchedulerInfo.Status.WaitForStart;
-                               if( EJobStatus != null )
-                               {
-                                   EJobStatus( JobNameAndTimestamp, status );
-                               }
-                               return( status );
+                               EJobStatus?.Invoke( JobNameAndTimestamp, status );
+                               return ( status );
                            }
                        }
                    }
@@ -804,11 +798,8 @@ namespace Scheduler
                if( foundtriggerindex >= TriggerList.Count )
                {
                    status = SchedulerInfo.Status.JobNotFound;
-                   if( EJobStatus != null )
-                   {
-                       EJobStatus( JobNameAndTimestamp, status );
-                   }
-                   return( status );
+                   EJobStatus?.Invoke( JobNameAndTimestamp, status );
+                   return ( status );
                }
            }
 
@@ -819,11 +810,8 @@ namespace Scheduler
            else
            {
                status = SchedulerInfo.Status.JobNotFound;
-               if( EJobStatus != null )
-               {
-                   EJobStatus( JobNameAndTimestamp, status );
-               }
-               return( status );
+               EJobStatus?.Invoke( JobNameAndTimestamp, status );
+               return ( status );
            }
 
            switch( TriggerState_ )
@@ -842,10 +830,7 @@ namespace Scheduler
                    break;
            }
 
-           if( EJobStatus != null )
-           {
-               EJobStatus( JobNameAndTimestamp, status );
-           }
+           EJobStatus?.Invoke( JobNameAndTimestamp, status );
            return ( status );
         }
         #endregion
@@ -911,10 +896,7 @@ namespace Scheduler
 
         void SJob_EvScheduler( string time, IJobExecutionContext context, decimal counts )
         {
-            if( EvTriggered != null )
-            {
-                EvTriggered( time, context, counts );
-            }
+            EvTriggered?.Invoke( time, context, counts );
         }
 
         class ScheduleJob : IJob

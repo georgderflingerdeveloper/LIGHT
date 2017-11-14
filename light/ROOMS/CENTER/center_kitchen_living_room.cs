@@ -93,10 +93,11 @@ namespace HomeAutomation
 
             Outside = new LightControl_NG( ParametersLightControlCenterOutside.TimeDemandForAllOn,
                                            ParametersLightControlCenterOutside.TimeDemandForAutomaticOff,
-                                           CenterOutsideIODevices.indDigitalOutputLightsOutside 
-                                         );
-                
-            Outside.Match = new List<int> { CenterOutsideIODevices.indDigitalOutputLightsOutside };
+                                           CenterOutsideIODevices.indDigitalOutputLightsOutside
+                                         )
+            {
+                Match = new List<int> { CenterOutsideIODevices.indDigitalOutputLightsOutside }
+            };
 
             Kitchen.IsPrimaryIOCardAttached = base._PrimaryIOCardIsAttached;
 
@@ -106,13 +107,14 @@ namespace HomeAutomation
                                          ParametersHeaterControlLivingRoom.TimeDemandForHeatersOnMiddle,
                                          ParametersHeaterControlLivingRoom.TimeDemandForHeatersOffMiddle,
                                          KitchenLivingRoomIOAssignment.indDigitalOutputHeaterEast,
-                                         KitchenLivingRoomIOAssignment.indDigitalOutputHeaterWest );
-
-            HeatersLivingRoom.Match = new List<int>
-                                         { 
+                                         KitchenLivingRoomIOAssignment.indDigitalOutputHeaterWest )
+            {
+                Match = new List<int>
+                                         {
                                              KitchenLivingRoomIOAssignment.indDigitalOutputHeaterEast,
-                                             KitchenLivingRoomIOAssignment.indDigitalOutputHeaterWest 
-                                         };
+                                             KitchenLivingRoomIOAssignment.indDigitalOutputHeaterWest
+                                         }
+            };
 
             HeaterAnteRoom = new HeaterElement_NG(
                                          ParametersHeaterControl.TimeDemandForHeatersOnOff,
@@ -120,22 +122,25 @@ namespace HomeAutomation
                                          ParametersHeaterControlLivingRoom.TimeDemandForHeatersOnMiddle,
                                          ParametersHeaterControlLivingRoom.TimeDemandForHeatersOffMiddle,
                                          AnteRoomIODeviceIndices.indDigitalOutputAnteRoomHeater,
-                                         AnteRoomIODeviceIndices.indDigitalOutputAnteRoomHeater );
-                
-            HeaterAnteRoom.Match = new List<int> { AnteRoomIODeviceIndices.indDigitalOutputAnteRoomHeater };
+                                         AnteRoomIODeviceIndices.indDigitalOutputAnteRoomHeater )
+            {
+                Match = new List<int> { AnteRoomIODeviceIndices.indDigitalOutputAnteRoomHeater }
+            };
 
             FanWashRoom = new CentralControlledElements_NG(
                                      ParametersWashRoomControl.TimeDemandForFanOn,
                                      ParametersWashRoomControl.TimeDemandForFanAutomaticOff,
-                                     WashRoomIODeviceIndices.indDigitalOutputWashRoomFan );
-
-            FanWashRoom.Match = new List<int> { WashRoomIODeviceIndices.indDigitalOutputWashRoomFan };
+                                     WashRoomIODeviceIndices.indDigitalOutputWashRoomFan )
+            {
+                Match = new List<int> { WashRoomIODeviceIndices.indDigitalOutputWashRoomFan }
+            };
 
             CirculationPump = new CentralControlledElements_NG(
                                          ParametersWaterHeatingSystem.TimeDemandForWarmCirculationPumpAutomaticOff,
-                                         WaterHeatingSystemIODeviceIndices.indDigitalOutputWarmWaterCirculationPump );
-
-            CirculationPump.Match = new List<int> { WaterHeatingSystemIODeviceIndices.indDigitalOutputWarmWaterCirculationPump };
+                                         WaterHeatingSystemIODeviceIndices.indDigitalOutputWarmWaterCirculationPump )
+            {
+                Match = new List<int> { WaterHeatingSystemIODeviceIndices.indDigitalOutputWarmWaterCirculationPump }
+            };
 
 
             HeatersLivingRoom.AllOn_ += HeatersLivingRoom_AllOn_;
@@ -163,9 +168,11 @@ namespace HomeAutomation
                                                                      PortServer,
                                                                      ref base.outputs, // control directly digital outputs of primer - server can control this outputs
                                                                      ref HADictionaries.DeviceDictionaryCenterdigitalOut,
-                                                                     ref HADictionaries.DeviceDictionaryCenterdigitalIn, softwareversion );
-            // establish client
-            BasicClientCommunicator_.Room                     = _GivenClientName;
+                                                                     ref HADictionaries.DeviceDictionaryCenterdigitalIn, softwareversion )
+            {
+                // establish client
+                Room = _GivenClientName
+            };
             BasicClientCommunicator_.EFeedScheduler          += BasicClientCommunicator__EFeedScheduler;
             BasicClientCommunicator_.EAskSchedulerForStatus  += BasicClientCommunicator__EAskSchedulerForStatus;
             scheduler.EvTriggered                            += Scheduler_EvTriggered;
