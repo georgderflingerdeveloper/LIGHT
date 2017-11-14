@@ -61,7 +61,6 @@ namespace HomeAutomation
         BasicClientComumnicator BasicClientCommunicator_;
 
         public event DigitalInputChanged  EDigitalInputChanged;
-        public event DigitalOutputChanged EDigitalOutputChanged;
 
         DigitalInputEventargs  _DigitalInputEventargs  = new DigitalInputEventargs( );
         DigitalOutputEventargs _DigitalOutputEventargs = new DigitalOutputEventargs( );

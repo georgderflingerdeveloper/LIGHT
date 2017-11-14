@@ -266,13 +266,11 @@ namespace Scheduler
 
         static bool IsTimeRangeOk( string time, int whichTime )
         {
-            int time_ = 0;
-
-            if( int.TryParse( time, out time_ ) )
+            if (int.TryParse( time, out int time_ ))
             {
-                if( time_ >= 0 )
+                if (time_ >= 0)
                 {
-                    if( time_ <= whichTime )
+                    if (time_ <= whichTime)
                     {
                         return true;
                     }

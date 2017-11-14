@@ -31,7 +31,6 @@ namespace HomeAutomation
         static ClientTalktive_                  Client_;
         static UdpSend                          UDP_SendClientInvitation;
         static UdpSend                          UDP_IoEcho;
-        static UdpReceive                       UDP_ReceiveClientInvitation;
         static livingroom_east                  MyHomeLivingRoomEast;
         static livingroom_west                  MyHomeLivingRoomWest;
         static string                           _homeAutomationCommand = "";

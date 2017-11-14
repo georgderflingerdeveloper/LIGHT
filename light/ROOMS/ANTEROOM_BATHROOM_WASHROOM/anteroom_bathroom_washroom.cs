@@ -239,7 +239,6 @@ namespace HomeAutomation
         bool      _turnedAutoOff;
         int       _startindex;
         int       _lastindex;
-        int       _index;
         bool      _nextStepActivated;
         bool      turnedDeviceGroupManuallyOff = false;
         bool      resetOnAutomaticOff;
@@ -676,7 +675,6 @@ namespace HomeAutomation
         LightControl                         LightWashRoom;
         LightControl                         LightBathRoom;
         HeaterElement                        HeatersBathRoom;
-        BasicClientComumnicator              BasicClientCommunicator_;
 
         bool[]                               _DigitalInputState;
         bool[]                               _DigitalOutputState;
