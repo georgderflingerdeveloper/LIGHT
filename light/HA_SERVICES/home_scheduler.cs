@@ -517,8 +517,10 @@ namespace Scheduler
 
         public Home_scheduler( string name )
         {
-            var properties = new System.Collections.Specialized.NameValueCollection();
-            properties["quartz.scheduler.instanceName"] = name;
+            var properties = new System.Collections.Specialized.NameValueCollection
+            {
+                ["quartz.scheduler.instanceName"] = name
+            };
 
             // construct a scheduler factory
             schedFact = new StdSchedulerFactory( properties );
