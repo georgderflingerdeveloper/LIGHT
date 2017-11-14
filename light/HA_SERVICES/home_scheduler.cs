@@ -487,7 +487,7 @@ namespace Scheduler
     #endregion
 
     #region HOME_SCHEDULER
-    class home_scheduler : IScheduleParams
+    class Home_scheduler : IScheduleParams
     {
         #region DECLARATIONES
         ISchedulerFactory        schedFact;
@@ -503,7 +503,7 @@ namespace Scheduler
         #endregion
 
         #region CONSTRUCTOR
-        public home_scheduler( )
+        public Home_scheduler( )
         {
             // construct a scheduler factory
             schedFact = new StdSchedulerFactory( );
@@ -515,7 +515,7 @@ namespace Scheduler
             sched.PauseAll( );
         }
 
-        public home_scheduler( string name )
+        public Home_scheduler( string name )
         {
             var properties = new System.Collections.Specialized.NameValueCollection();
             properties["quartz.scheduler.instanceName"] = name;
@@ -530,7 +530,7 @@ namespace Scheduler
             sched.PauseAll( );
         }
 
-        public home_scheduler( ref List<ScheduledJobs> _JobItemsParameters )
+        public Home_scheduler( ref List<ScheduledJobs> _JobItemsParameters )
         {
             JobItemsParameters_ = _JobItemsParameters;
 

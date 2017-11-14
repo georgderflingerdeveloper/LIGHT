@@ -30,7 +30,7 @@ namespace Scheduler
             }
         }
 
-        static public void Worker( object sender, FeedData e, ref FeedData PrevSchedulerData, ref home_scheduler scheduler )
+        static public void Worker( object sender, FeedData e, ref FeedData PrevSchedulerData, ref Home_scheduler scheduler )
         {
             string JobName = e.Device + "_" + e.JobId;
             Device = e.Device;
@@ -127,7 +127,7 @@ namespace Scheduler
         }
 
         static FeedData PrevData = new FeedData( );
-        static public void Worker( object sender, FeedData e, ref home_scheduler scheduler )
+        static public void Worker( object sender, FeedData e, ref Home_scheduler scheduler )
         {
             string JobName = e.Device + "_" + e.JobId;
             Device = e.Device;

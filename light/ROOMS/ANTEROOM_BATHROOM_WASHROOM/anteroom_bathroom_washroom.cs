@@ -678,7 +678,7 @@ namespace HomeAutomation
 
         bool[]                               _DigitalInputState;
         bool[]                               _DigitalOutputState;
-        home_scheduler                       scheduler         = new home_scheduler();
+        Home_scheduler                       scheduler         = new Home_scheduler();
         FeedData                             PrevSchedulerData = new FeedData();
         #endregion
 

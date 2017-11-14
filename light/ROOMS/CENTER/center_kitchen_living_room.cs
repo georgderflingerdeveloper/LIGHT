@@ -34,7 +34,7 @@ namespace HomeAutomation
         CentralControlledElements_NG         FanWashRoom;
         CentralControlledElements_NG         CirculationPump;
         BasicClientComumnicator              BasicClientCommunicator_;
-        home_scheduler                       scheduler;
+        Home_scheduler                       scheduler;
         SchedulerDataRecovery                schedRecover;
         FeedData                             PrevSchedulerData = new FeedData();
         UdpReceive                           UDPReceiveDataFromWebForwarder;
@@ -150,7 +150,7 @@ namespace HomeAutomation
                 return;
             }
 
-            scheduler             = new home_scheduler();
+            scheduler             = new Home_scheduler();
             TimerRecoverScheulder = new Timer(Parameters.DelayTimeStartRecoverScheduler);
 
             CommonUsedTick.Elapsed            += CommonUsedTick_Elapsed;
