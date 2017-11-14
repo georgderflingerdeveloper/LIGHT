@@ -14,116 +14,17 @@ namespace Scheduler
 {
     static class SchedulerApplication
     {
-        static string Device;
-        static string JobId_;
-        static bool JobIsPaused = false;
-        static string PreviousJobName = "";
+        static string        Device;
+        static string        JobId_;
+        static bool          JobIsPaused = false;
+        static string        PreviousJobName = "";
         public delegate void JobDataChange( FeedData data );
-        public static event JobDataChange EAnyJobChange;
-        static bool _DataRecovered;
+        public static event  JobDataChange EAnyJobChange;
+        static bool          _DataRecovered;
 
         public static bool DataRecovered
         {
-            set
-            {
-                _DataRecovered = value;
-            }
-        }
-
-        static public void Worker( object sender, FeedData e, ref FeedData PrevSchedulerData, ref Home_scheduler scheduler )
-        {
-            string JobName = e.Device + "_" + e.JobId;
-            Device = e.Device;
-            JobId_ = e.JobId;
-
-            if (
-                ( PrevSchedulerData.Command != e.Command ) ||
-                ( PrevSchedulerData.Days != e.Days ) ||
-                ( PrevSchedulerData.Device != e.Device ) ||
-                ( PrevSchedulerData.JobId != e.JobId ) ||
-                ( PrevSchedulerData.Starttime != e.Starttime ) ||
-                ( PrevSchedulerData.Stoptime != e.Stoptime )
-              )
-            {
-                // prevent unecessary saving of the same contens
-                if (_DataRecovered)
-                {
-                    EAnyJobChange?.Invoke( e );
-                }
-            }
-
-            // we got a new job ID
-            if (PrevSchedulerData.JobId != e.JobId)
-            {
-                if (e.Days == SComand.FromNow)
-                {
-                    scheduler.NewJob( JobName, new Params( e.Starttime, e.Stoptime ) );
-                }
-                else
-                {
-                    scheduler.NewJob( JobName, new Params( e.Starttime, e.Stoptime, e.Days ) );
-                }
-                scheduler.StartJob( );
-            }
-            else
-            {
-                // any time setting changed - reschedule
-                if (PrevSchedulerData.Starttime != e.Starttime || PrevSchedulerData.Stoptime != e.Stoptime)
-                {
-                    scheduler.RemoveJob( JobName );
-                    if (e.Days == SComand.FromNow)
-                    {
-                        scheduler.NewJob( JobName, new Params( e.Starttime, e.Stoptime ) );
-                    }
-                    else
-                    {
-                        scheduler.NewJob( JobName, new Params( e.Starttime, e.Stoptime, e.Days ) );
-                    }
-                    scheduler.StartJob( );
-                    if (PreviousJobName == JobName)
-                    {
-                        Console.WriteLine( TimeUtil.GetTimestamp( ) + Seperators.WhiteSpace + InfoString.SchedulerIsRescheduling + PrevSchedulerData.Starttime + "=>" + e.Starttime );
-                        Console.WriteLine( TimeUtil.GetTimestamp( ) + Seperators.WhiteSpace + InfoString.SchedulerIsRescheduling + PrevSchedulerData.Stoptime + "=>" + e.Stoptime );
-                    }
-                    else
-                    {
-                        PreviousJobName = JobName;
-                    }
-                }
-            }
-
-            // STOP means pause a job
-            if (e.Command == SComand.Stop)
-            {
-                scheduler.PauseJob( JobName );
-                JobIsPaused = true;
-            }
-
-            // starts again
-            if (e.Command == SComand.Start)
-            {
-                if (JobIsPaused)
-                {
-                    scheduler.StartPausedJob( JobName );
-                    JobIsPaused = false;
-                }
-            }
-
-            // CREATE a deep copy of feed object!
-            using (MemoryStream ms = new MemoryStream( ))
-            {
-                BinaryFormatter fmt = new BinaryFormatter( );
-
-                // Original serialisieren:
-                fmt.Serialize( ms, e );
-
-                // Position des Streams auf den Anfang zurücksetzen:
-                ms.Position = 0;
-
-                // Kopie erstellen:
-                PrevSchedulerData = fmt.Deserialize( ms ) as FeedData;
-                return;
-            }
+            set => _DataRecovered = value;
         }
 
         static FeedData PrevData = new FeedData( );
@@ -134,12 +35,12 @@ namespace Scheduler
             JobId_ = e.JobId;
 
             if (
-                ( PrevData.Command != e.Command ) ||
-                ( PrevData.Days != e.Days ) ||
-                ( PrevData.Device != e.Device ) ||
-                ( PrevData.JobId != e.JobId ) ||
-                ( PrevData.Starttime != e.Starttime ) ||
-                ( PrevData.Stoptime != e.Stoptime )
+                ( PrevData.Command     !=     e.Command )   ||
+                ( PrevData.Days        !=     e.Days )      ||
+                ( PrevData.Device      !=     e.Device )    ||
+                ( PrevData.JobId       !=     e.JobId )     ||
+                ( PrevData.Starttime   !=     e.Starttime ) ||
+                ( PrevData.Stoptime    !=     e.Stoptime )
               )
             {
                 // prevent unecessary saving of the same contens

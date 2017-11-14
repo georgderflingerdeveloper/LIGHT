@@ -782,7 +782,7 @@ namespace HomeAutomation
         // configure, start, stop scheduler
         void BasicClientCommunicator__EFeedScheduler( object sender, FeedData e )
         {
-            SchedulerApplication.Worker( sender, e, ref PrevSchedulerData, ref scheduler );
+            //SchedulerApplication.Worker( sender, e, ref PrevSchedulerData, ref scheduler );
         }
 
         void ControlScheduledDevice( Quartz.IJobExecutionContext context, decimal counts, string device )
