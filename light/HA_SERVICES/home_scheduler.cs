@@ -660,10 +660,12 @@ namespace Scheduler
             try
             {
 
-                ScheduledJobs SingleJob     = new ScheduledJobs( );
-                SingleJob.JobName           = jobname;
-                SingleJob.TriggerParameters = parameters;
-                if( SingleJob.TriggerParameters.AppendTriggername )
+                ScheduledJobs SingleJob = new ScheduledJobs
+                {
+                    JobName = jobname,
+                    TriggerParameters = parameters
+                };
+                if ( SingleJob.TriggerParameters.AppendTriggername )
                 {
                     SingleJob.TriggerParameters.TriggerName = jobname + "_" + QuartzApplicationConstants.DefaultTriggerName;
                 }
