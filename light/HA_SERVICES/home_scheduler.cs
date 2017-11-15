@@ -25,6 +25,7 @@ namespace Scheduler
         public const string Whitespace            = " ";
         public const string CronSpecial           =  CronSartStop;
         public const string TimeComponentFormat   = "{0:00}";
+        public const string TimeComponentOneDecPlace = "{0}";
         public const string ZeroTime              = "00:00:00";
         public const string ZeroPartialTime       = "00";
         public const string DefaultTriggerName    = "trigger";
@@ -343,7 +344,8 @@ namespace Scheduler
             }
         }
 
-         //example  startime 10:10:15, stoptime 14:20:30 => 15,30 10,20, 10,14 * * ?
+        //attention - this does not work for all situationes
+        //example  startime 10:10:15, stoptime 14:20:30 => 15,30 10,20, 10,14 * * ?
         public static string GetTimeString( string StartTime, string StopTime )
         {
             string cronstring ="";
@@ -405,6 +407,36 @@ namespace Scheduler
              }
              Services.TraceMessage( QuartzApplicationMessages.MessageWrongTimeFormat );
              return ( QuartzApplicationConstants.ZeroTime );
+        }
+
+        const int ExpectedTimeElements = 3;
+
+        static bool IsSecondFormatValid( string Seconds )
+        {
+            uint ConvertedSeconds = Convert.ToUInt16( Seconds );
+            if( ConvertedSeconds <= 59 && ConvertedSeconds >= 0 )
+            {
+                return true;
+            }
+            return false;
+        }
+
+        public static string GetPointOfTime( string PointOfTime, string days )
+        {
+            string cronePointOfTime;
+            string[] TimeComponents = PointOfTime.Split( ':' );
+
+            string CroneSecond = String.Format( QuartzApplicationConstants.TimeComponentOneDecPlace, Convert.ToInt16(TimeComponents[2]) );
+            string CroneMinute = TimeComponents[1];
+            string CroneHour   = TimeComponents[0];
+
+            cronePointOfTime = CroneSecond + QuartzApplicationConstants.Whitespace +
+                                      CroneMinute + QuartzApplicationConstants.Whitespace +
+                                      CroneHour   + QuartzApplicationConstants.Whitespace +
+                                              "?" + QuartzApplicationConstants.Whitespace +
+                                              "*" + QuartzApplicationConstants.Whitespace +
+                                     days;
+            return cronePointOfTime;
         }
 
         //an expression to create a trigger that simply fires every second
@@ -577,14 +609,8 @@ namespace Scheduler
         #region PROPERTIES
         public List<ScheduledJobs> JobItemsParameters
         {
-            get
-            {
-                return ( JobItemsParameters_ );
-            }
-            set
-            {
-                JobItemsParameters_ = value;
-            }
+            get => ( JobItemsParameters_ );
+            set => JobItemsParameters_ = value;
         }
         #endregion
 

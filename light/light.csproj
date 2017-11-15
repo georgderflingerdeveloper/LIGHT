@@ -128,6 +128,7 @@
     <Compile Include="HA_COMPONENTS\LightControlOutside.cs" />
     <Compile Include="HA_SERVICES\schedulerhelpers.cs" />
     <Compile Include="HA_SERVICES\Services.cs" />
+    <Compile Include="HA_SERVICES\UNIT_TESTS\Scheduler_UnitTests.cs" />
     <Compile Include="IO_CONTROL\AnalogControl.cs" />
     <Compile Include="BASIC_CONTROL_LOGIC\devicestepcontrol.cs" />
     <Compile Include="BASIC_COMPONENTS\timerMockable.cs" />

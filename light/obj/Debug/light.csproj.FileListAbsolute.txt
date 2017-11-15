@@ -202,4 +202,3 @@ C:\Projekte\LIGHT\light\bin\Debug\TimerMockable.pdb
 C:\Projekte\LIGHT\light\obj\Debug\light.csproj.CoreCompileInputs.cache
 C:\Projekte\LIGHT\light\obj\Debug\light.exe
 C:\Projekte\LIGHT\light\obj\Debug\light.pdb
-C:\Projekte\LIGHT\light\obj\Debug\light.csprojResolveAssemblyReference.cache
