@@ -27,7 +27,6 @@ namespace Scheduler
             set => _DataRecovered = value;
         }
 
-
         static FeedData PrevData = new FeedData( );
         static private Object thisLock = new Object( );
         static public void Worker( object sender, FeedData e, ref Home_scheduler scheduler )
@@ -44,8 +43,7 @@ namespace Scheduler
                     ( PrevData.Days != e.Days ) ||
                     ( PrevData.Device != e.Device ) ||
                     ( PrevData.JobId != e.JobId ) ||
-                    ( PrevData.Starttime != e.Starttime ) ||
-                    ( PrevData.Stoptime != e.Stoptime )
+                    ( PrevData.Starttime != e.Starttime ) 
                   )
                 {
                     // prevent unecessary saving of the same contens
@@ -58,36 +56,21 @@ namespace Scheduler
                 // we got a new job ID
                 if (PrevData.JobId != e.JobId)
                 {
-                    if (e.Days == SComand.FromNow)
-                    {
-                        scheduler.NewJob( JobName, new Params( e.Starttime, e.Stoptime ) );
-                    }
-                    else
-                    {
-                        scheduler.NewJob( JobName, new Params( e.Starttime, e.Stoptime, e.Days ) );
-                    }
+                    scheduler.NewJob( JobName, new Params( e.Starttime,  e.Days ) );
                     scheduler.StartJob( );
                     PrevData.JobId = e.JobId;
                 }
                 else
                 {
                     // any time setting changed - reschedule
-                    if (PrevData.Starttime != e.Starttime || PrevData.Stoptime != e.Stoptime)
+                    if (PrevData.Starttime != e.Starttime )
                     {
                         scheduler.RemoveJob( JobName );
-                        if (e.Days == SComand.FromNow)
-                        {
-                            scheduler.NewJob( JobName, new Params( e.Starttime, e.Stoptime ) );
-                        }
-                        else
-                        {
-                            scheduler.NewJob( JobName, new Params( e.Starttime, e.Stoptime, e.Days ) );
-                        }
+                        scheduler.NewJob( JobName, new Params( e.Starttime,  e.Days ) );
                         scheduler.StartJob( );
                         if (PreviousJobName == JobName)
                         {
                             Console.WriteLine( TimeUtil.GetTimestamp( ) + Seperators.WhiteSpace + InfoString.SchedulerIsRescheduling + PrevData.Starttime + "=>" + e.Starttime );
-                            Console.WriteLine( TimeUtil.GetTimestamp( ) + Seperators.WhiteSpace + InfoString.SchedulerIsRescheduling + PrevData.Stoptime + "=>" + e.Stoptime );
                         }
                         else
                         {

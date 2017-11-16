@@ -1,29 +1,50 @@
 <?xml version="1.0"?>
 <ArrayOfFeedData xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <FeedData>
-    <Device>Boiler</Device>
+    <Device>BoilerOn</Device>
     <JobId>1</JobId>
     <Command>Start</Command>
     <Starttime>18:51:00</Starttime>
-    <Stoptime>18:51:30</Stoptime>
     <Days>Mon,Tue,Wed,Thu,Fri,Sat,Sun</Days>
   </FeedData>
  
   <FeedData>
-  	<Device>FumeHood</Device>
+    <Device>BoilerOff</Device>
     <JobId>2</JobId>
     <Command>Start</Command>
     <Starttime>18:51:00</Starttime>
-    <Stoptime>18:51:35</Stoptime>
+    <Days>Mon,Tue,Wed,Thu,Fri,Sat,Sun</Days>
+  </FeedData>
+  
+  <FeedData>
+  	<Device>FumeHoodOn</Device>
+    <JobId>3</JobId>
+    <Command>Start</Command>
+    <Starttime>18:51:00</Starttime>
     <Days>Mon,Tue,Wed,Thu,Fri,Sat,Sun</Days>
   </FeedData>
 
   <FeedData>
-    <Device>HeatersEastAndWest</Device>
-    <JobId>3</JobId>
+    <Device>FumeHoodOff</Device>
+    <JobId>4</JobId>
+    <Command>Start</Command>
+    <Starttime>18:51:00</Starttime>
+    <Days>Mon,Tue,Wed,Thu,Fri,Sat,Sun</Days>
+  </FeedData>
+
+  <FeedData>
+    <Device>HeatersEastAndWestOn</Device>
+    <JobId>5</JobId>
     <Command>Start</Command>
     <Starttime>04:30:00</Starttime>
-    <Stoptime>06:00:00</Stoptime>
+    <Days>Mon,Tue,Wed,Thu,Fri,Sat,Sun</Days>
+  </FeedData>
+
+  <FeedData>
+    <Device>HeatersEastAndWestOff</Device>
+    <JobId>6</JobId>
+    <Command>Start</Command>
+    <Starttime>04:30:00</Starttime>
     <Days>Mon,Tue,Wed,Thu,Fri,Sat,Sun</Days>
   </FeedData>
   

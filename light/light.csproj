@@ -185,6 +185,9 @@
     <Content Include="CONFIGS\KITCHENCENTER\Devices.xml">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="CONFIGS\KITCHENCENTER\Devices_OLD.xml">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="CONFIGS\SLEEPINGROOM\conf.ini" />
     <Content Include="CONFIGS\WEST\conf.ini" />
     <Content Include="HINTS\URLS\GIT_REPOSITORY_URL.txt" />

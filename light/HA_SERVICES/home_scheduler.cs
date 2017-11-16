@@ -122,13 +122,21 @@ namespace Scheduler
             _SchedulerModes    = MySchedulerModes.eStartTimeStopTimeWithDays;
         }
 
-        public Params( string starttime, string stoptime )
+      //  public Params( string starttime, string stoptime )
+      //  {
+      //      _Starttime         = starttime;
+      //      _Stoptime          = stoptime;
+      //      _AppendTriggername = true;
+      //      _SchedulerModes    = MySchedulerModes.eStartTimeStopTime;
+      //}
+
+        public Params( string starttime, string days )
         {
-            _Starttime         = starttime;
-            _Stoptime          = stoptime;
+            _Starttime = starttime;
+            _Days = days;
             _AppendTriggername = true;
-            _SchedulerModes    = MySchedulerModes.eStartTimeStopTime;
-      }
+            _SchedulerModes = MySchedulerModes.eStartTimeStopTimeWithDays;
+        }
 
         bool _TriggerOnceaDay;
         public Params( bool TriggerOnceaDay, string starttime, string triggerdays )
@@ -421,6 +429,21 @@ namespace Scheduler
             return false;
         }
 
+        static bool IsHourFormatValid( string Seconds )
+        {
+            uint ConvertedSeconds = Convert.ToUInt16( Seconds );
+            if (ConvertedSeconds <= 24 && ConvertedSeconds >= 0)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        static bool IsMinuteFormatValid( string Minutes )
+        {
+            return ( IsSecondFormatValid(Minutes) );
+        }
+
         public static string GetPointOfTime( string PointOfTime, string days )
         {
             string cronePointOfTime;
@@ -430,12 +453,23 @@ namespace Scheduler
             string CroneMinute = TimeComponents[1];
             string CroneHour   = TimeComponents[0];
 
-            cronePointOfTime = CroneSecond + QuartzApplicationConstants.Whitespace +
-                               CroneMinute + QuartzApplicationConstants.Whitespace +
-                               CroneHour   + QuartzApplicationConstants.Whitespace +
-                                       "?" + QuartzApplicationConstants.Whitespace +
-                                       "*" + QuartzApplicationConstants.Whitespace +
-                                     days;
+            if (
+                IsSecondFormatValid( CroneSecond ) && 
+                IsMinuteFormatValid( CroneMinute ) &&
+                IsHourFormatValid( CroneHour )
+               )
+            {
+                cronePointOfTime = CroneSecond + QuartzApplicationConstants.Whitespace +
+                                   CroneMinute + QuartzApplicationConstants.Whitespace +
+                                   CroneHour   + QuartzApplicationConstants.Whitespace +
+                                           "?" + QuartzApplicationConstants.Whitespace +
+                                           "*" + QuartzApplicationConstants.Whitespace +
+                                         days;
+            }
+            else
+            {
+                cronePointOfTime = QuartzApplicationMessages.MessageWrongTimeFormat;
+            }
             return cronePointOfTime;
         }
 
@@ -872,14 +906,14 @@ namespace Scheduler
                     ScheduleJob.JobItemsParameters = _JobItemsParameters;
 
                     string CroneTime = "";
+                    string CroneStartTime = "";
 
-                    // assembly of crone string
-                    switch( _JobItemsParameters[jobindex].TriggerParameters.SchedulerModes )
+                // assembly of crone string
+                switch ( _JobItemsParameters[jobindex].TriggerParameters.SchedulerModes )
                     {
                             case Params.MySchedulerModes.eStartTimeStopTimeWithDays:
-                                 CroneTime = MyCroneConverter.GetTimeString( _JobItemsParameters[jobindex].TriggerParameters.Starttime,
-                                                                             _JobItemsParameters[jobindex].TriggerParameters.Stoptime,
-                                                                             _JobItemsParameters[jobindex].TriggerParameters.Days );
+                                 CroneStartTime = MyCroneConverter.GetPointOfTime( _JobItemsParameters[jobindex].TriggerParameters.Starttime,
+                                                                                   _JobItemsParameters[jobindex].TriggerParameters.Days );
                                  break;
 
                             case Params.MySchedulerModes.eStartTimeStopTime:
@@ -910,13 +944,12 @@ namespace Scheduler
                     {
                         throw new MySchedulerException( QuartzApplicationMessages.MessageWrongTimeFormat );
                     }
-                    // Trigger the job to run now, and then every x seconds
-                    TriggerList.Add( TriggerBuilder.Create( )
-                                                               .WithIdentity( _JobItemsParameters[jobindex].TriggerParameters.TriggerName
-                                                                              , QuartzApplicationConstants.GroupName )
-                                                               .WithCronSchedule( CroneTime )
-                                                               .ForJob( _JobItemsParameters[jobindex].JobName, QuartzApplicationConstants.GroupName )
-                                                               .Build( ) );
+                                TriggerList.Add( TriggerBuilder.Create( )
+                                                                           .WithIdentity( _JobItemsParameters[jobindex].TriggerParameters.TriggerName
+                                                                                          , QuartzApplicationConstants.GroupName )
+                                                                           .WithCronSchedule( CroneStartTime )
+                                                                           .ForJob( _JobItemsParameters[jobindex].JobName, QuartzApplicationConstants.GroupName )
+                                                                           .Build( ) );
             }
         }
 

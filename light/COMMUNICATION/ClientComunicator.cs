@@ -445,7 +445,7 @@ namespace Communication
                                 FeedData.JobId      = receivedmessageparts[MessageAnalyzer.ExpectedSchedulerCommandIndex.IndJobId];
                                 FeedData.Command    = receivedmessageparts[MessageAnalyzer.ExpectedSchedulerCommandIndex.IndComando];
                                 FeedData.Starttime  = receivedmessageparts[MessageAnalyzer.ExpectedSchedulerCommandIndex.IndStartTime];
-                                FeedData.Stoptime   = receivedmessageparts[MessageAnalyzer.ExpectedSchedulerCommandIndex.IndStopTime];
+                                //FeedData.Stoptime   = receivedmessageparts[MessageAnalyzer.ExpectedSchedulerCommandIndex.IndStopTime];
                                 FeedData.Days       = receivedmessageparts[MessageAnalyzer.ExpectedSchedulerCommandIndex.IndDays];
                                 if( EFeedScheduler != null )
                                 {

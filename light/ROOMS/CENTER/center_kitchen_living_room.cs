@@ -243,8 +243,7 @@ namespace HomeAutomation
             SchedulerApplication.Worker( this, e, ref scheduler );
             Console.WriteLine( TimeUtil.GetTimestamp()  + Seperators.WhiteSpace + "Recover scheduler after booting " );
             Console.WriteLine( TimeUtil.GetTimestamp( ) + Seperators.WhiteSpace + "Device:                   " + e.Device );
-            Console.WriteLine( TimeUtil.GetTimestamp()  + Seperators.WhiteSpace + "Start time:               " + e.Starttime );
-            Console.WriteLine( TimeUtil.GetTimestamp()  + Seperators.WhiteSpace + "Stop time :               " + e.Stoptime );
+            Console.WriteLine( TimeUtil.GetTimestamp()  + Seperators.WhiteSpace + "Fire Time:                " + e.Starttime );
             Console.WriteLine( TimeUtil.GetTimestamp()  + Seperators.WhiteSpace + "Configured days:          " + e.Days );
             Console.WriteLine( TimeUtil.GetTimestamp( ) + Seperators.WhiteSpace + "Job:                      " + Job );
             Console.WriteLine( TimeUtil.GetTimestamp()  + Seperators.WhiteSpace + "Current scheduler status: " + scheduler.GetJobStatus( Job ) );

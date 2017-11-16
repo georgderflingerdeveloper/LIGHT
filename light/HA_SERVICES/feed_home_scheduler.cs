@@ -10,7 +10,7 @@ namespace Scheduler
         public string JobId      { get; set; }
         public string Command    { get; set; }
         public string Starttime  { get; set; }
-        public string Stoptime   { get; set; }
+//        public string Stoptime   { get; set; }
         public string Days       { get; set; }
     }
 }
