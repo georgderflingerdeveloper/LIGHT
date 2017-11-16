@@ -175,7 +175,7 @@ namespace HomeAutomation
             };
             BasicClientCommunicator_.EFeedScheduler          += BasicClientCommunicator__EFeedScheduler;
             BasicClientCommunicator_.EAskSchedulerForStatus  += BasicClientCommunicator__EAskSchedulerForStatus;
-            scheduler.EvTriggered                            += Scheduler_EvTriggered;
+            scheduler.EvTriggered                            += SchedulerTriggered;
 
             BasicClientCommunicator_.Primer1IsAttached = Attached;
 
@@ -199,7 +199,7 @@ namespace HomeAutomation
 
             // after power fail, certain important scheduler data is recovered
             schedRecover                   = new SchedulerDataRecovery( Directory.GetCurrentDirectory() );
-            schedRecover.ERecover         += SchedRecover_ERecover;
+            schedRecover.ERecover         += RecoverScheduler;
             schedRecover.ERecovered       += SchedRecover_ERecovered;
             TimerRecoverScheulder.Elapsed += TimerRecoverScheulder_Elapsed;
             TimerRecoverScheulder.Start( );
@@ -237,7 +237,7 @@ namespace HomeAutomation
         }
 
         // scheduler starts with recovered data
-        void SchedRecover_ERecover( FeedData e )
+        void RecoverScheduler( FeedData e )
         {
             string Job = e.Device + Seperators.InfoSeperator + e.JobId.ToString();
             SchedulerApplication.Worker( this, e, ref scheduler );
@@ -249,7 +249,7 @@ namespace HomeAutomation
             Console.WriteLine( TimeUtil.GetTimestamp()  + Seperators.WhiteSpace + "Current scheduler status: " + scheduler.GetJobStatus( Job ) );
         }
 
-        void Scheduler_EvTriggered( string time, IJobExecutionContext context, decimal counts )
+        void SchedulerTriggered( string time, IJobExecutionContext context, decimal counts )
         {
             SchedulerApplication.WriteStatus( time, context, counts );
 
@@ -266,49 +266,39 @@ namespace HomeAutomation
             string[] DeviceParts;
             DeviceParts = device.Split( '_' );
             HADictionaries.DeviceDictionaryCenterdigitalOut.TryGetValue( DeviceParts[0], out int index );
-            bool SchedulerIsStartingAnyAction = (counts % 2 != 0) ? true : false;
 
-            if( device.Contains( nameof( CenterKitchenDeviceNames.FumeHood ) ) )
+            if( device.Contains( "FumeHoodOn" ) )
             {
-               if( SchedulerIsStartingAnyAction ) 
-               {
-                   Kitchen.ActualKitchenStep = LightControlKitchen_NG.KitchenStep.eSlots;
-               }
-               else 
-               {
-                   Kitchen.ActualKitchenStep = LightControlKitchen_NG.KitchenStep.eFrontLights;
-               }
+                Kitchen.ActualKitchenStep = LightControlKitchen_NG.KitchenStep.eSlots;
+            }
+
+            if (device.Contains( "FumeHoodOff" ))
+            {
+                Kitchen.ActualKitchenStep = LightControlKitchen_NG.KitchenStep.eFrontLights;
             }
 
             if (outputs != null)
             {
-                if (device.Contains( nameof( HardConfig_Collected.HardwareDevices.Boiler ) ))
+                if (device.Contains( "BoilerOn" ))
                 {
-                    if (index >= 0 && index < GeneralConstants.NumberOfOutputsIOCard)
-                    {
-                        if (SchedulerIsStartingAnyAction)
-                        {
-                            outputs[index] = GeneralConstants.ON;
-                        }
-                        else
-                        {
-                            outputs[index] = GeneralConstants.OFF;
-                        }
-                    }
+                    outputs[index] = GeneralConstants.ON;
                 }
 
-                if( device.Contains( HeaterIdentifiers.HeatersEastAndWest ) )
+                if (device.Contains( "BoilerOff" ))
                 {
-                    if (SchedulerIsStartingAnyAction)
-                    {
-                        outputs[KitchenLivingRoomIOAssignment.indDigitalOutputHeaterEast] = true;
-                        outputs[KitchenLivingRoomIOAssignment.indDigitalOutputHeaterWest] = true;
-                    }
-                    else
-                    {
-                        outputs[KitchenLivingRoomIOAssignment.indDigitalOutputHeaterEast] = false;
-                        outputs[KitchenLivingRoomIOAssignment.indDigitalOutputHeaterWest] = false;
-                    }
+                    outputs[index] = GeneralConstants.ON;
+                }
+
+                if ( device.Contains( "HeatersEastAndWestOn" ) )
+                {
+                    outputs[KitchenLivingRoomIOAssignment.indDigitalOutputHeaterEast] = true;
+                    outputs[KitchenLivingRoomIOAssignment.indDigitalOutputHeaterWest] = true;
+                }
+
+                if (device.Contains( "HeatersEastAndWestOff" ))
+                {
+                    outputs[KitchenLivingRoomIOAssignment.indDigitalOutputHeaterEast] = false;
+                    outputs[KitchenLivingRoomIOAssignment.indDigitalOutputHeaterWest] = false;
                 }
             }
         }
