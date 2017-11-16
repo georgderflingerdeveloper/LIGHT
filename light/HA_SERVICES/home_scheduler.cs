@@ -431,10 +431,10 @@ namespace Scheduler
             string CroneHour   = TimeComponents[0];
 
             cronePointOfTime = CroneSecond + QuartzApplicationConstants.Whitespace +
-                                      CroneMinute + QuartzApplicationConstants.Whitespace +
-                                      CroneHour   + QuartzApplicationConstants.Whitespace +
-                                              "?" + QuartzApplicationConstants.Whitespace +
-                                              "*" + QuartzApplicationConstants.Whitespace +
+                               CroneMinute + QuartzApplicationConstants.Whitespace +
+                               CroneHour   + QuartzApplicationConstants.Whitespace +
+                                       "?" + QuartzApplicationConstants.Whitespace +
+                                       "*" + QuartzApplicationConstants.Whitespace +
                                      days;
             return cronePointOfTime;
         }
