@@ -22,64 +22,64 @@ using SystemServices;
 namespace HomeAutomation
 {
 
-    class Center_kitchen_living_room_NG : CommonRoom, IIOHandlerInfo, ICenter 
+    class Center_kitchen_living_room_NG : CommonRoom, IIOHandlerInfo, ICenter
     {
         #region DECLARATION
-//        HeaterController                     Heater;
-        LightControlKitchen_NG.KitchenStep   DesiredLightGroupInKitchen;
-        LightControlKitchen_NG               Kitchen;
-        LightControl_NG                      Outside;
-        HeaterElement_NG                     HeatersLivingRoom;
-        HeaterElement_NG                     HeaterAnteRoom;
-        CentralControlledElements_NG         FanWashRoom;
-        CentralControlledElements_NG         CirculationPump;
-        BasicClientComumnicator              BasicClientCommunicator_;
-        Home_scheduler                       scheduler;
-        SchedulerDataRecovery                schedRecover;
-        FeedData                             PrevSchedulerData = new FeedData();
-        UdpReceive                           UDPReceiveDataFromWebForwarder;
-        UdpReceive                           UdpReceiveDataFromEastController;
-        Timer                                TimerRecoverScheulder;
-        Timer                                CommonUsedTick =  new Timer( GeneralConstants.DURATION_COMMONTICK );
-        bool[]                               _DigitalInputState;
-        bool[]                               _DigitalOutputState;
-        bool[]                               _InternalDigitalOutputState;
-        bool                                 _Test;
-        long                                 RemainingTime;
-        PowerMeter                           _PowerMeter;
-		int                                  _PortNumberServer;
-        bool                                 RemoteControlHeaterActive;
-        bool                                 RemoteControlLightOutsideActivated;
+        //        HeaterController                     Heater;
+        LightControlKitchen_NG.KitchenStep DesiredLightGroupInKitchen;
+        LightControlKitchen_NG Kitchen;
+        LightControl_NG Outside;
+        HeaterElement_NG HeatersLivingRoom;
+        HeaterElement_NG HeaterAnteRoom;
+        CentralControlledElements_NG FanWashRoom;
+        CentralControlledElements_NG CirculationPump;
+        BasicClientComumnicator BasicClientCommunicator_;
+        Home_scheduler scheduler;
+        SchedulerDataRecovery schedRecover;
+        FeedData PrevSchedulerData = new FeedData( );
+        UdpReceive UDPReceiveDataFromWebForwarder;
+        UdpReceive UdpReceiveDataFromEastController;
+        Timer TimerRecoverScheulder;
+        Timer CommonUsedTick = new Timer( GeneralConstants.DURATION_COMMONTICK );
+        bool[] _DigitalInputState;
+        bool[] _DigitalOutputState;
+        bool[] _InternalDigitalOutputState;
+        bool _Test;
+        long RemainingTime;
+        PowerMeter _PowerMeter;
+        int _PortNumberServer;
+        bool RemoteControlHeaterActive;
+        bool RemoteControlLightOutsideActivated;
 
         public delegate void UpdateMatchedOutputs( object sender, bool[] _DigOut );
         public event UpdateMatchedOutputs EUpdateMatchedOutputs;
 
-		public event DigitalInputChanged  EDigitalInputChanged;
-		public event DigitalOutputChanged EDigitalOutputChanged;
+        public event DigitalInputChanged EDigitalInputChanged;
+        public event DigitalOutputChanged EDigitalOutputChanged;
 
-		DigitalInputEventargs             _DigitalInputEventargs   = new DigitalInputEventargs();
-		DigitalOutputEventargs            _DigitalOutputEventargs  = new DigitalOutputEventargs();
-		#endregion
+        DigitalInputEventargs _DigitalInputEventargs = new DigitalInputEventargs( );
+        DigitalOutputEventargs _DigitalOutputEventargs = new DigitalOutputEventargs( );
+        #endregion
 
         // more objects share the same eventhandler in this case
-        void CommonUsedEventHandlers( )
+        void CommonUsedEventHandlers()
         {
-            Kitchen.EUpdateOutputs_           += EShowUpdatedOutputs;
+            Kitchen.EUpdateOutputs_ += EShowUpdatedOutputs;
             HeatersLivingRoom.EUpdateOutputs_ += EShowUpdatedOutputs;
-            HeaterAnteRoom.EUpdateOutputs_    += EShowUpdatedOutputs;
-            CirculationPump.EUpdateOutputs_   += EShowUpdatedOutputs;
-            Outside.EUpdateOutputs            += EShowUpdatedOutputs;
-            FanWashRoom.EUpdateOutputs_       += EShowUpdatedOutputs;
+            HeaterAnteRoom.EUpdateOutputs_ += EShowUpdatedOutputs;
+            CirculationPump.EUpdateOutputs_ += EShowUpdatedOutputs;
+            Outside.EUpdateOutputs += EShowUpdatedOutputs;
+            FanWashRoom.EUpdateOutputs_ += EShowUpdatedOutputs;
         }
 
         #region CONSTRUCTOR
         void Constructor( string IpAdressServer, string PortServer, string softwareversion )
         {
-            _GivenClientName            = InfoOperationMode.CENTER_KITCHEN_AND_LIVING_ROOM;
-            _IpAdressServer             = IpAdressServer;
-            _PortNumberServer           = Convert.ToInt16( PortServer );
-            _DigitalInputState          = new bool[GeneralConstants.NumberOfInputsIOCard];
-            _DigitalOutputState         = new bool[GeneralConstants.NumberOfOutputsIOCard];
+            _GivenClientName = InfoOperationMode.CENTER_KITCHEN_AND_LIVING_ROOM;
+            _IpAdressServer = IpAdressServer;
+            _PortNumberServer = Convert.ToInt16( PortServer );
+            _DigitalInputState = new bool[GeneralConstants.NumberOfInputsIOCard];
+            _DigitalOutputState = new bool[GeneralConstants.NumberOfOutputsIOCard];
             _InternalDigitalOutputState = new bool[GeneralConstants.NumberOfOutputsIOCard];
 
             Kitchen = new LightControlKitchen_NG(
@@ -144,24 +144,24 @@ namespace HomeAutomation
 
 
             HeatersLivingRoom.AllOn_ += HeatersLivingRoom_AllOn_;
-            Kitchen.EReset           += Kitchen_EReset;
+            Kitchen.EReset += Kitchen_EReset;
 
             #region REGISTRATION_ONE_COMMON_EVENT_HANDLER
             CommonUsedEventHandlers( );
             #endregion
 
-            if ( _Test )
+            if (_Test)
             {
                 return;
             }
 
-            scheduler             = new Home_scheduler();
-            TimerRecoverScheulder = new Timer(Parameters.DelayTimeStartRecoverScheduler);
+            scheduler = new Home_scheduler( );
+            TimerRecoverScheulder = new Timer( Parameters.DelayTimeStartRecoverScheduler );
 
-            CommonUsedTick.Elapsed            += CommonUsedTick_Elapsed;
+            CommonUsedTick.Elapsed += CommonUsedTick_Elapsed;
 
-            base.Attach                       += Center_kitchen_living_room_Attach;
-            base.Detach                       += Center_kitchen_living_room_Detach;
+            base.Attach += Center_kitchen_living_room_Attach;
+            base.Detach += Center_kitchen_living_room_Detach;
 
             BasicClientCommunicator_ = new BasicClientComumnicator( _GivenClientName,
                                                                     _IpAdressServer,
@@ -173,13 +173,13 @@ namespace HomeAutomation
                 // establish client
                 Room = _GivenClientName
             };
-            BasicClientCommunicator_.EFeedScheduler          += BasicClientCommunicator__EFeedScheduler;
-            BasicClientCommunicator_.EAskSchedulerForStatus  += BasicClientCommunicator__EAskSchedulerForStatus;
-            scheduler.EvTriggered                            += SchedulerTriggered;
+            BasicClientCommunicator_.EFeedScheduler += BasicClientCommunicator__EFeedScheduler;
+            BasicClientCommunicator_.EAskSchedulerForStatus += BasicClientCommunicator__EAskSchedulerForStatus;
+            scheduler.EvTriggered += SchedulerTriggered;
 
             BasicClientCommunicator_.Primer1IsAttached = Attached;
 
-            if( !Attached )
+            if (!Attached)
             {
                 BasicClientCommunicator_.SendInfoToServer( InfoString.InfoNoIO );
             }
@@ -191,36 +191,36 @@ namespace HomeAutomation
                 UdpReceiveDataFromEastController = new UdpReceive( IPConfiguration.Port.PORT_LIGHT_CONTROL_LIVING_ROOM_EAST );
                 UdpReceiveDataFromEastController.EDataReceived += UdpDataReceived;
             }
-            catch ( Exception ex )
+            catch (Exception ex)
             {
-                Console.WriteLine( TimeUtil.GetTimestamp() + Seperators.WhiteSpace + ex.Message );
+                Console.WriteLine( TimeUtil.GetTimestamp( ) + Seperators.WhiteSpace + ex.Message );
                 Services.TraceMessage_( InfoString.FailedToEstablishUDPReceive );
             }
 
             // after power fail, certain important scheduler data is recovered
-            schedRecover                   = new SchedulerDataRecovery( Directory.GetCurrentDirectory() );
-            schedRecover.ERecover         += RecoverScheduler;
-            schedRecover.ERecovered       += SchedRecover_ERecovered;
+            schedRecover = new SchedulerDataRecovery( Directory.GetCurrentDirectory( ) );
+            schedRecover.ERecover += RecoverScheduler;
+            schedRecover.ERecovered += SchedRecover_ERecovered;
             TimerRecoverScheulder.Elapsed += TimerRecoverScheulder_Elapsed;
             TimerRecoverScheulder.Start( );
             CommonUsedTick.Start( );
-            Console.WriteLine( TimeUtil.GetTimestamp() + Seperators.WhiteSpace + InfoString.StartTimerForRecoverScheduler );
-            RemainingTime = Convert.ToUInt32( (Parameters.DelayTimeStartRecoverScheduler / Parameters.MilisecondsOfSecond)  );
+            Console.WriteLine( TimeUtil.GetTimestamp( ) + Seperators.WhiteSpace + InfoString.StartTimerForRecoverScheduler );
+            RemainingTime = Convert.ToUInt32( ( Parameters.DelayTimeStartRecoverScheduler / Parameters.MilisecondsOfSecond ) );
 
             _PowerMeter = new PowerMeter( true, PowermeterConstants.DefaultCaptureIntervallTime, PowermeterConstants.DefaultStoreTime );
         }
 
         public Center_kitchen_living_room_NG( string IpAdressServer, string PortServer, string softwareversion )
-            : base()
+            : base( )
         {
-            Constructor(  IpAdressServer,  PortServer,  softwareversion );
+            Constructor( IpAdressServer, PortServer, softwareversion );
         }
 
         public Center_kitchen_living_room_NG( string IpAdressServer, string PortServer, string softwareversion, bool test )
-            : base(true)
+            : base( true )
         {
-           _Test = test;
-           Constructor( IpAdressServer, PortServer, softwareversion );
+            _Test = test;
+            Constructor( IpAdressServer, PortServer, softwareversion );
         }
         #endregion
 
@@ -239,21 +239,21 @@ namespace HomeAutomation
         // scheduler starts with recovered data
         void RecoverScheduler( FeedData e )
         {
-            string Job = e.Device + Seperators.InfoSeperator + e.JobId.ToString();
+            string Job = e.Device + Seperators.InfoSeperator + e.JobId.ToString( );
             SchedulerApplication.Worker( this, e, ref scheduler );
-            Console.WriteLine( TimeUtil.GetTimestamp()  + Seperators.WhiteSpace + "Recover scheduler after booting " );
+            Console.WriteLine( TimeUtil.GetTimestamp( ) + Seperators.WhiteSpace + "Recover scheduler after booting " );
             Console.WriteLine( TimeUtil.GetTimestamp( ) + Seperators.WhiteSpace + "Device:                   " + e.Device );
-            Console.WriteLine( TimeUtil.GetTimestamp()  + Seperators.WhiteSpace + "Fire Time:                " + e.Starttime );
-            Console.WriteLine( TimeUtil.GetTimestamp()  + Seperators.WhiteSpace + "Configured days:          " + e.Days );
+            Console.WriteLine( TimeUtil.GetTimestamp( ) + Seperators.WhiteSpace + "Fire Time:                " + e.Starttime );
+            Console.WriteLine( TimeUtil.GetTimestamp( ) + Seperators.WhiteSpace + "Configured days:          " + e.Days );
             Console.WriteLine( TimeUtil.GetTimestamp( ) + Seperators.WhiteSpace + "Job:                      " + Job );
-            Console.WriteLine( TimeUtil.GetTimestamp()  + Seperators.WhiteSpace + "Current scheduler status: " + scheduler.GetJobStatus( Job ) );
+            Console.WriteLine( TimeUtil.GetTimestamp( ) + Seperators.WhiteSpace + "Current scheduler status: " + scheduler.GetJobStatus( Job ) );
         }
 
         void SchedulerTriggered( string time, IJobExecutionContext context, decimal counts )
         {
             SchedulerApplication.WriteStatus( time, context, counts );
 
-            if( !Attached )
+            if (!Attached)
             {
                 return;
             }
@@ -267,7 +267,7 @@ namespace HomeAutomation
             DeviceParts = device.Split( '_' );
             HADictionaries.DeviceDictionaryCenterdigitalOut.TryGetValue( DeviceParts[0], out int index );
 
-            if( device.Contains( "FumeHoodOn" ) )
+            if (device.Contains( "FumeHoodOn" ))
             {
                 Kitchen.ActualKitchenStep = LightControlKitchen_NG.KitchenStep.eSlots;
             }
@@ -281,15 +281,15 @@ namespace HomeAutomation
             {
                 if (device.Contains( "BoilerOn" ))
                 {
-                    outputs[index] = GeneralConstants.ON;
+                    outputs[CenterLivingRoomIODeviceIndices.indDigitalOutputBoiler] = GeneralConstants.ON;
                 }
 
                 if (device.Contains( "BoilerOff" ))
                 {
-                    outputs[index] = GeneralConstants.ON;
+                    outputs[CenterLivingRoomIODeviceIndices.indDigitalOutputBoiler] = GeneralConstants.OFF;
                 }
 
-                if ( device.Contains( "HeatersEastAndWestOn" ) )
+                if (device.Contains( "HeatersEastAndWestOn" ))
                 {
                     outputs[KitchenLivingRoomIOAssignment.indDigitalOutputHeaterEast] = true;
                     outputs[KitchenLivingRoomIOAssignment.indDigitalOutputHeaterWest] = true;
@@ -305,38 +305,38 @@ namespace HomeAutomation
 
         string AskForSchedulerStatus( string Job )
         {
-            string SystemIsAskingScheduler = TimeUtil.GetTimestamp()                +
-                                                 Seperators.WhiteSpace              +
-                                                 _GivenClientName                   +
-                                                 "...."                             +
-                                                 InfoString.Asking                  +
-                                                 Seperators.WhiteSpace              +
+            string SystemIsAskingScheduler = TimeUtil.GetTimestamp( ) +
+                                                 Seperators.WhiteSpace +
+                                                 _GivenClientName +
+                                                 "...." +
+                                                 InfoString.Asking +
+                                                 Seperators.WhiteSpace +
                                                  InfoString.Scheduler;
 
             Console.WriteLine( SystemIsAskingScheduler );
             SchedulerInfo.Status status = scheduler.GetJobStatus( Job );
 
-            string StatusInformation = TimeUtil.GetTimestamp()                      +
-                                           Seperators.WhiteSpace                    +
-                                           _GivenClientName                         +
-                                           Seperators.WhiteSpace                    +
-                                           InfoString.StatusOf                      +
-                                           Seperators.WhiteSpace                    +
-                                           Job                                      +
-                                           Seperators.WhiteSpace                    +
-                                           InfoString.Is                            +
-                                           Seperators.WhiteSpace                    +
-                                           status.ToString();
+            string StatusInformation = TimeUtil.GetTimestamp( ) +
+                                           Seperators.WhiteSpace +
+                                           _GivenClientName +
+                                           Seperators.WhiteSpace +
+                                           InfoString.StatusOf +
+                                           Seperators.WhiteSpace +
+                                           Job +
+                                           Seperators.WhiteSpace +
+                                           InfoString.Is +
+                                           Seperators.WhiteSpace +
+                                           status.ToString( );
 
             Console.WriteLine( StatusInformation );
 
-            return    InfoOperationMode.CENTER_KITCHEN_AND_LIVING_ROOM   +
-                                 Seperators.InfoSeperator                           +
-                                 HomeAutomationAnswers.ANSWER_SCHEDULER_STATUS      +
-                                 Seperators.InfoSeperator                           +
-                                 Job                                                +
-                                 Seperators.InfoSeperator                           +
-                                 status.ToString();
+            return InfoOperationMode.CENTER_KITCHEN_AND_LIVING_ROOM +
+                                 Seperators.InfoSeperator +
+                                 HomeAutomationAnswers.ANSWER_SCHEDULER_STATUS +
+                                 Seperators.InfoSeperator +
+                                 Job +
+                                 Seperators.InfoSeperator +
+                                 status.ToString( );
 
 
         }
@@ -345,7 +345,7 @@ namespace HomeAutomation
         {
             string Answer = AskForSchedulerStatus( Job );
             BasicClientCommunicator_.SendInfoToServer( Answer );
-         }
+        }
         #endregion
 
         #region PROPERTIES_IO_INTERFACE
@@ -397,16 +397,16 @@ namespace HomeAutomation
         #region IO_CARD_OBSERVATION
         void Center_kitchen_living_room_Detach( object sender, DetachEventArgs e )
         {
-            if( Kitchen != null )
+            if (Kitchen != null)
             {
                 Kitchen.IsPrimaryIOCardAttached = base._PrimaryIOCardIsAttached;
-                BasicClientCommunicator_.SendInfoToServer( InfoString.InfoNoIO + e.Device.ID.ToString() );
+                BasicClientCommunicator_.SendInfoToServer( InfoString.InfoNoIO + e.Device.ID.ToString( ) );
             }
-         }
+        }
 
         void Center_kitchen_living_room_Attach( object sender, AttachEventArgs e )
         {
-            if( Kitchen != null )
+            if (Kitchen != null)
             {
                 Kitchen.IsPrimaryIOCardAttached = base._PrimaryIOCardIsAttached;
             }
@@ -416,80 +416,80 @@ namespace HomeAutomation
         #region CONTROLLOGIC
         void Kitchen_EReset( object sender )
         {
-            HeatersLivingRoom.Reset();
-            HeaterAnteRoom.Reset();
+            HeatersLivingRoom.Reset( );
+            HeaterAnteRoom.Reset( );
         }
 
         void Reset( InputChangeEventArgs e )
         {
-            if( e.Value == true )
+            if (e.Value == true)
             {
-                Kitchen?.StartWaitForAllOff();
+                Kitchen?.StartWaitForAllOff( );
             }
             else
             {
-                Kitchen?.StopWaitForAllOff();
+                Kitchen?.StopWaitForAllOff( );
             }
         }
 
         void Reset( bool command )
         {
-            if( command == true )
+            if (command == true)
             {
-                Kitchen?.StartWaitForAllOff();
+                Kitchen?.StartWaitForAllOff( );
             }
             else
             {
-                Kitchen?.StopWaitForAllOff();
+                Kitchen?.StopWaitForAllOff( );
             }
         }
 
         public void StopAliveSignal()
         {
-            Kitchen?.StopAliveSignal();
+            Kitchen?.StopAliveSignal( );
         }
 
         protected override void TurnNextLightOn_( InputChangeEventArgs e )
         {
-            int index  = e.Index;
+            int index = e.Index;
             bool Value = e.Value;
             TurnNextDevice( index, Value );
         }
 
-		void TurnNextDevice( int index,  bool Value  )
+        void TurnNextDevice( int index, bool Value )
         {
-                switch( index ) // the index is the assigned input number
-                {
-                    // first relase start one light, next relase start neighbor light, turn previous light off
-                    // press button longer than ( f.e. 1.. seconds ) - all lights on
-                    // press button longer than ( f.e. 2.. seconds ) - all lights off
-                    // TODO press button longer than ( f.e. 3.. seconds ) - broadcast all lights off, just default lights on
-                   case KitchenIOAssignment.indKitchenMainButton:
-                        if( HeatersLivingRoom != null )
+            switch (index) // the index is the assigned input number
+            {
+                // first relase start one light, next relase start neighbor light, turn previous light off
+                // press button longer than ( f.e. 1.. seconds ) - all lights on
+                // press button longer than ( f.e. 2.. seconds ) - all lights off
+                // TODO press button longer than ( f.e. 3.. seconds ) - broadcast all lights off, just default lights on
+                case KitchenIOAssignment.indKitchenMainButton:
+                    if (HeatersLivingRoom != null)
+                    {
+                        // operate light only when there is no demand of manual heater control
+                        if (!HeatersLivingRoom.WasHeaterSwitched( ))  // this is not good OOP - any day try to refactor - "TELL - don´t ask"
                         {
-                            // operate light only when there is no demand of manual heater control
-                            if( !HeatersLivingRoom.WasHeaterSwitched() )  // this is not good OOP - any day try to refactor - "TELL - don´t ask"
-                            {
-                                Kitchen?.MakeStep( Value );
-                                Kitchen?.AutomaticOff( Value );
-                            }
-                            else
-                            {
-                                Kitchen?.StopAllOnTimer();
-                                Kitchen?.ResetDeviceControl();
-                            }
+                            Kitchen?.MakeStep( Value );
+                            Kitchen?.AutomaticOff( Value );
                         }
-                        // reset - this is a last rescue anchor in the case something went wrong ( any undiscovered bug )
-                        Reset( Value );
-                        break;
+                        else
+                        {
+                            Kitchen?.StopAllOnTimer( );
+                            Kitchen?.ResetDeviceControl( );
+                        }
+                    }
+                    // reset - this is a last rescue anchor in the case something went wrong ( any undiscovered bug )
+                    Reset( Value );
+                    break;
 
-                   case KitchenIOAssignment.indKitchenPresenceDetector:
-                        Kitchen?.AutomaticOff( Value );
-                        break;
+                case KitchenIOAssignment.indKitchenPresenceDetector:
+                    Kitchen?.AutomaticOff( Value );
+                    break;
 
-                    default:
-                        break;
-                }
+                default:
+                    break;
+            }
 
         }
 
@@ -498,8 +498,8 @@ namespace HomeAutomation
             switch (index) // the index is the assigned input number
             {
                 case CenterButtonRelayIOAssignment.indDigitalInputRelayWashRoom:
-                     FanWashRoom?.DelayedDeviceOnFallingEdge( Value );
-                     break;
+                    FanWashRoom?.DelayedDeviceOnFallingEdge( Value );
+                    break;
 
                 default:
                     break;
@@ -508,27 +508,27 @@ namespace HomeAutomation
 
         void ControlHeaters( InputChangeEventArgs e )
         {
-            int index  = e.Index;
+            int index = e.Index;
             bool Value = e.Value;
             ControlHeaters( index, Value );
         }
 
         void ControlHeaters( int index, bool Value )
         {
-                switch( index ) // the index is the assigned input number
-                {
-                   case KitchenIOAssignment.indKitchenMainButton:
-                        HeatersLivingRoom?.HeaterOn( Value ); // heaters can be switched on / off with the light button
-                        break;
-                   // heater in the ante room so far is controlled by center/kitchen/living room sbc
-                   // reason is that the cable conneting the actuator was easier to lay 
-                   case CenterButtonRelayIOAssignment.indDigitalInputRelayAnteRoom:
-                        HeaterAnteRoom?.HeaterOnFallingEdge( Value );
-                        break;
+            switch (index) // the index is the assigned input number
+            {
+                case KitchenIOAssignment.indKitchenMainButton:
+                    HeatersLivingRoom?.HeaterOn( Value ); // heaters can be switched on / off with the light button
+                    break;
+                // heater in the ante room so far is controlled by center/kitchen/living room sbc
+                // reason is that the cable conneting the actuator was easier to lay 
+                case CenterButtonRelayIOAssignment.indDigitalInputRelayAnteRoom:
+                    HeaterAnteRoom?.HeaterOnFallingEdge( Value );
+                    break;
 
-                    default:
-                        break;
-                }
+                default:
+                    break;
+            }
         }
 
         void ControlCirculationPump( InputChangeEventArgs e )
@@ -539,13 +539,13 @@ namespace HomeAutomation
         void ControlCirculationPump( int index, bool Value )
         {
             // Warmwater Circulation pump ( for shower, pipe and bathroom )control
-            switch( index ) // the index is the assigned input number
+            switch (index) // the index is the assigned input number
             {
                 case KitchenIOAssignment.indKitchenPresenceDetector:
                 case KitchenIOAssignment.indKitchenMainButton:
                 case AnteRoomIOAssignment.indBathRoomMainButton:
-                     CirculationPump?.DeviceOnFallingEdgeAutomaticOff( Value );
-                     break;
+                    CirculationPump?.DeviceOnFallingEdgeAutomaticOff( Value );
+                    break;
 
                 default:
                     break;
@@ -555,23 +555,23 @@ namespace HomeAutomation
         int ToggleHeatersOnOff = 0;
         void HeatersLivingRoom_AllOn_( object sender )
         {
-            if( ToggleHeatersOnOff == 0 )
+            if (ToggleHeatersOnOff == 0)
             {
-                Kitchen.AnyExternalDeviceOn  = true;
+                Kitchen.AnyExternalDeviceOn = true;
                 Kitchen.AnyExternalDeviceOff = false;
             }
             ToggleHeatersOnOff++;
-            if( ToggleHeatersOnOff > 1 )
+            if (ToggleHeatersOnOff > 1)
             {
                 ToggleHeatersOnOff = 0;
-                Kitchen.AnyExternalDeviceOn  = false;
+                Kitchen.AnyExternalDeviceOn = false;
                 Kitchen.AnyExternalDeviceOff = true;
             }
         }
 
         void ControlSequenceOnInputChange( int index, bool Value )
         {
-            if( Kitchen != null )
+            if (Kitchen != null)
             {
                 Kitchen.StateDigitalOutput = base.StateDigitalOutput;
             }
@@ -584,24 +584,24 @@ namespace HomeAutomation
 
             TurnFan( index, Value );
 
-            if ( _DigitalInputState == null )
+            if (_DigitalInputState == null)
             {
                 return;
             }
 
-            for( int i = 0; i < _DigitalInputState.Length; i++ )
+            for (int i = 0; i < _DigitalInputState.Length; i++)
             {
-                if( Attached )
+                if (Attached)
                 {
                     // simplification - input state is written in a bool array
                     _DigitalInputState[i] = inputs[i];
                 }
             }
 
-            if( BasicClientCommunicator_ != null )
+            if (BasicClientCommunicator_ != null)
             {
                 BasicClientCommunicator_.DigitalInputs = _DigitalInputState;
-                BasicClientCommunicator_.IndexInput    = index;
+                BasicClientCommunicator_.IndexInput = index;
             }
         }
         #endregion
@@ -614,19 +614,19 @@ namespace HomeAutomation
 
         void TurnFrontLights( bool commando )
         {
-            outputs[KitchenCenterIoDevices.indDigitalOutputFrontLight_1] = commando; 
-            outputs[KitchenCenterIoDevices.indDigitalOutputFrontLight_2] = commando; 
-            outputs[KitchenCenterIoDevices.indDigitalOutputFrontLight_3] = commando; 
+            outputs[KitchenCenterIoDevices.indDigitalOutputFrontLight_1] = commando;
+            outputs[KitchenCenterIoDevices.indDigitalOutputFrontLight_2] = commando;
+            outputs[KitchenCenterIoDevices.indDigitalOutputFrontLight_3] = commando;
         }
 
         void TurnKitchenLights( bool commando )
         {
-            outputs[KitchenCenterIoDevices.indDigitalOutputFirstKitchen]   = commando;
-            outputs[KitchenCenterIoDevices.indDigitalOutputFrontLight_1]   = commando;
-            outputs[KitchenCenterIoDevices.indDigitalOutputFrontLight_2]   = commando;
-            outputs[KitchenCenterIoDevices.indDigitalOutputFrontLight_3]   = commando;
-            outputs[KitchenCenterIoDevices.indDigitalOutputFumeHood]       = commando;
-            outputs[KitchenCenterIoDevices.indDigitalOutputSlot]           = commando;
+            outputs[KitchenCenterIoDevices.indDigitalOutputFirstKitchen] = commando;
+            outputs[KitchenCenterIoDevices.indDigitalOutputFrontLight_1] = commando;
+            outputs[KitchenCenterIoDevices.indDigitalOutputFrontLight_2] = commando;
+            outputs[KitchenCenterIoDevices.indDigitalOutputFrontLight_3] = commando;
+            outputs[KitchenCenterIoDevices.indDigitalOutputFumeHood] = commando;
+            outputs[KitchenCenterIoDevices.indDigitalOutputSlot] = commando;
             outputs[KitchenCenterIoDevices.indDigitalOutputKitchenKabinet] = commando;
         }
 
@@ -655,10 +655,10 @@ namespace HomeAutomation
         #endregion 
 
         #region REMOTE_CONTROLLED_UDP
-        decimal receivedTransactionCounter            = 0;
-        decimal PreviousreceivedTransactionCounter    = 0;
-		const int ExpectedArrayElementsSignalTelegram = UdpTelegram.DelfaultExpectedArrayElementsSignalTelegram;
-        const int ExpectedArrayElementsCommonCommand  = 1;
+        decimal receivedTransactionCounter = 0;
+        decimal PreviousreceivedTransactionCounter = 0;
+        const int ExpectedArrayElementsSignalTelegram = UdpTelegram.DelfaultExpectedArrayElementsSignalTelegram;
+        const int ExpectedArrayElementsCommonCommand = 1;
 
         void UdpDataReceived( string e )
         {
@@ -666,142 +666,142 @@ namespace HomeAutomation
 
             string[] DatagrammSplitted = e.Split( ComandoString.Telegram.Seperator );
 
-            if( DatagrammSplitted.Length == ExpectedArrayElementsCommonCommand )
+            if (DatagrammSplitted.Length == ExpectedArrayElementsCommonCommand)
             {
-                switch( DatagrammSplitted[0] )
+                switch (DatagrammSplitted[0])
                 {
                     case ComandoString.TURN_ALL_LIGHTS_ON:
                     case ComandoString.TURN_ALL_KITCHEN_LIGHTS_ON:
-                         TurnKitchenLights( GeneralConstants.ON );
-                         Kitchen?.AutomaticOff( true );
-                         break;
+                        TurnKitchenLights( GeneralConstants.ON );
+                        Kitchen?.AutomaticOff( true );
+                        break;
 
                     case ComandoString.TURN_ALL_LIGHTS_OFF:
                     case ComandoString.TURN_ALL_KITCHEN_LIGHTS_OFF:
-                         TurnKitchenLights( GeneralConstants.OFF );
-                         RemoteControlLightOutsideActivated = false;
-                         break;
+                        TurnKitchenLights( GeneralConstants.OFF );
+                        RemoteControlLightOutsideActivated = false;
+                        break;
 
                     case ComandoString.TURN_BOILER_ON:
-                         TurnBoiler( GeneralConstants.ON );
-                         break;
+                        TurnBoiler( GeneralConstants.ON );
+                        break;
 
                     case ComandoString.TURN_BOILER_OFF:
-                         TurnBoiler( GeneralConstants.OFF );
-                         break;
+                        TurnBoiler( GeneralConstants.OFF );
+                        break;
 
                     case ComandoString.TURN_FRONT_LIGHTS_OFF:
-                         TurnFrontLights( GeneralConstants.OFF );
-                         break;
+                        TurnFrontLights( GeneralConstants.OFF );
+                        break;
 
                     case ComandoString.TURN_FRONT_LIGHTS_ON:
-                         TurnFrontLights( GeneralConstants.ON );
-                         break;
+                        TurnFrontLights( GeneralConstants.ON );
+                        break;
 
                     case ComandoString.TURN_KITCHEN_LIGHTS_CABINET_ON:
-                         outputs[KitchenCenterIoDevices.indDigitalOutputKitchenKabinet] = true;
-                         break;
+                        outputs[KitchenCenterIoDevices.indDigitalOutputKitchenKabinet] = true;
+                        break;
 
                     case ComandoString.TURN_KITCHEN_LIGHTS_CABINET_OFF:
-                         outputs[KitchenCenterIoDevices.indDigitalOutputKitchenKabinet] = false;
-                         break;
+                        outputs[KitchenCenterIoDevices.indDigitalOutputKitchenKabinet] = false;
+                        break;
 
                     case ComandoString.TURN_KITCHEN_LIGHT_FUMEHOOD_ON:
-                         outputs[KitchenCenterIoDevices.indDigitalOutputFumeHood] = true;
-                         break;
+                        outputs[KitchenCenterIoDevices.indDigitalOutputFumeHood] = true;
+                        break;
 
                     case ComandoString.TURN_KITCHEN_LIGHT_FUMEHOOD_OFF:
-                         outputs[KitchenCenterIoDevices.indDigitalOutputFumeHood] = false;
-                         break;
+                        outputs[KitchenCenterIoDevices.indDigitalOutputFumeHood] = false;
+                        break;
 
                     case ComandoString.TURN_KITCHEN_LIGHT_OVER_CABINET_RIGHT_ON:
-                         outputs[KitchenCenterIoDevices.indDigitalOutputFirstKitchen] = true;
-                         break;
+                        outputs[KitchenCenterIoDevices.indDigitalOutputFirstKitchen] = true;
+                        break;
 
                     case ComandoString.TURN_KITCHEN_LIGHT_OVER_CABINET_RIGHT_OFF:
-                         outputs[KitchenCenterIoDevices.indDigitalOutputFirstKitchen] = false;
-                         break;
+                        outputs[KitchenCenterIoDevices.indDigitalOutputFirstKitchen] = false;
+                        break;
 
                     case ComandoString.TURN_KITCHEN_LIGHT_SLOT_ON:
-                         outputs[KitchenCenterIoDevices.indDigitalOutputSlot] = true;
-                         break;
+                        outputs[KitchenCenterIoDevices.indDigitalOutputSlot] = true;
+                        break;
 
                     case ComandoString.TURN_KITCHEN_LIGHT_SLOT_OFF:
-                         outputs[KitchenCenterIoDevices.indDigitalOutputSlot] = false;
-                         break;
+                        outputs[KitchenCenterIoDevices.indDigitalOutputSlot] = false;
+                        break;
 
                     case ComandoString.TURN_KITCHEN_FRONT_LIGHT_1_ON:
-                         outputs[KitchenCenterIoDevices.indDigitalOutputFrontLight_1] = true;
-                         break;
+                        outputs[KitchenCenterIoDevices.indDigitalOutputFrontLight_1] = true;
+                        break;
 
                     case ComandoString.TURN_KITCHEN_FRONT_LIGHT_2_ON:
-                         outputs[KitchenCenterIoDevices.indDigitalOutputFrontLight_2] = true;
-                         break;
+                        outputs[KitchenCenterIoDevices.indDigitalOutputFrontLight_2] = true;
+                        break;
 
                     case ComandoString.TURN_KITCHEN_FRONT_LIGHT_3_ON:
-                         outputs[KitchenCenterIoDevices.indDigitalOutputFrontLight_3] = true;
-                         break;
+                        outputs[KitchenCenterIoDevices.indDigitalOutputFrontLight_3] = true;
+                        break;
 
                     case ComandoString.TURN_KITCHEN_FRONT_LIGHT_1_OFF:
-                         outputs[KitchenCenterIoDevices.indDigitalOutputFrontLight_1] = false;
-                         break;
+                        outputs[KitchenCenterIoDevices.indDigitalOutputFrontLight_1] = false;
+                        break;
 
                     case ComandoString.TURN_KITCHEN_FRONT_LIGHT_2_OFF:
-                         outputs[KitchenCenterIoDevices.indDigitalOutputFrontLight_2] = false;
-                         break;
+                        outputs[KitchenCenterIoDevices.indDigitalOutputFrontLight_2] = false;
+                        break;
 
                     case ComandoString.TURN_KITCHEN_FRONT_LIGHT_3_OFF:
-                         outputs[KitchenCenterIoDevices.indDigitalOutputFrontLight_3] = false;
-                         break;
+                        outputs[KitchenCenterIoDevices.indDigitalOutputFrontLight_3] = false;
+                        break;
 
                     case ComandoString.TURN_LIGHT_OUTSIDE_ON:
-                         Outside.TurnAllDevices( GeneralConstants.ON );
-                         RemoteControlLightOutsideActivated = true;
-                         break;
+                        Outside.TurnAllDevices( GeneralConstants.ON );
+                        RemoteControlLightOutsideActivated = true;
+                        break;
 
                     case ComandoString.TURN_LIGHT_OUTSIDE_OFF:
-                         Outside.TurnAllDevices( GeneralConstants.OFF );
-                         RemoteControlLightOutsideActivated = false;
-                         break;
+                        Outside.TurnAllDevices( GeneralConstants.OFF );
+                        RemoteControlLightOutsideActivated = false;
+                        break;
 
                     case ComandoString.TURN_LIGHT_OUTSIDE_BY_OPEN_DOOR_CONTACT_ON:
-                         TurLightOutside( GeneralConstants.ON );
-                         break;
+                        TurLightOutside( GeneralConstants.ON );
+                        break;
 
                     case ComandoString.TURN_LIGHT_OUTSIDE_BY_OPEN_DOOR_CONTACT_OFF:
-                         TurLightOutside( GeneralConstants.OFF );
-                         break;
+                        TurLightOutside( GeneralConstants.OFF );
+                        break;
 
                     case ComandoString.TURN_WINDOW_LEDGE_EAST_ON:
-                         TurnWindowLedgeEast( GeneralConstants.ON );
-                         break;
+                        TurnWindowLedgeEast( GeneralConstants.ON );
+                        break;
 
                     case ComandoString.TURN_WINDOW_LEDGE_EAST_OFF:
-                         TurnWindowLedgeEast( GeneralConstants.OFF );
-                         break;
+                        TurnWindowLedgeEast( GeneralConstants.OFF );
+                        break;
 
                     case ComandoString.TURN_HEATER_BODY_EAST_ON:
-                         outputs[KitchenLivingRoomIOAssignment.indDigitalOutputHeaterEast] = true;
-                         break;
+                        outputs[KitchenLivingRoomIOAssignment.indDigitalOutputHeaterEast] = true;
+                        break;
 
                     case ComandoString.TURN_HEATER_BODY_EAST_OFF:
-                         outputs[KitchenLivingRoomIOAssignment.indDigitalOutputHeaterEast] = false;
-                         break;
+                        outputs[KitchenLivingRoomIOAssignment.indDigitalOutputHeaterEast] = false;
+                        break;
 
                     case ComandoString.TURN_HEATER_BODY_WEST_ON:
-                         outputs[KitchenLivingRoomIOAssignment.indDigitalOutputHeaterWest] = true;
-                         break;
+                        outputs[KitchenLivingRoomIOAssignment.indDigitalOutputHeaterWest] = true;
+                        break;
 
                     case ComandoString.TURN_HEATER_BODY_WEST_OFF:
-                         outputs[KitchenLivingRoomIOAssignment.indDigitalOutputHeaterWest] = false;
-                         break;
+                        outputs[KitchenLivingRoomIOAssignment.indDigitalOutputHeaterWest] = false;
+                        break;
                 }
                 return;
             }
 
-            if( DatagrammSplitted.Length != ExpectedArrayElementsSignalTelegram )
+            if (DatagrammSplitted.Length != ExpectedArrayElementsSignalTelegram)
             {
-                Services.TraceMessage_("Wrong datagramm received");
+                Services.TraceMessage_( "Wrong datagramm received" );
                 return;
             }
 
@@ -810,7 +810,7 @@ namespace HomeAutomation
             receivedTransactionCounter = Convert.ToDecimal( transactioncounter );
 
             // basic check wether counter counts up
-            if( receivedTransactionCounter > PreviousreceivedTransactionCounter )
+            if (receivedTransactionCounter > PreviousreceivedTransactionCounter)
             {
                 PreviousreceivedTransactionCounter = receivedTransactionCounter;
             }
@@ -820,20 +820,20 @@ namespace HomeAutomation
             }
 
             // received actual fired digital input as index
-            int ReceivedIndex = Convert.ToInt16(DatagrammSplitted[ComandoString.Telegram.IndexDigitalInputs]);
+            int ReceivedIndex = Convert.ToInt16( DatagrammSplitted[ComandoString.Telegram.IndexDigitalInputs] );
             // received acutal fired value of digital input
-            bool ReceivedValue = Convert.ToBoolean(DatagrammSplitted[ComandoString.Telegram.IndexValueDigitalInputs]);
+            bool ReceivedValue = Convert.ToBoolean( DatagrammSplitted[ComandoString.Telegram.IndexValueDigitalInputs] );
 
-            switch( ReceivedIndex )
+            switch (ReceivedIndex)
             {
                 case LivingRoomWestIOAssignment.LivWestDigInputs.indDigitalInputButtonMainUpLeft:
-                     // turn light ON / OFF when releasing the button 
-                     if( ReceivedValue == false )
-                     {
-                         Outside.ToggleSingleDevice(CenterOutsideIODevices.indDigitalOutputLightsOutside);
-                         Outside.AutomaticOff( ReceivedValue );
-                     }
-                     break;
+                    // turn light ON / OFF when releasing the button 
+                    if (ReceivedValue == false)
+                    {
+                        Outside.ToggleSingleDevice( CenterOutsideIODevices.indDigitalOutputLightsOutside );
+                        Outside.AutomaticOff( ReceivedValue );
+                    }
+                    break;
             }
         }
         #endregion
@@ -843,53 +843,53 @@ namespace HomeAutomation
         {
             ControlSequenceOnInputChange( e.Index, e.Value );
 
-            if( e.Index == CenterLivingRoomIODeviceIndices.indDigitalInputPowerMeter )
+            if (e.Index == CenterLivingRoomIODeviceIndices.indDigitalInputPowerMeter)
             {
-                if( e.Value )
+                if (e.Value)
                 {
                     _PowerMeter?.Tick( );
                 }
             }
-			_DigitalInputEventargs.Index        = e.Index;
-			_DigitalInputEventargs.Value        = e.Value;
-			_DigitalInputEventargs.SerialNumber = base.SerialNumber;
-			EDigitalInputChanged?.Invoke( sender, _DigitalInputEventargs);
+            _DigitalInputEventargs.Index = e.Index;
+            _DigitalInputEventargs.Value = e.Value;
+            _DigitalInputEventargs.SerialNumber = base.SerialNumber;
+            EDigitalInputChanged?.Invoke( sender, _DigitalInputEventargs );
         }
 
         protected override void BuildingSection_OutputChange( object sender, OutputChangeEventArgs e )
         {
-            if( _DigitalOutputState == null )
+            if (_DigitalOutputState == null)
             {
                 return;
             }
-            for( int i = 0; i < _DigitalOutputState.Length; i++ )
+            for (int i = 0; i < _DigitalOutputState.Length; i++)
             {
                 _DigitalOutputState[i] = base.outputs[i];
             }
-            if( BasicClientCommunicator_ != null )
+            if (BasicClientCommunicator_ != null)
             {
                 BasicClientCommunicator_.DigitalOutputs = _DigitalOutputState;
-                BasicClientCommunicator_.IndexOutput    = e.Index;
+                BasicClientCommunicator_.IndexOutput = e.Index;
             }
-			_DigitalOutputEventargs.Index        = e.Index;
-			_DigitalOutputEventargs.Value        = e.Value;
-			_DigitalOutputEventargs.SerialNumber = SerialNumber;
-			EDigitalOutputChanged?.Invoke( sender, _DigitalOutputEventargs );
+            _DigitalOutputEventargs.Index = e.Index;
+            _DigitalOutputEventargs.Value = e.Value;
+            _DigitalOutputEventargs.SerialNumber = SerialNumber;
+            EDigitalOutputChanged?.Invoke( sender, _DigitalOutputEventargs );
         }
         #endregion
 
         #region EVENTHANDLERS
-        void EShowUpdatedOutputs( object sender, bool[] _DigOut, List<int> Match)
+        void EShowUpdatedOutputs( object sender, bool[] _DigOut, List<int> Match )
         {
-            for ( int i = 0; i < _DigOut.Length; i++ )
+            for (int i = 0; i < _DigOut.Length; i++)
             {
-                if( Match.Contains( i ) ) // only matching index within the defined list are written into the array
+                if (Match.Contains( i )) // only matching index within the defined list are written into the array
                 {
                     _InternalDigitalOutputState[i] = _DigOut[i];
-                    if( Attached )
+                    if (Attached)
                     {
                         // DIGITAL OUTPUT MAPPING
-                        outputs[i] = _DigOut[i]; 
+                        outputs[i] = _DigOut[i];
                     }
                 }
             }
@@ -898,19 +898,19 @@ namespace HomeAutomation
 
         void TimerRecoverScheulder_Elapsed( object sender, ElapsedEventArgs e )
         {
-            schedRecover.RecoverScheduler( Directory.GetCurrentDirectory(), HardConfig_Collected.HardwareDevices.Devices );
-            TimerRecoverScheulder.Stop();
+            schedRecover.RecoverScheduler( Directory.GetCurrentDirectory( ), HardConfig_Collected.HardwareDevices.Devices );
+            TimerRecoverScheulder.Stop( );
         }
-        
+
         private void CommonUsedTick_Elapsed( object sender, ElapsedEventArgs e )
         {
             string RemainingTimeInfo;
-            string TimeLeft = (--RemainingTime).ToString( "000" );
+            string TimeLeft = ( --RemainingTime ).ToString( "000" );
 
-            if( RemainingTime > 0 )
+            if (RemainingTime > 0)
             {
-               RemainingTimeInfo = InfoString.RemainingTime + TimeLeft + EscapeSequences.CR;
-               Console.Write( RemainingTimeInfo );
+                RemainingTimeInfo = InfoString.RemainingTime + TimeLeft + EscapeSequences.CR;
+                Console.Write( RemainingTimeInfo );
             }
             else
             {
@@ -922,7 +922,7 @@ namespace HomeAutomation
         #region INTERFACE_IMPLEMENTATION
         public void ResetDeviceController()
         {
-            Outside.ResetDeviceControl();
+            Outside.ResetDeviceControl( );
             PreviousreceivedTransactionCounter = 0;
         }
         #endregion
@@ -930,7 +930,7 @@ namespace HomeAutomation
         // so far this program was not designed by using dependency injection - thats the reason using a public 
         // testbackdoor channel
         #region TESTBACKDOOR
-        public void TestBackdoor_IoChange( int index,  bool Value  )
+        public void TestBackdoor_IoChange( int index, bool Value )
         {
             ControlSequenceOnInputChange( index, Value );
         }
@@ -939,7 +939,7 @@ namespace HomeAutomation
         {
             get
             {
-				return ( _InternalDigitalOutputState );
+                return ( _InternalDigitalOutputState );
             }
 
             set
@@ -948,14 +948,14 @@ namespace HomeAutomation
             }
         }
 
-		public void TestBackdoor_UdpReceiver( string receiveddatagramm )
-		{
-			UdpDataReceived( receiveddatagramm );
-		}
+        public void TestBackdoor_UdpReceiver( string receiveddatagramm )
+        {
+            UdpDataReceived( receiveddatagramm );
+        }
 
         public void TestBackdoorSchedulerControl( IJobExecutionContext context, decimal counts, string device )
         {
-            ControlScheduledDevice( counts,  device );
+            ControlScheduledDevice( counts, device );
         }
         #endregion
     }
