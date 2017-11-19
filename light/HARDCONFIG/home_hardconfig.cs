@@ -800,6 +800,7 @@ namespace HomeAutomation
         {
             public const string Prefix = InfoOperationMode.CENTER_KITCHEN_AND_LIVING_ROOM + Seperators.InfoSeperator;
             public const string Rainsensor = Prefix + "Rainsensor";
+            public const string LightRightSide = "Licht aussen rechte Seite";
         }
 
         static class CenterKitchenDeviceNames
@@ -882,9 +883,10 @@ namespace HomeAutomation
                 { indDigitalOutputWindowBoardEastDown,                                        CenterKitchenDeviceNames.KitchenCabinet     },
                 { CenterLivingRoomIODeviceIndices.indDigitalOutputBoiler,                     CenterKitchenDeviceNames.Boiler             },
                 { WaterHeatingSystemIODeviceIndices.indDigitalOutputWarmWaterCirculationPump, CenterKitchenDeviceNames.CirculationPump    },
-                { KitchenLivingRoomIOAssignment.indDigitalOutputHeaterEast,                               CenterKitchenDeviceNames.HeaterEast         },
-                { KitchenLivingRoomIOAssignment.indDigitalOutputHeaterWest,                                CenterKitchenDeviceNames.HeaterWest         },
-                { WashRoomIODeviceIndices.indDigitalOutputWashRoomFan,                        CenterKitchenDeviceNames.FanWashRoom        }
+                { KitchenLivingRoomIOAssignment.indDigitalOutputHeaterEast,                   CenterKitchenDeviceNames.HeaterEast         },
+                { KitchenLivingRoomIOAssignment.indDigitalOutputHeaterWest,                   CenterKitchenDeviceNames.HeaterWest         },
+                { WashRoomIODeviceIndices.indDigitalOutputWashRoomFan,                        CenterKitchenDeviceNames.FanWashRoom        },
+                { CenterOutsideIODevices.indDigitalOutputLightsOutside,                       CenterOutsideDeviceNames.LightRightSide     }
             };
 
             public static string GetInputDeviceName( int key )

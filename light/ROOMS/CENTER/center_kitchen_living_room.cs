@@ -291,6 +291,7 @@ namespace HomeAutomation
 
                 if (device.Contains( "HeatersEastAndWestOn" ))
                 {
+                    HeatersLivingRoom.Reset( );
                     outputs[KitchenLivingRoomIOAssignment.indDigitalOutputHeaterEast] = true;
                     outputs[KitchenLivingRoomIOAssignment.indDigitalOutputHeaterWest] = true;
                 }
