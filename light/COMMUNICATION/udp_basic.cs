@@ -22,11 +22,20 @@ namespace Communication
             public static int    TimeOutCycles     = 10;
         }
 
+        class ReceivedEventargs : EventArgs
+        {
+            public string Adress { get; set; }
+            public string Port { get; set; }
+            public string Payload { get; set; }
+
+        }
+
         class UdpReceive
         {
             Thread     receiveThread;
             UdpClient  client;
             IPEndPoint anyIP;
+            ReceivedEventargs receivedEventargs = new ReceivedEventargs( );
 
             public int port; // define > init
 
@@ -70,6 +79,9 @@ namespace Communication
             public delegate void DataReceived ( string e );
             public event         DataReceived EDataReceived;
 
+            public delegate void Received( object sender, ReceivedEventargs e );
+            public event Received DatagrammReceived;
+
             private void ReceiveData ( )
             {
                 _receivedText = "";
@@ -86,14 +98,16 @@ namespace Communication
 
                                 if( (data != null) && (data.Length > 0) )
                                 {
+                                    receivedEventargs.Adress = anyIP.Address.ToString();
+                                    receivedEventargs.Port = anyIP.Port.ToString( );
+
                                     // Bytes mit der UTF8-Kodierung in das Textformat kodieren.
                                     _receivedText = Encoding.UTF8.GetString( data );
-                                    if( EDataReceived != null )
+                                    if (!String.IsNullOrEmpty( _receivedText ))
                                     {
-                                        if( !String.IsNullOrEmpty( _receivedText ) )
-                                        {
-                                            EDataReceived( _receivedText );
-                                        }
+                                        EDataReceived?.Invoke( _receivedText );
+                                        receivedEventargs.Payload = _receivedText;
+                                        DatagrammReceived?.Invoke( this, receivedEventargs );
                                     }
                                     // latest UDPpacket
                                     lastReceivedUDPPacket = _receivedText;

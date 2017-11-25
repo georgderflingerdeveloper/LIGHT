@@ -187,9 +187,9 @@ namespace HomeAutomation
             try
             {
                 UDPReceiveDataFromWebForwarder = new UdpReceive( IPConfiguration.Port.PORT_UDP_WEB_FORWARDER_CENTER );
-                UDPReceiveDataFromWebForwarder.EDataReceived += UdpDataReceived;
+                UDPReceiveDataFromWebForwarder.DatagrammReceived += UdpDataReceived;
                 UdpReceiveDataFromEastController = new UdpReceive( IPConfiguration.Port.PORT_LIGHT_CONTROL_LIVING_ROOM_EAST );
-                UdpReceiveDataFromEastController.EDataReceived += UdpDataReceived;
+                UdpReceiveDataFromEastController.DatagrammReceived += UdpDataReceived;
             }
             catch (Exception ex)
             {
@@ -661,11 +661,9 @@ namespace HomeAutomation
         const int ExpectedArrayElementsSignalTelegram = UdpTelegram.DelfaultExpectedArrayElementsSignalTelegram;
         const int ExpectedArrayElementsCommonCommand = 1;
 
-        void UdpDataReceived( string e )
+        void UdpDataReceived( object sender, ReceivedEventargs e )
         {
-            Kitchen?.StopAutomaticOfftimer( );
-
-            string[] DatagrammSplitted = e.Split( ComandoString.Telegram.Seperator );
+            string[] DatagrammSplitted = e.Payload.Split( ComandoString.Telegram.Seperator );
 
             if (DatagrammSplitted.Length == ExpectedArrayElementsCommonCommand)
             {
@@ -797,6 +795,7 @@ namespace HomeAutomation
                         outputs[KitchenLivingRoomIOAssignment.indDigitalOutputHeaterWest] = false;
                         break;
                 }
+                Console.WriteLine( TimeUtil.GetTimestamp_( ) + " Recieved telegramm: " + DatagrammSplitted[0] + " from " + e.Adress + " : " + e.Port );
                 return;
             }
 
@@ -951,7 +950,6 @@ namespace HomeAutomation
 
         public void TestBackdoor_UdpReceiver( string receiveddatagramm )
         {
-            UdpDataReceived( receiveddatagramm );
         }
 
         public void TestBackdoorSchedulerControl( IJobExecutionContext context, decimal counts, string device )

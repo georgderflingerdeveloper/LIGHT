@@ -149,7 +149,7 @@ C:\PROJECT\LIGHT\light\bin\Release\Microsoft.Practices.ServiceLocation.xml
 C:\PROJECT\LIGHT\light\bin\Release\Microsoft.Practices.Unity.Configuration.xml
 C:\PROJECT\LIGHT\light\bin\Release\Microsoft.Practices.Unity.xml
 C:\PROJECT\LIGHT\light\bin\Release\Microsoft.Practices.Unity.RegistrationByConvention.xml
-C:\PROJECT\LIGHT\light\obj\Release\light.csprojResolveAssemblyReference.cache
 C:\PROJECT\LIGHT\light\obj\Release\light.csproj.CoreCompileInputs.cache
 C:\PROJECT\LIGHT\light\obj\Release\light.exe
 C:\PROJECT\LIGHT\light\obj\Release\light.pdb
+C:\PROJECT\LIGHT\light\obj\Release\light.csprojResolveAssemblyReference.cache
