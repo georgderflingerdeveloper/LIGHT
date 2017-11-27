@@ -553,6 +553,7 @@ namespace HomeAutomation
         private void TurnOffTimer_Elapsed( object sender, ElapsedEventArgs e )
         {
             LightControlMulti[IOCardID.ID_1]?.TurnSingleLight( EastSideIOAssignment.indDoorEntry_Window_Right, false );
+            TurnOffTimer?.Stop( );
             UDPSendData.SendStringSync( ComandoString.TURN_LIGHT_OUTSIDE_BY_OPEN_DOOR_CONTACT_OFF );
         }
 
@@ -562,7 +563,7 @@ namespace HomeAutomation
 
         public void AllCardsOutputsOff( )
         {
-             for( int i = 0; i < _SerialNumbers.Length; i++ )
+            for( int i = 0; i < _SerialNumbers.Length; i++ )
             {
                 for( int j = 0; j < BuildingMultiCard[i]?.outputs.Count; j++ )
                 {

@@ -795,7 +795,7 @@ namespace HomeAutomation
                         outputs[KitchenLivingRoomIOAssignment.indDigitalOutputHeaterWest] = false;
                         break;
                 }
-                Console.WriteLine( TimeUtil.GetTimestamp_( ) + " Recieved telegramm: " + DatagrammSplitted[0] + " from " + e.Adress + " : " + e.Port );
+                Console.WriteLine( TimeUtil.GetTimestamp_( ) + " Received telegramm: " + DatagrammSplitted[0] + " from " + e.Adress + " : " + e.Port );
                 return;
             }
 
