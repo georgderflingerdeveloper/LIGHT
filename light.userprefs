@@ -1,8 +1,12 @@
 ﻿<Properties StartupConfiguration="{EAEF1B15-06AA-4AAA-AD18-20DCB0C94A57}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="light/BASIC_CONTROL_LOGIC/LIGHTCONTROL/LightControlNG.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="light/ROOMS/CENTER/center_kitchen_living_room.cs">
     <Files>
-      <File FileName="light/ROOMS/CENTER/center_kitchen_living_room.cs" Line="19" Column="1" />
-      <File FileName="light/BASIC_CONTROL_LOGIC/LIGHTCONTROL/LightControlNG.cs" Line="426" Column="15" />
+      <File FileName="light/ROOMS/CENTER/center_kitchen_living_room.cs" Line="65" Column="11" />
+      <File FileName="light/BASIC_CONTROL_LOGIC/LIGHTCONTROL/LightControlNG.cs" Line="262" Column="9" />
+      <File FileName="../../../../../Library/Frameworks/Mono.framework/Versions/5.4.1/lib/mono/msbuild/15.0/bin/Microsoft.Common.CurrentVersion.targets" Line="2003" Column="5" />
+      <File FileName="light/ROOMS/ANTEROOM_BATHROOM_WASHROOM/anteroom_bathroom_washroom.cs" Line="677" Column="46" />
+      <File FileName="light/MAIN/HomeMain.cs" Line="32" Column="49" />
+      <File FileName="light/ROOMS/SLEEPINGROOM/sleepingroom.cs" Line="145" Column="33" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
