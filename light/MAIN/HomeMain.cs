@@ -371,8 +371,8 @@ namespace HomeAutomation
                         Echo = TranslatedDeviceName + "-" + "IS" + "-" + "OFF";
                     }
 
-                    Console.WriteLine( TimeUtil.GetTimestamp_( ) + " Send UDP echo " + Echo );
-                    UDP_IoEcho.SendString( Echo );
+                    //Console.WriteLine( TimeUtil.GetTimestamp_( ) + " Send UDP echo " + Echo );
+                    //UDP_IoEcho.SendString( Echo );
                 }
 
             }
