@@ -282,11 +282,13 @@ namespace HomeAutomation
                 if (device.Contains( "BoilerOn" ))
                 {
                     outputs[CenterLivingRoomIODeviceIndices.indDigitalOutputBoiler] = GeneralConstants.ON;
+                    Console.WriteLine( TimeUtil.GetTimestamp( ) + CenterKitchenDeviceNames.Boiler + " =  ON"  );
                 }
 
                 if (device.Contains( "BoilerOff" ))
                 {
                     outputs[CenterLivingRoomIODeviceIndices.indDigitalOutputBoiler] = GeneralConstants.OFF;
+                    Console.WriteLine( TimeUtil.GetTimestamp( ) + CenterKitchenDeviceNames.Boiler + " = OFF"  );
                 }
 
                 if (device.Contains( "HeatersEastAndWestOn" ))
@@ -294,12 +296,16 @@ namespace HomeAutomation
                     HeatersLivingRoom.Reset( );
                     outputs[KitchenLivingRoomIOAssignment.indDigitalOutputHeaterEast] = true;
                     outputs[KitchenLivingRoomIOAssignment.indDigitalOutputHeaterWest] = true;
+                    Console.WriteLine( TimeUtil.GetTimestamp( ) + CenterKitchenDeviceNames.HeaterEast + " = ON"  );
+                    Console.WriteLine( TimeUtil.GetTimestamp( ) + CenterKitchenDeviceNames.HeaterWest + " = ON"  );
                 }
 
                 if (device.Contains( "HeatersEastAndWestOff" ))
                 {
                     outputs[KitchenLivingRoomIOAssignment.indDigitalOutputHeaterEast] = false;
                     outputs[KitchenLivingRoomIOAssignment.indDigitalOutputHeaterWest] = false;
+                    Console.WriteLine( TimeUtil.GetTimestamp( ) + CenterKitchenDeviceNames.HeaterEast + " = OFF"  );
+                    Console.WriteLine( TimeUtil.GetTimestamp( ) + CenterKitchenDeviceNames.HeaterWest + " = OFF"  );
                 }
             }
         }
