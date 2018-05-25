@@ -79,6 +79,7 @@ namespace HomeAutomation
             public const string Room = "ROOM";
             public const string Server = "SERVER";
             public const string Port = "PORT";
+            public const string HeatersLivingRoomAutomaticOnOff = "HEATERSLIVINGROOMAUTO";
         }
 
         static class Seperators
