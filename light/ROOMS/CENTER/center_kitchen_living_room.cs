@@ -21,6 +21,13 @@ using SystemServices;
 
 namespace HomeAutomation
 {
+    public class LivingRoomConfig
+    {
+        public string IpAdressServer { get; set; }
+        public string PortServer { get; set; }
+        public string softwareversion { get; set; }
+        public string HeatersLivingRoomAutomatic { get; set; }
+    }
 
     class Center_kitchen_living_room_NG : CommonRoom, IIOHandlerInfo, ICenter
     {
@@ -59,6 +66,7 @@ namespace HomeAutomation
 
         DigitalInputEventargs _DigitalInputEventargs = new DigitalInputEventargs( );
         DigitalOutputEventargs _DigitalOutputEventargs = new DigitalOutputEventargs( );
+        LivingRoomConfig _livingroomconfig;
         #endregion
 
         // more objects share the same eventhandler in this case
@@ -73,11 +81,13 @@ namespace HomeAutomation
         }
 
         #region CONSTRUCTOR
-        void Constructor( string IpAdressServer, string PortServer, string softwareversion )
+        //void Constructor( string IpAdressServer, string PortServer, string softwareversion )
+        void Constructor( LivingRoomConfig livingroomconfig )
         {
+            _livingroomconfig = livingroomconfig;
             _GivenClientName = InfoOperationMode.CENTER_KITCHEN_AND_LIVING_ROOM;
-            _IpAdressServer = IpAdressServer;
-            _PortNumberServer = Convert.ToInt16( PortServer );
+            _IpAdressServer = livingroomconfig.IpAdressServer;
+            _PortNumberServer = Convert.ToInt16( livingroomconfig.PortServer );
             _DigitalInputState = new bool[GeneralConstants.NumberOfInputsIOCard];
             _DigitalOutputState = new bool[GeneralConstants.NumberOfOutputsIOCard];
             _InternalDigitalOutputState = new bool[GeneralConstants.NumberOfOutputsIOCard];
@@ -165,10 +175,10 @@ namespace HomeAutomation
 
             BasicClientCommunicator_ = new BasicClientComumnicator( _GivenClientName,
                                                                     _IpAdressServer,
-                                                                     PortServer,
+                                                                     livingroomconfig.PortServer,
                                                                      ref base.outputs, // control directly digital outputs of primer - server can control this outputs
                                                                      ref HADictionaries.DeviceDictionaryCenterdigitalOut,
-                                                                     ref HADictionaries.DeviceDictionaryCenterdigitalIn, softwareversion )
+                                                                     ref HADictionaries.DeviceDictionaryCenterdigitalIn, livingroomconfig.softwareversion )
             {
                 // establish client
                 Room = _GivenClientName
@@ -210,17 +220,17 @@ namespace HomeAutomation
             _PowerMeter = new PowerMeter( true, PowermeterConstants.DefaultCaptureIntervallTime, PowermeterConstants.DefaultStoreTime );
         }
 
-        public Center_kitchen_living_room_NG( string IpAdressServer, string PortServer, string softwareversion )
+        public Center_kitchen_living_room_NG( LivingRoomConfig ConfigLivingRoom )
             : base( )
         {
-            Constructor( IpAdressServer, PortServer, softwareversion );
+            Constructor( ConfigLivingRoom );
         }
 
         public Center_kitchen_living_room_NG( string IpAdressServer, string PortServer, string softwareversion, bool test )
             : base( true )
         {
             _Test = test;
-            Constructor( IpAdressServer, PortServer, softwareversion );
+            //Constructor( ConfigLivingRoom );
         }
         #endregion
 
@@ -291,21 +301,24 @@ namespace HomeAutomation
                     Console.WriteLine( TimeUtil.GetTimestamp( ) + CenterKitchenDeviceNames.Boiler + " = OFF"  );
                 }
 
-                if (device.Contains( "HeatersEastAndWestOn" ))
+                if (_livingroomconfig.HeatersLivingRoomAutomatic == "ON")
                 {
-                    HeatersLivingRoom.Reset( );
-                    outputs[KitchenLivingRoomIOAssignment.indDigitalOutputHeaterEast] = true;
-                    outputs[KitchenLivingRoomIOAssignment.indDigitalOutputHeaterWest] = true;
-                    Console.WriteLine( TimeUtil.GetTimestamp( ) + CenterKitchenDeviceNames.HeaterEast + " = ON"  );
-                    Console.WriteLine( TimeUtil.GetTimestamp( ) + CenterKitchenDeviceNames.HeaterWest + " = ON"  );
-                }
+                    if (device.Contains( "HeatersEastAndWestOn" ))
+                    {
+                        HeatersLivingRoom.Reset( );
+                        outputs[KitchenLivingRoomIOAssignment.indDigitalOutputHeaterEast] = true;
+                        outputs[KitchenLivingRoomIOAssignment.indDigitalOutputHeaterWest] = true;
+                        Console.WriteLine( TimeUtil.GetTimestamp( ) + CenterKitchenDeviceNames.HeaterEast + " = ON" );
+                        Console.WriteLine( TimeUtil.GetTimestamp( ) + CenterKitchenDeviceNames.HeaterWest + " = ON" );
+                    }
 
-                if (device.Contains( "HeatersEastAndWestOff" ))
-                {
-                    outputs[KitchenLivingRoomIOAssignment.indDigitalOutputHeaterEast] = false;
-                    outputs[KitchenLivingRoomIOAssignment.indDigitalOutputHeaterWest] = false;
-                    Console.WriteLine( TimeUtil.GetTimestamp( ) + CenterKitchenDeviceNames.HeaterEast + " = OFF"  );
-                    Console.WriteLine( TimeUtil.GetTimestamp( ) + CenterKitchenDeviceNames.HeaterWest + " = OFF"  );
+                    if (device.Contains( "HeatersEastAndWestOff" ))
+                    {
+                        outputs[KitchenLivingRoomIOAssignment.indDigitalOutputHeaterEast] = false;
+                        outputs[KitchenLivingRoomIOAssignment.indDigitalOutputHeaterWest] = false;
+                        Console.WriteLine( TimeUtil.GetTimestamp( ) + CenterKitchenDeviceNames.HeaterEast + " = OFF" );
+                        Console.WriteLine( TimeUtil.GetTimestamp( ) + CenterKitchenDeviceNames.HeaterWest + " = OFF" );
+                    }
                 }
             }
         }

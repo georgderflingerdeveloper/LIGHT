@@ -38,6 +38,7 @@ namespace HomeAutomation
         static string                           setting_value          = "";
         static string                           serveripadress         = "";
         static string                           serverPort             = "";
+        static string AutoOnHeaterLivingRoom = "";
         static string                           UserDefinedClientID_   = "";
         static int[]                            PhidgetSerialNumbers;     // container of serial number when more than one card is used
         static Dictionary<string, string>       PhidgetsIds = new Dictionary<string, string>( );   // contains ID´s of phidgets provided f.e. by ini file
@@ -130,6 +131,7 @@ namespace HomeAutomation
                 setting_value  = INIUtility.Read( InfoString.ConfigFileName, InfoString.IniSection, InfoObjectDefinitions.Room);
                 serveripadress = INIUtility.Read( InfoString.ConfigFileName, InfoString.IniSection, InfoObjectDefinitions.Server );
                 serverPort     = INIUtility.Read( InfoString.ConfigFileName, InfoString.IniSection, InfoObjectDefinitions.Port);
+                AutoOnHeaterLivingRoom = INIUtility.Read( InfoString.ConfigFileName, InfoString.IniSection, InfoObjectDefinitions.HeatersLivingRoomAutomaticOnOff );
                 try
                 {
                     PhidgetsIds     = INIUtility.ReadAllSection( InfoString.ConfigFileName, InfoString.IniSectionPhidgets );
@@ -216,8 +218,15 @@ namespace HomeAutomation
                         break;
 
                    case InfoOperationMode.CENTER_KITCHEN_AND_LIVING_ROOM:
-                        MyHomeKitchenLivingRoom = new Center_kitchen_living_room_NG( serveripadress, serverPort, CompleteVersion );
-                        if ( MyHomeKitchenLivingRoom.Attached )
+                    MyHomeKitchenLivingRoom = new Center_kitchen_living_room_NG
+                       ( new LivingRoomConfig( )
+                             { IpAdressServer = serveripadress,
+                               PortServer = serverPort,
+                               softwareversion = CompleteVersion,
+                               HeatersLivingRoomAutomatic = AutoOnHeaterLivingRoom
+                             } 
+                       );  
+                    if ( MyHomeKitchenLivingRoom.Attached )
                         {
 						    MyHomeKitchenLivingRoom.EDigitalInputChanged  += RoomsIoHandling_EDigitalInputChanged;
 						    MyHomeKitchenLivingRoom.EDigitalOutputChanged += RoomIoHandling_EDigitalOutputChanged;
