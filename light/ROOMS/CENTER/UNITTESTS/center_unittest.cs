@@ -24,7 +24,6 @@ namespace CenterUnitTest
         [SetUp]
         public void Init()
         {
-            TestCenter = new Center_kitchen_living_room_NG( "0", "0", "0", true );
         }
 
         //[Test]

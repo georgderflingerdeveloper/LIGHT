@@ -218,7 +218,7 @@ namespace HomeAutomation
                         break;
 
                    case InfoOperationMode.CENTER_KITCHEN_AND_LIVING_ROOM:
-                    MyHomeKitchenLivingRoom = new Center_kitchen_living_room_NG
+                       MyHomeKitchenLivingRoom = new Center_kitchen_living_room_NG
                        ( new LivingRoomConfig( )
                              { IpAdressServer = serveripadress,
                                PortServer = serverPort,
@@ -226,20 +226,20 @@ namespace HomeAutomation
                                HeatersLivingRoomAutomatic = AutoOnHeaterLivingRoom
                              } 
                        );  
-                    if ( MyHomeKitchenLivingRoom.Attached )
-                        {
+                       if ( MyHomeKitchenLivingRoom.Attached )
+                       {
 						    MyHomeKitchenLivingRoom.EDigitalInputChanged  += RoomsIoHandling_EDigitalInputChanged;
 						    MyHomeKitchenLivingRoom.EDigitalOutputChanged += RoomIoHandling_EDigitalOutputChanged;
                             MyHomeKitchenLivingRoom.ActivateDeviceControl( );
 						    WaitUntilKeyPressed();
                             MyHomeKitchenLivingRoom.AllOutputsOff( );
                             MyHomeKitchenLivingRoom.close( );
-                        }
-                        else
-                        {
+                       }
+                       else
+                       {
 						    WaitUntilKeyPressed();
-                        }
-                        break;
+                       }
+                       break;
 
                    case InfoOperationMode.ANTEROOM:
                         MyHomeAnteRoom = new AnteRoom( serveripadress, serverPort, CompleteVersion );

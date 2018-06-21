@@ -225,13 +225,6 @@ namespace HomeAutomation
         {
             Constructor( ConfigLivingRoom );
         }
-
-        public Center_kitchen_living_room_NG( string IpAdressServer, string PortServer, string softwareversion, bool test )
-            : base( true )
-        {
-            _Test = test;
-            //Constructor( ConfigLivingRoom );
-        }
         #endregion
 
         #region SCHEDULER
