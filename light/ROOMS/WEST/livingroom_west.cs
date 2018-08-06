@@ -6,6 +6,7 @@ using HomeAutomation.rooms;
 using Communication.UDP;
 using SystemServices;
 using Communication.HAProtocoll;
+using HomeAutomationProtocoll;
 
 namespace HomeAutomation
 {

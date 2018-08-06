@@ -9,6 +9,7 @@ using Phidgets.Events;
 using System;
 using System.Timers;
 using SystemServices;
+using HomeAutomationProtocoll;
 
 namespace HomeAutomation
 {

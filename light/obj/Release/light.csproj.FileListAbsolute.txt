@@ -158,3 +158,6 @@ C:\PROJECT\LIGHT\light\bin\Release\TimerMockable.dll
 C:\PROJECT\LIGHT\light\bin\Release\HeaterController.pdb
 C:\PROJECT\LIGHT\light\bin\Release\TimerMockable.pdb
 C:\PROJECT\LIGHT\light\obj\Release\light.csproj.CopyComplete
+C:\Projekte\LIGHT\light\bin\Release\HomeAutomationProtocoll.dll
+C:\Projekte\LIGHT\light\bin\Release\HomeAutomationProtocoll.pdb
+C:\Projekte\LIGHT\light\obj\Release\light.csproj.CopyComplete

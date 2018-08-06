@@ -7,6 +7,7 @@ using Communication.CLIENT_Communicator;
 using SystemServices;
 using HomeAutomation.rooms;
 using Scheduler;
+using HomeAutomationProtocoll;
  
 namespace HomeAutomation
 {
