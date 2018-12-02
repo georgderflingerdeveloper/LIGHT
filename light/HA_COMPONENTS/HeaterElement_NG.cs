@@ -184,6 +184,7 @@ namespace HA_COMPONENTS
             PWM_Heater?.Stop( );
             PWM_ShowHeaterActive?.Stop( );
             _HeaterWasTurnedOn = false;
+            Toggle = false;
         }
 
         public void TurnHeaterOnOffWithCounts( )
