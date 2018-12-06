@@ -879,7 +879,7 @@ namespace HomeAutomation
                 public const int indDigitalOutLightWindowBoardLeft = 4;
                 public const int indDigitalOutLightWindowBoardRight = 5;
                 public const int indDigitalOutputWindowTriangleLeftSmall = 6;
-                public const int indDigitalOutLightWall = 7;
+                public const int indDigitalOutLightWall = 14;
             }
 
             public const int indFirstLight = 0;
