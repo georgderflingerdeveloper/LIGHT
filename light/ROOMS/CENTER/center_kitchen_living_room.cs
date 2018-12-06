@@ -306,7 +306,7 @@ namespace HomeAutomation
                         Console.WriteLine( TimeUtil.GetTimestamp( ) + CenterKitchenDeviceNames.HeaterWest + " = ON" );
                     }
 
-                    if (device.Contains( "HeatersEastAndWestOff" ))
+                    if (device.Contains( "HeatersEastAndWestOff" ) || device.Contains( "HeatersEastAndWestAfternoonOff" ))
                     {
                         HeatersLivingRoom.Reset( );
                         outputs[KitchenLivingRoomIOAssignment.indDigitalOutputHeaterEast] = false;
