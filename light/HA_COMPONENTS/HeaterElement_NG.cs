@@ -363,8 +363,7 @@ namespace HA_COMPONENTS
                      break;
 
                 case eHeaterControlState.eTHERMOSTATE:
-                //HeatersOff( );
-                break;
+                     break;
 
                 case eHeaterControlState.eDEFROST:
                      base.ReconfigAutomaticOffTimer( new TimeSpan( 7, 0, 0, 0, 0 ).TotalMilliseconds );

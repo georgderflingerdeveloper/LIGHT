@@ -14,13 +14,13 @@ namespace Scheduler
 {
     static class SchedulerApplication
     {
-        static string        Device;
-        static string        JobId_;
-        static bool          JobIsPaused = false;
-        static string        PreviousJobName = "";
+        static string Device;
+        static string JobId_;
+        static bool JobIsPaused = false;
+        static string PreviousJobName = "";
         public delegate void JobDataChange( FeedData data );
-        public static event  JobDataChange EAnyJobChange;
-        static bool          _DataRecovered;
+        public static event JobDataChange EAnyJobChange;
+        static bool _DataRecovered;
 
         public static bool DataRecovered
         {
@@ -43,7 +43,7 @@ namespace Scheduler
                     ( PrevData.Days != e.Days ) ||
                     ( PrevData.Device != e.Device ) ||
                     ( PrevData.JobId != e.JobId ) ||
-                    ( PrevData.Starttime != e.Starttime ) 
+                    ( PrevData.Starttime != e.Starttime )
                   )
                 {
                     // prevent unecessary saving of the same contens
@@ -56,17 +56,17 @@ namespace Scheduler
                 // we got a new job ID
                 if (PrevData.JobId != e.JobId)
                 {
-                    scheduler.NewJob( JobName, new Params( e.Starttime,  e.Days ) );
+                    scheduler.NewJob( JobName, new Params( e.Starttime, e.Days ) );
                     scheduler.StartJob( );
                     PrevData.JobId = e.JobId;
                 }
                 else
                 {
                     // any time setting changed - reschedule
-                    if (PrevData.Starttime != e.Starttime )
+                    if (PrevData.Starttime != e.Starttime)
                     {
                         scheduler.RemoveJob( JobName );
-                        scheduler.NewJob( JobName, new Params( e.Starttime,  e.Days ) );
+                        scheduler.NewJob( JobName, new Params( e.Starttime, e.Days ) );
                         scheduler.StartJob( );
                         if (PreviousJobName == JobName)
                         {
@@ -121,15 +121,7 @@ namespace Scheduler
 
         static public void WriteStatus( string time, Quartz.IJobExecutionContext context, decimal counts )
         {
-            if (AskForStartOrStop( counts ) == SchedulerConstants.StartDevice)
-            {
-                Console.WriteLine( InfoString.SchedulerIsStartingDevice + time + " " + context.JobDetail.Key.Name + " " + context.Trigger.Key.Name + " " + counts.ToString( ) );
-            }
-
-            if (AskForStartOrStop( counts ) == SchedulerConstants.StopDevice)
-            {
-                Console.WriteLine( InfoString.SchedulerIsStopingDevice + time + " " + context.JobDetail.Key.Name + " " + context.Trigger.Key.Name + " " + counts.ToString( ) );
-            }
+            Console.WriteLine( InfoString.SchedulerIsStartingDevice + time + " " + context.JobDetail.Key.Name + " " + context.Trigger.Key.Name + " " + counts.ToString( ) );
         }
     }
 

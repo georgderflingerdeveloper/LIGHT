@@ -129,7 +129,7 @@ namespace HomeAutomation
 
             HeaterAnteRoom = new HeaterElement_NG(
                                          ParametersHeaterControl.TimeDemandForHeatersOnOff,
-                                         ParametersHeaterControl.TimeDemandForHeatersAutomaticOffBig,
+                                         ParametersHeaterControl.TimeDemandForHeatersAutomaticOffDisable,
                                          ParametersHeaterControlLivingRoom.TimeDemandForHeatersOnMiddle,
                                          ParametersHeaterControlLivingRoom.TimeDemandForHeatersOffMiddle,
                                          AnteRoomIODeviceIndices.indDigitalOutputAnteRoomHeater,

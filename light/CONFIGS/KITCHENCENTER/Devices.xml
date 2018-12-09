@@ -55,7 +55,14 @@
     <Starttime>17:00:00</Starttime>
     <Days>Mon,Tue,Wed,Thu,Fri,Sat,Sun</Days>
   </FeedData>
-
+  
+ <FeedData>
+    <Device>HeatersEastAndWestAfternoonOff</Device>
+    <JobId>8</JobId>
+    <Command>Start</Command>
+    <Starttime>23:59:59</Starttime>
+    <Days>Mon,Tue,Wed,Thu,Fri,Sat,Sun</Days>
+ </FeedData>
  
   
 </ArrayOfFeedData>
