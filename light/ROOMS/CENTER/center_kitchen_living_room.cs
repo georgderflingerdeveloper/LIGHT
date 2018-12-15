@@ -114,7 +114,7 @@ namespace HomeAutomation
 
             HeatersLivingRoom = new HeaterElement_NG(
                                          ParametersHeaterControl.TimeDemandForHeatersOnOff,
-                                         ParametersHeaterControl.TimeDemandForHeatersAutomaticOffHalfDay,
+                                         ParametersHeaterControl.TimeDemandForHeatersAutomaticOffDisable,
                                          ParametersHeaterControlLivingRoom.TimeDemandForHeatersOnMiddle,
                                          ParametersHeaterControlLivingRoom.TimeDemandForHeatersOffMiddle,
                                          KitchenLivingRoomIOAssignment.indDigitalOutputHeaterEast,
@@ -129,7 +129,7 @@ namespace HomeAutomation
 
             HeaterAnteRoom = new HeaterElement_NG(
                                          ParametersHeaterControl.TimeDemandForHeatersOnOff,
-                                         ParametersHeaterControl.TimeDemandForHeatersAutomaticOffDisable,
+                                         ParametersHeaterControl.TimeDemandForHeatersAutomaticOff,
                                          ParametersHeaterControlLivingRoom.TimeDemandForHeatersOnMiddle,
                                          ParametersHeaterControlLivingRoom.TimeDemandForHeatersOffMiddle,
                                          AnteRoomIODeviceIndices.indDigitalOutputAnteRoomHeater,
