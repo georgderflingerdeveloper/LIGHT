@@ -1,5 +1,4 @@
 ﻿using BASIC_COMPONENTS;
-using Communication.CLIENT_Communicator;
 using Communication.HAProtocoll;
 using Communication.UDP;
 using Equipment;
@@ -17,8 +16,6 @@ using System.IO;
 using System.Timers;
 using SystemServices;
 using HomeAutomationProtocoll;
-//using HomeAutomationHeater;
-
 
 namespace HomeAutomation
 {
@@ -33,15 +30,12 @@ namespace HomeAutomation
     class Center_kitchen_living_room_NG : CommonRoom, IIOHandlerInfo, ICenter
     {
         #region DECLARATION
-        //        HeaterController                     Heater;
-        LightControlKitchen_NG.KitchenStep DesiredLightGroupInKitchen;
         LightControlKitchen_NG Kitchen;
         LightControl_NG Outside;
         HeaterElement_NG HeatersLivingRoom;
         HeaterElement_NG HeaterAnteRoom;
         CentralControlledElements_NG FanWashRoom;
         CentralControlledElements_NG CirculationPump;
-        BasicClientComumnicator BasicClientCommunicator_;
         Home_scheduler scheduler;
         SchedulerDataRecovery schedRecover;
         FeedData PrevSchedulerData = new FeedData( );
@@ -52,11 +46,9 @@ namespace HomeAutomation
         bool[] _DigitalInputState;
         bool[] _DigitalOutputState;
         bool[] _InternalDigitalOutputState;
-        bool _Test;
         long RemainingTime;
         PowerMeter _PowerMeter;
         int _PortNumberServer;
-        bool RemoteControlHeaterActive;
         bool RemoteControlLightOutsideActivated;
 
         public delegate void UpdateMatchedOutputs( object sender, bool[] _DigOut );
@@ -82,7 +74,6 @@ namespace HomeAutomation
         }
 
         #region CONSTRUCTOR
-        //void Constructor( string IpAdressServer, string PortServer, string softwareversion )
         void Constructor( LivingRoomConfig livingroomconfig )
         {
             _livingroomconfig = livingroomconfig;
@@ -161,11 +152,6 @@ namespace HomeAutomation
             CommonUsedEventHandlers( );
             #endregion
 
-            if (_Test)
-            {
-                return;
-            }
-
             scheduler = new Home_scheduler( );
             TimerRecoverScheulder = new Timer( Parameters.DelayTimeStartRecoverScheduler );
 
@@ -173,27 +159,6 @@ namespace HomeAutomation
 
             base.Attach += Center_kitchen_living_room_Attach;
             base.Detach += Center_kitchen_living_room_Detach;
-
-            BasicClientCommunicator_ = new BasicClientComumnicator( _GivenClientName,
-                                                                    _IpAdressServer,
-                                                                     livingroomconfig.PortServer,
-                                                                     ref base.outputs, // control directly digital outputs of primer - server can control this outputs
-                                                                     ref HADictionaries.DeviceDictionaryCenterdigitalOut,
-                                                                     ref HADictionaries.DeviceDictionaryCenterdigitalIn, livingroomconfig.softwareversion )
-            {
-                // establish client
-                Room = _GivenClientName
-            };
-            BasicClientCommunicator_.EFeedScheduler += BasicClientCommunicator__EFeedScheduler;
-            BasicClientCommunicator_.EAskSchedulerForStatus += BasicClientCommunicator__EAskSchedulerForStatus;
-            scheduler.EvTriggered += SchedulerTriggered;
-
-            BasicClientCommunicator_.Primer1IsAttached = Attached;
-
-            if (!Attached)
-            {
-                BasicClientCommunicator_.SendInfoToServer( InfoString.InfoNoIO );
-            }
 
             try
             {
@@ -229,12 +194,7 @@ namespace HomeAutomation
         #endregion
 
         #region SCHEDULER
-        // configure, start, stop scheduler
-        void BasicClientCommunicator__EFeedScheduler( object sender, FeedData e )
-        {
-            SchedulerApplication.Worker( sender, e, ref scheduler );
-        }
-
+ 
         void SchedRecover_ERecovered( object sender, EventArgs e )
         {
             SchedulerApplication.DataRecovered = true;
@@ -356,11 +316,6 @@ namespace HomeAutomation
 
         }
 
-        void BasicClientCommunicator__EAskSchedulerForStatus( object sender, string Job )
-        {
-            string Answer = AskForSchedulerStatus( Job );
-            BasicClientCommunicator_.SendInfoToServer( Answer );
-        }
         #endregion
 
         #region PROPERTIES_IO_INTERFACE
@@ -415,7 +370,6 @@ namespace HomeAutomation
             if (Kitchen != null)
             {
                 Kitchen.IsPrimaryIOCardAttached = base._PrimaryIOCardIsAttached;
-                BasicClientCommunicator_.SendInfoToServer( InfoString.InfoNoIO + e.Device.ID.ToString( ) );
             }
         }
 
@@ -611,12 +565,6 @@ namespace HomeAutomation
                     // simplification - input state is written in a bool array
                     _DigitalInputState[i] = inputs[i];
                 }
-            }
-
-            if (BasicClientCommunicator_ != null)
-            {
-                BasicClientCommunicator_.DigitalInputs = _DigitalInputState;
-                BasicClientCommunicator_.IndexInput = index;
             }
         }
         #endregion
@@ -879,11 +827,6 @@ namespace HomeAutomation
             for (int i = 0; i < _DigitalOutputState.Length; i++)
             {
                 _DigitalOutputState[i] = base.outputs[i];
-            }
-            if (BasicClientCommunicator_ != null)
-            {
-                BasicClientCommunicator_.DigitalOutputs = _DigitalOutputState;
-                BasicClientCommunicator_.IndexOutput = e.Index;
             }
             _DigitalOutputEventargs.Index = e.Index;
             _DigitalOutputEventargs.Value = e.Value;

@@ -1,9 +1,4 @@
-﻿//Needed for the InterfaceKit class, phidget base classes, and the PhidgetException class
-using Communication.Client_;
-using Communication.Server_;
-using Communication.UDP;
-using Filehandling;
-using HomeAutomation.Controls;
+﻿using Filehandling;
 using HomeAutomation.HardConfig_Collected;
 using System;
 using System.Collections.Generic;
@@ -11,7 +6,6 @@ using System.Diagnostics;
 using System.IO;
 using System.Reflection;
 using System.Threading;
-using System.Timers;
 using SystemServices;
 
 namespace HomeAutomation
@@ -19,18 +13,9 @@ namespace HomeAutomation
     class MyHomeMain
     {
         #region COMMON_DECLARATIONS
-		static System.Timers.Timer              SelfTestTimer                   =  new System.Timers.Timer();
-		static System.Timers.Timer              CommTestTimer                   =  new System.Timers.Timer();
-		static System.Timers.Timer              Timer_ClientInvitation          =  new System.Timers.Timer( Parameters.ClientInvitationIntervall );
-		static System.Timers.Timer              Timer_SendPeriodicDataToServer  =  new System.Timers.Timer( 1000 );
-		static System.Timers.Timer              Timer_SendPeriodicDataToClient  =  new System.Timers.Timer( 1000 );
         static SleepingRoomNG                   MyHomeSleepingRoom;
         static Center_kitchen_living_room_NG    MyHomeKitchenLivingRoom;
         static AnteRoom                         MyHomeAnteRoom;
-        //static ServerQueue                      TCPServer;
-        static ClientTalktive_                  Client_;
-        //static UdpSend                          UDP_SendClientInvitation;
-        static UdpSend                          UDP_IoEcho;
         static Livingroom_east                  MyHomeLivingRoomEast;
         static livingroom_west                  MyHomeLivingRoomWest;
         static string                           _homeAutomationCommand = "";
@@ -39,10 +24,8 @@ namespace HomeAutomation
         static string                           serveripadress         = "";
         static string                           serverPort             = "";
         static string AutoOnHeaterLivingRoom = "";
-        static string                           UserDefinedClientID_   = "";
         static int[]                            PhidgetSerialNumbers;     // container of serial number when more than one card is used
         static Dictionary<string, string>       PhidgetsIds = new Dictionary<string, string>( );   // contains ID´s of phidgets provided f.e. by ini file
-        static UnivPWM                          HeaterPWM;
         static string                           Version;  // General Version information - valid for all "rooms"
         static string                           CompleteVersion;
 		static bool                             _EnableConsoleIoOutput = true;
@@ -66,40 +49,7 @@ namespace HomeAutomation
 			command = Console.ReadLine();
         }
 
-        static void ClientReconnect( ref ClientTalktive_ Client_, string userdefinedClientID )
-        {
-            if( !Client_.Connected )
-            {
-                Client_.Disconnect();
-                Console.WriteLine( InfoString.InfoConnectionFailed );
-                Console.ReadLine();
-                Console.Write( InfoString.InfoTryToReconnect );
-                Client_.ReConnect( serveripadress, Convert.ToInt16(serverPort), userdefinedClientID );
-            }
-        }
-
-        static void ClientAutoReconnect( ref ClientTalktive_ Client_, string userdefinedClientID )
-        {
-            if ( !Client_.Connected )
-            {
-                Client_.Disconnect();
-                Console.WriteLine( InfoString.InfoTryToReconnect );
-                Client_.ReConnect( serveripadress, Convert.ToInt16( serverPort ), userdefinedClientID );
-            }
-        }
-
-        static void ClientReconnect( ref ClientTalktive_ Client_ )
-        {
-            if ( !Client_.Connected )
-            {
-                Client_.Disconnect();
-                Console.WriteLine( InfoString.InfoConnectionFailed );
-                Console.ReadLine();
-                Console.WriteLine( InfoString.InfoTryToReconnect );
-                Client_.ReConnect( serveripadress, Convert.ToInt16( serverPort ) );
-            }
-        }
-
+  
 		static void WaitUntilKeyPressed( )
 		{
 			Console.WriteLine( InfoString.PressEnterForTerminateApplication );
@@ -188,16 +138,6 @@ namespace HomeAutomation
                 Console.WriteLine( TimeUtil.GetTimestamp() + Seperators.WhiteSpace + InfoString.FailedToLoadConfiguration );
             }
 
-            try
-            {
-                UDP_IoEcho = new UdpSend( IPConfiguration.Address.IP_ADRESS_BROADCAST, IPConfiguration.Port.PORT_UDP_IO_ECHO );
-            }
-            catch( Exception ex )
-            {
-                Services.TraceMessage_( ex.Message.ToString( ) );
-                Console.WriteLine( TimeUtil.GetTimestamp( ) + Seperators.WhiteSpace + InfoString.FailedToEstablishUDPSend );
-            }
-
             _homeAutomationCommand = setting_value;
 
             switch (_homeAutomationCommand)
@@ -219,10 +159,12 @@ namespace HomeAutomation
 
                    case InfoOperationMode.CENTER_KITCHEN_AND_LIVING_ROOM:
                        MyHomeKitchenLivingRoom = new Center_kitchen_living_room_NG
-                       ( new LivingRoomConfig( )
-                             { IpAdressServer = serveripadress,
-                               PortServer = serverPort,
-                               softwareversion = CompleteVersion,
+                       ( 
+                         new LivingRoomConfig( )
+                             {
+                               IpAdressServer             = serveripadress,
+                               PortServer                 = serverPort,
+                               softwareversion            = CompleteVersion,
                                HeatersLivingRoomAutomatic = AutoOnHeaterLivingRoom
                              } 
                        );  
@@ -369,74 +311,7 @@ namespace HomeAutomation
                 string DeviceName = KitchenCenterIoDevices.GetOutputDeviceName(e.Index);
             }
 		}
-
-
-        static decimal transactioncounter;
-        static void Timer_SendPeriodicDataToServer_Elapsed( object sender, ElapsedEventArgs e )
-        {
-            string FormattedCounter;
-            if ( Client_ == null )
-            {
-                 return;
-            }
-            if ( Client_.Connected )
-            {
-                for( int i= 0; i < 1; i++ )
-                {
-                    FormattedCounter = String.Format("{0:000000000}",transactioncounter++ );
-                    string msg = FormattedCounter + " Hi this is client with Prozess ID: " + UserDefinedClientID_.ToString();
-                    Client_.WriteMessageWithLengthInformation( msg );
-                    Console.WriteLine( msg );
-               }
-            }
-        }
-
-        // received invitation for reconnecting the client initated by server
-        static void UDP_ReceiveClientInvitation_EDataReceived( string e )
-        {
-            if ( e == InfoString.RequestForClientConnection )
-            {
-                if ( Client_ != null )
-                {
-                    ClientAutoReconnect( ref Client_, IPConfiguration.Prefix.TCPCLIENT + UserDefinedClientID_ );
-                }
-            }
-        }
-
-        static void HeaterPWM_PWM_ ( object sender, UnivPWM.ePWMStatus pwmstatus )
-        {
-            switch( pwmstatus )
-            {
-                case UnivPWM.ePWMStatus.eIsOn:
-                     Console.WriteLine( DateTime.Now + " PWM is ON " + HeaterPWM.OnCounter.ToString() ); 
-                     break;
-
-                case UnivPWM.ePWMStatus.eIsOff:
-                     Console.WriteLine( DateTime.Now + " PWM is OFF "  + HeaterPWM.OnCounter.ToString( ) ); 
-                     break;
-            }
-        }
  
-        static void Client__MessageReceivedFromServer ( string receivedmessage )
-        {
-            if( Client_.Connected )
-            {
-                if( receivedmessage != "" )
-                {
-                    Console.WriteLine(receivedmessage);
-                    if( Client_.ReceivedMessageQueue.Count > 0 )
-                    {
-                        Client_.ReceivedMessageQueue.Dequeue( );
-                    }
-                }
-            }
-            else
-            {
-                Console.WriteLine( "Sorry - connection failed" );
-                Console.ReadLine( );
-            }
-       }
-
        #endregion
 
         #endregion  // MAIN
