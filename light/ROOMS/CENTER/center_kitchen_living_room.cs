@@ -114,7 +114,7 @@ namespace HomeAutomation
 
             HeatersLivingRoom = new HeaterElement_NG(
                                          ParametersHeaterControl.TimeDemandForHeatersOnOff,
-                                         ParametersHeaterControl.TimeDemandForHeatersAutomaticOffHalfDay,
+                                         ParametersHeaterControl.TimeDemandForHeatersAutomaticOffDisable,
                                          ParametersHeaterControlLivingRoom.TimeDemandForHeatersOnMiddle,
                                          ParametersHeaterControlLivingRoom.TimeDemandForHeatersOffMiddle,
                                          KitchenLivingRoomIOAssignment.indDigitalOutputHeaterEast,
@@ -129,7 +129,7 @@ namespace HomeAutomation
 
             HeaterAnteRoom = new HeaterElement_NG(
                                          ParametersHeaterControl.TimeDemandForHeatersOnOff,
-                                         ParametersHeaterControl.TimeDemandForHeatersAutomaticOffBig,
+                                         ParametersHeaterControl.TimeDemandForHeatersAutomaticOff,
                                          ParametersHeaterControlLivingRoom.TimeDemandForHeatersOnMiddle,
                                          ParametersHeaterControlLivingRoom.TimeDemandForHeatersOffMiddle,
                                          AnteRoomIODeviceIndices.indDigitalOutputAnteRoomHeater,
@@ -297,7 +297,7 @@ namespace HomeAutomation
 
                 if (_livingroomconfig.HeatersLivingRoomAutomatic == "ON")
                 {
-                    if (device.Contains( "HeatersEastAndWestOn" ))
+                    if (device.Contains( "HeatersEastAndWestOn" ) || device.Contains( "HeatersEastAndWestAfternoonOn" ))
                     {
                         HeatersLivingRoom.Reset( );
                         outputs[KitchenLivingRoomIOAssignment.indDigitalOutputHeaterEast] = true;
@@ -306,8 +306,9 @@ namespace HomeAutomation
                         Console.WriteLine( TimeUtil.GetTimestamp( ) + CenterKitchenDeviceNames.HeaterWest + " = ON" );
                     }
 
-                    if (device.Contains( "HeatersEastAndWestOff" ))
+                    if (device.Contains( "HeatersEastAndWestOff" ) || device.Contains( "HeatersEastAndWestAfternoonOff" ))
                     {
+                        HeatersLivingRoom.Reset( );
                         outputs[KitchenLivingRoomIOAssignment.indDigitalOutputHeaterEast] = false;
                         outputs[KitchenLivingRoomIOAssignment.indDigitalOutputHeaterWest] = false;
                         Console.WriteLine( TimeUtil.GetTimestamp( ) + CenterKitchenDeviceNames.HeaterEast + " = OFF" );

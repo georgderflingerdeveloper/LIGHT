@@ -534,6 +534,7 @@ namespace HomeAutomation
             static readonly public double TimeDemandForHeatersOffSleepingRoomSmall = TimeConverter.ToMiliseconds( 5, 0 );
             static readonly public double TimeDemandForHeatersAutomaticOff = TimeConverter.ToMiliseconds( 25, 0 );
             static readonly public double TimeDemandForHeatersAutomaticOffBig = TimeConverter.ToMiliseconds( 3, 0, 0 );
+            static readonly public double TimeDemandForHeatersAutomaticOffDisable = TimeConverter.ToMiliseconds( 0, 0, 0 );
             static readonly public double TimeDemandForHeatersAutomaticOffSuperBig = TimeConverter.ToMiliseconds( 6, 0, 0 );
             static readonly public double TimeDemandForHeatersAutomaticOffHalfDay = TimeConverter.ToMiliseconds( 12, 0, 0 );
             static readonly public double TimeDemandForHeatersAutomaticOffMiddle = TimeConverter.ToMiliseconds( 1, 30, 0 );
@@ -879,7 +880,7 @@ namespace HomeAutomation
                 public const int indDigitalOutLightWindowBoardLeft = 4;
                 public const int indDigitalOutLightWindowBoardRight = 5;
                 public const int indDigitalOutputWindowTriangleLeftSmall = 6;
-                public const int indDigitalOutLightWall = 7;
+                public const int indDigitalOutLightWall = 14;
             }
 
             public const int indFirstLight = 0;

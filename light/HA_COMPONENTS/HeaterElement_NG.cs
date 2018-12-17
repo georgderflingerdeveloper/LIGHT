@@ -184,6 +184,7 @@ namespace HA_COMPONENTS
             PWM_Heater?.Stop( );
             PWM_ShowHeaterActive?.Stop( );
             _HeaterWasTurnedOn = false;
+            Toggle = false;
         }
 
         public void TurnHeaterOnOffWithCounts( )
@@ -362,8 +363,7 @@ namespace HA_COMPONENTS
                      break;
 
                 case eHeaterControlState.eTHERMOSTATE:
-                //HeatersOff( );
-                break;
+                     break;
 
                 case eHeaterControlState.eDEFROST:
                      base.ReconfigAutomaticOffTimer( new TimeSpan( 7, 0, 0, 0, 0 ).TotalMilliseconds );
