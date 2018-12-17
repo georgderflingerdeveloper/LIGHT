@@ -27,9 +27,9 @@ namespace HomeAutomation
         static SleepingRoomNG                   MyHomeSleepingRoom;
         static Center_kitchen_living_room_NG    MyHomeKitchenLivingRoom;
         static AnteRoom                         MyHomeAnteRoom;
-        static ServerQueue                      TCPServer;
+        //static ServerQueue                      TCPServer;
         static ClientTalktive_                  Client_;
-        static UdpSend                          UDP_SendClientInvitation;
+        //static UdpSend                          UDP_SendClientInvitation;
         static UdpSend                          UDP_IoEcho;
         static Livingroom_east                  MyHomeLivingRoomEast;
         static livingroom_west                  MyHomeLivingRoomWest;
@@ -367,41 +367,9 @@ namespace HomeAutomation
 				                   e.Value.ToString() );
 
                 string DeviceName = KitchenCenterIoDevices.GetOutputDeviceName(e.Index);
-
-                if (HADictionaries.DeviceDictionaryTranslatorForNetworkCommands.TryGetValue( DeviceName, out string TranslatedDeviceName ))
-                {
-                    string Echo;
-                    if (e.Value)
-                    {
-                        Echo = TranslatedDeviceName + "-" + "IS" + "-" + "ON";
-                    }
-                    else
-                    {
-                        Echo = TranslatedDeviceName + "-" + "IS" + "-" + "OFF";
-                    }
-
-                    //Console.WriteLine( TimeUtil.GetTimestamp_( ) + " Send UDP echo " + Echo );
-                    //UDP_IoEcho.SendString( Echo );
-                }
-
             }
 		}
 
-		static void Timer_SendPeriodicDataToClient_Elapsed( object sender, ElapsedEventArgs e )
-        {  
-            string client = "CLIENT_1";
-            if( TCPServer == null )
-            {
-                return;
-            }
-            
-            for( int i= 0; i < 1; i++ )
-            {
-                string msg = transactioncounter++.ToString( ) + " HI " + client + " this is your server";
-                TCPServer.SendMessageToClient( msg, client );
-                Console.WriteLine( msg );
-            }
-        }
 
         static decimal transactioncounter;
         static void Timer_SendPeriodicDataToServer_Elapsed( object sender, ElapsedEventArgs e )
@@ -433,11 +401,6 @@ namespace HomeAutomation
                     ClientAutoReconnect( ref Client_, IPConfiguration.Prefix.TCPCLIENT + UserDefinedClientID_ );
                 }
             }
-        }
-
-        static void Timer_ClientInvitation_Elapsed( object sender, ElapsedEventArgs e )
-        {
-            UDP_SendClientInvitation.SendString( InfoString.RequestForClientConnection );
         }
 
         static void HeaterPWM_PWM_ ( object sender, UnivPWM.ePWMStatus pwmstatus )
@@ -474,15 +437,7 @@ namespace HomeAutomation
             }
        }
 
-        static void TCPServer_MessageReceivedFromClient ( string receivedmessage )
-        {
-            lock ( TCPServer.MessageQueue )
-            {
-                string message = TCPServer.MessageQueue.Dequeue();
-                Console.WriteLine( "OUT OF QUEUE: " + message );
-            }
-        }
-        #endregion
+       #endregion
 
         #endregion  // MAIN
     }
