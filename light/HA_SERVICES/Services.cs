@@ -101,8 +101,7 @@ namespace SystemServices
             IPHostEntry Host = null;
             try
             {
-                IPAddress IP;
-                if( System.Net.IPAddress.TryParse( IPAddress, out IP ) )
+                if (System.Net.IPAddress.TryParse( IPAddress, out IPAddress IP ))
                 {
                     Host = System.Net.Dns.GetHostEntry( IP );
                 }
