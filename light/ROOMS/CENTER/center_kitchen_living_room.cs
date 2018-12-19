@@ -101,7 +101,7 @@ namespace HomeAutomation
                 Match = new List<int> { CenterOutsideIODevices.indDigitalOutputLightsOutside }
             };
 
-            Kitchen.IsPrimaryIOCardAttached = base._PrimaryIOCardIsAttached;
+            Kitchen.IsPrimaryIOCardAttached = _PrimaryIOCardIsAttached;
 
             HeatersLivingRoom = new HeaterElement_NG(
                                          ParametersHeaterControl.TimeDemandForHeatersOnOff,
@@ -211,18 +211,6 @@ namespace HomeAutomation
             Console.WriteLine( TimeUtil.GetTimestamp( ) + Seperators.WhiteSpace + "Configured days:          " + e.Days );
             Console.WriteLine( TimeUtil.GetTimestamp( ) + Seperators.WhiteSpace + "Job:                      " + Job );
             Console.WriteLine( TimeUtil.GetTimestamp( ) + Seperators.WhiteSpace + "Current scheduler status: " + scheduler.GetJobStatus( Job ) );
-        }
-
-        void SchedulerTriggered( string time, IJobExecutionContext context, decimal counts )
-        {
-            SchedulerApplication.WriteStatus( time, context, counts );
-
-            if (!Attached)
-            {
-                return;
-            }
-
-            ControlScheduledDevice( counts, context.JobDetail.Key.Name );
         }
 
         void ControlScheduledDevice( decimal counts, string device )

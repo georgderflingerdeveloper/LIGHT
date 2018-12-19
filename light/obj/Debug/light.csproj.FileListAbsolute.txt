@@ -217,3 +217,4 @@ C:\PROJECT\LIGHT\light\bin\Debug\TimerMockable.pdb
 C:\PROJECT\LIGHT\light\obj\Debug\light.csproj.CopyComplete
 C:\Projekte\LIGHT\light\bin\Debug\HomeAutomationProtocoll.dll
 C:\Projekte\LIGHT\light\bin\Debug\HomeAutomationProtocoll.pdb
+C:\Projekte\LIGHT\light\obj\Debug\light.csprojAssemblyReference.cache

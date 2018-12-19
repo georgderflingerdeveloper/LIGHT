@@ -2,13 +2,10 @@
 using Phidgets;
 using Phidgets.Events;
 using HomeAutomation.HardConfig_Collected;
-using Communication.UDP;
-using Communication.CLIENT_Communicator;
-using SystemServices;
 using HomeAutomation.rooms;
 using Scheduler;
 using HomeAutomationProtocoll;
- 
+
 namespace HomeAutomation
 {
     #region COMMON_CLASSES
