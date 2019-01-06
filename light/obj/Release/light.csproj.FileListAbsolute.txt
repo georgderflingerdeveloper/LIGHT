@@ -163,3 +163,4 @@ C:\Projekte\LIGHT\light\obj\Release\light.csproj.CopyComplete
 C:\PROJECT\LIGHT\light\bin\Release\HomeAutomationProtocoll.dll
 C:\PROJECT\LIGHT\light\bin\Release\HomeAutomationProtocoll.pdb
 C:\PROJECT\LIGHT\light\obj\Release\light.csprojAssemblyReference.cache
+C:\Projekte\LIGHT\light\obj\Release\light.csprojAssemblyReference.cache
