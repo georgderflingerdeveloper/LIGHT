@@ -41,7 +41,7 @@ namespace HomeAutomation
         HeaterElement_NG HeaterAnteRoom;
         CentralControlledElements_NG FanWashRoom;
         CentralControlledElements_NG CirculationPump;
-        BasicClientComumnicator BasicClientCommunicator_;
+        //BasicClientComumnicator BasicClientCommunicator_;
         Home_scheduler scheduler;
         SchedulerDataRecovery schedRecover;
         FeedData PrevSchedulerData = new FeedData( );
@@ -174,26 +174,26 @@ namespace HomeAutomation
             base.Attach += Center_kitchen_living_room_Attach;
             base.Detach += Center_kitchen_living_room_Detach;
 
-            BasicClientCommunicator_ = new BasicClientComumnicator( _GivenClientName,
-                                                                    _IpAdressServer,
-                                                                     livingroomconfig.PortServer,
-                                                                     ref base.outputs, // control directly digital outputs of primer - server can control this outputs
-                                                                     ref HADictionaries.DeviceDictionaryCenterdigitalOut,
-                                                                     ref HADictionaries.DeviceDictionaryCenterdigitalIn, livingroomconfig.softwareversion )
-            {
-                // establish client
-                Room = _GivenClientName
-            };
-            BasicClientCommunicator_.EFeedScheduler += BasicClientCommunicator__EFeedScheduler;
-            BasicClientCommunicator_.EAskSchedulerForStatus += BasicClientCommunicator__EAskSchedulerForStatus;
+            //BasicClientCommunicator_ = new BasicClientComumnicator( _GivenClientName,
+            //                                                        _IpAdressServer,
+            //                                                         livingroomconfig.PortServer,
+            //                                                         ref base.outputs, // control directly digital outputs of primer - server can control this outputs
+            //                                                         ref HADictionaries.DeviceDictionaryCenterdigitalOut,
+            //                                                         ref HADictionaries.DeviceDictionaryCenterdigitalIn, livingroomconfig.softwareversion )
+            //{
+            //    // establish client
+            //    Room = _GivenClientName
+            //};
+            //BasicClientCommunicator_.EFeedScheduler += BasicClientCommunicator__EFeedScheduler;
+            //BasicClientCommunicator_.EAskSchedulerForStatus += BasicClientCommunicator__EAskSchedulerForStatus;
             scheduler.EvTriggered += SchedulerTriggered;
 
-            BasicClientCommunicator_.Primer1IsAttached = Attached;
+            //BasicClientCommunicator_.Primer1IsAttached = Attached;
 
-            if (!Attached)
-            {
-                BasicClientCommunicator_.SendInfoToServer( InfoString.InfoNoIO );
-            }
+            //if (!Attached)
+            //{
+            //    BasicClientCommunicator_.SendInfoToServer( InfoString.InfoNoIO );
+            //}
 
             try
             {
@@ -356,11 +356,11 @@ namespace HomeAutomation
 
         }
 
-        void BasicClientCommunicator__EAskSchedulerForStatus( object sender, string Job )
-        {
-            string Answer = AskForSchedulerStatus( Job );
-            BasicClientCommunicator_.SendInfoToServer( Answer );
-        }
+        //void BasicClientCommunicator__EAskSchedulerForStatus( object sender, string Job )
+        //{
+        //    string Answer = AskForSchedulerStatus( Job );
+        //    BasicClientCommunicator_.SendInfoToServer( Answer );
+        //}
         #endregion
 
         #region PROPERTIES_IO_INTERFACE
@@ -415,7 +415,7 @@ namespace HomeAutomation
             if (Kitchen != null)
             {
                 Kitchen.IsPrimaryIOCardAttached = base._PrimaryIOCardIsAttached;
-                BasicClientCommunicator_.SendInfoToServer( InfoString.InfoNoIO + e.Device.ID.ToString( ) );
+                //BasicClientCommunicator_.SendInfoToServer( InfoString.InfoNoIO + e.Device.ID.ToString( ) );
             }
         }
 
@@ -611,12 +611,6 @@ namespace HomeAutomation
                     // simplification - input state is written in a bool array
                     _DigitalInputState[i] = inputs[i];
                 }
-            }
-
-            if (BasicClientCommunicator_ != null)
-            {
-                BasicClientCommunicator_.DigitalInputs = _DigitalInputState;
-                BasicClientCommunicator_.IndexInput = index;
             }
         }
         #endregion
@@ -879,11 +873,6 @@ namespace HomeAutomation
             for (int i = 0; i < _DigitalOutputState.Length; i++)
             {
                 _DigitalOutputState[i] = base.outputs[i];
-            }
-            if (BasicClientCommunicator_ != null)
-            {
-                BasicClientCommunicator_.DigitalOutputs = _DigitalOutputState;
-                BasicClientCommunicator_.IndexOutput = e.Index;
             }
             _DigitalOutputEventargs.Index = e.Index;
             _DigitalOutputEventargs.Value = e.Value;
