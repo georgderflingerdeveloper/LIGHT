@@ -41,7 +41,7 @@ namespace HomeAutomation
         FeedData PrevSchedulerData = new FeedData( );
         UdpReceive UDPReceiveDataFromWebForwarder;
         UdpReceive UdpReceiveDataFromEastController;
-        Timer TimerRecoverScheulder;
+        Timer TimerRecoverScheduler;
         Timer CommonUsedTick = new Timer( GeneralConstants.DURATION_COMMONTICK );
         bool[] _DigitalInputState;
         bool[] _DigitalOutputState;
@@ -154,7 +154,7 @@ namespace HomeAutomation
 
             scheduler = new Home_scheduler( );
             scheduler.EvTriggered += SchedulerTriggered;
-            TimerRecoverScheulder = new Timer( Parameters.DelayTimeStartRecoverScheduler );
+            TimerRecoverScheduler = new Timer( Parameters.DelayTimeStartRecoverScheduler );
 
             CommonUsedTick.Elapsed += CommonUsedTick_Elapsed;
 
@@ -178,8 +178,8 @@ namespace HomeAutomation
             schedRecover = new SchedulerDataRecovery( Directory.GetCurrentDirectory( ) );
             schedRecover.ERecover += RecoverScheduler;
             schedRecover.ERecovered += SchedRecover_ERecovered;
-            TimerRecoverScheulder.Elapsed += TimerRecoverScheulder_Elapsed;
-            TimerRecoverScheulder.Start( );
+            TimerRecoverScheduler.Elapsed += TimerRecoverScheulder_Elapsed;
+            TimerRecoverScheduler.Start( );
             CommonUsedTick.Start( );
             Console.WriteLine( TimeUtil.GetTimestamp( ) + Seperators.WhiteSpace + InfoString.StartTimerForRecoverScheduler );
             RemainingTime = Convert.ToUInt32( ( Parameters.DelayTimeStartRecoverScheduler / Parameters.MilisecondsOfSecond ) );
@@ -858,7 +858,7 @@ namespace HomeAutomation
         void TimerRecoverScheulder_Elapsed( object sender, ElapsedEventArgs e )
         {
             schedRecover.RecoverScheduler( Directory.GetCurrentDirectory( ), HardConfig_Collected.HardwareDevices.Devices );
-            TimerRecoverScheulder.Stop( );
+            TimerRecoverScheduler.Stop( );
         }
 
         private void CommonUsedTick_Elapsed( object sender, ElapsedEventArgs e )

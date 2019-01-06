@@ -214,7 +214,6 @@ C:\PROJECT\LIGHT\light\bin\Debug\Microsoft.Practices.Unity.Configuration.xml
 C:\PROJECT\LIGHT\light\bin\Debug\Microsoft.Practices.Unity.xml
 C:\PROJECT\LIGHT\light\bin\Debug\Microsoft.Practices.Unity.RegistrationByConvention.xml
 C:\PROJECT\LIGHT\light\bin\Debug\TimerMockable.pdb
-C:\PROJECT\LIGHT\light\obj\Debug\light.csprojAssemblyReference.cache
 C:\PROJECT\LIGHT\light\obj\Debug\light.csproj.CoreCompileInputs.cache
 C:\PROJECT\LIGHT\light\obj\Debug\light.csproj.CopyComplete
 C:\PROJECT\LIGHT\light\obj\Debug\light.exe
