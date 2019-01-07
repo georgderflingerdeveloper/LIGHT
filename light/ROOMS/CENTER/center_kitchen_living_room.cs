@@ -357,7 +357,7 @@ namespace HomeAutomation
         {
             if (Kitchen != null)
             {
-                Kitchen.IsPrimaryIOCardAttached = base._PrimaryIOCardIsAttached;
+                Kitchen.IsPrimaryIOCardAttached = _PrimaryIOCardIsAttached;
             }
         }
 
@@ -365,7 +365,7 @@ namespace HomeAutomation
         {
             if (Kitchen != null)
             {
-                Kitchen.IsPrimaryIOCardAttached = base._PrimaryIOCardIsAttached;
+                Kitchen.IsPrimaryIOCardAttached = _PrimaryIOCardIsAttached;
             }
         }
         #endregion
