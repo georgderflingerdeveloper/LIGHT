@@ -87,6 +87,16 @@ namespace HA_COMPONENTS
         #endregion
 
         #region PUBLIC_METHODS
+        public void DirectOn()
+        {
+            HeatersOn();
+        }
+
+        public void DirectOff()
+        {
+            HeatersOff();
+        }
+
         public void HeaterOn( InputChangeEventArgs e )
         {
             HeaterOn( e.Value );

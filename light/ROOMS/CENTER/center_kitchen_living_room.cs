@@ -153,6 +153,7 @@ namespace HomeAutomation
             #endregion
 
             scheduler = new Home_scheduler( );
+            scheduler.EvTriggered += SchedulerTriggered;
             TimerRecoverScheulder = new Timer( Parameters.DelayTimeStartRecoverScheduler );
 
             CommonUsedTick.Elapsed += CommonUsedTick_Elapsed;
@@ -303,6 +304,19 @@ namespace HomeAutomation
 
 
         }
+
+        void SchedulerTriggered(string time, IJobExecutionContext context, decimal counts)
+        {
+            SchedulerApplication.WriteStatus(time, context, counts);
+
+            if (!Attached)
+            {
+                return;
+            }
+
+            ControlScheduledDevice(counts, context.JobDetail.Key.Name);
+        }
+
 
         #endregion
 

@@ -597,8 +597,9 @@ namespace HomeAutomation
         #region GROUP_KITCHEN_OUTSIDE_LIVING_ROOM_KIDS_ROOM
         static class KitchenIOAssignment
         {
-            public const int indKitchenMainButton = 0;
-            public const int indKitchenPresenceDetector = 7;
+            public const int indKitchenMainButton          = 0;
+            public const int indKitchenPresenceDetector    = 7;
+            public const int indDigitalInputRoomThermostat = 11;
         }
 
         static class CenterLivingRoomIODeviceIndices
@@ -701,12 +702,13 @@ namespace HomeAutomation
 
             static Dictionary<uint, string> CenterInputDeviceDictionary = new Dictionary<uint, string>
             {
-                { KitchenIOAssignment.indKitchenMainButton,                                   CenterKitchenDeviceNames.MainButton         },
-                { KitchenIOAssignment.indKitchenPresenceDetector,                             CenterKitchenDeviceNames.PresenceDetector   },
-                { CenterButtonRelayIOAssignment.indDigitalInputRelayAnteRoom,                 CenterKitchenDeviceNames.ButtonAnteRoom     },
-                { CenterButtonRelayIOAssignment.indDigitalInputRelayBathRoom,                 CenterKitchenDeviceNames.ButtonBathRoom     },
-                { CenterButtonRelayIOAssignment.indDigitalInputRelaySleepingRoom,             CenterKitchenDeviceNames.ButtonSleepingRoom },
-                { CenterButtonRelayIOAssignment.indDigitalInputRelayWashRoom,                 CenterKitchenDeviceNames.ButtonWashRoom     },
+                { KitchenIOAssignment.indKitchenMainButton,                                   CenterKitchenDeviceNames.MainButton                       },
+                { KitchenIOAssignment.indKitchenPresenceDetector,                             CenterKitchenDeviceNames.PresenceDetector                 },
+                { KitchenIOAssignment.indDigitalInputRoomThermostat,                          nameof(KitchenIOAssignment.indDigitalInputRoomThermostat) },
+                { CenterButtonRelayIOAssignment.indDigitalInputRelayAnteRoom,                 CenterKitchenDeviceNames.ButtonAnteRoom                   },
+                { CenterButtonRelayIOAssignment.indDigitalInputRelayBathRoom,                 CenterKitchenDeviceNames.ButtonBathRoom                   },
+                { CenterButtonRelayIOAssignment.indDigitalInputRelaySleepingRoom,             CenterKitchenDeviceNames.ButtonSleepingRoom               },
+                { CenterButtonRelayIOAssignment.indDigitalInputRelayWashRoom,                 CenterKitchenDeviceNames.ButtonWashRoom                   },
             };
 
             static Dictionary<uint, string> CenterOutputDeviceDictionary = new Dictionary<uint, string>
