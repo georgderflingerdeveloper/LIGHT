@@ -431,15 +431,11 @@ namespace HomeAutomation
         {
             switch (index) // the index is the assigned input number
             {
-                // first relase start one light, next relase start neighbor light, turn previous light off
-                // press button longer than ( f.e. 1.. seconds ) - all lights on
-                // press button longer than ( f.e. 2.. seconds ) - all lights off
-                // TODO press button longer than ( f.e. 3.. seconds ) - broadcast all lights off, just default lights on
                 case KitchenIOAssignment.indKitchenMainButton:
                     if (HeatersLivingRoom != null)
                     {
                         // operate light only when there is no demand of manual heater control
-                        if (!HeatersLivingRoom.WasHeaterSwitched( ))  // this is not good OOP - any day try to refactor - "TELL - don´t ask"
+                        if (!HeatersLivingRoom.WasHeaterSwitched( ))
                         {
                             Kitchen?.MakeStep( Value );
                             Kitchen?.AutomaticOff( Value );
@@ -461,12 +457,11 @@ namespace HomeAutomation
                 default:
                     break;
             }
-
         }
 
         void TurnFan( int index, bool Value )
         {
-            switch (index) // the index is the assigned input number
+            switch (index) 
             {
                 case CenterButtonRelayIOAssignment.indDigitalInputRelayWashRoom:
                     FanWashRoom?.DelayedDeviceOnFallingEdge( Value );
@@ -479,17 +474,17 @@ namespace HomeAutomation
 
         void ControlHeaters( InputChangeEventArgs e )
         {
-            int index = e.Index;
+            int index  = e.Index;
             bool Value = e.Value;
             ControlHeaters( index, Value );
         }
 
         void ControlHeaters( int index, bool Value )
         {
-            switch (index) // the index is the assigned input number
+            switch (index) 
             {
                 case KitchenIOAssignment.indKitchenMainButton:
-                    HeatersLivingRoom?.HeaterOn( Value ); // heaters can be switched on / off with the light button
+                    HeatersLivingRoom?.HeaterOn( Value ); 
                     break;
                 // heater in the ante room so far is controlled by center/kitchen/living room sbc
                 // reason is that the cable conneting the actuator was easier to lay 
@@ -603,6 +598,11 @@ namespace HomeAutomation
         void TurnHeaterBodyEast( bool command )
         {
             outputs[KitchenLivingRoomIOAssignment.indDigitalOutputHeaterEast] = command;
+        }
+
+        void TurnHeaterBodyWest( bool command )
+        {
+            outputs[KitchenLivingRoomIOAssignment.indDigitalOutputHeaterWest] = command;
         }
 
         void TurLightOutside( bool command )
