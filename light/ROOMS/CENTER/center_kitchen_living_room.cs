@@ -50,6 +50,7 @@ namespace HomeAutomation
         PowerMeter _PowerMeter;
         int _PortNumberServer;
         bool RemoteControlLightOutsideActivated;
+        bool InhibitLightControlViaMainButton;
 
         public delegate void UpdateMatchedOutputs( object sender, bool[] _DigOut );
         public event UpdateMatchedOutputs EUpdateMatchedOutputs;
@@ -145,8 +146,7 @@ namespace HomeAutomation
             };
 
 
-            HeatersLivingRoom.AllOn_ += HeatersLivingRoom_AllOn_;
-            Kitchen.EReset += Kitchen_EReset;
+           Kitchen.EReset += Kitchen_EReset;
 
             #region REGISTRATION_ONE_COMMON_EVENT_HANDLER
             CommonUsedEventHandlers( );
@@ -301,8 +301,6 @@ namespace HomeAutomation
                                  Job +
                                  Seperators.InfoSeperator +
                                  status.ToString( );
-
-
         }
 
         void SchedulerTriggered(string time, IJobExecutionContext context, decimal counts)
@@ -432,22 +430,21 @@ namespace HomeAutomation
             switch (index) // the index is the assigned input number
             {
                 case KitchenIOAssignment.indKitchenMainButton:
-                    if (HeatersLivingRoom != null)
+                    //HeatersLivingRoom?.HeaterOn( Value ); => replace 
+
+                    if( InhibitLightControlViaMainButton )
                     {
-                        // operate light only when there is no demand of manual heater control
-                        if (!HeatersLivingRoom.WasHeaterSwitched( ))
-                        {
-                            Kitchen?.MakeStep( Value );
-                            Kitchen?.AutomaticOff( Value );
-                        }
-                        else
-                        {
-                            Kitchen?.StopAllOnTimer( );
-                            Kitchen?.ResetDeviceControl( );
-                        }
+                        break;
                     }
+
+                    Kitchen?.MakeStep( Value );
+                    Kitchen?.AutomaticOff( Value );
                     // reset - this is a last rescue anchor in the case something went wrong ( any undiscovered bug )
                     Reset( Value );
+                    break;
+
+                case CenterButtonRelayIOAssignment.indDigitalInputRelayAnteRoom:
+                    HeaterAnteRoom?.HeaterOnFallingEdge(Value);
                     break;
 
                 case KitchenIOAssignment.indKitchenPresenceDetector:
@@ -465,31 +462,6 @@ namespace HomeAutomation
             {
                 case CenterButtonRelayIOAssignment.indDigitalInputRelayWashRoom:
                     FanWashRoom?.DelayedDeviceOnFallingEdge( Value );
-                    break;
-
-                default:
-                    break;
-            }
-        }
-
-        void ControlHeaters( InputChangeEventArgs e )
-        {
-            int index  = e.Index;
-            bool Value = e.Value;
-            ControlHeaters( index, Value );
-        }
-
-        void ControlHeaters( int index, bool Value )
-        {
-            switch (index) 
-            {
-                case KitchenIOAssignment.indKitchenMainButton:
-                    HeatersLivingRoom?.HeaterOn( Value ); 
-                    break;
-                // heater in the ante room so far is controlled by center/kitchen/living room sbc
-                // reason is that the cable conneting the actuator was easier to lay 
-                case CenterButtonRelayIOAssignment.indDigitalInputRelayAnteRoom:
-                    HeaterAnteRoom?.HeaterOnFallingEdge( Value );
                     break;
 
                 default:
@@ -518,52 +490,16 @@ namespace HomeAutomation
             }
         }
 
-        int ToggleHeatersOnOff = 0;
-        void HeatersLivingRoom_AllOn_( object sender )
-        {
-            if (ToggleHeatersOnOff == 0)
-            {
-                Kitchen.AnyExternalDeviceOn = true;
-                Kitchen.AnyExternalDeviceOff = false;
-            }
-            ToggleHeatersOnOff++;
-            if (ToggleHeatersOnOff > 1)
-            {
-                ToggleHeatersOnOff = 0;
-                Kitchen.AnyExternalDeviceOn = false;
-                Kitchen.AnyExternalDeviceOff = true;
-            }
-        }
-
         void ControlSequenceOnInputChange( int index, bool Value )
         {
-            if (Kitchen != null)
-            {
-                Kitchen.StateDigitalOutput = base.StateDigitalOutput;
-            }
-
+ 
             TurnNextDevice( index, Value );
-
-            ControlHeaters( index, Value );
 
             ControlCirculationPump( index, Value );
 
             TurnFan( index, Value );
 
-            if (_DigitalInputState == null)
-            {
-                return;
-            }
-
-            for (int i = 0; i < _DigitalInputState.Length; i++)
-            {
-                if (Attached)
-                {
-                    // simplification - input state is written in a bool array
-                    _DigitalInputState[i] = inputs[i];
-                }
-            }
-        }
+         }
         #endregion
 
         #region SWITCH_DEVICE_GROUPS
@@ -603,6 +539,18 @@ namespace HomeAutomation
         void TurnHeaterBodyWest( bool command )
         {
             outputs[KitchenLivingRoomIOAssignment.indDigitalOutputHeaterWest] = command;
+        }
+
+        void TurnHeatersOn()
+        {
+            TurnHeaterBodyEast(true);
+            TurnHeaterBodyWest(true);
+        }
+
+        void TurnHeatersOff()
+        {
+            TurnHeaterBodyEast(false);
+            TurnHeaterBodyWest(false);
         }
 
         void TurLightOutside( bool command )
