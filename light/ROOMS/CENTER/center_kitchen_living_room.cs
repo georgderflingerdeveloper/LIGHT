@@ -315,7 +315,6 @@ namespace HomeAutomation
             ControlScheduledDevice(counts, context.JobDetail.Key.Name);
         }
 
-
         #endregion
 
         #region PROPERTIES_IO_INTERFACE
