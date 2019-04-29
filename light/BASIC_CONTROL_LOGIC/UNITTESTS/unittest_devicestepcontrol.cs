@@ -1,109 +1,109 @@
-﻿using System.Timers;
+﻿using BASIC_COMPONENTS;
 using Moq;
-using BASIC_COMPONENTS;
 using NUnit.Framework;
+using System.Timers;
 
 
 
 namespace BASIC_CONTROL_LOGIC
 {
     [TestFixture]
-    public class unittest_lightstepcontrol 
+    public class unittest_lightstepcontrol
     {
-        const uint NumberOfDevices           = 16;
-        const double TimeNext                = 40;
-        const double LittleDelay             = 20;
-        const uint NumberOfOnOffTests        = 2;
+        const uint NumberOfDevices = 16;
+        const double TimeNext = 40;
+        const double LittleDelay = 20;
+        const uint NumberOfOnOffTests = 2;
         devicestepcontrol StepControl;
-        ITimer timernext =  new Timer_( TimeNext );
+        ITimer timernext = new Timer_(TimeNext);
 
-        void SignalChangeOnOff( )
+        void SignalChangeOnOff()
         {
-            StepControl.WatchForInputValueChange( true );
-            StepControl.WatchForInputValueChange( false );
+            StepControl.WatchForInputValueChange(true);
+            StepControl.WatchForInputValueChange(false);
         }
 
         [Test]
-        public void Test_DeviceValueSwitch( )
+        public void Test_DeviceValueSwitch()
         {
-            StepControl = new devicestepcontrol( NumberOfDevices, timernext );
+            StepControl = new devicestepcontrol(NumberOfDevices, timernext);
 
-            for( uint i = 0; i < NumberOfOnOffTests; i++ )
+            for (uint i = 0; i < NumberOfOnOffTests; i++)
             {
-                SignalChangeOnOff( ); // f.e. emulation of pushing / pulling a button
-                Assert.AreEqual( true, StepControl.Value );
-                SignalChangeOnOff( );
-                Assert.AreEqual( false, StepControl.Value );
-                StepControl.Reset( );
-                Assert.AreEqual( (System.UInt32) 0, StepControl.Number );
+                SignalChangeOnOff(); // f.e. emulation of pushing / pulling a button
+                Assert.AreEqual(true, StepControl.Value);
+                SignalChangeOnOff();
+                Assert.AreEqual(false, StepControl.Value);
+                StepControl.Reset();
+                Assert.AreEqual((System.UInt32)0, StepControl.Number);
             }
         }
 
- 
+
         [Test]
-        public void Test_StartDeviceValueWhenSwitchingToNextElement( )
+        public void Test_StartDeviceValueWhenSwitchingToNextElement()
         {
             Mock<ITimer> MockTimer = new Mock<ITimer>();
-             
-            StepControl = new devicestepcontrol( NumberOfDevices, MockTimer.Object );
+
+            StepControl = new devicestepcontrol(NumberOfDevices, MockTimer.Object);
             StepControl.EStep += StepControl_EStep;
 
-            StepControl.WatchForInputValueChange( true );
-            MockTimer.Raise( timer => timer.Elapsed += null, new System.EventArgs( ) as ElapsedEventArgs );
-            StepControl.WatchForInputValueChange( false );
-            StepControl.Reset( );
+            StepControl.WatchForInputValueChange(true);
+            MockTimer.Raise(timer => timer.Elapsed += null, new System.EventArgs() as ElapsedEventArgs);
+            StepControl.WatchForInputValueChange(false);
+            StepControl.Reset();
         }
         int EventRaisedCounter = 1;
-        private void StepControl_EStep( uint number, bool value )
+        private void StepControl_EStep(uint number, bool value)
         {
-            switch( EventRaisedCounter )
+            switch (EventRaisedCounter)
             {
                 case 1:
-                     Assert.AreEqual( (System.UInt32) 0, StepControl.Number );
-                     Assert.AreEqual( false, StepControl.Value );
-                     break;
+                    Assert.AreEqual((System.UInt32)0, StepControl.Number);
+                    Assert.AreEqual(false, StepControl.Value);
+                    break;
                 case 2:
-                     Assert.AreEqual( (System.UInt32) 1, StepControl.Number );
-                     Assert.AreEqual( false, StepControl.Value );
-                     break;
+                    Assert.AreEqual((System.UInt32)1, StepControl.Number);
+                    Assert.AreEqual(false, StepControl.Value);
+                    break;
             }
             EventRaisedCounter++;
         }
 
         [Test]
-        public void Test_DeviceValueWhenSwitchingToNextElement( )
+        public void Test_DeviceValueWhenSwitchingToNextElement()
         {
             Mock<ITimer> MockTimer = new Mock<ITimer>();
 
-            StepControl = new devicestepcontrol( NumberOfDevices, MockTimer.Object );
+            StepControl = new devicestepcontrol(NumberOfDevices, MockTimer.Object);
             StepControl.EStep += StepControl_EStepMulitple;
 
-            for( uint i = 0; i < NumberOfDevices; i++ )
+            for (uint i = 0; i < NumberOfDevices; i++)
             {
-                StepControl.WatchForInputValueChange( true );
-                MockTimer.Raise( timer => timer.Elapsed += null, new System.EventArgs( ) as ElapsedEventArgs );
-                StepControl.WatchForInputValueChange( false );
+                StepControl.WatchForInputValueChange(true);
+                MockTimer.Raise(timer => timer.Elapsed += null, new System.EventArgs() as ElapsedEventArgs);
+                StepControl.WatchForInputValueChange(false);
             }
-            StepControl.Reset( );
+            StepControl.Reset();
         }
 
         int EventRaisedCounter_multi = 1;
-        private void StepControl_EStepMulitple( uint number, bool value )
+        private void StepControl_EStepMulitple(uint number, bool value)
         {
-            if( ( EventRaisedCounter_multi % 3 ) == 0 )
+            if ((EventRaisedCounter_multi % 3) == 0)
             {
                 return;
             }
 
-            if( (EventRaisedCounter_multi % 2) != 0)
+            if ((EventRaisedCounter_multi % 2) != 0)
             {
-                 Assert.AreEqual( (System.UInt32) EventRaisedCounter_multi - 1, StepControl.Number );
-                 Assert.AreEqual( false, StepControl.Value );
+                Assert.AreEqual((System.UInt32)EventRaisedCounter_multi - 1, StepControl.Number);
+                Assert.AreEqual(false, StepControl.Value);
             }
-            else if( ( EventRaisedCounter_multi % 2 ) == 0 )
+            else if ((EventRaisedCounter_multi % 2) == 0)
             {
-                 Assert.AreEqual( (System.UInt32) EventRaisedCounter_multi - 1, StepControl.Number );
-                 Assert.AreEqual( false, StepControl.Value );
+                Assert.AreEqual((System.UInt32)EventRaisedCounter_multi - 1, StepControl.Number);
+                Assert.AreEqual(false, StepControl.Value);
             }
             EventRaisedCounter_multi++;
         }

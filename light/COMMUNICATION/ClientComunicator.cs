@@ -146,7 +146,7 @@ namespace Communication
                     TCPClient.MessageReceivedFromServer += TCPClient_MessageReceivedFromServer;
                     TCPClient.EndpointDisconnected += TCPClient_EndpointDisconnected;
                 }
-                catch( Exception ex )
+                catch (Exception ex)
                 {
                     Services.TraceMessage( InfoString.FailedToEstablishClient );
                     Console.WriteLine( ex.Data );
@@ -447,10 +447,7 @@ namespace Communication
                                 FeedData.Starttime  = receivedmessageparts[MessageAnalyzer.ExpectedSchedulerCommandIndex.IndStartTime];
                                 //FeedData.Stoptime   = receivedmessageparts[MessageAnalyzer.ExpectedSchedulerCommandIndex.IndStopTime];
                                 FeedData.Days       = receivedmessageparts[MessageAnalyzer.ExpectedSchedulerCommandIndex.IndDays];
-                                if( EFeedScheduler != null )
-                                {
-                                    EFeedScheduler( this, FeedData );
-                                }
+                                EFeedScheduler?.Invoke(this, FeedData);
                             }
                             
                             if( MessageAnalyzer.AnalyzeSchedulerStatusInquiry( receivedmessage ) )

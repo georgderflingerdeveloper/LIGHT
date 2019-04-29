@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<?xml-stylesheet type="text/xsl" href="c:\program files (x86)\microsoft visual studio\2017\community\team tools\static analysis tools\fxcop\Xml\CodeAnalysisReport.xsl"?>
-<FxCopReport Version="15.0">
+<?xml-stylesheet type="text/xsl" href="c:\program files (x86)\microsoft visual studio\2019\preview\team tools\static analysis tools\fxcop\Xml\CodeAnalysisReport.xsl"?>
+<FxCopReport Version="16.0">
  <Targets>
   <Target Name="C:\Projekte\LIGHT\light\bin\Release\light.exe">
    <Modules>
@@ -10,7 +10,7 @@
        <Types>
         <Type Name="Timer_" Kind="Class" Accessibility="Public" ExternallyVisible="True">
          <Messages>
-          <Message TypeName="TypesThatOwnDisposableFieldsShouldBeDisposable" Category="Microsoft.Design" CheckId="CA1001" Status="Active" Created="2018-12-17 13:27:17Z" FixCategory="DependsOnFix">
+          <Message TypeName="TypesThatOwnDisposableFieldsShouldBeDisposable" Category="Microsoft.Design" CheckId="CA1001" Status="Active" Created="2020-04-23 11:30:49Z" FixCategory="DependsOnFix">
            <Issue Name="DependsOnFix" Certainty="95" Level="CriticalError">Implementieren Sie IDisposable für "'Timer_'", weil Member der folgenden IDisposable-Typen instanziiert werden: 'Timer'. Wenn "'Timer_'" bereits veröffentlicht wurde, wird das Hinzufügen von neuen Membern, die IDisposable für diesen Typ implementieren, für vorhandene Benutzer als fehlerhafte Änderung angesehen, die die Lauffähigkeit der Anwendung beeinträchtigt.</Issue>
           </Message>
          </Messages>
@@ -21,14 +21,14 @@
        <Types>
         <Type Name="LightControlTimer_" Kind="Class" Accessibility="Assembly" ExternallyVisible="False">
          <Messages>
-          <Message TypeName="TypesThatOwnDisposableFieldsShouldBeDisposable" Category="Microsoft.Design" CheckId="CA1001" Status="Active" Created="2018-12-17 13:27:17Z" FixCategory="NonBreaking">
+          <Message TypeName="TypesThatOwnDisposableFieldsShouldBeDisposable" Category="Microsoft.Design" CheckId="CA1001" Status="Active" Created="2020-04-23 11:30:49Z" FixCategory="NonBreaking">
            <Issue Name="NonBreaking" Certainty="95" Level="CriticalError">Implementieren Sie IDisposable für "'LightControlTimer_'", weil Member der folgenden IDisposable-Typen instanziiert werden: 'Timer'.</Issue>
           </Message>
          </Messages>
         </Type>
         <Type Name="ToggleButtonController" Kind="Class" Accessibility="Assembly" ExternallyVisible="False">
          <Messages>
-          <Message TypeName="TypesThatOwnDisposableFieldsShouldBeDisposable" Category="Microsoft.Design" CheckId="CA1001" Status="Active" Created="2018-12-17 13:27:17Z" FixCategory="NonBreaking">
+          <Message TypeName="TypesThatOwnDisposableFieldsShouldBeDisposable" Category="Microsoft.Design" CheckId="CA1001" Status="Active" Created="2020-04-23 11:30:49Z" FixCategory="NonBreaking">
            <Issue Name="NonBreaking" Certainty="95" Level="CriticalError">Implementieren Sie IDisposable für "'ToggleButtonController'", weil Member der folgenden IDisposable-Typen instanziiert werden: 'Timer'.</Issue>
           </Message>
          </Messages>
@@ -39,14 +39,14 @@
        <Types>
         <Type Name="HeaterElement_NG" Kind="Class" Accessibility="Assembly" ExternallyVisible="False">
          <Messages>
-          <Message TypeName="TypesThatOwnDisposableFieldsShouldBeDisposable" Category="Microsoft.Design" CheckId="CA1001" Status="Active" Created="2018-12-17 13:27:17Z" FixCategory="NonBreaking">
+          <Message TypeName="TypesThatOwnDisposableFieldsShouldBeDisposable" Category="Microsoft.Design" CheckId="CA1001" Status="Active" Created="2020-04-23 11:30:49Z" FixCategory="NonBreaking">
            <Issue Name="NonBreaking" Certainty="95" Level="CriticalError">Implementieren Sie IDisposable für "'HeaterElement_NG'", weil Member der folgenden IDisposable-Typen instanziiert werden: 'Timer'.</Issue>
           </Message>
          </Messages>
         </Type>
         <Type Name="LightControl_NG" Kind="Class" Accessibility="Assembly" ExternallyVisible="False">
          <Messages>
-          <Message TypeName="TypesThatOwnDisposableFieldsShouldBeDisposable" Category="Microsoft.Design" CheckId="CA1001" Status="Active" Created="2018-12-17 13:27:17Z" FixCategory="NonBreaking">
+          <Message TypeName="TypesThatOwnDisposableFieldsShouldBeDisposable" Category="Microsoft.Design" CheckId="CA1001" Status="Active" Created="2020-04-23 11:30:49Z" FixCategory="NonBreaking">
            <Issue Name="NonBreaking" Certainty="95" Level="CriticalError">Implementieren Sie IDisposable für "'LightControl_NG'", weil Member der folgenden IDisposable-Typen instanziiert werden: 'Timer'.</Issue>
           </Message>
          </Messages>
@@ -57,7 +57,7 @@
        <Types>
         <Type Name="Livingroom_east" Kind="Class" Accessibility="Assembly" ExternallyVisible="False">
          <Messages>
-          <Message TypeName="TypesThatOwnDisposableFieldsShouldBeDisposable" Category="Microsoft.Design" CheckId="CA1001" Status="Active" Created="2018-12-17 13:27:17Z" FixCategory="NonBreaking">
+          <Message TypeName="TypesThatOwnDisposableFieldsShouldBeDisposable" Category="Microsoft.Design" CheckId="CA1001" Status="Active" Created="2020-04-23 11:30:49Z" FixCategory="NonBreaking">
            <Issue Name="NonBreaking" Certainty="95" Level="CriticalError">Implementieren Sie IDisposable für "'Livingroom_east'", weil Member der folgenden IDisposable-Typen instanziiert werden: 'Timer'.</Issue>
           </Message>
          </Messages>
@@ -79,7 +79,7 @@
    <Url>http://msdn.microsoft.com/library/ms182172.aspx</Url>
    <Email>[none]</Email>
    <MessageLevel Certainty="95">CriticalError</MessageLevel>
-   <File Name="designrules.dll" Version="15.0.0.0" />
+   <File Name="designrules.dll" Version="16.0.0.0" />
   </Rule>
  </Rules>
  <Localized>

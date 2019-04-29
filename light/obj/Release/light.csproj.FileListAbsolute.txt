@@ -164,3 +164,10 @@ C:\PROJECT\LIGHT\light\bin\Release\HomeAutomationProtocoll.dll
 C:\PROJECT\LIGHT\light\bin\Release\HomeAutomationProtocoll.pdb
 C:\PROJECT\LIGHT\light\obj\Release\light.csprojAssemblyReference.cache
 C:\Projekte\LIGHT\light\obj\Release\light.csprojAssemblyReference.cache
+C:\Projekte\LIGHT\light\bin\Release\System.Runtime.CompilerServices.Unsafe.dll
+C:\Projekte\LIGHT\light\bin\Release\System.Threading.Tasks.Extensions.dll
+C:\Projekte\LIGHT\light\bin\Release\CommonController.dll
+C:\Projekte\LIGHT\light\bin\Release\nunit.framework.pdb
+C:\Projekte\LIGHT\light\bin\Release\System.Runtime.CompilerServices.Unsafe.xml
+C:\Projekte\LIGHT\light\bin\Release\System.Threading.Tasks.Extensions.xml
+C:\Projekte\LIGHT\light\bin\Release\CommonController.pdb
