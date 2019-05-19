@@ -218,3 +218,6 @@ C:\PROJECT\LIGHT\light\obj\Debug\light.csproj.CoreCompileInputs.cache
 C:\PROJECT\LIGHT\light\obj\Debug\light.csproj.CopyComplete
 C:\PROJECT\LIGHT\light\obj\Debug\light.exe
 C:\PROJECT\LIGHT\light\obj\Debug\light.pdb
+C:\PROJECT\LIGHT\light\bin\Debug\CommonController.dll
+C:\PROJECT\LIGHT\light\bin\Debug\CommonController.pdb
+C:\PROJECT\LIGHT\light\obj\Debug\light.csprojAssemblyReference.cache

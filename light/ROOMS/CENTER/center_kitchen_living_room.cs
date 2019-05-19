@@ -758,6 +758,15 @@ namespace HomeAutomation
                     case ComandoString.TURN_HEATER_BODY_WEST_OFF:
                         outputs[KitchenLivingRoomIOAssignment.indDigitalOutputHeaterWest] = false;
                         break;
+
+                    case ComandoString.TURN_HEATER_ANTE_ROOM_ON:
+                        outputs[AnteRoomIODeviceIndices.indDigitalOutputAnteRoomHeater] = true;
+                        break;
+
+                    case ComandoString.TURN_HEATER_ANTE_ROOM_OFF:
+                        outputs[AnteRoomIODeviceIndices.indDigitalOutputAnteRoomHeater] = false;
+                        break;
+
                 }
                 Console.WriteLine( TimeUtil.GetTimestamp_( ) + " Received telegramm: " + DatagrammSplitted[0] + " from " + e.Adress + " : " + e.Port );
                 return;
