@@ -161,6 +161,7 @@
     <Compile Include="HA_COMPONENTS\CentralControlledElement_NG.cs" />
     <Compile Include="HA_COMPONENTS\HeaterElementAnalog.cs" />
     <Compile Include="HA_COMPONENTS\HeaterElement_NG.cs" />
+    <Compile Include="HA_COMPONENTS\INTERFACES\ICentralControlledElements.cs" />
     <Compile Include="HA_COMPONENTS\LightControlKitchen_NG.cs" />
     <Compile Include="HA_COMPONENTS\LightControlOutside.cs" />
     <Compile Include="HA_SERVICES\schedulerhelpers.cs" />

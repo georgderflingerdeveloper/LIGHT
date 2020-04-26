@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using BASIC_CONTROL_LOGIC;
 using HomeAutomation.HardConfig_Collected;
+using Communication.HA_COMPONENTS.INTERFACES;
 
 namespace HA_COMPONENTS
 {
     // _NG - next generation - business logic is seperated from IO Operation
     // IO handling is now treated within a seperate EVENT
-    class CentralControlledElements_NG : LightControlTimer_
+    class CentralControlledElements_NG : LightControlTimer_, ICentralControlledElements
     {
         #region DECLARATIONS
         int            _startindex;
@@ -16,8 +17,7 @@ namespace HA_COMPONENTS
         bool[]         _ShowStateDigitalOutput   = new bool[GeneralConstants.NumberOfOutputsIOCard];         // fill state from outside
 
         List<int> Match_ = new List<int>();
-        public delegate void UpdateOutputs_( object sender, bool[] _DigOut, List<int> match );
-        public event         UpdateOutputs_ EUpdateOutputs_;
+        public event         UpdateOutputs EUpdateOutputs;
 
         #endregion
 
@@ -83,9 +83,9 @@ namespace HA_COMPONENTS
                 if( _deviceindex < GeneralConstants.NumberOfOutputsIOCard && _deviceindex >= 0 )
                 {
                     _ShowStateDigitalOutput[_deviceindex] = true;
-                    if( EUpdateOutputs_ != null )
+                    if( EUpdateOutputs != null )
                     {
-                        EUpdateOutputs_( this, _ShowStateDigitalOutput, Match_ );
+                        EUpdateOutputs( this, _ShowStateDigitalOutput, Match_ );
                     }
                 }
             }
@@ -102,7 +102,7 @@ namespace HA_COMPONENTS
             {
                 _ShowStateDigitalOutput[ind] = false;
             }
-            EUpdateOutputs_?.Invoke( this, _ShowStateDigitalOutput, Match_ );
+            EUpdateOutputs?.Invoke( this, _ShowStateDigitalOutput, Match_ );
         }
 
         void CentralControlledElements_AllOn_( object sender )
@@ -113,7 +113,7 @@ namespace HA_COMPONENTS
             {
                 _ShowStateDigitalOutput[ind] = true;
             }
-            EUpdateOutputs_?.Invoke( this, _ShowStateDigitalOutput, Match_ );
+            EUpdateOutputs?.Invoke( this, _ShowStateDigitalOutput, Match_ );
         }
         #endregion
 

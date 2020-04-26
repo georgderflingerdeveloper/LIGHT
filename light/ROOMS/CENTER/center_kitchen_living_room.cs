@@ -55,7 +55,7 @@ namespace HomeAutomation
         public delegate void UpdateMatchedOutputs( object sender, bool[] _DigOut );
         public event UpdateMatchedOutputs EUpdateMatchedOutputs;
 
-        public event DigitalInputChanged EDigitalInputChanged;
+        public event DigitalInputChanged DigitalInputChanged;
         public event DigitalOutputChanged EDigitalOutputChanged;
 
         DigitalInputEventargs _DigitalInputEventargs = new DigitalInputEventargs( );
@@ -69,9 +69,9 @@ namespace HomeAutomation
             Kitchen.EUpdateOutputs_ += EShowUpdatedOutputs;
             HeatersLivingRoom.EUpdateOutputs_ += EShowUpdatedOutputs;
             HeaterAnteRoom.EUpdateOutputs_ += EShowUpdatedOutputs;
-            CirculationPump.EUpdateOutputs_ += EShowUpdatedOutputs;
+            CirculationPump.EUpdateOutputs += EShowUpdatedOutputs;
             Outside.EUpdateOutputs += EShowUpdatedOutputs;
-            FanWashRoom.EUpdateOutputs_ += EShowUpdatedOutputs;
+            FanWashRoom.EUpdateOutputs += EShowUpdatedOutputs;
         }
 
         #region CONSTRUCTOR
@@ -764,7 +764,7 @@ namespace HomeAutomation
             _DigitalInputEventargs.Index = e.Index;
             _DigitalInputEventargs.Value = e.Value;
             _DigitalInputEventargs.SerialNumber = base.SerialNumber;
-            EDigitalInputChanged?.Invoke( sender, _DigitalInputEventargs );
+            DigitalInputChanged?.Invoke( sender, _DigitalInputEventargs );
         }
 
         protected override void BuildingSection_OutputChange( object sender, OutputChangeEventArgs e )

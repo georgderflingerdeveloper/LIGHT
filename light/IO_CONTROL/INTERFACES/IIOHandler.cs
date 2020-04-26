@@ -13,7 +13,7 @@ namespace HomeControl.BASIC_COMPONENTS.Interfaces
 
 	public interface IIOHandlerInfo
 	{
-		event DigitalInputChanged  EDigitalInputChanged;
+		event DigitalInputChanged  DigitalInputChanged;
 		event DigitalOutputChanged EDigitalOutputChanged;
 	}
 }

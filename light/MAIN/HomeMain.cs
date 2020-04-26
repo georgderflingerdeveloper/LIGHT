@@ -94,7 +94,7 @@ namespace HomeAutomation
                         i++;
                     }
                 }
-				catch( Exception ex )
+                catch (Exception ex)
                 {
 					Services.TraceMessage_( ex.Message.ToString() );
                     Console.WriteLine( TimeUtil.GetTimestamp() + Seperators.WhiteSpace + InfoString.InfoNoConfiguredPhidgetIDused );
@@ -170,7 +170,7 @@ namespace HomeAutomation
                        );  
                        if ( MyHomeKitchenLivingRoom.Attached )
                        {
-						    MyHomeKitchenLivingRoom.EDigitalInputChanged  += RoomsIoHandling_EDigitalInputChanged;
+						    MyHomeKitchenLivingRoom.DigitalInputChanged  += RoomsIoHandling_EDigitalInputChanged;
 						    MyHomeKitchenLivingRoom.EDigitalOutputChanged += RoomIoHandling_EDigitalOutputChanged;
                             MyHomeKitchenLivingRoom.ActivateDeviceControl( );
 						    WaitUntilKeyPressed();
