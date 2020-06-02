@@ -30,12 +30,12 @@ namespace HomeAutomation
     class Center_kitchen_living_room_NG : CommonRoom, IIOHandlerInfo, ICenter
     {
         #region DECLARATION
-        LightControlKitchen_NG Kitchen;
-        LightControl_NG Outside;
-        HeaterElement_NG HeatersLivingRoom;
-        HeaterElement_NG HeaterAnteRoom;
+        LightControlKitchen_NG       Kitchen;
+        LightControl_NG              Outside;
+        HeaterElement_NG             HeaterAnteRoom;
         CentralControlledElements_NG FanWashRoom;
         CentralControlledElements_NG CirculationPump;
+        CentralControlledElements_NG PowerPlugs230VWest;
         Home_scheduler scheduler;
         SchedulerDataRecovery schedRecover;
         FeedData PrevSchedulerData = new FeedData( );
@@ -55,7 +55,7 @@ namespace HomeAutomation
         public delegate void UpdateMatchedOutputs( object sender, bool[] _DigOut );
         public event UpdateMatchedOutputs EUpdateMatchedOutputs;
 
-        public event DigitalInputChanged DigitalInputChanged;
+        public event DigitalInputChanged  DigitalInputChanged;
         public event DigitalOutputChanged EDigitalOutputChanged;
 
         DigitalInputEventargs _DigitalInputEventargs = new DigitalInputEventargs( );
@@ -66,12 +66,12 @@ namespace HomeAutomation
         // more objects share the same eventhandler in this case
         void CommonUsedEventHandlers()
         {
-            Kitchen.EUpdateOutputs_ += EShowUpdatedOutputs;
-            HeatersLivingRoom.EUpdateOutputs_ += EShowUpdatedOutputs;
-            HeaterAnteRoom.EUpdateOutputs_ += EShowUpdatedOutputs;
-            CirculationPump.EUpdateOutputs += EShowUpdatedOutputs;
-            Outside.EUpdateOutputs += EShowUpdatedOutputs;
-            FanWashRoom.EUpdateOutputs += EShowUpdatedOutputs;
+            Kitchen.EUpdateOutputs_           += EShowUpdatedOutputs;
+            HeaterAnteRoom.EUpdateOutputs_    += EShowUpdatedOutputs;
+            CirculationPump.EUpdateOutputs    += EShowUpdatedOutputs;
+            Outside.EUpdateOutputs            += EShowUpdatedOutputs;
+            FanWashRoom.EUpdateOutputs        += EShowUpdatedOutputs;
+            PowerPlugs230VWest.EUpdateOutputs += EShowUpdatedOutputs;
         }
 
         #region CONSTRUCTOR
@@ -104,20 +104,6 @@ namespace HomeAutomation
 
             Kitchen.IsPrimaryIOCardAttached = _PrimaryIOCardIsAttached;
 
-            HeatersLivingRoom = new HeaterElement_NG(
-                                         ParametersHeaterControl.TimeDemandForHeatersOnOff,
-                                         ParametersHeaterControl.TimeDemandForHeatersAutomaticOffDisable,
-                                         ParametersHeaterControlLivingRoom.TimeDemandForHeatersOnMiddle,
-                                         ParametersHeaterControlLivingRoom.TimeDemandForHeatersOffMiddle,
-                                         KitchenLivingRoomIOAssignment.indDigitalOutputHeaterEast,
-                                         KitchenLivingRoomIOAssignment.indDigitalOutputHeaterWest )
-            {
-                Match = new List<int>
-                                         {
-                                             KitchenLivingRoomIOAssignment.indDigitalOutputHeaterEast,
-                                             KitchenLivingRoomIOAssignment.indDigitalOutputHeaterWest
-                                         }
-            };
 
             HeaterAnteRoom = new HeaterElement_NG(
                                          ParametersHeaterControl.TimeDemandForHeatersOnOff,
@@ -145,8 +131,15 @@ namespace HomeAutomation
                 Match = new List<int> { WaterHeatingSystemIODeviceIndices.indDigitalOutputWarmWaterCirculationPump }
             };
 
+            PowerPlugs230VWest = new CentralControlledElements_NG(
+                             ParametersPower.TimeDemandForPowerPlug230V,
+                             KitchenLivingRoomIOAssignment.indDigitalOutputPowerPlugsWest230V)
+            {
+                Match = new List<int> { KitchenLivingRoomIOAssignment.indDigitalOutputPowerPlugsWest230V }
+            };
 
-           Kitchen.EReset += Kitchen_EReset;
+
+            Kitchen.EReset += Kitchen_EReset;
 
             #region REGISTRATION_ONE_COMMON_EVENT_HANDLER
             CommonUsedEventHandlers( );
@@ -242,27 +235,6 @@ namespace HomeAutomation
                 {
                     outputs[CenterLivingRoomIODeviceIndices.indDigitalOutputBoiler] = GeneralConstants.OFF;
                     Console.WriteLine( TimeUtil.GetTimestamp( ) + CenterKitchenDeviceNames.Boiler + " = OFF"  );
-                }
-
-                if (_livingroomconfig.HeatersLivingRoomAutomatic == "ON")
-                {
-                    if (device.Contains( "HeatersEastAndWestOn" ) || device.Contains( "HeatersEastAndWestAfternoonOn" ))
-                    {
-                        HeatersLivingRoom.Reset( );
-                        outputs[KitchenLivingRoomIOAssignment.indDigitalOutputHeaterEast] = true;
-                        outputs[KitchenLivingRoomIOAssignment.indDigitalOutputHeaterWest] = true;
-                        Console.WriteLine( TimeUtil.GetTimestamp( ) + CenterKitchenDeviceNames.HeaterEast + " = ON" );
-                        Console.WriteLine( TimeUtil.GetTimestamp( ) + CenterKitchenDeviceNames.HeaterWest + " = ON" );
-                    }
-
-                    if (device.Contains( "HeatersEastAndWestOff" ) || device.Contains( "HeatersEastAndWestAfternoonOff" ))
-                    {
-                        HeatersLivingRoom.Reset( );
-                        outputs[KitchenLivingRoomIOAssignment.indDigitalOutputHeaterEast] = false;
-                        outputs[KitchenLivingRoomIOAssignment.indDigitalOutputHeaterWest] = false;
-                        Console.WriteLine( TimeUtil.GetTimestamp( ) + CenterKitchenDeviceNames.HeaterEast + " = OFF" );
-                        Console.WriteLine( TimeUtil.GetTimestamp( ) + CenterKitchenDeviceNames.HeaterWest + " = OFF" );
-                    }
                 }
             }
         }
@@ -384,7 +356,6 @@ namespace HomeAutomation
         #region CONTROLLOGIC
         void Kitchen_EReset( object sender )
         {
-            HeatersLivingRoom.Reset( );
             HeaterAnteRoom.Reset( );
         }
 
@@ -532,7 +503,7 @@ namespace HomeAutomation
 
         void TurnHeaterBodyEast( bool command )
         {
-            outputs[KitchenLivingRoomIOAssignment.indDigitalOutputHeaterEast] = command;
+            outputs[KitchenLivingRoomIOAssignment.indDigitalOutputPowerPlugsWest230V] = command;
         }
 
         void TurnHeaterBodyWest( bool command )
@@ -691,11 +662,11 @@ namespace HomeAutomation
                         break;
 
                     case ComandoString.TURN_HEATER_BODY_EAST_ON:
-                        outputs[KitchenLivingRoomIOAssignment.indDigitalOutputHeaterEast] = true;
+                        outputs[KitchenLivingRoomIOAssignment.indDigitalOutputPowerPlugsWest230V] = true;
                         break;
 
                     case ComandoString.TURN_HEATER_BODY_EAST_OFF:
-                        outputs[KitchenLivingRoomIOAssignment.indDigitalOutputHeaterEast] = false;
+                        outputs[KitchenLivingRoomIOAssignment.indDigitalOutputPowerPlugsWest230V] = false;
                         break;
 
                     case ComandoString.TURN_HEATER_BODY_WEST_ON:
@@ -761,6 +732,16 @@ namespace HomeAutomation
                     _PowerMeter?.Tick( );
                 }
             }
+
+            switch( e.Index )
+            {
+                case KitchenIOAssignment.indKitchenMainButton:
+                case KitchenIOAssignment.indKitchenPresenceDetector:
+                    PowerPlugs230VWest?.DelayedDeviceOnRisingEdge(e.Value);
+                    break;
+            }
+
+   
             _DigitalInputEventargs.Index = e.Index;
             _DigitalInputEventargs.Value = e.Value;
             _DigitalInputEventargs.SerialNumber = base.SerialNumber;

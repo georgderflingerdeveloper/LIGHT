@@ -140,10 +140,9 @@ namespace HomeAutomation
     {
         #region DECLARATIONES
         LightControlSleepingRoom_NG LightSleepingRoom;
- //       HeaterElement_NG        HeaterSleepingRoom;
+        HeaterElement_NG        HeaterSleepingRoom;
         UdpSend                 UdpSend_;
-        bool                    _Test;
-        bool[]                  _StateDigOut = new bool[GeneralConstants.NumberOfOutputsIOCard];
+        UdpReceive              Receive;
         #endregion
 
         #region CONSTRUCTOR
@@ -160,27 +159,19 @@ namespace HomeAutomation
                                                                      SleepingIOLightIndices.indSleepingRoomLastLight
                                                                    );
 
-                LightSleepingRoom.Match = new List<int> {  SleepingIOLightIndices.indSleepingRoomFirstLight,
-                                                           SleepingIOLightIndices.indSleepingRoomSecondLight,  
-                                                           SleepingIOLightIndices.indSleepingRoomThirdLight,
-                                                           SleepingIOLightIndices.indSleepingRoomFourthLight,
-                                                           SleepingIOLightIndices.indSleepingRoomLastLight,
-                                                           CommonRoomIOAssignment.indOutputIsAlive
-                                                        };
+ 
 
 
+                HeaterSleepingRoom = new HeaterElement_NG(ParametersHeaterControl.TimeDemandForHeatersOnOff,
+                                                           ParametersHeaterControlSleepingRoom.TimeDemandForHeatersAutomaticOff,
+                                                           ParametersHeaterControl.TimeDemandForHeatersOffSleepingRoomSmall,
+                                                           ParametersHeaterControl.TimeDemandForHeatersOnSleepingRoomBig,
+                                                           SleepingRoomIODeviceIndices.indDigitalOutputHeater,
+                                                           SleepingRoomIODeviceIndices.indDigitalOutputHeater);
 
-                //HeaterSleepingRoom = new HeaterElement_NG( ParametersHeaterControl.TimeDemandForHeatersOnOff,
-                //                                           ParametersHeaterControlSleepingRoom.TimeDemandForHeatersAutomaticOff,
-                //                                           ParametersHeaterControl.TimeDemandForHeatersOffSleepingRoomSmall,
-                //                                           ParametersHeaterControl.TimeDemandForHeatersOnSleepingRoomBig,
-                //                                           SleepingRoomIODeviceIndices.indDigitalOutputHeater,
-                //                                           SleepingRoomIODeviceIndices.indDigitalOutputHeater );
-
-                //HeaterSleepingRoom.Match = new List<int> { SleepingRoomIODeviceIndices.indDigitalOutputHeater };
-
-                LightSleepingRoom.EUpdateOutputs += EUpdateOutputs;
-                //HeaterSleepingRoom.EUpdateOutputs_ += EUpdateOutputs;
+ 
+                LightSleepingRoom.EUpdateOutputs   += EUpdateOutputs;
+                HeaterSleepingRoom.EUpdateOutputs_ += EUpdateOutputs;
 
 
                 LightSleepingRoom.IsPrimaryIOCardAttached = base.Attached;
@@ -195,35 +186,25 @@ namespace HomeAutomation
                     LightSleepingRoom.StopAliveSignal( );
                 }
             }
+            Receive = new UdpReceive(IPConfiguration.Port.PORT_UDP_SLEEPINGROOM);
+            Receive.EDataReceived += Received;
+        }
+
+        private void Received(string e)
+        {
+            throw new NotImplementedException();
         }
         #endregion
 
-        #region PROPERTIES
-        public bool [ ] StateDigOut
-        {
-            get
-            {
-                return _StateDigOut;
-            }
-        }
-        #endregion
 
         private void EUpdateOutputs( object sender, bool[] _DigOut, List<int> match )
         {
             for( int i = 0; i < _DigOut.Length; i++ )
             {
-                if( match.Contains( i ) ) // only matching index within the defined list are written into the array
-                {
-                    _StateDigOut [i] = _DigOut [i];
-                    if( !_Test )
-                    {
-                        if( base.Attached )
-                        {
-                            // DIGITAL OUTPUT MAPPING
-                            base.outputs [i] = _DigOut [i]; // only one location where "real" output is written!
-                        }
-                    }
-                }
+                 if( base.Attached )
+                 {
+                     base.outputs [i] = _DigOut [i]; 
+                 }
             }
         }
 

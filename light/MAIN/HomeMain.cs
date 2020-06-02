@@ -155,6 +155,7 @@ namespace HomeAutomation
                                 break;
                             }
                         }
+                        WaitUntilKeyPressed();
                         break;
 
                    case InfoOperationMode.CENTER_KITCHEN_AND_LIVING_ROOM:

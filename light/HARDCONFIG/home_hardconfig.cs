@@ -16,7 +16,7 @@ namespace HomeAutomation
                 {HardwareDevices.PumpCirculation,                                WaterHeatingSystemIODeviceIndices.indDigitalOutputWarmWaterCirculationPump                 },
                 {HardwareDevices.PumpWarmwater,                                  CenterLivingRoomIODeviceIndices.indDigitalOutputPumpHeatingSystem                          },
                 {HardwareDevices.HeaterAnteRoom,                                 AnteRoomIODeviceIndices.indDigitalOutputAnteRoomHeater                                     },
-                {HardwareDevices.HeaterLivingRoomEast,                           KitchenLivingRoomIOAssignment.indDigitalOutputHeaterEast                                               },
+                {HardwareDevices.HeaterLivingRoomEast,                           KitchenLivingRoomIOAssignment.indDigitalOutputPowerPlugsWest230V                                               },
                 {HardwareDevices.HeaterLivingRoomWest,                           KitchenLivingRoomIOAssignment.indDigitalOutputHeaterWest                                                },
                 {HardwareDevices.HeaterBathRoom,                                 BathRoomIODeviceIndices.indDigitalOutputBathRoomHeater                                     },
                 {HardwareDevices.HeaterSleepingRoom,                             SleepingRoomIODeviceIndices.indDigitalOutputHeater                                         },
@@ -723,7 +723,7 @@ namespace HomeAutomation
                 { indDigitalOutputWindowBoardEastDown,                                        CenterKitchenDeviceNames.KitchenCabinet     },
                 { CenterLivingRoomIODeviceIndices.indDigitalOutputBoiler,                     CenterKitchenDeviceNames.Boiler             },
                 { WaterHeatingSystemIODeviceIndices.indDigitalOutputWarmWaterCirculationPump, CenterKitchenDeviceNames.CirculationPump    },
-                { KitchenLivingRoomIOAssignment.indDigitalOutputHeaterEast,                   CenterKitchenDeviceNames.HeaterEast         },
+                { KitchenLivingRoomIOAssignment.indDigitalOutputPowerPlugsWest230V,                   CenterKitchenDeviceNames.HeaterEast         },
                 { KitchenLivingRoomIOAssignment.indDigitalOutputHeaterWest,                   CenterKitchenDeviceNames.HeaterWest         },
                 { WashRoomIODeviceIndices.indDigitalOutputWashRoomFan,                        CenterKitchenDeviceNames.FanWashRoom        },
                 { CenterOutsideIODevices.indDigitalOutputLightsOutside,                       CenterOutsideDeviceNames.LightRightSide     }
@@ -741,7 +741,7 @@ namespace HomeAutomation
 
         static class KitchenLivingRoomIOAssignment
         {
-            public const int indDigitalOutputHeaterEast = 13;
+            public const int indDigitalOutputPowerPlugsWest230V = 13;
             public const int indDigitalOutputHeaterWest = 14;
         }
 
@@ -761,6 +761,10 @@ namespace HomeAutomation
         {
             static readonly public double TimeDemandForWarmCirculationPumpAutomaticOff = TimeConverter.ToMiliseconds( 5, 0 );
         }
+
+        static class ParametersPower
+        {
+            static readonly public double TimeDemandForPowerPlug230V = TimeConverter.ToMiliseconds(20, 0);       }
 
         static class WaterHeatingSystemIODeviceIndices
         {
