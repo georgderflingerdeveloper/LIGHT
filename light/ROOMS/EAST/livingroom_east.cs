@@ -59,8 +59,6 @@ namespace HomeAutomation
         UdpSend                               UDPSendData;
         Timer                                 TurnOffTimer;
 
-        BasicClientComumnicator BasicClientCommunicator_;
-
         public event DigitalInputChanged  EDigitalInputChanged;
 
         DigitalInputEventargs  _DigitalInputEventargs  = new DigitalInputEventargs( );
@@ -84,13 +82,11 @@ namespace HomeAutomation
         #endregion
 
         #region CONSTRUCTOR
-        public Livingroom_east( int[] SerialNumbers, string IpAdressServer, string PortServer, string softwareversion ) 
+        public Livingroom_east( int[] SerialNumbers ) 
         {
             _SerialNumbers    = SerialNumbers;
             _GivenClientName  = InfoOperationMode.LIVING_ROOM_EAST;
-            _IpAdressServer   = IpAdressServer;
-            _PortNumberServer = Convert.ToInt16( PortServer );
-
+     
             TurnOffTimer = new Timer( ParametersLightControl.TimeDemandForSingleOffEastSide );
             TurnOffTimer.Elapsed += TurnOffTimer_Elapsed;
 
@@ -153,38 +149,18 @@ namespace HomeAutomation
                 try
                 {
                     UDPReceive_ = new UdpReceive( IPConfiguration.Port.PORT_UDP_LIVINGROOM_WEST );
-                    UDPReceive_.EDataReceived += UDPReceive__EDataReceived;
+                    UDPReceive_.EDataReceived += SignalsReceived;
                     UDPReceiveFromGui_ =  new UdpReceive( IPConfiguration.Port.PORT_UDP_WEB_FORWARDER_CENTER );
-                    UDPReceiveFromGui_.EDataReceived += UDPReceiveFromGui__EDataReceived;
+                    UDPReceiveFromGui_.EDataReceived += CommandosReceived;
                     UDPSendData = new UdpSend( IPConfiguration.Address.IP_ADRESS_BROADCAST, IPConfiguration.Port.PORT_LIGHT_CONTROL_LIVING_ROOM_EAST );
                 }
-                catch( Exception ex )
+                catch (Exception ex)
                 {
                     Services.TraceMessage_( "Failed to establish UDP communication " + ex.Message + " " + ex.Source );
                     LightControlMulti[IOCardID.ID_1].StopAliveSignal( );
                 }
             }
-            try
-            {
-                BasicClientCommunicator_ = new BasicClientComumnicator( _GivenClientName, _IpAdressServer, PortServer, softwareversion );
-            }
-            catch
-            {
-                if( LightControlMulti != null )
-                {
-                    LightControlMulti[IOCardID.ID_1].StopAliveSignal();
-                }
-            }
-            if( BasicClientCommunicator_ != null )
-            {
-                BasicClientCommunicator_.Room = _GivenClientName;
-                if( LightControlMulti != null )
-                {
-                    BasicClientCommunicator_.Primer1IsAttached = BuildingMultiCard[IOCardID.ID_1].Attached;
-                }
-                BasicClientCommunicator_.EHACommando += BasicClientCommunicator__EHACommando;
-            }
-        }
+          }
         #endregion
 
         #region IPCONFIGURATION
@@ -243,7 +219,7 @@ namespace HomeAutomation
         #endregion
 
         #region UDP_RECEIVE_DATA
-        private void UDPReceiveFromGui__EDataReceived(string e)
+        private void CommandosReceived(string e)
         {
             string[] DatagrammSplitted = e.Split( ComandoString.Telegram.Seperator );
 
@@ -440,7 +416,7 @@ namespace HomeAutomation
             }
         }
 
-        void UDPReceive__EDataReceived( string e )
+        void SignalsReceived( string e )
         {
             string[] DatagrammSplitted = e.Split( ComandoString.Telegram.Seperator );
 
@@ -481,26 +457,7 @@ namespace HomeAutomation
         #endregion
 
         #region EVENT_HANDLERS
-        void BasicClientCommunicator__EHACommando( object sender, string section, string commando )
-        {
-            if( LightControlMulti == null )
-            {
-                return;
-            }
-
-            switch( section )
-            {
-                case Section.GalleryFloor:
-                     LightControlMulti[IOCardID.ID_2].TurnLightsGalleryFloor( commando );
-                     break;
-
-                case Section.GalleryCeiling:
-                     break;
-
-                default:
-                     break;
-            }
-        }
+ 
 
         void Livingroom_east_InputChange( object sender, InputChangeEventArgs e )
         {
@@ -529,6 +486,14 @@ namespace HomeAutomation
                    case EastSideIOAssignment.indDigitalInput_PresenceDetector:
                         LightControlMulti[IOCardID.ID_1]?.AutomaticOff( e );
                         LightControlMulti[IOCardID.ID_2]?.AutomaticOff( e );
+                        if (e.Value)
+                        {
+                            UDPSendData.SendStringSync(ComandoString.PRESENCE_DETECTOR_EAST_1_ON);
+                        }
+                        else
+                        {
+                            UDPSendData.SendStringSync(ComandoString.PRESENCE_DETECTOR_EAST_1_OFF);
+                        }
                         break;
 
                    case EastSideIOAssignment.indDigitalInput_DoorContactMainRight:
@@ -555,7 +520,7 @@ namespace HomeAutomation
         {
             LightControlMulti[IOCardID.ID_1]?.TurnSingleLight( EastSideIOAssignment.indDoorEntry_Window_Right, false );
             TurnOffTimer?.Stop( );
-            UDPSendData.SendStringSync( ComandoString.TURN_LIGHT_OUTSIDE_BY_OPEN_DOOR_CONTACT_OFF );
+            UDPSendData.SendStringSync(ComandoString.TURN_LIGHT_OUTSIDE_BY_OPEN_DOOR_CONTACT_OFF);
         }
 
         #endregion
@@ -564,7 +529,7 @@ namespace HomeAutomation
 
         public void AllCardsOutputsOff( )
         {
-            for( int i = 0; i < _SerialNumbers.Length; i++ )
+            for( int i = 0; i < _SerialNumbers?.Length; i++ )
             {
                 for( int j = 0; j < BuildingMultiCard[i]?.outputs.Count; j++ )
                 {

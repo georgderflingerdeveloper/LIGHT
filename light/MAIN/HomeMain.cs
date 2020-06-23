@@ -200,7 +200,7 @@ namespace HomeAutomation
                         break;
 
                    case InfoOperationMode.LIVING_ROOM_EAST:
-                        MyHomeLivingRoomEast = new Livingroom_east( PhidgetSerialNumbers, serveripadress, serverPort, CompleteVersion )
+                        MyHomeLivingRoomEast = new Livingroom_east( PhidgetSerialNumbers )
                         {
                            SoftwareVersion = CompleteVersion
                         };
