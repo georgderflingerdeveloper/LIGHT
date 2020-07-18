@@ -51,6 +51,7 @@ namespace HomeAutomation
         int _PortNumberServer;
         bool RemoteControlLightOutsideActivated;
         bool InhibitLightControlViaMainButton;
+        bool AutoControlPowerPlug;
 
         public delegate void UpdateMatchedOutputs( object sender, bool[] _DigOut );
         public event UpdateMatchedOutputs EUpdateMatchedOutputs;
@@ -77,6 +78,7 @@ namespace HomeAutomation
         #region CONSTRUCTOR
         void Constructor( LivingRoomConfig livingroomconfig )
         {
+            AutoControlPowerPlug = true;
             _livingroomconfig = livingroomconfig;
             _GivenClientName = InfoOperationMode.CENTER_KITCHEN_AND_LIVING_ROOM;
             _IpAdressServer = livingroomconfig.IpAdressServer;
@@ -441,10 +443,10 @@ namespace HomeAutomation
 
         void ControlCirculationPump( InputChangeEventArgs e )
         {
-            ControlCirculationPump( e.Index, e.Value );
+            TimedDevice( e.Index, e.Value );
         }
 
-        void ControlCirculationPump( int index, bool Value )
+        void TimedDevice( int index, bool Value )
         {
             // Warmwater Circulation pump ( for shower, pipe and bathroom )control
             switch (index) // the index is the assigned input number
@@ -465,7 +467,7 @@ namespace HomeAutomation
  
             TurnNextDevice( index, Value );
 
-            ControlCirculationPump( index, Value );
+            TimedDevice( index, Value );
 
             TurnFan( index, Value );
 
@@ -676,6 +678,24 @@ namespace HomeAutomation
                     case ComandoString.TURN_HEATER_BODY_WEST_OFF:
                         outputs[KitchenLivingRoomIOAssignment.indDigitalOutputHeaterWest] = false;
                         break;
+
+                    case ComandoString.POWER_PLUG_INFRA_RED_ON:
+                        AutoControlPowerPlug = false;
+                        outputs[KitchenLivingRoomIOAssignment.indDigitalOutputPowerPlugsWest230V] = true;
+                        break;
+
+                    case ComandoString.POWER_PLUG_INFRA_RED_OFF:
+                        AutoControlPowerPlug = true;
+                        outputs[KitchenLivingRoomIOAssignment.indDigitalOutputPowerPlugsWest230V] = false;
+                        break;
+
+                    case ComandoString.PRESENCE_DETECTOR_EAST_1_ON:
+                    case ComandoString.PRESENCE_DETECTOR_WEST_ON:
+                        if (AutoControlPowerPlug)
+                        {
+                            PowerPlugs230VWest?.DelayedDeviceOnRisingEdge(true);
+                        }
+                        break;
                 }
                 Console.WriteLine( TimeUtil.GetTimestamp_( ) + " Received telegramm: " + DatagrammSplitted[0] + " from " + e.Adress + " : " + e.Port );
                 return;
@@ -683,7 +703,7 @@ namespace HomeAutomation
 
             if (DatagrammSplitted.Length != ExpectedArrayElementsSignalTelegram)
             {
-                Services.TraceMessage_( "Wrong datagramm received" );
+                Services.TraceMessage_("Wrong datagramm received");
                 return;
             }
 
@@ -702,7 +722,7 @@ namespace HomeAutomation
             }
 
             // received actual fired digital input as index
-            int ReceivedIndex = Convert.ToInt16( DatagrammSplitted[ComandoString.Telegram.IndexDigitalInputs] );
+            int ReceivedIndex = Convert.ToInt16(DatagrammSplitted[ComandoString.Telegram.IndexDigitalInputs]);
             // received acutal fired value of digital input
             bool ReceivedValue = Convert.ToBoolean( DatagrammSplitted[ComandoString.Telegram.IndexValueDigitalInputs] );
 
