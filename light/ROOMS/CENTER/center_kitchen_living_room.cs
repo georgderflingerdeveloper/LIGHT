@@ -757,7 +757,7 @@ namespace HomeAutomation
             {
                 case KitchenIOAssignment.indKitchenMainButton:
                 case KitchenIOAssignment.indKitchenPresenceDetector:
-                    PowerPlugs230VWest?.DelayedDeviceOnRisingEdge(e.Value);
+                    PowerPlugs230VWest.DeviceOnFallingEdgeAutomaticOff(e.Value);
                     break;
             }
 

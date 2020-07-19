@@ -661,7 +661,7 @@ namespace HomeAutomation
             public const string WindowBoardEastDown = Prefix + "Zierlicht Fensterbalken Ost";
             public const string Boiler = Prefix + "Warmwasser Boiler";
             public const string CirculationPump = Prefix + "Zirkulationspumpe für Warmwasser";
-            public const string HeaterEast = Prefix + "Thermostatkopf Heizung Ost";
+            public const string PowerPlug230VWest = Prefix + "Steckdose 230V Westen";
             public const string HeaterWest = Prefix + "Thermostatkopf Heizung West";
             public const string FanWashRoom = Prefix + "Lüfter WC";
         }
@@ -723,7 +723,7 @@ namespace HomeAutomation
                 { indDigitalOutputWindowBoardEastDown,                                        CenterKitchenDeviceNames.KitchenCabinet     },
                 { CenterLivingRoomIODeviceIndices.indDigitalOutputBoiler,                     CenterKitchenDeviceNames.Boiler             },
                 { WaterHeatingSystemIODeviceIndices.indDigitalOutputWarmWaterCirculationPump, CenterKitchenDeviceNames.CirculationPump    },
-                { KitchenLivingRoomIOAssignment.indDigitalOutputPowerPlugsWest230V,                   CenterKitchenDeviceNames.HeaterEast         },
+                { KitchenLivingRoomIOAssignment.indDigitalOutputPowerPlugsWest230V,           CenterKitchenDeviceNames.PowerPlug230VWest  },
                 { KitchenLivingRoomIOAssignment.indDigitalOutputHeaterWest,                   CenterKitchenDeviceNames.HeaterWest         },
                 { WashRoomIODeviceIndices.indDigitalOutputWashRoomFan,                        CenterKitchenDeviceNames.FanWashRoom        },
                 { CenterOutsideIODevices.indDigitalOutputLightsOutside,                       CenterOutsideDeviceNames.LightRightSide     }
