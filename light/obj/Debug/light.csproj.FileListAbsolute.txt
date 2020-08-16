@@ -238,4 +238,3 @@ C:\Projekte\LIGHT\light\bin\Debug\nunit-agent.exe.config
 C:\Projekte\LIGHT\light\bin\Debug\nunit.engine.nuget.addins
 C:\Projekte\LIGHT\light\bin\Debug\Mono.Cecil.dll
 C:\Projekte\LIGHT\light\bin\Debug\nunit.engine.core.dll
-C:\Projekte\LIGHT\light\obj\Debug\light.csprojAssemblyReference.cache

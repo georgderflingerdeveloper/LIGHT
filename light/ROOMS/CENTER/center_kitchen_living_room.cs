@@ -36,9 +36,8 @@ namespace HomeAutomation
         CentralControlledElements_NG FanWashRoom;
         CentralControlledElements_NG CirculationPump;
         CentralControlledElements_NG PowerPlugs230VWest;
-        Home_scheduler scheduler;
-        SchedulerDataRecovery schedRecover;
-        FeedData PrevSchedulerData = new FeedData( );
+        Home_scheduler               scheduler;
+        SchedulerDataRecovery        schedRecover;
         UdpReceive UDPReceiveDataFromWebForwarder;
         UdpReceive UdpReceiveDataFromEastController;
         Timer TimerRecoverScheulder;
@@ -50,16 +49,16 @@ namespace HomeAutomation
         PowerMeter _PowerMeter;
         int _PortNumberServer;
         bool RemoteControlLightOutsideActivated;
-        bool InhibitLightControlViaMainButton;
         bool AutoControlPowerPlug;
+        bool AutoControlBoiler;
 
         public delegate void UpdateMatchedOutputs( object sender, bool[] _DigOut );
-        public event UpdateMatchedOutputs EUpdateMatchedOutputs;
+        public event         UpdateMatchedOutputs EUpdateMatchedOutputs;
 
         public event DigitalInputChanged  DigitalInputChanged;
         public event DigitalOutputChanged EDigitalOutputChanged;
 
-        DigitalInputEventargs _DigitalInputEventargs = new DigitalInputEventargs( );
+        DigitalInputEventargs  _DigitalInputEventargs  = new DigitalInputEventargs( );
         DigitalOutputEventargs _DigitalOutputEventargs = new DigitalOutputEventargs( );
         LivingRoomConfig _livingroomconfig;
         #endregion
@@ -79,12 +78,13 @@ namespace HomeAutomation
         void Constructor( LivingRoomConfig livingroomconfig )
         {
             AutoControlPowerPlug = true;
-            _livingroomconfig = livingroomconfig;
-            _GivenClientName = InfoOperationMode.CENTER_KITCHEN_AND_LIVING_ROOM;
-            _IpAdressServer = livingroomconfig.IpAdressServer;
-            _PortNumberServer = Convert.ToInt16( livingroomconfig.PortServer );
-            _DigitalInputState = new bool[GeneralConstants.NumberOfInputsIOCard];
-            _DigitalOutputState = new bool[GeneralConstants.NumberOfOutputsIOCard];
+            AutoControlBoiler    = true;
+            _livingroomconfig    = livingroomconfig;
+            _GivenClientName     = InfoOperationMode.CENTER_KITCHEN_AND_LIVING_ROOM;
+            _IpAdressServer      = livingroomconfig.IpAdressServer;
+            _PortNumberServer    = Convert.ToInt16( livingroomconfig.PortServer );
+            _DigitalInputState   = new bool[GeneralConstants.NumberOfInputsIOCard];
+            _DigitalOutputState  = new bool[GeneralConstants.NumberOfOutputsIOCard];
             _InternalDigitalOutputState = new bool[GeneralConstants.NumberOfOutputsIOCard];
 
             Kitchen = new LightControlKitchen_NG(
@@ -225,7 +225,7 @@ namespace HomeAutomation
                 Kitchen.ActualKitchenStep = LightControlKitchen_NG.KitchenStep.eFrontLights;
             }
 
-            if (outputs != null)
+            if (outputs != null && AutoControlBoiler)
             {
                 if (device.Contains( "BoilerOn" ))
                 {
@@ -402,13 +402,6 @@ namespace HomeAutomation
             switch (index) // the index is the assigned input number
             {
                 case KitchenIOAssignment.indKitchenMainButton:
-                    //HeatersLivingRoom?.HeaterOn( Value ); => replace 
-
-                    if( InhibitLightControlViaMainButton )
-                    {
-                        break;
-                    }
-
                     Kitchen?.MakeStep( Value );
                     Kitchen?.AutomaticOff( Value );
                     // reset - this is a last rescue anchor in the case something went wrong ( any undiscovered bug )
@@ -566,10 +559,12 @@ namespace HomeAutomation
                         break;
 
                     case ComandoString.TURN_BOILER_ON:
+                        AutoControlBoiler = false;
                         TurnBoiler( GeneralConstants.ON );
                         break;
 
                     case ComandoString.TURN_BOILER_OFF:
+                        AutoControlBoiler = false;
                         TurnBoiler( GeneralConstants.OFF );
                         break;
 
@@ -685,7 +680,7 @@ namespace HomeAutomation
                         break;
 
                     case ComandoString.POWER_PLUG_INFRA_RED_OFF:
-                        AutoControlPowerPlug = true;
+                        AutoControlPowerPlug = false;
                         outputs[KitchenLivingRoomIOAssignment.indDigitalOutputPowerPlugsWest230V] = false;
                         break;
 
