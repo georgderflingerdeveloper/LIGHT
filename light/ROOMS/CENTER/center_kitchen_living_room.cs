@@ -16,6 +16,7 @@ using System.IO;
 using System.Timers;
 using SystemServices;
 using HomeAutomationProtocoll;
+using System.Runtime.CompilerServices;
 
 namespace HomeAutomation
 {
@@ -568,6 +569,10 @@ namespace HomeAutomation
                         TurnBoiler( GeneralConstants.OFF );
                         break;
 
+                    case ComandoString.ACTIVATE_BOILER_AUTO:
+                        AutoControlBoiler = true;
+                        break;
+
                     case ComandoString.TURN_FRONT_LIGHTS_OFF:
                         TurnFrontLights( GeneralConstants.OFF );
                         break;
@@ -684,8 +689,14 @@ namespace HomeAutomation
                         outputs[KitchenLivingRoomIOAssignment.indDigitalOutputPowerPlugsWest230V] = false;
                         break;
 
+                    case ComandoString.ACTIVATE_POWER_PLUG_INFRA_RED_AUTO:
+                        AutoControlPowerPlug = true;
+                        break;
+
+ 
                     case ComandoString.PRESENCE_DETECTOR_EAST_1_ON:
                     case ComandoString.PRESENCE_DETECTOR_WEST_ON:
+                    case ComandoString.PRESENCE_DETECTOR_EAST_KITCHEN_ON:
                         if (AutoControlPowerPlug)
                         {
                             PowerPlugs230VWest?.DelayedDeviceOnRisingEdge(true);
