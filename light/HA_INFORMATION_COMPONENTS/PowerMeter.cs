@@ -55,6 +55,7 @@ namespace Equipment
             TimerTick.Elapsed += TimerTick_Elapsed;
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
         public PowerMeter( bool start )
         {
             _ActualCounts = 0;
@@ -67,6 +68,7 @@ namespace Equipment
             }
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
         public PowerMeter( double DataCaptureIntervall, double DataStoreIntervall )
         {
             Constructor( DataCaptureIntervall, DataStoreIntervall );
@@ -86,6 +88,7 @@ namespace Equipment
         #endregion
 
         #region PUBLICMETHODS
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
         public void PreConfigureEnergyCount( decimal TotalEnergyValue )
         {
             _TotalCounts = TotalEnergyValue * EnergyConstants.CountsPerKWH;
@@ -110,6 +113,7 @@ namespace Equipment
             _StartCapure = true;
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
         public void StopCapture( )
         {
             _StartCapure = false;
@@ -120,6 +124,7 @@ namespace Equipment
             TimerTick.Start( );
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
         public void StopCyclicStoring()
         {
             _StartStoring = false;
@@ -138,6 +143,7 @@ namespace Equipment
             }
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
         public void Reset( )
         {
             _ActualCounts = 0;
@@ -146,6 +152,7 @@ namespace Equipment
         #endregion
 
         #region PROPERTIES
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
         public EnergyDataSet EnergyData
         {
             get
@@ -154,6 +161,7 @@ namespace Equipment
             }
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
         public bool CaptureMinuteStoreHour
         {
             set
@@ -169,6 +177,8 @@ namespace Equipment
             return ( Convert.ToDecimal( Counts /  Convert.ToDecimal( EnergyConstants.CountsPerKWH ) ) );
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Reliability", "CA2000:Objekte verwerfen, bevor Bereich verloren geht")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes")]
         void Store_( List<EnergyDataSet> data )
         {
             try
@@ -218,6 +228,7 @@ namespace Equipment
         }
 
         // only start at the begining of a minute
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
         void TimedStartCaptureMinute( )
         {
             if ( ( DateTime.Now.Minute % Convert.ToInt32( _DataCaptureIntervall ) ) == 0 )
@@ -227,6 +238,7 @@ namespace Equipment
         }
 
         // only start at the begining of a hour
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
         void TimedStartStoringHour( )
         {
             // store data every hour
@@ -270,6 +282,7 @@ namespace Equipment
             }
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
         void ClearList()
         {
             if( EnergyList?.Count > 0 )

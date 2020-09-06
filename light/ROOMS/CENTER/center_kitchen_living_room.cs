@@ -22,8 +22,10 @@ namespace HomeAutomation
 {
     public class LivingRoomConfig
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", MessageId = "Ip")]
         public string IpAdressServer { get; set; }
         public string PortServer { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", MessageId = "softwareversion")]
         public string softwareversion { get; set; }
         public string HeatersLivingRoomAutomatic { get; set; }
     }
@@ -48,6 +50,7 @@ namespace HomeAutomation
         bool[] _InternalDigitalOutputState;
         long RemainingTime;
         PowerMeter _PowerMeter;
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1823:AvoidUnusedPrivateFields")]
         int _PortNumberServer;
         bool RemoteControlLightOutsideActivated;
         bool AutoControlPowerPlug;
@@ -61,6 +64,7 @@ namespace HomeAutomation
 
         DigitalInputEventargs  _DigitalInputEventargs  = new DigitalInputEventargs( );
         DigitalOutputEventargs _DigitalOutputEventargs = new DigitalOutputEventargs( );
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1823:AvoidUnusedPrivateFields")]
         LivingRoomConfig _livingroomconfig;
         #endregion
 
@@ -76,6 +80,12 @@ namespace HomeAutomation
         }
 
         #region CONSTRUCTOR
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1305:SpecifyIFormatProvider", MessageId = "System.Convert.ToInt16(System.String)")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Literale nicht als lokalisierte Parameter übergeben", MessageId = "System.Console.WriteLine(System.String)")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Literale nicht als lokalisierte Parameter übergeben", MessageId = "SystemServices.Services.TraceMessage_(System.String,System.String,System.String,System.Int32)")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Reliability", "CA2000:Objekte verwerfen, bevor Bereich verloren geht")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes")]
         void Constructor( LivingRoomConfig livingroomconfig )
         {
             AutoControlPowerPlug = true;
@@ -198,6 +208,7 @@ namespace HomeAutomation
         }
 
         // scheduler starts with recovered data
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Literale nicht als lokalisierte Parameter übergeben", MessageId = "System.Console.WriteLine(System.String)")]
         void RecoverScheduler( FeedData e )
         {
             string Job = e.Device + Seperators.InfoSeperator + e.JobId.ToString( );
@@ -210,6 +221,8 @@ namespace HomeAutomation
             Console.WriteLine( TimeUtil.GetTimestamp( ) + Seperators.WhiteSpace + "Current scheduler status: " + scheduler.GetJobStatus( Job ) );
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA1801:ReviewUnusedParameters", MessageId = "counts")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Literale nicht als lokalisierte Parameter übergeben", MessageId = "System.Console.WriteLine(System.String)")]
         void ControlScheduledDevice( decimal counts, string device )
         {
             string[] DeviceParts;
@@ -242,42 +255,7 @@ namespace HomeAutomation
             }
         }
 
-        string AskForSchedulerStatus( string Job )
-        {
-            string SystemIsAskingScheduler = TimeUtil.GetTimestamp( ) +
-                                                 Seperators.WhiteSpace +
-                                                 _GivenClientName +
-                                                 "...." +
-                                                 InfoString.Asking +
-                                                 Seperators.WhiteSpace +
-                                                 InfoString.Scheduler;
-
-            Console.WriteLine( SystemIsAskingScheduler );
-            SchedulerInfo.Status status = scheduler.GetJobStatus( Job );
-
-            string StatusInformation = TimeUtil.GetTimestamp( ) +
-                                           Seperators.WhiteSpace +
-                                           _GivenClientName +
-                                           Seperators.WhiteSpace +
-                                           InfoString.StatusOf +
-                                           Seperators.WhiteSpace +
-                                           Job +
-                                           Seperators.WhiteSpace +
-                                           InfoString.Is +
-                                           Seperators.WhiteSpace +
-                                           status.ToString( );
-
-            Console.WriteLine( StatusInformation );
-
-            return InfoOperationMode.CENTER_KITCHEN_AND_LIVING_ROOM +
-                                 Seperators.InfoSeperator +
-                                 HomeAutomationAnswers.ANSWER_SCHEDULER_STATUS +
-                                 Seperators.InfoSeperator +
-                                 Job +
-                                 Seperators.InfoSeperator +
-                                 status.ToString( );
-        }
-
+ 
         void SchedulerTriggered(string time, IJobExecutionContext context, decimal counts)
         {
             SchedulerApplication.WriteStatus(time, context, counts);
@@ -292,49 +270,9 @@ namespace HomeAutomation
 
         #endregion
 
-        #region PROPERTIES_IO_INTERFACE
-        public bool[] DigitalInputs
-        {
-            get
-            {
-                return _DigitalInputState;
-            }
-            set
-            {
-                _DigitalInputState = value;
-            }
-        }
-        public bool[] DigitalOutputs
-        {
-            get
-            {
-                return _DigitalOutputState;
-            }
-            set
-            {
-                _DigitalOutputState = value;
-            }
-        }
-        #endregion
-
         #region IPCONFIGURATION
         string _GivenClientName;
-        public string GivenClientName
-        {
-            get
-            {
-                return _GivenClientName;
-            }
-        }
-
         string _IpAdressServer;
-        public string IpAdressServer
-        {
-            set
-            {
-                _IpAdressServer = value;
-            }
-        }
 
         #endregion
 
@@ -362,17 +300,7 @@ namespace HomeAutomation
             HeaterAnteRoom.Reset( );
         }
 
-        void Reset( InputChangeEventArgs e )
-        {
-            if (e.Value == true)
-            {
-                Kitchen?.StartWaitForAllOff( );
-            }
-            else
-            {
-                Kitchen?.StopWaitForAllOff( );
-            }
-        }
+
 
         void Reset( bool command )
         {
@@ -386,10 +314,6 @@ namespace HomeAutomation
             }
         }
 
-        public void StopAliveSignal()
-        {
-            Kitchen?.StopAliveSignal( );
-        }
 
         protected override void TurnNextLightOn_( InputChangeEventArgs e )
         {
@@ -435,10 +359,6 @@ namespace HomeAutomation
             }
         }
 
-        void ControlCirculationPump( InputChangeEventArgs e )
-        {
-            TimedDevice( e.Index, e.Value );
-        }
 
         void TimedDevice( int index, bool Value )
         {
@@ -497,26 +417,10 @@ namespace HomeAutomation
             outputs[KitchenCenterIoDevices.indDigitalOutputWindowBoardEastDown] = command;
         }
 
-        void TurnHeaterBodyEast( bool command )
-        {
-            outputs[KitchenLivingRoomIOAssignment.indDigitalOutputPowerPlugsWest230V] = command;
-        }
-
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
         void TurnHeaterBodyWest( bool command )
         {
             outputs[KitchenLivingRoomIOAssignment.indDigitalOutputHeaterWest] = command;
-        }
-
-        void TurnHeatersOn()
-        {
-            TurnHeaterBodyEast(true);
-            TurnHeaterBodyWest(true);
-        }
-
-        void TurnHeatersOff()
-        {
-            TurnHeaterBodyEast(false);
-            TurnHeaterBodyWest(false);
         }
 
         void TurLightOutside( bool command )
@@ -527,10 +431,6 @@ namespace HomeAutomation
             }
         }
 
-        void ResetInternals()
-        {
-            RemoteControlLightOutsideActivated = false;
-        }
         #endregion 
 
         #region REMOTE_CONTROLLED_UDP
@@ -539,6 +439,13 @@ namespace HomeAutomation
         const int ExpectedArrayElementsSignalTelegram = UdpTelegram.DelfaultExpectedArrayElementsSignalTelegram;
         const int ExpectedArrayElementsCommonCommand = 1;
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1305:SpecifyIFormatProvider", MessageId = "System.Convert.ToInt16(System.String)")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1305:SpecifyIFormatProvider", MessageId = "System.Convert.ToDecimal(System.String)")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1305:SpecifyIFormatProvider", MessageId = "System.Convert.ToBoolean(System.String)")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1505:AvoidUnmaintainableCode")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1502:AvoidExcessiveComplexity")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Literale nicht als lokalisierte Parameter übergeben", MessageId = "SystemServices.Services.TraceMessage_(System.String,System.String,System.String,System.Int32)")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Literale nicht als lokalisierte Parameter übergeben", MessageId = "System.Console.WriteLine(System.String)")]
         void UdpDataReceived( object sender, ReceivedEventargs e )
         {
             string[] DatagrammSplitted = e.Payload.Split( ComandoString.Telegram.Seperator );
@@ -697,7 +604,7 @@ namespace HomeAutomation
                     case ComandoString.PRESENCE_DETECTOR_EAST_1_ON:
                     case ComandoString.PRESENCE_DETECTOR_WEST_ON:
                     case ComandoString.PRESENCE_DETECTOR_EAST_KITCHEN_ON:
-                        if (AutoControlPowerPlug)
+                        if( AutoControlPowerPlug )
                         {
                             PowerPlugs230VWest?.DelayedDeviceOnRisingEdge(true);
                         }
@@ -747,6 +654,7 @@ namespace HomeAutomation
         #endregion
 
         #region IOEVENTHANDLERS
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1062:Argumente von öffentlichen Methoden validieren", MessageId = "1")]
         protected override void BuildingSection_InputChange( object sender, InputChangeEventArgs e )
         {
             ControlSequenceOnInputChange( e.Index, e.Value );
@@ -774,6 +682,7 @@ namespace HomeAutomation
             DigitalInputChanged?.Invoke( sender, _DigitalInputEventargs );
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1062:Argumente von öffentlichen Methoden validieren", MessageId = "1")]
         protected override void BuildingSection_OutputChange( object sender, OutputChangeEventArgs e )
         {
             if (_DigitalOutputState == null)
@@ -815,6 +724,8 @@ namespace HomeAutomation
             TimerRecoverScheulder.Stop( );
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1305:SpecifyIFormatProvider", MessageId = "System.Int64.ToString(System.String)")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Literale nicht als lokalisierte Parameter übergeben", MessageId = "System.Console.Write(System.String)")]
         private void CommonUsedTick_Elapsed( object sender, ElapsedEventArgs e )
         {
             string RemainingTimeInfo;
@@ -839,36 +750,6 @@ namespace HomeAutomation
             PreviousreceivedTransactionCounter = 0;
         }
         #endregion
-
-        // so far this program was not designed by using dependency injection - thats the reason using a public 
-        // testbackdoor channel
-        #region TESTBACKDOOR
-        public void TestBackdoor_IoChange( int index, bool Value )
-        {
-            ControlSequenceOnInputChange( index, Value );
-        }
-
-        public bool[] ReferenceDigitalOutputState
-        {
-            get
-            {
-                return ( _InternalDigitalOutputState );
-            }
-
-            set
-            {
-                _InternalDigitalOutputState = value;
-            }
-        }
-
-        public void TestBackdoor_UdpReceiver( string receiveddatagramm )
-        {
-        }
-
-        public void TestBackdoorSchedulerControl( IJobExecutionContext context, decimal counts, string device )
-        {
-            ControlScheduledDevice( counts, device );
-        }
-        #endregion
+ 
     }
 }

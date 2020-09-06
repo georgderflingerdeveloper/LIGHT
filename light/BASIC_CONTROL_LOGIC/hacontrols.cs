@@ -7,7 +7,9 @@ namespace HomeAutomation
         class UnivPWM
         {
             #region DECLARATION
-            double          pwmtimeon_, pwmtimeoff_;
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1823:AvoidUnusedPrivateFields")]
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1823:AvoidUnusedPrivateFields")]
+            double pwmtimeon_, pwmtimeoff_;
             Timer           PWMTimerOn;
             Timer           PWMTimerOff;
             decimal         _OnCounter;
@@ -25,6 +27,7 @@ namespace HomeAutomation
             #endregion
 
             #region PROPERTIES
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
             public decimal OnCounter
             {
                 get

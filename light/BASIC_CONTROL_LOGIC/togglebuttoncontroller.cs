@@ -3,7 +3,7 @@
 
 namespace BASIC_CONTROL_LOGIC
 {
-    class ToggleButtonController
+    class ToggleButtonController : System.IDisposable
     {
         const uint     INITIAL_COUNT_VALUE          = 1;
         const uint     DEFAULT_REQUIRED_COUNT_VALUE = 2;
@@ -23,6 +23,7 @@ namespace BASIC_CONTROL_LOGIC
             Constructor( );
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
         public ToggleButtonController( uint countsrequired, double timewindow )
         {
             _countsrequired = countsrequired;
@@ -31,6 +32,8 @@ namespace BASIC_CONTROL_LOGIC
         }
 
         #region PROPERTIES
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
         public uint Countsrequired
         {
             get
@@ -44,6 +47,8 @@ namespace BASIC_CONTROL_LOGIC
             }
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
         public double Timewindow
         {
             get
@@ -66,6 +71,7 @@ namespace BASIC_CONTROL_LOGIC
             _ToggleCounter = INITIAL_COUNT_VALUE;
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
         void DeviceToggleOnCounts_( uint countsrequired, double timewindow )
         {
             if( timewindow > 0.0 )
@@ -99,11 +105,13 @@ namespace BASIC_CONTROL_LOGIC
         }
         #endregion
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
         public void DeviceToggleOnCounts( )
         {
             DeviceToggleOnCounts_( _countsrequired, _timewindow );
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
         public void DeviceToggleOnCounts( uint countsrequired, double timewindow )
         {
             DeviceToggleOnCounts_( countsrequired, timewindow );
@@ -114,6 +122,12 @@ namespace BASIC_CONTROL_LOGIC
         {
             _ToggleCounter = INITIAL_COUNT_VALUE;
             _OperateWithinWindowTimer?.Stop( );
+        }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2213:DisposableFieldsShouldBeDisposed", MessageId = "_OperateWithinWindowTimer")]
+        public void Dispose()
+        {
+            throw new System.NotImplementedException();
         }
         #endregion
     }

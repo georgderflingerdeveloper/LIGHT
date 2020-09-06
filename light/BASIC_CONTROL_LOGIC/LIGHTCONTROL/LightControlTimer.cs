@@ -7,7 +7,7 @@ using HomeAutomation.HardConfig_Collected;
 namespace BASIC_CONTROL_LOGIC
 {
     // this timer class is also used for heater control - that can sometimes be confusing - TODO refactor or try to make it better understandable
-    class LightControlTimer_
+    class LightControlTimer_ : IDisposable
     {
         #region DECLARATIONS
         Timer AutomaticTurnSelectedOff;                                     // used for a Light Grpoup - f.e. 1-4,   3-7, ..... aso.... 
@@ -114,6 +114,7 @@ namespace BASIC_CONTROL_LOGIC
             AutomaticTurnSelectedOff.Stop( );
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2201:DoNotRaiseReservedExceptionTypes")]
         public void StartSingleAutomaticOffTimer( int index, double timeOff )
         {
             int listindex = 0;
@@ -148,6 +149,8 @@ namespace BASIC_CONTROL_LOGIC
             }
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2201:DoNotRaiseReservedExceptionTypes")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
         public void StopSingleAutomaticOffTimer( int Index )
         {
             if( Index < 0 )
@@ -173,11 +176,13 @@ namespace BASIC_CONTROL_LOGIC
         #endregion
 
         #region PRIVATEMETHODS
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
         void StartSingleLightOffTimer( )
         {
             SingleTurnOff.Start( );
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
         void StopSingleLightOffTimer( )
         {
             SingleTurnOff.Stop( );
@@ -200,6 +205,14 @@ namespace BASIC_CONTROL_LOGIC
         void AutomaticTurnSelectedOff_Elapsed( object sender, ElapsedEventArgs e )
         {
              AutomaticOff_?.Invoke( this );
+        }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2213:DisposableFieldsShouldBeDisposed", MessageId = "AutomaticTurnSelectedOff")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2213:DisposableFieldsShouldBeDisposed", MessageId = "DelayTurnAllOn")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2213:DisposableFieldsShouldBeDisposed", MessageId = "SingleTurnOff")]
+        public void Dispose()
+        {
+            throw new NotImplementedException();
         }
         #endregion
     }

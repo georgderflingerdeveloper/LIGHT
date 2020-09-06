@@ -1,16 +1,16 @@
-﻿using System.Collections.Generic;
+﻿using BASIC_COMPONENTS;
 using BASIC_CONTROL_LOGIC;
-using System.Timers;
 using HomeAutomation.HardConfig_Collected;
-using BASIC_COMPONENTS;
 using Phidgets.Events;
+using System.Collections.Generic;
 using System.Data;
+using System.Timers;
 
 namespace HA_COMPONENTS
 {
     // _NG - next generation - business logic is seperated from IO Operation
     // IO handling is now treated within a seperate EVENT
-    class LightControl_NG : LightControlTimer_
+    class LightControl_NG : LightControlTimer_, System.IDisposable
     {
         #region DECLARATIONS
         bool                                       EnableStepLight;
@@ -28,12 +28,14 @@ namespace HA_COMPONENTS
         int                                        _lastindex;
         bool                                       DevicesOffProceeded;
         bool                                       _LightControlSingleOffDone;
-        bool                                       _PrimaryIOCardIsAttached;
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1823:AvoidUnusedPrivateFields")]
+        bool _PrimaryIOCardIsAttached;
         List<int>                                  Match_;
         devicestepcontrol                          TimedStepControl;
         Timer                                      AllOutputsOffTimer;
         Timer AliveTimer                         = new Timer( Parameters.TimeIntervallAlive );
         Timer FinalAllAutomaticOff               = new Timer();                                          // all configured devices off
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1823:AvoidUnusedPrivateFields")]
         bool[] _StateDigitalOutput               = new bool[GeneralConstants.NumberOfOutputsIOCard];     // fill state from outside
         bool[] _ToggleOutput                     = new bool[GeneralConstants.NumberOfOutputsIOCard];
         bool[] _ShowStateDigitalOutput           = new bool[GeneralConstants.NumberOfOutputsIOCard];     // show internal state - reason is to ease testing
@@ -50,11 +52,13 @@ namespace HA_COMPONENTS
         #endregion
 
         #region CONSTRUCTOR
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Mobility", "CA1601:DoNotUseTimersThatPreventPowerStateChanges")]
         public LightControl_NG( ) : base( )
         {
             Constructor( );
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Mobility", "CA1601:DoNotUseTimersThatPreventPowerStateChanges")]
         public LightControl_NG( double AllOnTime, double SingleOffTime, int deviceindex )
             : base( AllOnTime, SingleOffTime )
         {
@@ -65,6 +69,7 @@ namespace HA_COMPONENTS
         }
 
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Mobility", "CA1601:DoNotUseTimersThatPreventPowerStateChanges")]
         public LightControl_NG( double AllOnTime,
                                 double AllOutputsOffTime,
                                 double SingleOffTime,
@@ -80,6 +85,8 @@ namespace HA_COMPONENTS
 
 
         // extended functionality - all devices off - even the desired remaining ones after timer elapsed
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Mobility", "CA1601:DoNotUseTimersThatPreventPowerStateChanges")]
         public LightControl_NG( double AllOnTime,
                                 double AllOutputsOffTime,
                                 double SingleOffTime,
@@ -108,48 +115,6 @@ namespace HA_COMPONENTS
             }
         }
 
-        public int ActualLightIndexSingleStep
-        {
-            get
-            {
-                return ( actualindex );
-            }
-        }
-
-        public bool AllRoomLightsAreOn
-        {
-            get
-            {
-                return ( _AllLightsAreOn );
-            }
-        }
-
-        public bool AllRoomLightsAreOff
-        {
-            get
-            {
-                return ( _AllLightsAreOff );
-            }
-        }
-
-        // fill state from outside
-        public bool[] StateDigitalOutput
-        {
-            set
-            {
-                _StateDigitalOutput = value;
-            }
-        }
-
-        // representation of digital outpus as BOOLEANS - purpose is to ease testing
-        public bool[] ShowStateDigitalOutput
-        {
-            get
-            {
-                return ( _ShowStateDigitalOutput );
-            }
-        }
-
         public List<int> Match
         {
             set
@@ -161,35 +126,7 @@ namespace HA_COMPONENTS
         #endregion
 
         #region PUBLIC_METHODS
-        public void FinalAutomaticOff( InputChangeEventArgs e )
-        {
-            if( _AllLightsAreOff )
-            {
-                return;
-            }
-
-            if( e.Value == false )
-            {
-                FinalAllAutomaticOff.Stop( );
-                FinalAllAutomaticOff.Start( );
-            }
-        }
-
-        public void FinalAutomaticOff( bool command )
-        {
-            if( _AllLightsAreOff )
-            {
-                return;
-            }
-
-            if( command == false )
-            {
-                FinalAllAutomaticOff.Enabled = true;
-                FinalAllAutomaticOff.Stop( );
-                FinalAllAutomaticOff.Start( );
-            }
-        }
-
+ 
 		public void TurnSingleDevice( int index, bool value )
         {
             if( ( _DigitalOutput != null ) && ( index < _DigitalOutput.Length ) )
@@ -199,7 +136,8 @@ namespace HA_COMPONENTS
             EUpdateOutputs?.Invoke( this, _DigitalOutput, Match_ );
         }
 
-		public void TurnAllDevices( bool command )
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1804:RemoveUnusedLocals", MessageId = "elements")]
+        public void TurnAllDevices( bool command )
         {
             int index = 0;
             foreach( bool elements in _DigitalOutput )
@@ -255,11 +193,6 @@ namespace HA_COMPONENTS
             AllOutputsOffTimer?.Stop( );
         }
 
-        public void MakeStep( InputChangeEventArgs e )
-        {
-            makestep_( e.Value );
-        }
-
         public void MakeStep( bool cmd )
         {
             makestep_( cmd );
@@ -270,19 +203,7 @@ namespace HA_COMPONENTS
             TimedStepControl?.WatchForInputValueChange( cmd );
         }
 
-        public new void AutomaticOff( InputChangeEventArgs e )
-        {
-            SelectDevicesOff = false;
-            StartAutomaticOff( e );
 
-            if( DevicesOffProceeded )
-            {
-                CancelAutomaticOff( );
-                DevicesOffProceeded = false;
-            }
-
-            RestartAutomaticOff( e );
-        }
 
         public new void AutomaticOff( bool value )
         {
@@ -298,139 +219,6 @@ namespace HA_COMPONENTS
             RestartAutomaticOff( value );
         }
 
-		public void AutomaticOffAllDevices( InputChangeEventArgs e )
-        {
-            SelectDevicesOff = false;
-            StartAutomaticOff( e );
-
-            if( _AllLightsAreOff )
-            {
-                CancelAutomaticOff( );
-            }
-        }
-
-		public void AutomaticOffAllDevices( )
-        {
-            SelectDevicesOff = false;
-            StartAutomaticOff( );
-
-            if( _AllLightsAreOff )
-            {
-                CancelAutomaticOff( );
-            }
-        }
-
-        // restarts auto off each falling edge 
-        public void AutomaticOffRestartAll( InputChangeEventArgs e )
-        {
-            SelectDevicesOff = false;
-            RestartAutomaticOffFallingEdge( e );
-        }
-
-        public void AutomaticOffSelect( InputChangeEventArgs e, params int[] values )
-        {
-            // dont execute when lights are already off
-            if( AreAllLightsOff( _startindex, _lastindex ) )
-            {
-                return;
-            }
-
-            _values                   = values;
-            SelectDevicesOff          = true;
-            bool readyForAutomaticOff = false;
-            // feeds a array with the selected permanent on devices - this devices will stay on when 
-            // others are comanded to turn off
-            if( !InitPermanentDeviceSelection )
-            {
-                for( int i = 0; i <= _lastindex; i++ )
-                {
-                    SelectedPermanentOnDevice[i] = true;
-                }
-                for( int i = 0; i < _values.Length; i++ )
-                {
-                    if( _values[i] < GeneralConstants.NumberOfOutputsIOCard )
-                    {
-                        SelectedPermanentOnDevice[_values[i]] = false;
-                    }
-                }
-                InitPermanentDeviceSelection = true;
-            }
-
-            for( int i = 0; i <= _lastindex; i++ )
-            {
-                if( !SelectedPermanentOnDevice[i] && _ShowStateDigitalOutput[i] )
-                {
-                    readyForAutomaticOff = true;
-                    break;
-                }
-            }
-
-            if( readyForAutomaticOff )
-            {
-                StartAutomaticOff( e );
-            }
-
-            if( DevicesOffProceeded )
-            {
-                CancelAutomaticOff( );
-                DevicesOffProceeded = false;
-            }
-
-            RestartAutomaticOff( e );
-        }
-
-        public void AutomaticOffSelect( bool command, params int[] values )
-        {
-            // dont execute when lights are already off
-            if( AreAllLightsOff( _startindex, _lastindex ) )
-            {
-                return;
-            }
-            _values                   = values;
-            SelectDevicesOff          = true;
-            bool readyForAutomaticOff = false;
-            // feeds a array with the selected permanent on devices - this devices will stay on when 
-            // others are comanded to turn off
-            if( !InitPermanentDeviceSelection )
-            {
-                for( int i = 0; i <= _lastindex; i++ )
-                {
-                    SelectedPermanentOnDevice[i] = true;
-                }
-
-                for( int i = 0; i < _values.Length; i++ )
-                {
-                    if( _values[i] < GeneralConstants.NumberOfOutputsIOCard )
-                    {
-                        SelectedPermanentOnDevice[_values[i]] = false;
-                    }
-                }
-
-                InitPermanentDeviceSelection = true;
-            }
-
-            for( int i = 0; i <= _lastindex; i++ )
-            {
-                if( !SelectedPermanentOnDevice[i] && _ShowStateDigitalOutput[i] )
-                {
-                    readyForAutomaticOff = true;
-                    break;
-                }
-            }
-
-            if( readyForAutomaticOff )
-            {
-                StartAutomaticOff( command );
-            }
-
-			if( DevicesOffProceeded )
-            {
-                CancelAutomaticOff( );
-                DevicesOffProceeded = false;
-            }
-
-            RestartAutomaticOff( command );
-        }
         #endregion
 
         #region EVENTHANDLERS
@@ -522,6 +310,8 @@ namespace HA_COMPONENTS
             EUpdateOutputs?.Invoke( this, _DigitalOutput, Match_ );
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA1801:ReviewUnusedParameters", MessageId = "lastindex")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA1801:ReviewUnusedParameters", MessageId = "startindex")]
         bool AreAllLightsOff( int startindex, int lastindex )
         {
             // check for all devices (lights) off
@@ -538,7 +328,7 @@ namespace HA_COMPONENTS
         void makestep_( bool cmd )
         {
             // f.e PUSH a BUTTON 
-            if( cmd == true )
+            if( cmd )
             {
                 base.StartAllTimers( );
                 if( SomeLightsAreOn )
@@ -596,43 +386,15 @@ namespace HA_COMPONENTS
             }
         }
 
-        void StartAutomaticOff( )
-        {
-            base.StartAutomaticOfftimer( );
-        }
-
-        void StartAutomaticOff( InputChangeEventArgs e )
-        {
-            if( e.Value == false )
-            {
-                base.StartAutomaticOfftimer( );
-            }
-        }
-
         void CancelAutomaticOff( )
         {
             base.StopAutomaticOfftimer( );
         }
 
-        void RestartAutomaticOff( InputChangeEventArgs e )
-        {
-            if( e.Value == true )
-            {
-                base.RestartAutomaticOfftimer( );
-            }
-        }
 
         void RestartAutomaticOff( bool value )
         {
             if( value == true )
-            {
-                base.RestartAutomaticOfftimer( );
-            }
-        }
-
-        void RestartAutomaticOffFallingEdge( InputChangeEventArgs e )
-        {
-            if( e.Value == false )
             {
                 base.RestartAutomaticOfftimer( );
             }
@@ -683,7 +445,9 @@ namespace HA_COMPONENTS
             EUpdateOutputs     += LightControlNG_EUpdateOutputs;
         }
 
-		void Constructor( double AllOutputsOffTime, double SingleOffTime, double AutomaticOffTime, int firstindex, int lastindex )
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA1801:ReviewUnusedParameters", MessageId = "AutomaticOffTime")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Reliability", "CA2000:Objekte verwerfen, bevor Bereich verloren geht")]
+        void Constructor( double AllOutputsOffTime, double SingleOffTime, double AutomaticOffTime, int firstindex, int lastindex )
         {
             base.AllOn_                    += LightControl_AllOn_;
             base.SingleOff_                += LightControl_SingleOff_;
@@ -707,6 +471,7 @@ namespace HA_COMPONENTS
             _ShowStateDigitalOutput = _DigOut;
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
         protected void TurnOnWithDelayedOffSingleLight( InputChangeEventArgs e, double delayedofftime, int index )
         {
             if( e.Value == false )
@@ -716,6 +481,7 @@ namespace HA_COMPONENTS
             }
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
         protected void TurnOnWithDelayedOffSingleLight( InputChangeEventArgs e, bool enable, double delayedofftime, int index )
         {
             if( enable == false )
@@ -725,6 +491,7 @@ namespace HA_COMPONENTS
             TurnOnWithDelayedOffSingleLight( e, delayedofftime, index );
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
         protected void TurnOnWithDelayedOffSingleLight( bool command, double delayedofftime, int index )
         {
             if( command == false )
@@ -732,15 +499,6 @@ namespace HA_COMPONENTS
                 ControlOutput( index, true );
                 base.StartSingleAutomaticOffTimer( index, delayedofftime );
             }
-        }
-
-        protected void TurnOnWithDelayedOffSingleLight( bool command, bool enable, double delayedofftime, int index )
-        {
-            if( enable == false )
-            {
-                return;
-            }
-            TurnOnWithDelayedOffSingleLight( command, delayedofftime, index );
         }
 
         // TODO BUGFIX !!!!
@@ -785,6 +543,14 @@ namespace HA_COMPONENTS
                 index = 0;
             }
             EUpdateOutputs?.Invoke( this, _DigitalOutput, Match_ );
+        }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2213:DisposableFieldsShouldBeDisposed", MessageId = "AliveTimer")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2213:DisposableFieldsShouldBeDisposed", MessageId = "AllOutputsOffTimer")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2213:DisposableFieldsShouldBeDisposed", MessageId = "FinalAllAutomaticOff")]
+        public void Dispose()
+        {
+            throw new System.NotImplementedException();
         }
         #endregion
     }

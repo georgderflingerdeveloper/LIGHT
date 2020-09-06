@@ -18,7 +18,8 @@ namespace HA_COMPONENTS
         protected bool           _HeaterWasTurnedOn = false;
         int                      _startindex, _lastindex;  // index digital output heater element
         double                   _AutomaticOffTime;
-        int                      _PWMIntensity;
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1823:AvoidUnusedPrivateFields")]
+        int _PWMIntensity;
         int                      _TimedIntensityStep;
         Timer                    Tim_StartIntensityPWM;
         Timer                    Tim_PermanentOnTimeWindow;
@@ -87,21 +88,25 @@ namespace HA_COMPONENTS
         #endregion
 
         #region PUBLIC_METHODS
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
         public void DirectOn()
         {
             HeatersOn();
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
         public void DirectOff()
         {
             HeatersOff();
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
         public void HeaterOn( InputChangeEventArgs e )
         {
             HeaterOn( e.Value );
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
         public void HeaterOn( bool Value )
         {
             if( Value == true )
@@ -116,6 +121,7 @@ namespace HA_COMPONENTS
             }
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
         public void HeaterToggleOnOffRisingEdge( bool edge )
         {
             if( edge )
@@ -136,6 +142,7 @@ namespace HA_COMPONENTS
             }
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
         public void HeaterOnFallingEdge( InputChangeEventArgs e )
         {
             HeaterOnFallingEdge( e.Value );
@@ -156,10 +163,13 @@ namespace HA_COMPONENTS
         }
 
         // todo
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1822:MarkMembersAsStatic")]
         public void UseThermostatDigital( )
         {
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
         public int IntensityStep
         {
             set
@@ -168,6 +178,7 @@ namespace HA_COMPONENTS
             }
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
         public bool HeaterIsOn
         {
             get
@@ -176,6 +187,7 @@ namespace HA_COMPONENTS
             }
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
         public bool WasHeaterSwitched( )
         {
             if( _PrevHeaterWasTurnedOn != _HeaterWasTurnedOn )
@@ -197,11 +209,13 @@ namespace HA_COMPONENTS
             Toggle = false;
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
         public void TurnHeaterOnOffWithCounts( )
         {
             DeviceToggleController?.DeviceToggleOnCounts( );
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
         public void ConfigOnOffCount( uint requiredcounts, double timewindow )
         {
             DeviceToggleController.Countsrequired = requiredcounts;
@@ -238,12 +252,14 @@ namespace HA_COMPONENTS
             EUpdateOutputs_?.Invoke( this, _ShowStateDigitalOutput, Match_ );
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
         void HeatersOff( )
         {
             _HeaterWasTurnedOn = false;
             TurnHeaters( false );
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
         void HeatersOn( )
         {
             _HeaterWasTurnedOn = true;
@@ -336,6 +352,7 @@ namespace HA_COMPONENTS
             PWM_Heater.Restart( );
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
         void RestartIntensityTimer( )
         {
             Tim_StartIntensityPWM.Stop( );
@@ -387,6 +404,7 @@ namespace HA_COMPONENTS
 
         #region PROPERTIES
         // representation of digital outpus as BOOLEANS - purpose is to ease testing
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
         public bool[] ShowStateDigitalOutput
         {
             get

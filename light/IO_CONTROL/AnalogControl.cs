@@ -9,6 +9,8 @@ namespace IO_Control
         const int ChannelIndexMax        = 3;
         const int TimeWaitForAttachement = 2000;
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes")]
         public AnalogControl( int SerialNumber ) : base( )
         {
             try
@@ -22,6 +24,7 @@ namespace IO_Control
             }
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes")]
         public AnalogControl( ) : base( )
         {
             try

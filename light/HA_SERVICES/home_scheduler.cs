@@ -91,12 +91,14 @@ namespace Scheduler
             }
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
         public Params( MySchedulerModes SchedulerModes )
         {
             _SchedulerModes = SchedulerModes;
             _AppendTriggername = true;
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
         public Params( MySchedulerModes SchedulerModes, string Minutes )
         {
             _SchedulerModes    = SchedulerModes;
@@ -104,6 +106,7 @@ namespace Scheduler
             _AppendTriggername = true;
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
         public Params( string triggername, string starttime, string stoptime, string days )
         {
             _TriggerName       = triggername;
@@ -113,6 +116,7 @@ namespace Scheduler
             _AppendTriggername = false;
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
         public Params( string starttime, string stoptime, string days )
         {
             _Starttime         = starttime;
@@ -139,6 +143,8 @@ namespace Scheduler
         }
 
         bool _TriggerOnceaDay;
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA1801:ReviewUnusedParameters", MessageId = "triggerdays")]
         public Params( bool TriggerOnceaDay, string starttime, string triggerdays )
         {
             _Starttime         = starttime;
@@ -150,6 +156,7 @@ namespace Scheduler
             }
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
         public bool TriggerOnceaDay
         {
             get
@@ -181,7 +188,8 @@ namespace Scheduler
         }
 
         string _Starttime;
-        public  string Starttime   
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
+        public string Starttime   
         {
             get
             {
@@ -194,7 +202,8 @@ namespace Scheduler
         }
 
         string _Stoptime;
-        public  string Stoptime   
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
+        public string Stoptime   
         {
             get
             {
@@ -207,7 +216,8 @@ namespace Scheduler
         } 
 
         string _Days;
-        public  string Days       
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
+        public string Days       
         {
             get
             {
@@ -220,6 +230,7 @@ namespace Scheduler
         }
 
         string _EveryMinutes;
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
         public string EveryMinutes
         {
             get
@@ -264,6 +275,8 @@ namespace Scheduler
             }
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1305:SpecifyIFormatProvider", MessageId = "System.Int32.ToString(System.String)")]
         public static string TimeToString( int hour, int minute, int second )
         {
             string hour_    = hour.ToString( QuartzApplicationConstants.ZeroPartialTime );
@@ -354,6 +367,8 @@ namespace Scheduler
 
         //attention - this does not work for all situationes
         //example  startime 10:10:15, stoptime 14:20:30 => 15,30 10,20, 10,14 * * ?
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Literale nicht als lokalisierte Parameter übergeben", MessageId = "SystemServices.Services.TraceMessage_(System.String,System.String,System.String,System.Int32)")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes")]
         public static string GetTimeString( string StartTime, string StopTime )
         {
             string cronstring ="";
@@ -387,6 +402,9 @@ namespace Scheduler
             return ( QuartzApplicationConstants.ZeroTime );
        }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Literale nicht als lokalisierte Parameter übergeben", MessageId = "SystemServices.Services.TraceMessage(System.String,System.String,System.String,System.Int32)")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes")]
         public static string GetTimeString( string StartTime, string StopTime, string days )
         {
              string cronstring ="";
@@ -419,6 +437,7 @@ namespace Scheduler
 
         const int ExpectedTimeElements = 3;
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1305:SpecifyIFormatProvider", MessageId = "System.Convert.ToUInt16(System.String)")]
         static bool IsSecondFormatValid( string Seconds )
         {
             uint ConvertedSeconds = Convert.ToUInt16( Seconds );
@@ -429,6 +448,7 @@ namespace Scheduler
             return false;
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1305:SpecifyIFormatProvider", MessageId = "System.Convert.ToUInt16(System.String)")]
         static bool IsHourFormatValid( string Seconds )
         {
             uint ConvertedSeconds = Convert.ToUInt16( Seconds );
@@ -444,6 +464,8 @@ namespace Scheduler
             return ( IsSecondFormatValid(Minutes) );
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1305:SpecifyIFormatProvider", MessageId = "System.String.Format(System.String,System.Object)")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1305:SpecifyIFormatProvider", MessageId = "System.Convert.ToInt16(System.String)")]
         public static string GetPointOfTime( string PointOfTime, string days )
         {
             string cronePointOfTime;
@@ -542,8 +564,11 @@ namespace Scheduler
         List<ScheduledJobs> JobItemsParameters { get; set; }
     }
 
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1064:ExceptionsShouldBePublic")]
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1032:ImplementStandardExceptionConstructors")]
     class MySchedulerException : Exception
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Literale nicht als lokalisierte Parameter übergeben", MessageId = "System.Console.WriteLine(System.String)")]
         public MySchedulerException( string message )
             : base( QuartzApplicationMessages.MessageSchedulerApplicationFailure )
         {
@@ -581,6 +606,7 @@ namespace Scheduler
             sched.PauseAll( );
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
         public Home_scheduler( string name )
         {
             var properties = new System.Collections.Specialized.NameValueCollection
@@ -598,6 +624,10 @@ namespace Scheduler
             sched.PauseAll( );
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1804:RemoveUnusedLocals", MessageId = "Elements")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1804:RemoveUnusedLocals", MessageId = "jobs")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes")]
         public Home_scheduler( ref List<ScheduledJobs> _JobItemsParameters )
         {
             JobItemsParameters_ = _JobItemsParameters;
@@ -649,6 +679,7 @@ namespace Scheduler
         #endregion
 
         #region PUBLIC_METHODS
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1804:RemoveUnusedLocals", MessageId = "jobnames")]
         public void StartPausedJob( string jobname )
         {
             if( JobItemsParameters_ == null || sched == null )
@@ -666,6 +697,7 @@ namespace Scheduler
             }
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1804:RemoveUnusedLocals", MessageId = "jobnames")]
         public void PauseJob( string jobname )
         {
             if( JobItemsParameters_ == null || sched == null )
@@ -683,6 +715,8 @@ namespace Scheduler
             }
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1804:RemoveUnusedLocals", MessageId = "parameters")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes")]
         public void StartJob()
         {
             if( sched != null )
@@ -706,7 +740,8 @@ namespace Scheduler
                 }
             }
         }
- 
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
         public void ShutdownJob( bool waitForFinish )
         {
             if( sched != null )
@@ -715,6 +750,7 @@ namespace Scheduler
             }
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes")]
         public void NewJob( string jobname, Params parameters )
         {
             try
@@ -746,6 +782,8 @@ namespace Scheduler
             }
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1804:RemoveUnusedLocals", MessageId = "jobnames")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes")]
         public void RemoveJob( string jobname )
         {
             int jobnameindex = 0;
@@ -772,6 +810,9 @@ namespace Scheduler
         }
 
         // TODO - so far rescheduling does not work correctly - reason not found - further investigation necessary
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1804:RemoveUnusedLocals", MessageId = "jobs")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes")]
         public void ReScheduleJob( string jobname, string starttime, string stoptime, string days )
         {
             string CroneTime = MyCroneConverter.GetTimeString( starttime, stoptime, days );
@@ -801,6 +842,7 @@ namespace Scheduler
             }
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
         public void StartAllPausedJobs( )
         {
             sched.ResumeAll( );
@@ -896,6 +938,7 @@ namespace Scheduler
         #endregion
 
         #region PRIVATE_METHODS
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1804:RemoveUnusedLocals", MessageId = "CroneTime")]
         void CreateJobWithTrigger( ref List<ScheduledJobs> _JobItemsParameters, int jobindex )
         {
             if( _JobItemsParameters != null )
@@ -958,11 +1001,13 @@ namespace Scheduler
             EvTriggered?.Invoke( time, context, counts );
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1812:AvoidUninstantiatedInternalClasses")]
         class ScheduleJob : IJob
         {
             public delegate void  _ScheduleJob( string time, IJobExecutionContext context, decimal counts );
             public  static  event _ScheduleJob EvScheduler;
             static List<ScheduledJobs>  _JobItemsParameters;
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1823:AvoidUnusedPrivateFields")]
             int jobindex_;
 
             public static List<ScheduledJobs> JobItemsParameters
@@ -987,6 +1032,8 @@ namespace Scheduler
                 _JobItemsParameters = JobItemsParameters;
             }
 
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1804:RemoveUnusedLocals", MessageId = "jobs")]
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1062:Argumente von öffentlichen Methoden validieren", MessageId = "0")]
             public void Execute( IJobExecutionContext context )
             {
                 if( EvScheduler != null )

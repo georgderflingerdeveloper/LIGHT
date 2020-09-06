@@ -171,3 +171,14 @@ C:\Projekte\LIGHT\light\bin\Release\nunit.framework.pdb
 C:\Projekte\LIGHT\light\bin\Release\System.Runtime.CompilerServices.Unsafe.xml
 C:\Projekte\LIGHT\light\bin\Release\System.Threading.Tasks.Extensions.xml
 C:\Projekte\LIGHT\light\bin\Release\CommonController.pdb
+C:\Projekte\LIGHT\light\bin\Release\nunit.engine.dll
+C:\Projekte\LIGHT\light\bin\Release\nunit.engine.api.dll
+C:\Projekte\LIGHT\light\bin\Release\NUnit3.TestAdapter.dll
+C:\Projekte\LIGHT\light\bin\Release\NUnit3.TestAdapter.pdb
+C:\Projekte\LIGHT\light\bin\Release\nunit-agent-x86.exe
+C:\Projekte\LIGHT\light\bin\Release\nunit-agent-x86.exe.config
+C:\Projekte\LIGHT\light\bin\Release\nunit-agent.exe
+C:\Projekte\LIGHT\light\bin\Release\nunit-agent.exe.config
+C:\Projekte\LIGHT\light\bin\Release\nunit.engine.nuget.addins
+C:\Projekte\LIGHT\light\bin\Release\Mono.Cecil.dll
+C:\Projekte\LIGHT\light\bin\Release\nunit.engine.core.dll

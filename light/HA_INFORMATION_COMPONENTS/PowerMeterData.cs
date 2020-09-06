@@ -33,7 +33,11 @@ namespace Equipment
     [Serializable]
     static class PowerConfigurationDataSet
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
         public static double DataStoreIntervall   { get; set; }   = TimeConverter.ToMiliseconds( EnergyConstants.DefaultDataStoreIntervall );       // seconds
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
         public static double DataCaptureIntervall { get; set; }   = TimeConverter.ToMiliseconds( EnergyConstants.DefaultDatCaptureIntervall );      // seconds
     }
 }

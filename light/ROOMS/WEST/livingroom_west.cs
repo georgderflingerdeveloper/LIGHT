@@ -12,7 +12,9 @@ namespace HomeAutomation
 {
     class LightControlLivingRoomWest : LightControl
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1823:AvoidUnusedPrivateFields")]
         int _startindex;
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1823:AvoidUnusedPrivateFields")]
         int _lastindex;
         bool turnedDeviceGroupManuallyOff = false;
         bool turnedAutoOff                = false;
@@ -181,12 +183,14 @@ namespace HomeAutomation
         }
     }
 
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable")]
     class livingroom_west : CommonRoom
     {
         LightControlLivingRoomWest LightControlLivingRoomWest_;
         UdpSend                    UdpSend_, UdpSendEcho;
         UdpReceive                 UDPReceive_;
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes")]
         public livingroom_west( )
             : base( )
         {
@@ -217,6 +221,7 @@ namespace HomeAutomation
             LightControlLivingRoomWest_.AutomaticOff_ += LightControlLivingRoomWest__AutomaticOff_;
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Literale nicht als lokalisierte Parameter übergeben", MessageId = "Communication.UDP.UdpSend.SendString(System.String)")]
         private void LightControlLivingRoomWest__AutomaticOff_( object sender )
         {
             LightControlLivingRoomWest_.ResetDelayedOff( );
@@ -265,6 +270,9 @@ namespace HomeAutomation
         const int ExpectedArrayElementsSignalTelegram = UdpTelegram.DelfaultExpectedArrayElementsSignalTelegram;
         const int ExpectedArrayElementsCommonCommand  = 1;
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1305:SpecifyIFormatProvider", MessageId = "System.Convert.ToDecimal(System.String)")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1502:AvoidExcessiveComplexity")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Literale nicht als lokalisierte Parameter übergeben", MessageId = "SystemServices.Services.TraceMessage_(System.String,System.String,System.String,System.Int32)")]
         void UDPReceive__EDataReceived( string e )
         {
             string[] DatagrammSplitted = e.Split( ComandoString.Telegram.Seperator );
@@ -369,6 +377,9 @@ namespace HomeAutomation
         }
 
         decimal TransactionCounter = 0;
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1305:SpecifyIFormatProvider", MessageId = "System.Int32.ToString")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1305:SpecifyIFormatProvider", MessageId = "System.Decimal.ToString")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Literale nicht als lokalisierte Parameter übergeben", MessageId = "Communication.UDP.UdpSend.SendStringSync(System.String)")]
         void SendInputState( InputChangeEventArgs e )
         {
              if( LightControlLivingRoomWest_ == null || UdpSend_ == null )
@@ -383,6 +394,7 @@ namespace HomeAutomation
                                            e.Value.ToString( ) );
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes")]
         protected override void BuildingSection_InputChange( object sender, InputChangeEventArgs e )
         {
             try

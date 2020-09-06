@@ -9,18 +9,24 @@ namespace CenterUnitTest
 	public static class TestConstants
 	{
 		static decimal TestTransaction                                = 00001;
-		public static string DatagrammButtonRightUpside_Pressed       = TestTransaction.ToString()     + "_" + LivingRoomWestIOAssignment.LivWestDigInputs.indDigitalInputButtonMainUpLeft.ToString() + "_" + "true";
-		public static string DatagrammButtonRightUpside_Released      = (TestTransaction+1).ToString() + "_" + LivingRoomWestIOAssignment.LivWestDigInputs.indDigitalInputButtonMainUpLeft.ToString() + "_" + "false";
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2211:NonConstantFieldsShouldNotBeVisible")]
+        public static string DatagrammButtonRightUpside_Pressed       = TestTransaction.ToString()     + "_" + LivingRoomWestIOAssignment.LivWestDigInputs.indDigitalInputButtonMainUpLeft.ToString() + "_" + "true";
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2211:NonConstantFieldsShouldNotBeVisible")]
+        public static string DatagrammButtonRightUpside_Released      = (TestTransaction+1).ToString() + "_" + LivingRoomWestIOAssignment.LivWestDigInputs.indDigitalInputButtonMainUpLeft.ToString() + "_" + "false";
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2211:NonConstantFieldsShouldNotBeVisible")]
         public static string DatagrammButtonRightUpside_PressedTwice  = (TestTransaction+2).ToString() + "_" + LivingRoomWestIOAssignment.LivWestDigInputs.indDigitalInputButtonMainUpLeft.ToString() + "_" + "true";
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2211:NonConstantFieldsShouldNotBeVisible")]
         public static string DatagrammButtonRightUpside_ReleasedTwice = (TestTransaction+3).ToString() + "_" + LivingRoomWestIOAssignment.LivWestDigInputs.indDigitalInputButtonMainUpLeft.ToString() + "_" + "false";
     }
 
     [TestFixture]
 	public class CenterTests
-	{
-		Center_kitchen_living_room_NG TestCenter;
+    {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1823:AvoidUnusedPrivateFields")]
+        Center_kitchen_living_room_NG TestCenter;
 
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1822:MarkMembersAsStatic")]
         [SetUp]
         public void Init()
         {

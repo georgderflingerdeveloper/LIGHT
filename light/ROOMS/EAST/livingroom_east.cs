@@ -23,6 +23,7 @@ namespace HomeAutomation
             _outputs = outputs;
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
         public void TurnLightsGalleryFloor( string command )
         {
             bool command_ = false;
@@ -49,6 +50,7 @@ namespace HomeAutomation
         }
     }
 
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable")]
     class Livingroom_east
     {
         #region DECLARATIONES
@@ -62,6 +64,7 @@ namespace HomeAutomation
         public event DigitalInputChanged  EDigitalInputChanged;
 
         DigitalInputEventargs  _DigitalInputEventargs  = new DigitalInputEventargs( );
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1823:AvoidUnusedPrivateFields")]
         DigitalOutputEventargs _DigitalOutputEventargs = new DigitalOutputEventargs( );
 
 
@@ -82,6 +85,8 @@ namespace HomeAutomation
         #endregion
 
         #region CONSTRUCTOR
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Literale nicht als lokalisierte Parameter übergeben", MessageId = "SystemServices.Services.TraceMessage_(System.String,System.String,System.String,System.Int32)")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes")]
         public Livingroom_east( int[] SerialNumbers ) 
         {
             _SerialNumbers    = SerialNumbers;
@@ -165,6 +170,7 @@ namespace HomeAutomation
 
         #region IPCONFIGURATION
         string _GivenClientName;
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
         public string GivenClientName
         {
             get
@@ -173,7 +179,9 @@ namespace HomeAutomation
             }
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1823:AvoidUnusedPrivateFields")]
         string _IpAdressServer;
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
         public string IpAdressServer
         {
             set
@@ -182,8 +190,12 @@ namespace HomeAutomation
             }
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1823:AvoidUnusedPrivateFields")]
         string _PortServer;
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1823:AvoidUnusedPrivateFields")]
         int _PortNumberServer;
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1305:SpecifyIFormatProvider", MessageId = "System.Convert.ToInt16(System.String)")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
         public string PortServer
         {
             set
@@ -219,6 +231,8 @@ namespace HomeAutomation
         #endregion
 
         #region UDP_RECEIVE_DATA
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1505:AvoidUnmaintainableCode")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1502:AvoidExcessiveComplexity")]
         private void CommandosReceived(string e)
         {
             string[] DatagrammSplitted = e.Split( ComandoString.Telegram.Seperator );
@@ -416,6 +430,9 @@ namespace HomeAutomation
             }
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1305:SpecifyIFormatProvider", MessageId = "System.Convert.ToInt16(System.String)")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1305:SpecifyIFormatProvider", MessageId = "System.Convert.ToDecimal(System.String)")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1305:SpecifyIFormatProvider", MessageId = "System.Convert.ToBoolean(System.String)")]
         void SignalsReceived( string e )
         {
             string[] DatagrammSplitted = e.Split( ComandoString.Telegram.Seperator );
@@ -457,8 +474,9 @@ namespace HomeAutomation
         #endregion
 
         #region EVENT_HANDLERS
- 
 
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Literale nicht als lokalisierte Parameter übergeben", MessageId = "Communication.UDP.UdpSend.SendStringSync(System.String)")]
         void Livingroom_east_InputChange( object sender, InputChangeEventArgs e )
         {
             // identify which card raised the event
@@ -516,6 +534,7 @@ namespace HomeAutomation
             EDigitalInputChanged?.Invoke( this, _DigitalInputEventargs );
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Literale nicht als lokalisierte Parameter übergeben", MessageId = "Communication.UDP.UdpSend.SendStringSync(System.String)")]
         private void TurnOffTimer_Elapsed( object sender, ElapsedEventArgs e )
         {
             LightControlMulti[IOCardID.ID_1]?.TurnSingleLight( EastSideIOAssignment.indDoorEntry_Window_Right, false );
@@ -552,6 +571,7 @@ namespace HomeAutomation
         #endregion
 
         #region PROPERTIES
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
         public string SoftwareVersion
         {
             set => _SoftwareVersion = value;

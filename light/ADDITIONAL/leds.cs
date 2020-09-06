@@ -3,8 +3,9 @@ using Phidgets;
 using HomeAutomation.HardConfig_Collected;
 using PhidgetsHelpers;
 
-namespace HardwareDevices                 
+namespace HardwareDevices
 {
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1812:AvoidUninstantiatedInternalClasses")]
     class LedControl : Phidgets.LED
     {
         public LedControl ( )

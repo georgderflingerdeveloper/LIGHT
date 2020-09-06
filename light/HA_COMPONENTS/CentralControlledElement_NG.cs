@@ -23,6 +23,7 @@ namespace HA_COMPONENTS
 
         #region CONSTRUCTOR
         // different "configurations" are via constructor possible
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
         public CentralControlledElements_NG( double AllOnTime, double AutomaticOffTime, int startindex, int lastindex )
             : base( AllOnTime, GeneralConstants.TimerDisabled, AutomaticOffTime )
         {
@@ -119,6 +120,7 @@ namespace HA_COMPONENTS
 
         #region PROPERTIES
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
         public bool[] ShowStateDigitalOutput
         {
             get

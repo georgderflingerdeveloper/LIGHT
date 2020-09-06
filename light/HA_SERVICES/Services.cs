@@ -12,8 +12,10 @@ using System.Threading;
 namespace SystemServices
 {
     // pool of common usefull methods
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1812:AvoidUninstantiatedInternalClasses")]
     class Services
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1305:SpecifyIFormatProvider", MessageId = "System.Int32.ToString")]
         public static void TraceMessage( string message,
                                  [System.Runtime.CompilerServices.CallerMemberName] string memberName    = "",
                                  [System.Runtime.CompilerServices.CallerFilePath] string sourceFilePath  = "",
@@ -25,6 +27,7 @@ namespace SystemServices
             System.Diagnostics.Trace.WriteLine( "source line number: " + sourceLineNumber );
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1305:SpecifyIFormatProvider", MessageId = "System.Int32.ToString")]
         public static void TraceMessage_( string message,
                                  [System.Runtime.CompilerServices.CallerMemberName] string memberName    = "",
                                  [System.Runtime.CompilerServices.CallerFilePath] string sourceFilePath  = "",
@@ -36,6 +39,10 @@ namespace SystemServices
             System.Diagnostics.Trace.WriteLine( TimeUtil.GetTimestamp( ) + " " + "source line number: " + sourceLineNumber );
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1804:RemoveUnusedLocals", MessageId = "pobjMutex")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Literale nicht als lokalisierte Parameter übergeben", MessageId = "System.Console.WriteLine(System.String)")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Reliability", "CA2000:Objekte verwerfen, bevor Bereich verloren geht")]
         public static void RunApplicationOnce( )
         {
             // This will be set to true if this process can own the mutex. 
@@ -54,11 +61,13 @@ namespace SystemServices
         }
 
         // program information last build
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
         public static DateTime BuildDate
         {
             get { return File.GetLastWriteTime( Assembly.GetExecutingAssembly().Location ); }
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
         public static int IPStringToInt( string ipAddress )
         {
             IPAddress address = IPAddress.Parse( ipAddress );
@@ -72,6 +81,9 @@ namespace SystemServices
             return BitConverter.ToInt32( asBytes, 0 );
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1305:SpecifyIFormatProvider", MessageId = "System.String.Format(System.String,System.Object)")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1305:SpecifyIFormatProvider", MessageId = "System.Convert.ToInt64(System.String)")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
         public static string FakeIpForComparison( string ip )
         {
             string fakeip = "";
@@ -88,6 +100,7 @@ namespace SystemServices
         }
     }
 
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1812:AvoidUninstantiatedInternalClasses")]
     class IPUtil
     {
         /// <summary>
@@ -96,6 +109,8 @@ namespace SystemServices
         /// <param name="IPAddress">The ip address for getting the host name.</param>
         /// <returns>The host name if exists else "no entry"</returns>
         /// 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes")]
         public static String GetHostNameByIp( String IPAddress )
         {
             IPHostEntry Host = null;
@@ -113,6 +128,7 @@ namespace SystemServices
             return( Host == null  ? "No entry" : Host.HostName );
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
         public static bool IsValidIp( string addr )
         {
             IPAddress ip;
@@ -120,12 +136,14 @@ namespace SystemServices
             return valid;
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
         public static bool IsMAC( string MAC )
         {
             return Regex.IsMatch( MAC, @"((([a-f]|[0-9]|[A-F]){2}\:){5}([a-f]|[0-9]|[A-F]){2}\b)|((([a-f]|[0-9]|[A-F]){2}\-){5}([a-f]|[0-9]|[A-F]){2}\b)" );
         }
 
         // f.e. checks wether 123.168.10.x ason... is correct
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
         public static bool IsIPRange( string IpRange )
         {
             bool res = false;
@@ -141,11 +159,14 @@ namespace SystemServices
         }
     }
 
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1812:AvoidUninstantiatedInternalClasses")]
     class TimeUtil
     {
         public const string FORMAT_DAY_MONTH_HOUR_MINUTE_SECOND = "{0:00}";
         public const string FORMAT_MS                           = "{0:000}";
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1305:SpecifyIFormatProvider", MessageId = "System.String.Format(System.String,System.Object)")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1305:SpecifyIFormatProvider", MessageId = "System.Int32.ToString")]
         public static string GetTimestamp( )
         {
             string timestamp =   String.Format( FORMAT_DAY_MONTH_HOUR_MINUTE_SECOND, DateTime.Now.Day )     + 
@@ -163,6 +184,9 @@ namespace SystemServices
             return ( timestamp );
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1305:SpecifyIFormatProvider", MessageId = "System.String.Format(System.String,System.Object)")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1305:SpecifyIFormatProvider", MessageId = "System.Int32.ToString")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
         public static string GetDate()
         {
             string timestamp =   String.Format( FORMAT_DAY_MONTH_HOUR_MINUTE_SECOND, DateTime.Now.Day ) +
@@ -171,6 +195,8 @@ namespace SystemServices
             return ( timestamp );
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1305:SpecifyIFormatProvider", MessageId = "System.String.Format(System.String,System.Object)")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1305:SpecifyIFormatProvider", MessageId = "System.Int32.ToString")]
         public static string GetDate_( )
         {
             string timestamp =   String.Format( FORMAT_DAY_MONTH_HOUR_MINUTE_SECOND, DateTime.Now.Day )   + "_" +
@@ -179,6 +205,8 @@ namespace SystemServices
             return ( timestamp );
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1305:SpecifyIFormatProvider", MessageId = "System.String.Format(System.String,System.Object)")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
         public static string GetTimeHmSms()
         {
             string timestamp =   String.Format( FORMAT_DAY_MONTH_HOUR_MINUTE_SECOND, DateTime.Now.Hour ) +
@@ -192,6 +220,8 @@ namespace SystemServices
             return ( timestamp );
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1305:SpecifyIFormatProvider", MessageId = "System.String.Format(System.String,System.Object)")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
         public static string GetTimeHmS()
         {
             string timestamp =   String.Format( FORMAT_DAY_MONTH_HOUR_MINUTE_SECOND, DateTime.Now.Hour ) +
@@ -203,6 +233,8 @@ namespace SystemServices
             return ( timestamp );
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1305:SpecifyIFormatProvider", MessageId = "System.String.Format(System.String,System.Object)")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
         public static string GetTimeHm()
         {
             string timestamp =   String.Format( FORMAT_DAY_MONTH_HOUR_MINUTE_SECOND, DateTime.Now.Hour ) +
@@ -212,6 +244,8 @@ namespace SystemServices
             return ( timestamp );
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1305:SpecifyIFormatProvider", MessageId = "System.String.Format(System.String,System.Object)")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
         public static string GetTimeH()
         {
             string timestamp =   String.Format( FORMAT_DAY_MONTH_HOUR_MINUTE_SECOND, DateTime.Now.Hour ) +
@@ -219,6 +253,8 @@ namespace SystemServices
             return ( timestamp );
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1305:SpecifyIFormatProvider", MessageId = "System.String.Format(System.String,System.Object)")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1305:SpecifyIFormatProvider", MessageId = "System.Int32.ToString")]
         public static string GetTimestamp_( )
         {
             string timestamp =   String.Format( FORMAT_DAY_MONTH_HOUR_MINUTE_SECOND, DateTime.Now.Day )     +
@@ -280,6 +316,7 @@ namespace SystemServices
     // program information last build
     static class BuildInformation
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
         public static DateTime BuildDate
         {
             get { return File.GetLastWriteTime( Assembly.GetExecutingAssembly().Location ); }
@@ -288,6 +325,7 @@ namespace SystemServices
 
     static class Memory
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
         public static bool CompareStreams( MemoryStream ms1, MemoryStream ms2 )
         {
             if( ms1.Length != ms2.Length )
@@ -304,6 +342,8 @@ namespace SystemServices
             return result;
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Reliability", "CA2000:Objekte verwerfen, bevor Bereich verloren geht")]
         public static bool CompareObjects( object o1, object o2 )
         {
            BinaryFormatter fmt1 = new BinaryFormatter( );
@@ -323,6 +363,7 @@ namespace SystemServices
            return( CompareStreams( ms1, ms2 ) );
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
         public static bool CompareBoolArryas( bool[] a, bool[] b )
         {
             if( a.Length != b.Length )
@@ -341,6 +382,7 @@ namespace SystemServices
             return true;
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
         public static bool CompareArryas( object[] a, object[] b )
         {
             if( a.Length != b.Length )
@@ -359,6 +401,7 @@ namespace SystemServices
             return true;
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
         public static bool CompareArryas( byte[] a, byte[] b )
         {
             if( a.Length != b.Length )
@@ -376,6 +419,7 @@ namespace SystemServices
             return true;
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
         public static byte[] Combine( params byte[][] arrays )
         {
             byte[] rv = new byte[arrays.Sum( a => a.Length )];
@@ -388,6 +432,8 @@ namespace SystemServices
             return rv;
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Reliability", "CA2000:Objekte verwerfen, bevor Bereich verloren geht")]
         public static MemoryStream SerializeToStream( object objectType )
         {
             MemoryStream stream = new MemoryStream();
@@ -396,6 +442,7 @@ namespace SystemServices
             return stream;
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
         public static object DeserializeFromStream( MemoryStream stream )
         {
             IFormatter formatter = new BinaryFormatter();

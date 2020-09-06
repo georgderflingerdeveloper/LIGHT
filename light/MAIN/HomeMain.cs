@@ -48,8 +48,9 @@ namespace HomeAutomation
 			command = Console.ReadLine();
         }
 
-  
-		static void WaitUntilKeyPressed( )
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Literale nicht als lokalisierte Parameter übergeben", MessageId = "System.Console.WriteLine(System.String)")]
+        static void WaitUntilKeyPressed( )
 		{
 			Console.WriteLine( InfoString.PressEnterForTerminateApplication );
 			while(Console.ReadKey(true).Key != ConsoleKey.Enter) 
@@ -58,6 +59,10 @@ namespace HomeAutomation
         #endregion
 
         #region MAIN
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1305:SpecifyIFormatProvider", MessageId = "System.DateTime.ToString")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1305:SpecifyIFormatProvider", MessageId = "System.Convert.ToInt32(System.String)")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA1801:ReviewUnusedParameters", MessageId = "args")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Literale nicht als lokalisierte Parameter übergeben", MessageId = "System.Console.WriteLine(System.String)")]
         static void Main(string[] args)
         {
             try
@@ -234,7 +239,9 @@ namespace HomeAutomation
 
         #region COMMON_EVENT_HANDLERS
 
-		static void RoomsIoHandling_EDigitalInputChanged( object sender, BASIC_COMPONENTS.DigitalInputEventargs e )
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1305:SpecifyIFormatProvider", MessageId = "System.Int32.ToString")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Literale nicht als lokalisierte Parameter übergeben", MessageId = "System.Console.WriteLine(System.String)")]
+        static void RoomsIoHandling_EDigitalInputChanged( object sender, BASIC_COMPONENTS.DigitalInputEventargs e )
 		{
 			if( !_EnableConsoleIoOutput )
 			{
@@ -282,7 +289,10 @@ namespace HomeAutomation
             }
         }
 
-		static void RoomIoHandling_EDigitalOutputChanged(object sender, BASIC_COMPONENTS.DigitalOutputEventargs e)
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1305:SpecifyIFormatProvider", MessageId = "System.Int32.ToString")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1804:RemoveUnusedLocals", MessageId = "DeviceName")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Literale nicht als lokalisierte Parameter übergeben", MessageId = "System.Console.WriteLine(System.String)")]
+        static void RoomIoHandling_EDigitalOutputChanged(object sender, BASIC_COMPONENTS.DigitalOutputEventargs e)
 		{
 			if( !_EnableConsoleIoOutput )
 			{

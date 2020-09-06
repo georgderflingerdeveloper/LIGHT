@@ -9,16 +9,20 @@ using HA_COMPONENTS;
 
 namespace HomeAutomation
 {
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1812:AvoidUninstantiatedInternalClasses")]
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable")]
     class SleepingRoom : CommonRoom
     {
         #region DECLARATIONES
         LightControl  LightSleepingRoom;
         HeaterElement HeaterSleepingRoom;
-        UdpSend       UdpSend_;
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1823:AvoidUnusedPrivateFields")]
+        UdpSend UdpSend_;
         bool AliveSignalStopped;
         #endregion
 
         #region CONSTRUCTOR
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes")]
         public SleepingRoom( )
             : base( )
         {
@@ -136,16 +140,19 @@ namespace HomeAutomation
         }
     }
 
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable")]
     class SleepingRoomNG : CommonRoom
     {
         #region DECLARATIONES
         LightControlSleepingRoom_NG LightSleepingRoom;
         HeaterElement_NG        HeaterSleepingRoom;
-        UdpSend                 UdpSend_;
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1823:AvoidUnusedPrivateFields")]
+        UdpSend UdpSend_;
         UdpReceive              Receive;
         #endregion
 
         #region CONSTRUCTOR
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes")]
         public SleepingRoomNG( ) : base( )
         {
             if( base.Attached )
@@ -220,7 +227,10 @@ namespace HomeAutomation
 
         protected override void BuildingSection_InputChange( object sender, InputChangeEventArgs e )
         {
-            ControlSequenceOnInputChange( e.Index, e.Value );
+            if (e != null)
+            {
+                ControlSequenceOnInputChange(e.Index, e.Value);
+            }
         }
     }
 }

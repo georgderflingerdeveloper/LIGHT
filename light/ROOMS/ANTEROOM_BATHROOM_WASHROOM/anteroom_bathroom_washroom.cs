@@ -22,6 +22,7 @@ namespace HomeAutomation
     #endregion
 
     #region LIGHTCONTROL
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1812:AvoidUninstantiatedInternalClasses")]
     class LightControlAnteRoom : LightControl
     {
           #region DECLARATION
@@ -257,6 +258,7 @@ namespace HomeAutomation
         #endregion
 
         #region CONSTRUCTOR
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
         public LightControlAnteRoomNG( double AllOnTime,
                                        double SingleOffTime, 
                                        double AutomaticOffTime, 
@@ -269,6 +271,7 @@ namespace HomeAutomation
         }
 
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
         public LightControlAnteRoomNG( double AllOnTime,
                                        double SingleOffTime,
                                        double AutomaticOffTime,
@@ -551,6 +554,7 @@ namespace HomeAutomation
             SwitchDeviceViaPresenceDetector( e.Value, delayTimeOff, deviceindex );
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
         public void ResetLightComander()
         {
             base.TurnAllLightsOff( AnteRoomIOLightIndexNaming.AnteRoomMainLight, AnteRoomIOLightIndexNaming.AnteRoomNightLight );
@@ -560,6 +564,7 @@ namespace HomeAutomation
         #endregion
 
         #region PROPERTIES
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
         public AnteRoomStep ActualAnteRoomStep
         {
             get
@@ -570,10 +575,13 @@ namespace HomeAutomation
         #endregion
     }
 
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1812:AvoidUninstantiatedInternalClasses")]
     class LightControlBathRoom : LightControl
     {
         #region DECLARATION
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1823:AvoidUnusedPrivateFields")]
         int _startindex;
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1823:AvoidUnusedPrivateFields")]
         int _lastindex;
         bool turnedDeviceGroupManuallyOff = false;
         bool turnedAutoOff = false;
@@ -666,18 +674,22 @@ namespace HomeAutomation
     #endregion
 
     #region ANTEROOM_CENTRAL_CONTROL
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable")]
     class AnteRoom : CommonRoom
     {
         #region DECLARATIONES
         LightControlAnteRoomNG               LightAnteRoom;
         LightControl                         LightWashRoom;
-        LightControl                         LightBathRoom;
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1823:AvoidUnusedPrivateFields")]
+        LightControl LightBathRoom;
         HeaterElement                        HeatersBathRoom;
 
         bool[]                               _DigitalInputState;
         bool[]                               _DigitalOutputState;
-        Home_scheduler                       scheduler         = new Home_scheduler();
-        FeedData                             PrevSchedulerData = new FeedData();
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1823:AvoidUnusedPrivateFields")]
+        Home_scheduler scheduler         = new Home_scheduler();
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1823:AvoidUnusedPrivateFields")]
+        FeedData PrevSchedulerData = new FeedData();
         #endregion
 
         #region CONSTRUCTOR 
@@ -728,6 +740,8 @@ namespace HomeAutomation
         #endregion
 
         #region ANTEROOM_WITH_COMMUNICATION
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1305:SpecifyIFormatProvider", MessageId = "System.Convert.ToInt16(System.String)")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA1801:ReviewUnusedParameters", MessageId = "softwareversion")]
         public AnteRoom( string IpAdressServer, string PortServer, string softwareversion )
             : base()
         {
@@ -777,49 +791,13 @@ namespace HomeAutomation
         #endregion
 
         #region SCHEDULER
-        // configure, start, stop scheduler
-        void BasicClientCommunicator__EFeedScheduler( object sender, FeedData e )
-        {
-            //SchedulerApplication.Worker( sender, e, ref PrevSchedulerData, ref scheduler );
-        }
+ 
 
-        void ControlScheduledDevice( Quartz.IJobExecutionContext context, decimal counts, string device )
-        {
-            int index = 0;
-            if( context.JobDetail.Key.Name.Contains( device ) )
-            {
-                HADictionaries.DeviceDictionaryCenterdigitalOut.TryGetValue( device, out index );
-                if( base.outputs != null )
-                {
-                    if( index >= 0 && index < GeneralConstants.NumberOfOutputsIOCard )
-                    {
-                        if( counts % 2 == 0 )
-                        {
-                            base.outputs[index] = GeneralConstants.OFF;
-                        }
-                        else
-                        {
-                            base.outputs[index] = GeneralConstants.ON;
-                        }
-                    }
-                }
-            }
-        }
-
-        void Scheduler_EvTriggered( string time, Quartz.IJobExecutionContext context, decimal counts )
-        {
-            SchedulerApplication.WriteStatus( time, context, counts );
-
-            if( !Attached )
-            {
-                return;
-            }
-
-            //ControlScheduledDevice( context, counts, HomeAutomation.HardConfig.HardwareDevices.Boiler );
-        }
         #endregion
 
         #region PROPERTIES_IO_INTERFACE
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
         public bool[] DigitalInputs
         {
             get
@@ -831,6 +809,8 @@ namespace HomeAutomation
                 _DigitalInputState = value;
             }
         }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
         public bool[] DigitalOutputs
         {
             get
@@ -846,6 +826,7 @@ namespace HomeAutomation
 
         #region IPCONFIGURATION
         string _GivenClientName;
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
         public string GivenClientName
         {
             get
@@ -854,7 +835,9 @@ namespace HomeAutomation
             }
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1823:AvoidUnusedPrivateFields")]
         string _IpAdressServer;
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
         public string IpAdressServer
         {
             set
@@ -863,8 +846,12 @@ namespace HomeAutomation
             }
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1823:AvoidUnusedPrivateFields")]
         string _PortServer;
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1823:AvoidUnusedPrivateFields")]
         int _PortNumberServer;
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1305:SpecifyIFormatProvider", MessageId = "System.Convert.ToInt16(System.String)")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
         public string PortServer
         {
             set
@@ -960,6 +947,10 @@ namespace HomeAutomation
         #region REMOTE_CONTROLLED_UDP
         decimal receivedTransactionCounter         = 0;
         decimal PreviousreceivedTransactionCounter = 0;
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1305:SpecifyIFormatProvider", MessageId = "System.Convert.ToDecimal(System.String)")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1305:SpecifyIFormatProvider", MessageId = "System.Convert.ToInt16(System.String)")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1305:SpecifyIFormatProvider", MessageId = "System.Convert.ToBoolean(System.String)")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
         void UDPReceive__EDataReceived( string e )
         {
             string[] DatagrammSplitted = e.Split( ComandoString.Telegram.Seperator );

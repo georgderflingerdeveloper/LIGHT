@@ -8,6 +8,7 @@ namespace BASIC_COMPONENTS
         const double DefaultVoltageOn  =  10.0;
         const double DefaultVoltageOff =  0.0;
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
         public AnalogHeaterControl( int serialnumber) : base( serialnumber ) {}
         public AnalogHeaterControl( ) : base(  ) { }
 

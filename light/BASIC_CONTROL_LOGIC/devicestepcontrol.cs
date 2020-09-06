@@ -66,6 +66,7 @@ namespace BASIC_CONTROL_LOGIC
         #endregion
 
         #region PROPERTIES
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
         public uint Number
         {
             get
@@ -79,6 +80,7 @@ namespace BASIC_CONTROL_LOGIC
             }
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
         public bool Value
         {
             get

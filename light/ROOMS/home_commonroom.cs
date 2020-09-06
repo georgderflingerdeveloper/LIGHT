@@ -27,12 +27,18 @@ namespace HomeAutomation
             bool                         _InhibitButtonComands;
             bool                         blink = false;
             bool                         _TimedOutput_FeatureActivate;
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1051:DoNotDeclareVisibleInstanceFields")]
             protected bool               _PrimaryIOCardIsAttached;
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1034:NestedTypesShouldNotBeVisible")]
             public delegate void TimedOutputFeature ( ElapsedEventArgs e );
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores")]
             public event TimedOutputFeature TimedOutputFeature_;
             #endregion
 
             #region CONSTRUCTOR
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1305:SpecifyIFormatProvider", MessageId = "System.Int32.ToString")]
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Literale nicht als lokalisierte Parameter übergeben", MessageId = "SystemServices.Services.TraceMessage(System.String,System.String,System.String,System.Int32)")]
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Literale nicht als lokalisierte Parameter übergeben", MessageId = "System.Console.WriteLine(System.String)")]
             void Constructor( int serialnumber_standardio )
             {
                 try
@@ -67,6 +73,9 @@ namespace HomeAutomation
 
             }
 
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1305:SpecifyIFormatProvider", MessageId = "System.Int32.ToString")]
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Literale nicht als lokalisierte Parameter übergeben", MessageId = "SystemServices.Services.TraceMessage(System.String,System.String,System.String,System.Int32)")]
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Literale nicht als lokalisierte Parameter übergeben", MessageId = "System.Console.WriteLine(System.String)")]
             public BuildingSection ( )
                 : base( )
             {
@@ -110,13 +119,17 @@ namespace HomeAutomation
                 base.Detach += BuildingSection_Detach;
                 base.Attach += BuildingSection_Attach;
             }
- 
+
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores")]
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", MessageId = "standardio")]
             public BuildingSection ( int serialnumber_standardio )
                 : base( )
             {
                 Constructor( serialnumber_standardio );
             }
 
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores")]
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", MessageId = "standardio")]
             public BuildingSection( int serialnumber_standardio, bool enableBase )
                 : base( )
             {
@@ -127,6 +140,7 @@ namespace HomeAutomation
 
             #region PROPERTIES
 
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1819:PropertiesShouldNotReturnArrays")]
             public bool[] StateDigitalOutput 
             {
                  get
@@ -150,11 +164,13 @@ namespace HomeAutomation
                 set { _ButtonLightBarOn = value; }
             }
 
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1044:PropertiesShouldNotBeWriteOnly")]
             public bool InhibitButtonComands
             {
                 set { _InhibitButtonComands = value; }
             }
 
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores")]
             public bool TimedOutput_FeatureActivate
             {
                 get
@@ -163,6 +179,7 @@ namespace HomeAutomation
                 }
             }
 
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1044:PropertiesShouldNotBeWriteOnly")]
             public bool AllLightsOn
             {
                 set
@@ -195,11 +212,15 @@ namespace HomeAutomation
             #endregion
 
             #region PROTOECTED_METHODS
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores")]
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1062:Argumente von öffentlichen Methoden validieren", MessageId = "1")]
             protected virtual void BuildingSection_OutputChange( object sender, OutputChangeEventArgs e )
             {
                 _StateDigitalOutput[e.Index] =  e.Value ? true : false;
             }
 
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores")]
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1062:Argumente von öffentlichen Methoden validieren", MessageId = "1")]
             virtual protected void BuildingSection_InputChange ( object sender, InputChangeEventArgs e )
             {
                 if( !_enableBase )
@@ -359,12 +380,16 @@ namespace HomeAutomation
 
             #region CONSTRUCTOR
 
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Mobility", "CA1601:DoNotUseTimersThatPreventPowerStateChanges")]
             public LightControl( double AllOnTime, double SingleOffTime, ref InterfaceKitDigitalOutputCollection outputs )
                 : base( AllOnTime, SingleOffTime )
             {
                 outputs_ = outputs;
             }
 
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Mobility", "CA1601:DoNotUseTimersThatPreventPowerStateChanges")]
             public LightControl( double AllOnTime, double SingleOffTime, int startindex, int lastindex, ref InterfaceKitDigitalOutputCollection outputs )
                 : base( AllOnTime, SingleOffTime )
             {
@@ -375,6 +400,7 @@ namespace HomeAutomation
                 outputs_         = outputs;
             }
 
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Mobility", "CA1601:DoNotUseTimersThatPreventPowerStateChanges")]
             public LightControl( double AllOnTime, double SingleOffTime, double AutomaticOffTime, int startindex, int lastindex, ref InterfaceKitDigitalOutputCollection outputs )
                 : base( AllOnTime, SingleOffTime, AutomaticOffTime )
             {
@@ -389,6 +415,8 @@ namespace HomeAutomation
                 InitPermanentDeviceSelection = false;
             }
 
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Mobility", "CA1601:DoNotUseTimersThatPreventPowerStateChanges")]
             public LightControl( double AllOnTime, double AllOutputsOffTime, double SingleOffTime, double AutomaticOffTime, int startindex, int lastindex, ref InterfaceKitDigitalOutputCollection outputs )
                 : base( AllOnTime, SingleOffTime, AutomaticOffTime )
             {
@@ -396,6 +424,8 @@ namespace HomeAutomation
             }
 
             // extended functionality - all devices off - even the desired remaining ones after timer elapsed
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Mobility", "CA1601:DoNotUseTimersThatPreventPowerStateChanges")]
             public LightControl( double AllOnTime, double AllOutputsOffTime, double SingleOffTime, double AutomaticOffTime, double AllAutomaticOffTime, 
                                  int startindex, int lastindex, ref InterfaceKitDigitalOutputCollection outputs )
                 : base( AllOnTime, SingleOffTime, AutomaticOffTime )
@@ -425,6 +455,7 @@ namespace HomeAutomation
                 }
             }
 
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
             public bool AllRoomLightsAreOn
             {
                 get
@@ -433,6 +464,7 @@ namespace HomeAutomation
                 }
             }
 
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
             public bool AllRoomLightsAreOff
             {
                 get
@@ -451,6 +483,7 @@ namespace HomeAutomation
             }
 
             // representation of digital outpus as BOOLEANS - purpose is to ease testing
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
             public bool[] ShowStateDigitalOutput
             {
                 get
@@ -459,10 +492,11 @@ namespace HomeAutomation
                 }
             }
 
-    
+
             #endregion
 
             #region PUBLIC_METHODS
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
             public void FinalAutomaticOff( InputChangeEventArgs e )
             {
                 if( e.Value == false )
@@ -483,6 +517,7 @@ namespace HomeAutomation
                 }
             }
 
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
             public void ToggleSingleLight( int index )
             {
                 if( !_ToggleOutput[index] )
@@ -512,6 +547,7 @@ namespace HomeAutomation
                 _LightControlSingleOffDone = false;
             }
 
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
             public void StartWaitForAllOff( )
             {
                 if( AllOutputsOffTimer != null )
@@ -520,6 +556,7 @@ namespace HomeAutomation
                 }
             }
 
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
             public void StopWaitForAllOff( )
             {
                 if( AllOutputsOffTimer != null )
@@ -593,6 +630,7 @@ namespace HomeAutomation
                 RestartAutomaticOffFallingEdge( e );
             }
 
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
             void AutoOffSelect(InputChangeEventArgs e, params int[] values)
             {
                 _values = values;
@@ -641,6 +679,7 @@ namespace HomeAutomation
             }
 
             // automatic off triggered via digital inputs with the option that devices which want to be turned off can be selected
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
             public void AutomaticOffSelect( InputChangeEventArgs e, params int[] values )
             {
                 // no need to execute when lights are already off
@@ -651,12 +690,15 @@ namespace HomeAutomation
                 AutoOffSelect( e, values );
             }
 
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA1801:ReviewUnusedParameters", MessageId = "ignore")]
             public void AutomaticOffSelect(bool ignore, InputChangeEventArgs e, params int[] values )
             {
                 AutoOffSelect( e, values );
             }
 
 
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
             public void AutomaticOffSelect( bool command, params int[] values )
             {
                 // no need to execute when lights are already off
@@ -725,6 +767,7 @@ namespace HomeAutomation
                 }
             }
 
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes")]
             void AliveTimer_Elapsed( object sender, ElapsedEventArgs e )
             {
                  if( outputs_ != null && _PrimaryIOCardIsAttached )
@@ -797,6 +840,8 @@ namespace HomeAutomation
                 }
             }
 
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA1801:ReviewUnusedParameters", MessageId = "lastindex")]
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA1801:ReviewUnusedParameters", MessageId = "startindex")]
             bool AreAllLightsOff( int startindex, int lastindex )
             {
                 // check for all devices (lights) off
@@ -945,6 +990,9 @@ namespace HomeAutomation
                 }
             }
 
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA1801:ReviewUnusedParameters", MessageId = "AutomaticOffTime")]
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA1801:ReviewUnusedParameters", MessageId = "SingleOffTime")]
             void Constructor( double AllOutputsOffTime, double SingleOffTime, double AutomaticOffTime, int startindex, int lastindex, ref InterfaceKitDigitalOutputCollection outputs )
             {
                 base.AllOn_ += LightControl_AllOn_;
@@ -960,10 +1008,11 @@ namespace HomeAutomation
                 AllOutputsOffTimer = new Timer( AllOutputsOffTime );
                 AllOutputsOffTimer.Elapsed += AllOutputsOffTimer_Elapsed;
             }
-            
+
             #endregion
 
             #region PROTECTED_METHODS
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
             protected void TurnOnWithDelayedOffSingleLight( InputChangeEventArgs e, double delayedofftime, int index )
             {
                 if( e.Value == false )
@@ -973,6 +1022,7 @@ namespace HomeAutomation
                 }
             }
 
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
             protected void TurnOnWithDelayedOffSingleLight( InputChangeEventArgs e, bool enable, double delayedofftime, int index )
             {
                 if( enable == false )
@@ -1039,6 +1089,7 @@ namespace HomeAutomation
             bool                         LightsOffProceeded = false;
             protected bool               _LightControlSingleOffDone;
             bool                         _PrimaryIOCardIsAttached;
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1823:AvoidUnusedPrivateFields")]
             bool[] _StateDigitalOutput               = new bool[GeneralConstants.NumberOfOutputsIOCard];    // fill state from outside
             bool[] _ToggleOutput                     = new bool[GeneralConstants.NumberOfOutputsIOCard];
             bool[] _ShowStateDigitalOutput           = new bool[GeneralConstants.NumberOfOutputsIOCard];    // show internal state - reason is to ease testing
@@ -1069,6 +1120,8 @@ namespace HomeAutomation
 
             #region CONSTRUCTOR
 
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Mobility", "CA1601:DoNotUseTimersThatPreventPowerStateChanges")]
             public LightControlNG( double AllOnTime, double SingleOffTime, ref InterfaceKitDigitalOutputCollection outputs )
                 : base( AllOnTime, SingleOffTime )
             {
@@ -1076,6 +1129,8 @@ namespace HomeAutomation
                 EUpdateOutputs += LightControlNG_EUpdateOutputs;
             }
 
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Mobility", "CA1601:DoNotUseTimersThatPreventPowerStateChanges")]
             public LightControlNG( double AllOnTime, double SingleOffTime, int startindex, int lastindex, ref InterfaceKitDigitalOutputCollection outputs )
                 : base( AllOnTime, SingleOffTime )
             {
@@ -1087,6 +1142,8 @@ namespace HomeAutomation
                 EUpdateOutputs += LightControlNG_EUpdateOutputs;
             }
 
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Mobility", "CA1601:DoNotUseTimersThatPreventPowerStateChanges")]
             public LightControlNG( double AllOnTime, double SingleOffTime, double AutomaticOffTime, int startindex, int lastindex, ref InterfaceKitDigitalOutputCollection outputs )
                 : base( AllOnTime, SingleOffTime, AutomaticOffTime )
             {
@@ -1102,6 +1159,8 @@ namespace HomeAutomation
                 EUpdateOutputs += LightControlNG_EUpdateOutputs;
             }
 
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Mobility", "CA1601:DoNotUseTimersThatPreventPowerStateChanges")]
             public LightControlNG( double AllOnTime,
                                    double AllOutputsOffTime,
                                    double SingleOffTime,
@@ -1117,6 +1176,7 @@ namespace HomeAutomation
 
 
             // extended functionality - all devices off - even the desired remaining ones after timer elapsed
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Mobility", "CA1601:DoNotUseTimersThatPreventPowerStateChanges")]
             public LightControlNG( double AllOnTime,
                                    double AllOutputsOffTime,
                                    double SingleOffTime,
@@ -1137,6 +1197,7 @@ namespace HomeAutomation
 
             #region PROPERTIES
 
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
             public bool IsPrimaryIOCardAttached
             {
                 set
@@ -1145,6 +1206,7 @@ namespace HomeAutomation
                 }
             }
 
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
             public int ActualLightIndexSingleStep
             {
                 get
@@ -1153,6 +1215,7 @@ namespace HomeAutomation
                 }
             }
 
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
             public bool AllRoomLightsAreOn
             {
                 get
@@ -1161,6 +1224,7 @@ namespace HomeAutomation
                 }
             }
 
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
             public bool AllRoomLightsAreOff
             {
                 get
@@ -1170,6 +1234,7 @@ namespace HomeAutomation
             }
 
             // fill state from outside
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
             public bool[] StateDigitalOutput
             {
                 set
@@ -1179,6 +1244,7 @@ namespace HomeAutomation
             }
 
             // representation of digital outpus as BOOLEANS - purpose is to ease testing
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
             public bool[] ShowStateDigitalOutput
             {
                 get
@@ -1205,6 +1271,7 @@ namespace HomeAutomation
                 }
             }
 
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
             public void FinalAutomaticOff( bool command )
             {
                 if( _AllRoomLightsAreOff )
@@ -1220,6 +1287,7 @@ namespace HomeAutomation
                 }
             }
 
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
             public void TurnSingleLight( int index, bool value )
             {
                 if(  index < _DigitalOutput.Length  )
@@ -1229,6 +1297,7 @@ namespace HomeAutomation
                 EUpdateOutputs?.Invoke( this, _DigitalOutput );
             }
 
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
             public void ToggleSingleLight( int index )
             {
                 if( !_ToggleOutput[index] )
@@ -1242,6 +1311,7 @@ namespace HomeAutomation
                 _ToggleOutput[index] = !_ToggleOutput[index];
             }
 
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
             public void StartAliveSignal( )
             {
                 AliveTimer.Start( );
@@ -1254,16 +1324,19 @@ namespace HomeAutomation
                 EUpdateOutputs?.Invoke( this, _DigitalOutput );
             }
 
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
             public void ResetLightControl( )
             {
                 _LightControlSingleOffDone = false;
             }
 
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
             public void StartWaitForAllOff( )
             {
                 AllOutputsOffTimer.Start( );
             }
 
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
             public void StopWaitForAllOff( )
             {
                 AllOutputsOffTimer.Stop( );
@@ -1274,11 +1347,13 @@ namespace HomeAutomation
                 makestep_( e.Value );
             }
 
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
             public void MakeStep( bool cmd )
             {
                 makestep_( cmd );
             }
 
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
             public new void AutomaticOff( InputChangeEventArgs e )
             {
                 SelectDevicesOff = false;
@@ -1291,6 +1366,7 @@ namespace HomeAutomation
                 RestartAutomaticOff( e );
             }
 
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
             public new void AutomaticOff( bool value )
             {
                 SelectDevicesOff = false;
@@ -1303,6 +1379,7 @@ namespace HomeAutomation
                 RestartAutomaticOff( value );
             }
 
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
             public void AutomaticOffAllLights( InputChangeEventArgs e )
             {
                 SelectDevicesOff = false;
@@ -1313,6 +1390,7 @@ namespace HomeAutomation
                 }
             }
 
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
             public void AutomaticOffAllLights( )
             {
                 SelectDevicesOff = false;
@@ -1324,6 +1402,7 @@ namespace HomeAutomation
             }
 
             // restarts auto off each falling edge 
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
             public void AutomaticOffRestartAll( InputChangeEventArgs e )
             {
                 SelectDevicesOff = false;
@@ -1381,6 +1460,7 @@ namespace HomeAutomation
                 RestartAutomaticOff( e );
             }
 
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
             public void AutomaticOffSelect( bool command, params int[] values )
             {
                 // no need to execute when lights are already off
@@ -1452,6 +1532,7 @@ namespace HomeAutomation
                 EReset?.Invoke( this );
             }
 
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes")]
             void AliveTimer_Elapsed( object sender, ElapsedEventArgs e )
             {
                 if( outputs_ != null && _PrimaryIOCardIsAttached )
@@ -1526,6 +1607,8 @@ namespace HomeAutomation
                 EUpdateOutputs?.Invoke( this, _DigitalOutput );
             }
 
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA1801:ReviewUnusedParameters", MessageId = "lastindex")]
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA1801:ReviewUnusedParameters", MessageId = "startindex")]
             bool AreAllLightsOff( int startindex, int lastindex )
             {
                 // check for all devices (lights) off
@@ -1593,6 +1676,7 @@ namespace HomeAutomation
                 _AllRoomLightsAreOff = AreAllLightsOff( _startindex, _lastindex );
             }
 
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
             void StartAutomaticOff( bool value )
             {
                 if( value == false )
@@ -1601,6 +1685,7 @@ namespace HomeAutomation
                 }
             }
 
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
             void StartAutomaticOff( )
             {
                 base.StartAutomaticOfftimer( );
@@ -1627,6 +1712,7 @@ namespace HomeAutomation
                 }
             }
 
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
             void RestartAutomaticOff( bool value )
             {
                 if( value == true )
@@ -1635,6 +1721,7 @@ namespace HomeAutomation
                 }
             }
 
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
             void RestartAutomaticOffFallingEdge( InputChangeEventArgs e )
             {
                 if( e.Value == false )
@@ -1684,6 +1771,8 @@ namespace HomeAutomation
                 }
             }
 
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA1801:ReviewUnusedParameters", MessageId = "AutomaticOffTime")]
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA1801:ReviewUnusedParameters", MessageId = "SingleOffTime")]
             void Constructor( double AllOutputsOffTime, double SingleOffTime, double AutomaticOffTime, int startindex, int lastindex, ref InterfaceKitDigitalOutputCollection outputs )
             {
                 base.AllOn_ += LightControl_AllOn_;
@@ -1742,6 +1831,7 @@ namespace HomeAutomation
                 }
             }
 
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
             protected void TurnOnWithDelayedOffSingleLight( InputChangeEventArgs e, double delayedofftime, int index )
             {
                 if( e.Value == false )
@@ -1751,6 +1841,7 @@ namespace HomeAutomation
                 }
             }
 
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
             protected void TurnOnWithDelayedOffSingleLight( InputChangeEventArgs e, bool enable, double delayedofftime, int index )
             {
                 if( enable == false )
@@ -1834,7 +1925,8 @@ namespace HomeAutomation
             protected bool           _HeaterWasTurnedOn = false;
             int                      _startindex, _lastindex;  // index digital output heater element
             double                   _AutomaticOffTime;
-            int                      _PWMIntensity;
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1823:AvoidUnusedPrivateFields")]
+            int _PWMIntensity;
             int                      _TimedIntensityStep;
             Timer                    Tim_StartIntensityPWM;
             Timer                    Tim_PermanentOnTimeWindow;
@@ -1863,6 +1955,7 @@ namespace HomeAutomation
 
             #region CONSTRUCTOR
             // turn heater element on / off and automatic down
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
             public HeaterElement( double AllOnTime,
                                   double AutomaticOffTime,
                                   int startindex,
@@ -1879,6 +1972,7 @@ namespace HomeAutomation
             }
 
             // additional PWM Parameters
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
             public HeaterElement( double AllOnTime,
                                   double AutomaticOffTime,
                                   double PWM_StayOnTime,
@@ -1936,11 +2030,13 @@ namespace HomeAutomation
                 }
             }
 
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
             public void HeaterOnFallingEdge( InputChangeEventArgs e )
             {
                 HeaterOnFallingEdge( e.Value );
             }
 
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
             public void HeaterOnFallingEdge( bool Value )
             {
                 if( Value == false )
@@ -1959,6 +2055,9 @@ namespace HomeAutomation
             }
 
             // todo
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA1801:ReviewUnusedParameters", MessageId = "e")]
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1822:MarkMembersAsStatic")]
             public void UseThermostatDigital( InputChangeEventArgs e )
             {
             }
@@ -1971,6 +2070,7 @@ namespace HomeAutomation
                 }
             }
 
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
             public bool HeaterIsOn
             {
                 get
@@ -1989,6 +2089,7 @@ namespace HomeAutomation
                 return false;
             }
 
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
             public void Reset( )
             {
                 HeaterControlState = eHeaterControlState.eOFF;
@@ -2035,12 +2136,14 @@ namespace HomeAutomation
                 }
             }
 
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
             void HeatersOff( )
             {
                 _HeaterWasTurnedOn = false;
                 TurnHeaters( false );
             }
 
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
             void HeatersOn( )
             {
                 _HeaterWasTurnedOn = true;
@@ -2136,6 +2239,7 @@ namespace HomeAutomation
                 PWM_Heater.Restart( );
             }
 
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
             void RestartIntensityTimer( )
             {
                 Tim_StartIntensityPWM.Stop( );
@@ -2203,6 +2307,7 @@ namespace HomeAutomation
 
             #region PROPERTIES
             // representation of digital outpus as BOOLEANS - purpose is to ease testing
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
             public bool[] ShowStateDigitalOutput
             {
                 get
@@ -2210,6 +2315,7 @@ namespace HomeAutomation
                     return ( _ShowStateDigitalOutput );
                 }
             }
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
             public bool Test
             {
                 set
@@ -2220,8 +2326,9 @@ namespace HomeAutomation
 
             #endregion
         }
- 
+
         // some inputs and actuators are controlled at "center" because cabeling required this
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1812:AvoidUninstantiatedInternalClasses")]
         class CentralControlledElements : LightControlTimer_
         {
             #region DECLARATIONS
@@ -2403,7 +2510,8 @@ namespace HomeAutomation
         {
             #region DECLARATIONES
             protected int            LightDeviceIndex                       = 0; // this is assigned to the digital output number
-            int                      _StartWithDefaultDeviceIndex           = 0;
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1823:AvoidUnusedPrivateFields")]
+            int _StartWithDefaultDeviceIndex           = 0;
             const int                TotalNumberOfLightGroupsInRoom         = 5;
             protected bool           AutoWalkStartToggle                    = false;
             double                   _DelayTimeAutoNexTimer                 = 1000;
@@ -2448,6 +2556,7 @@ namespace HomeAutomation
             }
 
             // bad style - this is used as testbackdoor
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
             public CommonRoom( bool disable ) : base( 0, false )
             {
                 if( disable )
@@ -2461,6 +2570,7 @@ namespace HomeAutomation
 
             #region PROPERTIES
 
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
             public int StartWithDefaultDeviceIndex
             {
                 set
@@ -2469,6 +2579,8 @@ namespace HomeAutomation
                 }
             }
 
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
             public string SoftwareVersion
             {
                 set
@@ -2512,6 +2624,7 @@ namespace HomeAutomation
                 LightDeviceIndex = 0;
             }
 
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
             public bool AllLightsOff ( int startindex, int lastindex )
             {
                 for( int ind = startindex; ind <= lastindex; ind++ )
@@ -2521,6 +2634,7 @@ namespace HomeAutomation
                 return ( true );
             }
 
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
             new public bool AllLightsOn ( int startindex, int lastindex )
             {
                 for( int ind = startindex; ind <= lastindex; ind++ )
@@ -2539,6 +2653,7 @@ namespace HomeAutomation
   
             }
 
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
             public void AllLightsOff ( out bool alllightsareon )
             {
                 for( int ind = 0; ind < TotalNumberOfLightGroupsInRoom; ind++ )
@@ -2549,6 +2664,7 @@ namespace HomeAutomation
                 alllightsareon = false;
             }
 
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
             new public void AllLightsOn ( )
             {
                 for( int ind = 0; ind < TotalNumberOfLightGroupsInRoom; ind++ )
@@ -2601,6 +2717,7 @@ namespace HomeAutomation
 
             #region PROTECTED_METHODS
 
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
             protected void AllOnOff ( InputChangeEventArgs e )
             {
                 // positive edge
@@ -2649,6 +2766,7 @@ namespace HomeAutomation
                 }
             }
 
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
             protected void StepLight ( int startindex, ref int index, int _indexlastdevice )
             {
                 int _index = startindex + index;

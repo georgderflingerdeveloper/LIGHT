@@ -11,6 +11,7 @@ namespace Filehandling
     /* ********************************** INI HANDLER **************************************************************************** */
     /* *************************************************************************************************************************** */
 
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", MessageId = "INI")]
     public static class INIUtility : object
     {
 
@@ -19,6 +20,7 @@ namespace Filehandling
         /// <summary>
         /// Line Comment Tokens
         /// </summary>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1504:ReviewMisleadingFieldNames")]
         private static string[] m_strLineComments = new string[] { "#", ";" };
 
         #endregion
@@ -32,6 +34,7 @@ namespace Filehandling
         /// <param name="strSection">Section Name</param>
         /// <param name="strKey">Key Name</param>
         /// <returns>Value of setting</returns>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2201:DoNotRaiseReservedExceptionTypes")]
         public static string Read ( string strFileSource, string strSection, string strKey )
         {
             Dictionary<string, string> dictKeys = ReadAllSection( strFileSource, strSection );
@@ -49,6 +52,8 @@ namespace Filehandling
         /// <param name="strFileSource">File Location</param>
         /// <param name="strSection">Section Name</param>
         /// <returns>Dictionary, Containing Section Keys/Values</returns>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1307:SpecifyStringComparison", MessageId = "System.String.IndexOf(System.String)")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2201:DoNotRaiseReservedExceptionTypes")]
         public static Dictionary<string, string> ReadAllSection ( string strFileSource, string strSection )
         {
             Dictionary<string, string> dictRet = new Dictionary<string, string>( );
@@ -81,6 +86,7 @@ namespace Filehandling
         /// </summary>
         /// <param name="strFileSource">File to Read</param>
         /// <returns>Collection containing all sections. and key/value pairs for each section</returns>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1006:DoNotNestGenericTypesInMemberSignatures")]
         public static Dictionary<string, Dictionary<string, string>> ReadAll ( string strFileSource )
         {
             Dictionary<string, Dictionary<string, string>> dictValues = new Dictionary<string, Dictionary<string, string>>( );
@@ -159,6 +165,9 @@ namespace Filehandling
         /// <param name="strSource">Source Configuration Contents</param>
         /// <param name="strSection">Name of section to pull</param>
         /// <returns>Entire Section, Header and Key/Value Pairs</returns>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1307:SpecifyStringComparison", MessageId = "System.String.IndexOf(System.String)")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1307:SpecifyStringComparison", MessageId = "System.String.IndexOf(System.String,System.Int32)")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2201:DoNotRaiseReservedExceptionTypes")]
         private static string GetSection ( string strSource, string strSection )
         {
 
@@ -182,6 +191,7 @@ namespace Filehandling
         /// </summary>
         /// <param name="strSource">INI Configuration Contents</param>
         /// <returns>String array containing all section names</returns>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1307:SpecifyStringComparison", MessageId = "System.String.IndexOf(System.String,System.Int32)")]
         private static string[] GetSections ( string strSource )
         {
             int intLastPos = 0;

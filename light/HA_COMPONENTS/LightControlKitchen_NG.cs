@@ -22,12 +22,15 @@ namespace HA_COMPONENTS
         const int NumberOfFrontLights = 3;
         int _index;
         int _lastindex;
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1823:AvoidUnusedPrivateFields")]
         int _startindex;
         bool _turnedAutoOff;
         bool _SingleOffDone;
         bool reset;
         int IndexFS = 0;
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1823:AvoidUnusedPrivateFields")]
         bool _AnyExternalDeviceOn;
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1823:AvoidUnusedPrivateFields")]
         bool _AnyExternalDeviceOff;
         bool ToggleLightGroups = false;
         bool ToggleLightWindowBoardEastDown;
@@ -79,6 +82,7 @@ namespace HA_COMPONENTS
         #endregion
 
         #region PROPERTIES
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
         public bool AnyExternalDeviceOn
         {
             set
@@ -94,6 +98,7 @@ namespace HA_COMPONENTS
             }
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
         public bool AnyExternalDeviceOff
         {
             set
@@ -111,6 +116,7 @@ namespace HA_COMPONENTS
 
 
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
         public KitchenStep ActualKitchenStep { get => ActualKitchenStep_; set => ActualKitchenStep_ = value; }
         #endregion
 
@@ -158,6 +164,7 @@ namespace HA_COMPONENTS
         #endregion
 
         #region OVERWRITTEN_METHODS
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1502:AvoidExcessiveComplexity")]
         override protected void StepLight( int startindex, ref int index, int _indexlastdevice )
         {
             if (_turnedAutoOff)

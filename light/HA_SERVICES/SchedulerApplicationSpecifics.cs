@@ -14,7 +14,9 @@ namespace Scheduler
 {
     static class SchedulerApplication
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1823:AvoidUnusedPrivateFields")]
         static string Device;
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1823:AvoidUnusedPrivateFields")]
         static string JobId_;
         static bool JobIsPaused = false;
         static string PreviousJobName = "";
@@ -29,6 +31,8 @@ namespace Scheduler
 
         static FeedData PrevData = new FeedData( );
         static private Object thisLock = new Object( );
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA1801:ReviewUnusedParameters", MessageId = "sender")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Literale nicht als lokalisierte Parameter übergeben", MessageId = "System.Console.WriteLine(System.String)")]
         static public void Worker( object sender, FeedData e, ref Home_scheduler scheduler )
         {
             string JobName = e.Device + "_" + e.JobId;
@@ -114,11 +118,14 @@ namespace Scheduler
             }
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
         static int AskForStartOrStop( decimal counts )
         {
             return ( ( counts % 2 ) == 0 ? SchedulerConstants.StopDevice : SchedulerConstants.StartDevice );
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1305:SpecifyIFormatProvider", MessageId = "System.Decimal.ToString")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Literale nicht als lokalisierte Parameter übergeben", MessageId = "System.Console.WriteLine(System.String)")]
         static public void WriteStatus( string time, Quartz.IJobExecutionContext context, decimal counts )
         {
             Console.WriteLine( InfoString.SchedulerIsStartingDevice + time + " " + context.JobDetail.Key.Name + " " + context.Trigger.Key.Name + " " + counts.ToString( ) );
@@ -128,6 +135,7 @@ namespace Scheduler
     class SchedulerDataRecovery
     {
         List<FeedData> SchedFeedData;
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1823:AvoidUnusedPrivateFields")]
         string _directory = "";
 
         public delegate void RecoverJobs( FeedData e );
@@ -171,6 +179,10 @@ namespace Scheduler
             Store( feed, GotNewJob );
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1804:RemoveUnusedLocals", MessageId = "currentDir")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Literale nicht als lokalisierte Parameter übergeben", MessageId = "System.Console.WriteLine(System.String)")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Reliability", "CA2000:Objekte verwerfen, bevor Bereich verloren geht")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes")]
         private List<FeedData> Recover( string directory, string device )
         {
             try
@@ -192,6 +204,9 @@ namespace Scheduler
             }
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1305:SpecifyIFormatProvider", MessageId = "System.Convert.ToInt32(System.String)")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Reliability", "CA2000:Objekte verwerfen, bevor Bereich verloren geht")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes")]
         public void Store( FeedData data, bool GotNewJob )
         {
             try

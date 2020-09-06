@@ -22,6 +22,8 @@ namespace Communication
             protected IPEndPoint serverEndPoint;
             protected string  _hostname = FormatString.Empty;
 
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes")]
             public Client ( string ipadress, int port, string message )
             {
                 client = new TcpClient( );
@@ -43,6 +45,7 @@ namespace Communication
                 }
             }
 
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
             public bool Connected
             {
                 get
@@ -51,6 +54,7 @@ namespace Communication
                 }
             }
 
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
             public void WriteMessage ( string message )
             {
                 if( buffer != null && clientStream != null && encoder != null )
@@ -60,7 +64,8 @@ namespace Communication
                     clientStream.Flush( );
                 }
             }
- 
+
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
             public void Disconnect ( )
             {
                 if( client != null )
@@ -69,6 +74,7 @@ namespace Communication
                 }
             }
 
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
             public void Connect( string ipadress, int port)
             {
                 serverEndPoint = new IPEndPoint(IPAddress.Parse(ipadress), port);
@@ -88,7 +94,9 @@ namespace Communication
             protected byte[]                buffer                    = null;
             protected int                   messagelength             = 0;
             string                          initialmessagegreeting    = null;
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1823:AvoidUnusedPrivateFields")]
             protected string                completemessage           = null;
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1823:AvoidUnusedPrivateFields")]
             protected string                messagemetadata           = null;
             protected NetworkStream         clientStream              = null;
             protected ASCIIEncoding         encoder                   = null;
@@ -96,14 +104,21 @@ namespace Communication
             protected IPEndPoint            serverEndPoint;
             protected string                _hostname                 = FormatString.Empty;
             protected bool                  stopread_;
-            string                          _SoftwareVersion;
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1823:AvoidUnusedPrivateFields")]
+            string _SoftwareVersion;
 
 
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
             public ClientMeta ( string ipadress, int port, string message )
             {
                 InitiateConnection( ipadress, port, message );
             }
 
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1305:SpecifyIFormatProvider", MessageId = "System.String.Format(System.String,System.Object)")]
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1500:VariableNamesShouldNotMatchFieldNames", MessageId = "completemessage")]
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Literale nicht als lokalisierte Parameter übergeben", MessageId = "SystemServices.Services.TraceMessage_(System.String,System.String,System.String,System.Int32)")]
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Literale nicht als lokalisierte Parameter übergeben", MessageId = "System.Console.WriteLine(System.String)")]
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes")]
             protected void InitiateConnection(string ipadress, int port, string message)
             {
                  client = new TcpClient( );
@@ -133,6 +148,7 @@ namespace Communication
                 }
             }
 
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
             public string TransmittedSoftwareVersion
             {
                 set
@@ -140,6 +156,7 @@ namespace Communication
                     _SoftwareVersion = value;
                 }
             }
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes")]
             public bool Connected
             {
                 get
@@ -163,6 +180,8 @@ namespace Communication
                 }
             }
 
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1305:SpecifyIFormatProvider", MessageId = "System.Int32.ToString")]
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
             public void WriteMessage ( string message )
             {
                 if( buffer != null && clientStream != null && encoder != null )
@@ -175,6 +194,7 @@ namespace Communication
                 }
             }
 
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
             public void Disconnect ( )
             {
                 if( client != null )
@@ -185,6 +205,7 @@ namespace Communication
       }
 
         // this client sends more metainformation to the server - so he is more talktive
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1812:AvoidUninstantiatedInternalClasses")]
         class ClientTalktive : Client
         {
            const int IP_ASSIGNMENT_INDEX = 7; // TODO - find out a better way - so far the IP Adress stands at this location - within the string array
@@ -193,9 +214,10 @@ namespace Communication
            {
            }
 
-           // TODO - find a proper solution to implement this into constructor
-           // GET IP ADRESS FROM HOSTNAME
-           public void ClientTalktive_ ( string hostname_endpoint, int port, string message, bool throwIfMoreThanOneIP )
+            // TODO - find a proper solution to implement this into constructor
+            // GET IP ADRESS FROM HOSTNAME
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes")]
+            public void ClientTalktive_ ( string hostname_endpoint, int port, string message, bool throwIfMoreThanOneIP )
            {
                 client = new TcpClient( );
                 _hostname = System.Net.Dns.GetHostName( );
@@ -216,8 +238,9 @@ namespace Communication
                     Services.TraceMessage_( ExClient.Message );
                 }
             }
-            
-           static IPEndPoint GetIPEndPointFromHostName ( string hostName, int port, bool throwIfMoreThanOneIP )
+
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
+            static IPEndPoint GetIPEndPointFromHostName ( string hostName, int port, bool throwIfMoreThanOneIP )
             {
                 var addresses = System.Net.Dns.GetHostAddresses( hostName );
                 if( addresses.Length == 0 )
@@ -238,7 +261,8 @@ namespace Communication
             }
 
             // extended information - more talktive
-           public void WriteMessageWithHostname ( string message )
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes")]
+            public void WriteMessageWithHostname ( string message )
            {
                try
                {
@@ -257,7 +281,9 @@ namespace Communication
                }
            }
 
-           public void WriteMessageWithHostnameAndTimestamp ( string message )
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1305:SpecifyIFormatProvider", MessageId = "System.DateTime.ToString")]
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes")]
+            public void WriteMessageWithHostnameAndTimestamp ( string message )
             {
                 try
                 {
@@ -291,6 +317,7 @@ namespace Communication
             Queue<string> _ReceivedMessageQueue;
             public event EventHandler EndpointDisconnected = delegate { };
 
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
             public ClientTalktive_ ( string ipadress, int port, string message )
                 : base( ipadress, port, message )
             {
@@ -332,6 +359,8 @@ namespace Communication
                 }
             }
 
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Literale nicht als lokalisierte Parameter übergeben", MessageId = "Communication.Client_.ClientMeta.InitiateConnection(System.String,System.Int32,System.String)")]
             public void ReConnect(string ipadress, int port)
             {
                 InitiateConnection( ipadress, port, ComunicationInfoString.RECONNECTED );
@@ -339,13 +368,18 @@ namespace Communication
                 DataFromServerThread.Start( base.client );
             }
 
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Literale nicht als lokalisierte Parameter übergeben", MessageId = "Communication.Client_.ClientMeta.InitiateConnection(System.String,System.Int32,System.String)")]
             public void ReConnect( string ipadress, int port, string UserDefinedClientID )
             {
                 InitiateConnection( ipadress, port,ComunicationInfoString.RECONNECTED + ComunicationInfoString.CLIENT_NAME_PREFIX + UserDefinedClientID );
                 DataFromServerThread = new Thread( new ParameterizedThreadStart(GetDataFromServer) );
                 DataFromServerThread.Start( base.client );
             }
-              // extended information - more talktive
+            // extended information - more talktive
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1305:SpecifyIFormatProvider", MessageId = "System.String.Format(System.String,System.Object)")]
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1305:SpecifyIFormatProvider", MessageId = "System.Int32.ToString")]
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes")]
             public void WriteMessageWithHostname ( string message )
             {
                 try
@@ -368,6 +402,9 @@ namespace Communication
                 }
             }
 
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1305:SpecifyIFormatProvider", MessageId = "System.String.Format(System.String,System.Object)")]
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1305:SpecifyIFormatProvider", MessageId = "System.Decimal.ToString(System.String)")]
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes")]
             public void WriteMessageWithHostnameAndTimestamp ( string message, string talkingtyp )
             {
                 try
@@ -403,6 +440,9 @@ namespace Communication
                 }
             }
 
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1305:SpecifyIFormatProvider", MessageId = "System.String.Format(System.String,System.Object)")]
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes")]
             public void WriteMessageWithLengthInformation( string message )
             {
                 try
@@ -428,11 +468,13 @@ namespace Communication
                 }
             }
 
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
             public string HostName
             {
                 get { return _hostname; }
             }
 
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
             public int MessageLength
             {
                 get { return messagelength; }
@@ -496,6 +538,10 @@ namespace Communication
                 }
             }
 
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1305:SpecifyIFormatProvider", MessageId = "System.Convert.ToInt16(System.String)")]
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1822:MarkMembersAsStatic")]
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Literale nicht als lokalisierte Parameter übergeben", MessageId = "System.Console.WriteLine(System.String)")]
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes")]
             public void ClientAutoReconnect( ref ClientTalktive_ Client_, string userdefinedClientID, string serveripadress, string serverPort )
             {
                 if( !Client_.Connected )

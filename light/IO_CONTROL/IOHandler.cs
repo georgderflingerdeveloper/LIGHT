@@ -6,7 +6,9 @@ using HomeControl.BASIC_COMPONENTS.Interfaces;
 
 namespace BASIC_COMPONENTS
 {
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1003:UseGenericEventHandlerInstances")]
     public delegate void DigitalInputChanged( object sender, DigitalInputEventargs e );
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1003:UseGenericEventHandlerInstances")]
     public delegate void DigitalOutputChanged( object sender, DigitalOutputEventargs e );
 
     public class DigitalInputEventargs : EventArgs
@@ -103,7 +105,9 @@ namespace BASIC_COMPONENTS
 
     public enum HandlerMode
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", MessageId = "e")]
         eHardware,
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", MessageId = "e")]
         eMocking
     }
 
@@ -177,6 +181,7 @@ namespace BASIC_COMPONENTS
         #endregion
 
         #region PRIVATEMETHODS
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes")]
         void Constructor( HandlerMode mode, int serialnumber )
         {
             _serialnumber = serialnumber;
@@ -213,6 +218,8 @@ namespace BASIC_COMPONENTS
             }
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1305:SpecifyIFormatProvider", MessageId = "System.Int32.ToString")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Literale nicht als lokalisierte Parameter übergeben", MessageId = "System.Console.WriteLine(System.String)")]
         void IOHardwareInformation()
         {
             Console.WriteLine( TimeUtil.GetTimestamp( ) + " IO card Type:  "          + base.Type.ToString() );
@@ -259,6 +266,7 @@ namespace BASIC_COMPONENTS
             }
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate")]
         public int GetNumberOfAvailableInputs()
         {
             int count = 0;

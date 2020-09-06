@@ -7,8 +7,11 @@ using System.Timers;
 
 namespace BASIC_CONTROL_LOGIC
 {
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores")]
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable")]
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", MessageId = "lightstepcontrol")]
     [TestFixture]
-    public class unittest_lightstepcontrol
+    public class Unittest_lightstepcontrol
     {
         const uint NumberOfDevices = 16;
         const double TimeNext = 40;
@@ -23,6 +26,7 @@ namespace BASIC_CONTROL_LOGIC
             StepControl.WatchForInputValueChange(false);
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores")]
         [Test]
         public void Test_DeviceValueSwitch()
         {
@@ -40,6 +44,7 @@ namespace BASIC_CONTROL_LOGIC
         }
 
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores")]
         [Test]
         public void Test_StartDeviceValueWhenSwitchingToNextElement()
         {
@@ -70,6 +75,7 @@ namespace BASIC_CONTROL_LOGIC
             EventRaisedCounter++;
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores")]
         [Test]
         public void Test_DeviceValueWhenSwitchingToNextElement()
         {

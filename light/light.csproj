@@ -46,8 +46,11 @@
     <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
+    <WarningLevel>0</WarningLevel>
     <RunCodeAnalysis>true</RunCodeAnalysis>
+    <NoWarn>
+    </NoWarn>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -157,6 +160,7 @@
     <Compile Include="COMMUNICATION\tcpclient.cs" />
     <Compile Include="COMMUNICATION\tcpserver.cs" />
     <Compile Include="COMMUNICATION\udp_basic.cs" />
+    <Compile Include="GlobalSuppressions2.cs" />
     <Compile Include="HARDCONFIG\home_hardconfig.cs" />
     <Compile Include="HA_COMPONENTS\CentralControlledElement_NG.cs" />
     <Compile Include="HA_COMPONENTS\HeaterElementAnalog.cs" />
@@ -241,6 +245,9 @@
     <Folder Include="BASIC_CONTROL_LOGIC\LIGHTCONTROL\INTERFACES\" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\.editorconfig">
+      <Link>.editorconfig</Link>
+    </None>
     <None Include="packages.config" />
     <None Include="App.config" />
   </ItemGroup>

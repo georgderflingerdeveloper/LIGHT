@@ -17,6 +17,7 @@ namespace Communication
         // handles comunication client/server with app protocoll
         // - exchanges IO signals
         // - exchanges Time Data which feed scheduler
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1812:AvoidUninstantiatedInternalClasses")]
         class BasicClientComumnicator 
         {
             #region COMMUNICATION_DECLARATION
@@ -61,6 +62,10 @@ namespace Communication
 
             #region CONSTRUCTOR
             // controls one 16/16 primer
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1305:SpecifyIFormatProvider", MessageId = "System.Convert.ToInt16(System.String)")]
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Literale nicht als lokalisierte Parameter übergeben", MessageId = "SystemServices.Services.TraceMessage(System.String,System.String,System.String,System.Int32)")]
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Literale nicht als lokalisierte Parameter übergeben", MessageId = "Communication.Client_.ClientTalktive_.#ctor(System.String,System.Int32,System.String)")]
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes")]
             void ConstructorIO( string givenname, string ipserver, string portserver,
                                              ref InterfaceKitDigitalOutputCollection outputs,
                                              ref Dictionary<string, int> dicoutputs,
@@ -115,6 +120,10 @@ namespace Communication
                 MessageAnalyzer_.EProcessHACommando           += MessageAnalyzer__EProcessHACommando;
            }
 
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1305:SpecifyIFormatProvider", MessageId = "System.Convert.ToInt16(System.String)")]
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Literale nicht als lokalisierte Parameter übergeben", MessageId = "Communication.Client_.ClientTalktive_.#ctor(System.String,System.Int32,System.String)")]
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Literale nicht als lokalisierte Parameter übergeben", MessageId = "SystemServices.Services.TraceMessage(System.String,System.String,System.String,System.Int32)")]
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes")]
             void ConstructorComunicationOnly( string givenname, string ipserver, string portserver )
             {
                 _GivenClientName = givenname;
@@ -295,8 +304,10 @@ namespace Communication
                 }
             }
 
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1823:AvoidUnusedPrivateFields")]
             string _PortServer;
             int _PortNumberServer;
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1305:SpecifyIFormatProvider", MessageId = "System.Convert.ToInt16(System.String)")]
             public string PortServer
             {
                 set
@@ -341,6 +352,7 @@ namespace Communication
                 }
             }
             // received servers invitation for reconnection
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1305:SpecifyIFormatProvider", MessageId = "System.Int32.ToString")]
             void UDPReceiveInvitation_EDataReceived( string e )
             {
                 if( e == InfoString.RequestForClientConnection )
@@ -360,6 +372,10 @@ namespace Communication
                firstReceivedDigitalOutputComando = false;
             }
 
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1305:SpecifyIFormatProvider", MessageId = "System.Int32.ToString")]
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1804:RemoveUnusedLocals", MessageId = "qmessage")]
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Literale nicht als lokalisierte Parameter übergeben", MessageId = "System.Console.WriteLine(System.String)")]
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1820:TestForEmptyStringsUsingStringLength")]
             void TCPClient_MessageReceivedFromServer( string receivedmessage )
             {
                 if( TCPClient.Connected )

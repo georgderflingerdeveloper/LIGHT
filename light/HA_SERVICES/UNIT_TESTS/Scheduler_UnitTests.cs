@@ -4,9 +4,11 @@ using NUnit.Compatibility;
 
 namespace Communication.HA_SERVICES.UNIT_TESTS
 {
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores")]
     [TestFixture]
     public class Scheduler_UnitTests
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1822:MarkMembersAsStatic")]
         [SetUp]
         public void Init()
         {
@@ -24,6 +26,7 @@ namespace Communication.HA_SERVICES.UNIT_TESTS
         string TestTimePointWrongHour   = "25:00:00";
 
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores")]
         [Test]
         public void TestCroneTimePoint_Any()
         {
@@ -31,6 +34,7 @@ namespace Communication.HA_SERVICES.UNIT_TESTS
             Assert.AreEqual( ExpectedResultOfCroneString, CroneResult );
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores")]
         [Test]
         public void TestCroneTimePoint_ZeroSeconds()
         {
@@ -38,6 +42,7 @@ namespace Communication.HA_SERVICES.UNIT_TESTS
             Assert.AreEqual( ExpectedResultOfCroneStringZeroSeconds, CroneResult );
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores")]
         [Test]
         public void TestCroneTimePoint_WithWrongSecondTimeFormat()
         {
@@ -45,6 +50,7 @@ namespace Communication.HA_SERVICES.UNIT_TESTS
             Assert.AreEqual( QuartzApplicationMessages.MessageWrongTimeFormat, CroneResult );
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores")]
         [Test]
         public void TestCroneTimePoint_WithWrongMinuteTimeFormat()
         {
@@ -52,6 +58,7 @@ namespace Communication.HA_SERVICES.UNIT_TESTS
             Assert.AreEqual( QuartzApplicationMessages.MessageWrongTimeFormat, CroneResult );
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores")]
         [Test]
         public void TestCroneTimePoint_WithWrongHourTimeFormat()
         {
@@ -59,6 +66,7 @@ namespace Communication.HA_SERVICES.UNIT_TESTS
             Assert.AreEqual( QuartzApplicationMessages.MessageWrongTimeFormat, CroneResult );
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1822:MarkMembersAsStatic")]
         [TearDown]
         public void Cleanup()
         {

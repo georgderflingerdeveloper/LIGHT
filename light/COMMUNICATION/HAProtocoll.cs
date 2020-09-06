@@ -13,27 +13,35 @@ namespace Communication
 
         public class IOSelection
         {
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", MessageId = "dig")]
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1034:NestedTypesShouldNotBeVisible")]
             public delegate void digInput( int index, bool value );
             public event digInput EDigitalInput;
 
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", MessageId = "dig")]
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1034:NestedTypesShouldNotBeVisible")]
             public delegate void digOutput( int index, bool value );
             public event digOutput EDigitalOutput;
 
             // true -got IO message
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores")]
             public void Is_IOMessage( bool info)
             {
                 IsIOMessage_ = info;
-            } 
+            }
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores")]
             public void DigitalOutput_Index( int ind ) 
             {
                 DigitalOutputIndex_ = ind;
             }
 
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores")]
             public void DigitalOutput_Value( bool value)
             {
                 DigitalOutputValue_ = value;
             }
 
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores")]
             public void DigitalOutput_IndexWithValue( int ind, bool val )
             {
                 DigitalOutputIndex_ = ind;
@@ -42,6 +50,7 @@ namespace Communication
                 EDigitalOutput?.Invoke( ind, val );
             }
 
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores")]
             public void DigitalInput_IndexWithValue( int ind, bool val )
             {
                 DigitalInputIndex_ = ind;
@@ -72,9 +81,11 @@ namespace Communication
             public bool IsInput           { get; set; }
             public bool IsOutput          { get; set; }
             public bool IsIOState         { get; set; }
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1819:PropertiesShouldNotReturnArrays")]
             public bool[] DigitalInputs   { get; set; }
             public int  SingleInputIndex  { get; set; }
-            public bool SingleInputValue  { get; set; } 
+            public bool SingleInputValue  { get; set; }
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1819:PropertiesShouldNotReturnArrays")]
             public bool[] DigitalOutputs  { get; set; }
             public int SingleOutputIndex  { get; set; }
             public bool SingleOutputValue { get; set; } 
@@ -117,13 +128,25 @@ namespace Communication
 
         public static class HomeAutomationCommandos
         {
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores")]
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", MessageId = "ALL")]
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", MessageId = "LIGHTS")]
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", MessageId = "OFF")]
             public const string ALL_LIGHTS_OFF                               = "ALLIGHTSOFF";
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores")]
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", MessageId = "ALL")]
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", MessageId = "LIGHTS")]
             public const string ALL_LIGHTS_ON                                = "ALLIGHTSON";
         }
 
         public static class HomeAutomationAnswers
         {
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", MessageId = "ANSWER")]
             public const string ANSWER = "ANSWEROF";
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores")]
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", MessageId = "ANSWER")]
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", MessageId = "SCHEDULER")]
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", MessageId = "STATUS")]
             static public readonly string  ANSWER_SCHEDULER_STATUS = ANSWER + "_" + MessageTyp.ASK_SCHEDULER_JOB_STATUS;
         }
 
@@ -144,6 +167,7 @@ namespace Communication
             decimal previousTransactionNumber = 0;
             decimal TransactionNumber         = 0;
 
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1034:NestedTypesShouldNotBeVisible")]
             public delegate void ProcessHACommando( object sender, string section, string commando );
             public event ProcessHACommando EProcessHACommando;
 
@@ -154,6 +178,8 @@ namespace Communication
             }
 
             #region MESSAGE_INDEX
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#")]
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1062:Argumente von öffentlichen Methoden validieren", MessageId = "0")]
             public static int GetDeviceIndex( ref Dictionary<string,int> dic, string key )
             {
                 // Try to get the result in the static Dictionary
@@ -175,6 +201,7 @@ namespace Communication
             // index 5  ... expecting TO
             // index 6  ... expecting device
             // index 7  ... expecting value
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1034:NestedTypesShouldNotBeVisible")]
             public static class ExpectedComandMessageIndex
             {
                 static int                 index                = 0;
@@ -187,7 +214,7 @@ namespace Communication
                 public static readonly int IndDevice            = index++;
                 public static readonly int IndValue             = index++;
             }
- 
+
             // index 0      ... expecting message length
             // index 1      ... expecting transaction number
             // index 2      ... expecting timestamp 1
@@ -200,6 +227,7 @@ namespace Communication
             // index 6..22  ... expecting status inpts
             // index 23     ... expecting OUTPUT
             // index 24..40 ... expecting status outputs
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1034:NestedTypesShouldNotBeVisible")]
             public static class ExpectedQuickAnswerMessageIndex
             {
                 static int index                                = 0;
@@ -212,16 +240,19 @@ namespace Communication
                 public static readonly int StrEmpty1            = index++;   //6
                 public static readonly int IndMessageTyp        = index++;   //7
                 public static readonly int Room                 = index++;   //8
+                [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", MessageId = "INPUT")]
                 public static readonly int IndINPUT             = index++;   //9
                 public static readonly int StrEmpty2            = index++;   //10
                 public static readonly int IndInputs            = index;
                 public static readonly int StrEmpty3            = index +  GeneralConstants.NumberOfInputsIOCard;
+                [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", MessageId = "OUTPUT")]
                 public static readonly int IndOUTPUT            = index += GeneralConstants.NumberOfInputsIOCard + 1;
                 public static readonly int StrEmpty4            = index +  GeneralConstants.NumberOfOutputsIOCard;
                 public static readonly int IndOutputs           = index + 2;
                 public static readonly int StrEmpty5            = IndOutputs +  GeneralConstants.NumberOfOutputsIOCard - 1;
             }
 
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1034:NestedTypesShouldNotBeVisible")]
             public static class ExpectedSingleIOAnswerMessageIndex
             {
                 static int index                                = 0;
@@ -236,12 +267,14 @@ namespace Communication
                 public static readonly int IndRoom              = index++;  //
                 public static readonly int IndTo                = index++;
                 public static readonly int IndServer            = index++;
+                [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", MessageId = "Io")]
                 public static readonly int IndIoTyp             = index++;
                 public static readonly int IndStrEmpty2         = index++;
                 public static readonly int IndIndex             = index++;
                 public static readonly int IndValue             = index++;
             }
 
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1034:NestedTypesShouldNotBeVisible")]
             public static class ExpectedMessageIndex
             {
                 static int                 index                = 0;          // 0
@@ -255,6 +288,7 @@ namespace Communication
                 public static readonly int IndNext              = index;
             }
 
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1034:NestedTypesShouldNotBeVisible")]
             public static class ExpectedMessageIndexShort
             {
                 static int                 index                = 0;          // 0
@@ -266,6 +300,7 @@ namespace Communication
                 public static readonly int IndNext              = index;
             }
 
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1034:NestedTypesShouldNotBeVisible")]
             public static class ExpectedMessageIndexHACommandos
             {
                 static int                 index                = ExpectedMessageIndexShort.IndNext;
@@ -276,6 +311,7 @@ namespace Communication
             // EXAMPLE:
             // 0108 27042015:16h02m27s694ms 000000057_SCHEDULERJOB_SERVER_TO_Boiler_1_Start_01:01:01_02:02:02_FromNow
             //   1              2               3           4         5   6   7     8  9      10     11         12
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1034:NestedTypesShouldNotBeVisible")]
             public static class ExpectedSchedulerCommandIndex
             {
                 static int                 index                = ExpectedMessageIndex.IndNext;
@@ -288,6 +324,7 @@ namespace Communication
 
             //0076 21052015:15h47m20s906ms 000000000_ASKFORSCHEDULERSTATUSJOB_Boiler_1
             // 1           2                  3           4                     5    6
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1034:NestedTypesShouldNotBeVisible")]
             public static class ExpectedSchedulerInquiryIndex
             {
                 static int                 index                = 0;
@@ -296,9 +333,11 @@ namespace Communication
                 public static readonly int IndTransactionNumber = index++;
                 public static readonly int IndMessageTyp        = index++;
                 public static readonly int IndJob               = index++;
+                [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", MessageId = "ID")]
                 public static readonly int IndJobID             = index++;
             }
 
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1034:NestedTypesShouldNotBeVisible")]
             public static class ExpectedSchedulerAnswerIndex
             {
                 //static int                 index                = 0;
@@ -307,6 +346,8 @@ namespace Communication
 
             #region ANALYZER_METHODS
 
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1305:SpecifyIFormatProvider", MessageId = "System.Convert.ToBoolean(System.String)")]
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1062:Argumente von öffentlichen Methoden validieren", MessageId = "0")]
             public IOSelection AnalyzeAnyIOComando( string message )
             {
                 IOSelection IOSelection_ = new IOSelection( );
@@ -342,6 +383,8 @@ namespace Communication
             }
 
             // server asks client - "whatsup with your IO´s"
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1822:MarkMembersAsStatic")]
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1062:Argumente von öffentlichen Methoden validieren", MessageId = "0")]
             public bool AnalyzeIOStateInquiry( string message )
             {
                 bool result = false;
@@ -354,6 +397,7 @@ namespace Communication
             }
 
             // client answers with a quick status information
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1062:Argumente von öffentlichen Methoden validieren", MessageId = "0")]
             static public bool AnalyzeIOStateInquiryAnswer( string message )
             {
                 bool result = false;
@@ -365,6 +409,7 @@ namespace Communication
                 return ( result );
             }
 
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1062:Argumente von öffentlichen Methoden validieren", MessageId = "0")]
             static public bool AnalyseSingleIOEvent( string message )
             {
                 bool result = false;
@@ -376,6 +421,7 @@ namespace Communication
                 return ( result );
             }
 
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1062:Argumente von öffentlichen Methoden validieren", MessageId = "0")]
             static public bool AnalyseSchedulerComands( string message )
             {
                 bool result = false;
@@ -387,6 +433,9 @@ namespace Communication
                 return ( result );
             }
 
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1305:SpecifyIFormatProvider", MessageId = "System.Convert.ToInt16(System.String)")]
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1305:SpecifyIFormatProvider", MessageId = "System.Convert.ToBoolean(System.String)")]
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2201:DoNotRaiseReservedExceptionTypes")]
             static public IOState GetIOStateInquiryAnswer( string message )
             {
                 IOState IO_State        = new IOState( );
@@ -454,6 +503,7 @@ namespace Communication
                 return ( IO_State );
             }
 
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1062:Argumente von öffentlichen Methoden validieren", MessageId = "0")]
             public void AnalyzeHACommando( string message )
             {
                 if( message.Contains( MessageTyp.HACOMAND ) )
@@ -467,6 +517,8 @@ namespace Communication
                 }
             }
 
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1822:MarkMembersAsStatic")]
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1062:Argumente von öffentlichen Methoden validieren", MessageId = "0")]
             public bool AnalyzeVersionInquiry( string message )
             {
                 bool result = false;
@@ -478,6 +530,7 @@ namespace Communication
                 return ( result );
             }
 
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1062:Argumente von öffentlichen Methoden validieren", MessageId = "0")]
             static public bool AnalyzeSchedulerStatusInquiry( string message )
             {
                 bool result = false;
@@ -489,6 +542,7 @@ namespace Communication
                 return ( result );
             }
 
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1062:Argumente von öffentlichen Methoden validieren", MessageId = "1")]
             static public bool AnalyzeCommonCommando( string commando, string message )
             {
                 bool result = false;
@@ -500,6 +554,8 @@ namespace Communication
                 return ( result );
             }
 
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1804:RemoveUnusedLocals", MessageId = "part")]
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1062:Argumente von öffentlichen Methoden validieren", MessageId = "0")]
             public static string GetMessagePartAfterKeyWord( string message, string keyword )
             {
                 int index = 0;
@@ -525,6 +581,8 @@ namespace Communication
                 return ( result );
             }
 
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1804:RemoveUnusedLocals", MessageId = "part")]
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1062:Argumente von öffentlichen Methoden validieren", MessageId = "0")]
             public static string GetMessagePartAfterKeyWord( string message, string keyword, int indexDesiredPart )
             {
                 int index = 0;
@@ -565,6 +623,9 @@ namespace Communication
             }
 
             #region MESSAGE_BUILDER_METHODS
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1305:SpecifyIFormatProvider", MessageId = "System.Int32.ToString")]
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Literale nicht als lokalisierte Parameter übergeben", MessageId = "SystemServices.Services.TraceMessage(System.String,System.String,System.String,System.Int32)")]
             public static string BuildIOStateDebugMessage( string device, bool[] input, bool[] output )
             {
                 if( input.Length  > GeneralConstants.NumberOfInputsIOCard ||
@@ -605,7 +666,9 @@ namespace Communication
                          soutput
                        );
             }
-            
+
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1305:SpecifyIFormatProvider", MessageId = "System.Int32.ToString")]
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Literale nicht als lokalisierte Parameter übergeben", MessageId = "SystemServices.Services.TraceMessage(System.String,System.String,System.String,System.Int32)")]
             public static string BuildIOStateMessageInFullText( string room, bool[] input, bool[] output, ref Dictionary<string, int> deviceOut, ref Dictionary<string, int> deviceIn)
             {
                 if( input.Length  > GeneralConstants.NumberOfInputsIOCard ||
@@ -657,6 +720,7 @@ namespace Communication
                        );
             }
 
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Literale nicht als lokalisierte Parameter übergeben", MessageId = "SystemServices.Services.TraceMessage(System.String,System.String,System.String,System.Int32)")]
             public static string BuildIOStateMessageSimple( string room, bool[] input, bool[] output )
             {
                 if( (input == null) || (output == null) )
@@ -700,7 +764,8 @@ namespace Communication
                           OutputStatus                          
                        );
             }
-   
+
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
             public static string BuildIOSingleComandoMessage( string device, bool Value )
             {
                 return ( MessageTyp.IO_COMAND                    +
@@ -715,6 +780,7 @@ namespace Communication
                        );
             }
 
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
             public static string BuildSchedulerJobMessage( string device, string Value )
             {
                 return ( MessageTyp.SCHEDULER_JOB            +
@@ -729,6 +795,8 @@ namespace Communication
                        );
             }
 
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1305:SpecifyIFormatProvider", MessageId = "System.Int32.ToString")]
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
             public static string BuildIOSingleEventMessage( string device, int index, bool Value )
             {
                 return ( MessageTyp.IO_COMAND                    +
@@ -745,6 +813,7 @@ namespace Communication
                        );
             }
 
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1305:SpecifyIFormatProvider", MessageId = "System.Int32.ToString")]
             public static string BuildIOSingleEventMessage( string msgtyp, string room, int index, bool Value, string iotyp )
             {
                 return ( msgtyp                                  +
@@ -763,6 +832,8 @@ namespace Communication
                        );
             }
 
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1305:SpecifyIFormatProvider", MessageId = "System.String.Format(System.String,System.Object)")]
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
             public static string BuildIOSingleComandoMessage( ref decimal transactionnumber, string device, bool Value )
             {
                 string transaction = String.Format( FormatConstants.TransactionNumberFormat, transactionnumber );
@@ -772,6 +843,8 @@ namespace Communication
                        );
             }
 
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1305:SpecifyIFormatProvider", MessageId = "System.String.Format(System.String,System.Object)")]
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
             public static string BuildIOSingleComandoMessageWithTimeStamp( ref decimal transactionnumber, string device, bool Value )
             {
                 string transaction = String.Format( FormatConstants.TransactionNumberFormat, transactionnumber );
@@ -784,6 +857,8 @@ namespace Communication
                        );
             }
 
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1305:SpecifyIFormatProvider", MessageId = "System.String.Format(System.String,System.Object)")]
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
             public static string BuildSchedulerJobs( ref decimal transactionnumber, string device, string timesanddays )
             {
                 string transaction = String.Format( FormatConstants.TransactionNumberFormat, transactionnumber );
@@ -794,16 +869,20 @@ namespace Communication
             }
 
             // this is a inquiry of a IO state - when any endpoint receives this message it should response
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
             public static string WhatsUpWithYourDigitalIOs( string device )
             {
                 return ( device + Seperator + MessageTyp.IO_WHATSUP ); 
             }
 
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
             public static string GetCurrentSoftwareVersion( string device )
             {
                 return ( device + Seperator + MessageTyp.ASK_FORVERSION );
             }
 
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1305:SpecifyIFormatProvider", MessageId = "System.String.Format(System.String,System.Object)")]
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
             public static string GetCurrentSchedulerJobStatus( string job, decimal transactionnumber )
             {
                 string transaction = String.Format( FormatConstants.TransactionNumberFormat, transactionnumber );
@@ -811,6 +890,8 @@ namespace Communication
             }
 
             // general purpose comandos
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1305:SpecifyIFormatProvider", MessageId = "System.String.Format(System.String,System.Object)")]
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
             public static string BuildComandoMessage( ref decimal transactionnumber, string command )
             {
                 string transaction = String.Format( FormatConstants.TransactionNumberFormat, transactionnumber );
@@ -823,6 +904,8 @@ namespace Communication
                        );
             }
 
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1305:SpecifyIFormatProvider", MessageId = "System.String.Format(System.String,System.Object)")]
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
             public static string BuildComandoMessage( ref decimal transactionnumber, string section, string command )
             {
                  string transaction = String.Format( FormatConstants.TransactionNumberFormat, transactionnumber );

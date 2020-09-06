@@ -24,6 +24,7 @@ namespace HomeAutomation
                 {InfoString.DeviceNotFound,                                      GeneralConstants.DeviceNotFound                                                            },
             };
 
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1823:AvoidUnusedPrivateFields")]
             public static Dictionary<string, int> DeviceDictionaryCenterdigitalIn = new Dictionary<string, int>
             {
  // TODO        {HardwareDevices.HeaterDryerBathRoom,                            BathRoomIODeviceIndices.indDigitalOutputBathRoomHeater                                     },
@@ -31,11 +32,13 @@ namespace HomeAutomation
                 {InfoString.DeviceNotFound,                                      GeneralConstants.DeviceNotFound                                                            },
             };
 
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1823:AvoidUnusedPrivateFields")]
             public static Dictionary<string, int> DeviceDictionaryAnteRoomdigitalOut = new Dictionary<string, int>
             {
                 {InfoString.DeviceNotFound,                                      GeneralConstants.DeviceNotFound                                                            },
             };
 
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1823:AvoidUnusedPrivateFields")]
             public static Dictionary<string, int> DeviceDictionaryAnteroomdigitalIn = new Dictionary<string, int>
             {
                 {InfoString.DeviceNotFound,                                      GeneralConstants.DeviceNotFound                                                            },
@@ -54,6 +57,7 @@ namespace HomeAutomation
                 return InfoString.DeviceNotFound;
             }
 
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1823:AvoidUnusedPrivateFields")]
             public static Dictionary<string, string> DeviceDictionaryTranslatorForNetworkCommands = new Dictionary<string, string>
             {
                 {CenterKitchenDeviceNames.Boiler,                                      HardwareDevices.Boiler                                                            },
@@ -130,8 +134,11 @@ namespace HomeAutomation
             public const string OperationMode = "Selected Operation Mode: ";
             public const string DeviceNotFound = "Device not found!";
             public const string FailedToEstablishClient = "Failed to establish client! ";
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", MessageId = "UDP")]
             public const string FailedToEstablishUDPBroadcast = "Failed to establish UDP invitation Broadcast! ";
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", MessageId = "UDP")]
             public const string FailedToEstablishUDPReceive = "Failed to establisch UDP receive!";
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", MessageId = "UDP")]
             public const string FailedToEstablishUDPSend = "Failed to establisch UDP send!";
             public const string FailedToEstablishServer = "Failed to establish server! ";
             public const string ReceiveInvitationNotPossible = "Receive invitation data is not possible! reason:";
@@ -208,6 +215,7 @@ namespace HomeAutomation
             public const string GroupGalleryFloor = "GroupGalleryFloor";
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1724:TypeNamesShouldNotMatchNamespaces")]
         public static class HardwareDevices
         {
             public const string Devices = "Devices";
@@ -224,39 +232,49 @@ namespace HomeAutomation
             public const string HeaterNursery = "HeaterNursery"; // kinderzimmer = nursery
 
 
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1034:NestedTypesShouldNotBeVisible")]
             public static class Kitchen
             {
             }
 
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1034:NestedTypesShouldNotBeVisible")]
             public static class LivingRoomEast
             {
             }
 
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1034:NestedTypesShouldNotBeVisible")]
             public static class LivingRoomWest
             {
             }
 
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1034:NestedTypesShouldNotBeVisible")]
             public static class Outside
             {
             }
 
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1034:NestedTypesShouldNotBeVisible")]
             public static class RoofRoom
             {
             }
 
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1034:NestedTypesShouldNotBeVisible")]
             public static class Gallery
             {
                 public const string FloorSpotGroup1 = "GalleryFloorSpotGroup1";
             }
 
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1034:NestedTypesShouldNotBeVisible")]
             public static class AnteRoom
             {
             }
 
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1034:NestedTypesShouldNotBeVisible")]
             public static class SleepingRoom
             {
                 public const string SWindowWest = "SleepingRoomWindowWest";              // Fenster hinten Richtung Westen
+                [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores")]
                 public const string SWindowNorth_Left = "SleepingRoomWindowNorthLeft";         // Velux Fenster links
+                [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores")]
                 public const string SWindowNorth_Right = "SleepingRoomWindowNorthRight";        // Velux Fenster rechts
                 public const string SFireAlert = "SleepingRoomFireAlert";               // fire alert - GIRA Rauchmelder
                 public const string SHeater = "SleepingRoomHeater";                  // Heizkörper
@@ -267,10 +285,12 @@ namespace HomeAutomation
                 public const string SLightCeiling = "SleepingRoomLightCeiling";            // Leuchte an der Decke
             }
 
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1034:NestedTypesShouldNotBeVisible")]
             public static class WashRoom
             {
             }
 
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1034:NestedTypesShouldNotBeVisible")]
             public static class BathRoom
             {
             }
@@ -343,7 +363,20 @@ namespace HomeAutomation
         #region STATUS_STRINGS
         public static class DeviceStatus
         {
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores")]
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", MessageId = "ARE")]
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", MessageId = "LIGHTS")]
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", MessageId = "LIVING")]
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", MessageId = "OFF")]
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", MessageId = "ROOM")]
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", MessageId = "WEST")]
             public const string LIGHTS_LIVING_ROOM_WEST_ARE_OFF = "LIGHTS-LIVING-ROOM-WEST-ARE-OFF";
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores")]
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", MessageId = "ARE")]
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", MessageId = "LIGHTS")]
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", MessageId = "LIVING")]
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", MessageId = "ROOM")]
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", MessageId = "WEST")]
             public const string LIGHTS_LIVING_ROOM_WEST_ARE_ON = "LIGHTS-LIVING-ROOM-WEST-ARE-ON";
         }
         #endregion
@@ -388,6 +421,7 @@ namespace HomeAutomation
 
         static class ParametersRoomObserver
         {
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1823:AvoidUnusedPrivateFields")]
             static readonly public double TimeDemandStartWindowObservingOnAbscence = TimeConverter.ToMiliseconds( 5, 0 );
         }
         #endregion
@@ -422,6 +456,7 @@ namespace HomeAutomation
             public const double TimeDemandForSingleOff = 700;
             public const double TimeDemandForBroadcastAllOff = 3000;
             static readonly public double TimeDemandForSingleOffEastSide = TimeConverter.ToMiliseconds( 5, 0 );
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1823:AvoidUnusedPrivateFields")]
             static readonly public double TimeDemandForAutomaticOff = TimeConverter.ToMiliseconds( 15, 0 );
         }
 
@@ -434,8 +469,10 @@ namespace HomeAutomation
 
         static class ParametersLightControlSleepingRoomNG
         {
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1823:AvoidUnusedPrivateFields")]
             static readonly public double TimeDemandForAutomaticOff = TimeConverter.ToMiliseconds( 3, 0, 0 );
             static readonly public double TimeDemandForAllOn = TimeConverter.ToMiliseconds( 3 );
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1823:AvoidUnusedPrivateFields")]
             static readonly public double TimeDemandForAllOutputsOff = TimeConverter.ToMiliseconds( 9 );
         }
         #endregion
@@ -478,6 +515,7 @@ namespace HomeAutomation
             {
                 return ( GetData.ValueFromDeviceDictionary( InputDeviceDictionary, key ) );
             }
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
             public static string GetOutputDeviceName( uint key )
             {
                 return ( GetData.ValueFromDeviceDictionary( OutputDeviceDictionary, key ) );
@@ -524,7 +562,9 @@ namespace HomeAutomation
         static class ParametersHeaterControl
         {
             static readonly public double TimeDemandForHeatersOnOff = TimeConverter.ToMiliseconds( 1.2 );
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1823:AvoidUnusedPrivateFields")]
             static readonly public double TimeDemandForHeatersOnOffLonger = TimeConverter.ToMiliseconds( 1.7 );
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1823:AvoidUnusedPrivateFields")]
             static readonly public double TimeDemandForHeatersFinalOff = TimeConverter.ToMiliseconds( 7 );
             static readonly public double TimeDemandForHeatersOnSleepingRoomBig = TimeConverter.ToMiliseconds( 30, 0 );
             static readonly public double TimeDemandForHeatersOnSleepingRoomMiddle = TimeConverter.ToMiliseconds( 15, 0 );
@@ -533,16 +573,27 @@ namespace HomeAutomation
             static readonly public double TimeDemandForHeatersOffSleepingRoomMiddle = TimeConverter.ToMiliseconds( 10, 0 );
             static readonly public double TimeDemandForHeatersOffSleepingRoomSmall = TimeConverter.ToMiliseconds( 5, 0 );
             static readonly public double TimeDemandForHeatersAutomaticOff = TimeConverter.ToMiliseconds( 25, 0 );
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1823:AvoidUnusedPrivateFields")]
             static readonly public double TimeDemandForHeatersAutomaticOffBig = TimeConverter.ToMiliseconds( 3, 0, 0 );
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1823:AvoidUnusedPrivateFields")]
             static readonly public double TimeDemandForHeatersAutomaticOffDisable = TimeConverter.ToMiliseconds( 0, 0, 0 );
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1823:AvoidUnusedPrivateFields")]
             static readonly public double TimeDemandForHeatersAutomaticOffSuperBig = TimeConverter.ToMiliseconds( 6, 0, 0 );
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1823:AvoidUnusedPrivateFields")]
             static readonly public double TimeDemandForHeatersAutomaticOffHalfDay = TimeConverter.ToMiliseconds( 12, 0, 0 );
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1823:AvoidUnusedPrivateFields")]
             static readonly public double TimeDemandForHeatersAutomaticOffMiddle = TimeConverter.ToMiliseconds( 1, 30, 0 );
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1823:AvoidUnusedPrivateFields")]
             static readonly public double TimeDemandForHeatersAutomaticOffSmall = TimeConverter.ToMiliseconds( 30, 0 );
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1823:AvoidUnusedPrivateFields")]
             static readonly public double TimeDemandShowHeaterActive = TimeConverter.ToMiliseconds( 0.3 );
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1823:AvoidUnusedPrivateFields")]
             static readonly public double TimeDemandPauseShowHeaterActive = TimeConverter.ToMiliseconds( 0.2 );
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1802:UseLiteralsWhereAppropriate")]
             static readonly public double TimeDemandForItensityTimer = 1200;
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1802:UseLiteralsWhereAppropriate")]
             static readonly public double TimeDemandForPermanentOnWindow = 1500;
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1802:UseLiteralsWhereAppropriate")]
             static readonly public int MaxIntensitySteps = 3;
 
             static readonly public double ShowOff = TimeConverter.ToMiliseconds( 0.2 );
@@ -562,6 +613,7 @@ namespace HomeAutomation
             {2,                  TimeDemandForHeatersOffSleepingRoomBig                  },
             };
 
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
             static double GetHeaterTime( ref Dictionary<uint, double> Dic, uint key )
             {
                 // Try to get the result in the static Dictionary
@@ -576,11 +628,13 @@ namespace HomeAutomation
                 }
             }
 
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
             public static double GetHeaterOnTime( uint index )
             {
                 return GetHeaterTime( ref HeaterOnDic, index );
             }
 
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
             public static double GetHeaterOffTime( uint index )
             {
                 return GetHeaterTime( ref HeaterOffDic, index );
@@ -589,6 +643,7 @@ namespace HomeAutomation
 
         static class HeaterIdentifiers
         {
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1823:AvoidUnusedPrivateFields")]
             public static string HeatersEastAndWest = "HeatersEastAndWest";
         }
 
@@ -629,6 +684,7 @@ namespace HomeAutomation
             {
                 return ( GetData.ValueFromDeviceDictionary( InputDeviceDictionary, key ) );
             }
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
             public static string GetOutputDeviceName( uint key )
             {
                 return ( GetData.ValueFromDeviceDictionary( OutputDeviceDictionary, key ) );
@@ -674,14 +730,20 @@ namespace HomeAutomation
 
         static class DeviceNames
         {
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
             static public Dictionary<uint, string> InputDeviceDictionary { get; private set; }
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
             static public Dictionary<uint, string> OutputDeviceDictionary { get; private set; }
 
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
             static public string GetInputDeviceName( int key )
             {
                 return ( GetData.ValueFromDeviceDictionary( InputDeviceDictionary, Convert.ToUInt32( key ) ) );
             }
 
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
             static public string GetOutputDeviceName( int key )
             {
                 return ( GetData.ValueFromDeviceDictionary( OutputDeviceDictionary, Convert.ToUInt32( key ) ) );
@@ -698,6 +760,7 @@ namespace HomeAutomation
             public const int indDigitalOutputSlot = 5;
             public const int indDigitalOutputKitchenKabinet = 6;
             public const int indDigitalOutputWindowBoardEastDown = 9;
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1802:UseLiteralsWhereAppropriate")]
             static readonly public int indLastKitchen = indDigitalOutputKitchenKabinet;
 
             static Dictionary<uint, string> CenterInputDeviceDictionary = new Dictionary<uint, string>
@@ -747,11 +810,15 @@ namespace HomeAutomation
 
         static class ParametersHeaterControlLivingRoom
         {
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1823:AvoidUnusedPrivateFields")]
             static readonly public double TimeDemandForHeatersOnBig = TimeConverter.ToMiliseconds( 30, 0 );
             static readonly public double TimeDemandForHeatersOnMiddle = TimeConverter.ToMiliseconds( 5, 0 );
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1823:AvoidUnusedPrivateFields")]
             static readonly public double TimeDemandForHeatersOnSmall = TimeConverter.ToMiliseconds( 15, 0 );
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1823:AvoidUnusedPrivateFields")]
             static readonly public double TimeDemandForHeatersOffBig = TimeConverter.ToMiliseconds( 15, 0 );
             static readonly public double TimeDemandForHeatersOffMiddle = TimeConverter.ToMiliseconds( 15, 0 );
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1823:AvoidUnusedPrivateFields")]
             static readonly public double TimeDemandForHeatersOffSmall = TimeConverter.ToMiliseconds( 5, 0 );
             static readonly public double TimeDemandForHeatersOnDefrost = TimeConverter.ToMiliseconds( 30 );
             static readonly public double TimeDemandForHeatersOffDefrost = TimeConverter.ToMiliseconds( 45 );
@@ -773,6 +840,7 @@ namespace HomeAutomation
 
         static class ParametersHeatingSystem
         {
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1823:AvoidUnusedPrivateFields")]
             static readonly public double TimeDemandForHeaterCirculationPumpAutomaticOff = TimeConverter.ToMiliseconds( 6, 0, 0 );
         }
 
@@ -906,11 +974,13 @@ namespace HomeAutomation
 
         static class ParametersHeaterControlBathRoom
         {
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1823:AvoidUnusedPrivateFields")]
             static readonly public double TimeDemandForHeaterAutomaticOff = new TimeSpan( 2, 0, 0, 0, 0 ).TotalMilliseconds;
         }
 
         static class ParametersLightControlBathRoom
         {
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1823:AvoidUnusedPrivateFields")]
             static readonly public double TimeDemandForAutomaticOffBath = TimeConverter.ToMiliseconds( 1, 0, 0 );
         }
 
@@ -995,6 +1065,7 @@ namespace HomeAutomation
 
         static class ObserverConstants
         {
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1823:AvoidUnusedPrivateFields")]
             static readonly public double TimeDemandForObserverWarning = TimeConverter.ToMiliseconds( 0, 2, 0 );
         }
 

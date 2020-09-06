@@ -21,14 +21,20 @@ namespace HomeAutomation
         const double TimeIndicationOff = 1500;
         public enum ObservingStates
         {
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", MessageId = "e")]
             eWaitForObserving,
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", MessageId = "e")]
             eObserve,
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", MessageId = "e")]
             eIndicating,
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", MessageId = "e")]
             eWarning,
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", MessageId = "e")]
             eAlarm
         }
 
-        double                              _TimeDelayObserving;
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1823:AvoidUnusedPrivateFields")]
+        double _TimeDelayObserving;
         //string                              _IOStatus;
         //bool                                _PresenceDetectorIsActive;
         ObservingStates                     _ActualState;        
@@ -47,7 +53,8 @@ namespace HomeAutomation
         bool          AnyCriticalWindowIsOpen;
         UnivPWM       SignalGenerator = new UnivPWM( TimeIndicationOn, TimeIndicationOff ); 
         bool          InhibitFurtherCommanding = false;
-        string        _GivenRoomName;
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1823:AvoidUnusedPrivateFields")]
+        string _GivenRoomName;
 
         #endregion
 
@@ -66,21 +73,28 @@ namespace HomeAutomation
             SignalGenerator.PWM_      += SignalGenerator_PWM_;
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", MessageId = "Time")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "1#")]
         public WindowDoorsObserver( double TimeDelayObserving, ref InterfaceKitDigitalOutputCollection outputs )
         {
             Constructor( TimeDelayObserving, ref outputs );
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", MessageId = "Given")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", MessageId = "Time")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "2#")]
         public WindowDoorsObserver( string GivenRoomName, double TimeDelayObserving, ref InterfaceKitDigitalOutputCollection outputs )
         {
             Constructor( TimeDelayObserving, ref outputs );
             _GivenRoomName = GivenRoomName;
         }
 
-       #endregion
+        #endregion
 
         #region PUBLIC_METHODS
         // listen for IO datagrams sent by different stations or create on owner 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1305:SpecifyIFormatProvider", MessageId = "System.Convert.ToUInt32(System.String)")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1305:SpecifyIFormatProvider", MessageId = "System.Convert.ToBoolean(System.String)")]
         public void ListenForChanges( string receivedDatagramm )   // IOStatus must contain ROOM_InputINDEX_InputValue
         {
             const int PositionValue   = 1;
@@ -89,6 +103,9 @@ namespace HomeAutomation
             uint      Index;
             bool      Value;
             string    device = "";
+
+            if (receivedDatagramm == null)
+                return;
 
             // muting can be commanded 
             if( receivedDatagramm.Contains( ObserverComandos.WindowObserverMute ) )
@@ -207,6 +224,7 @@ namespace HomeAutomation
         {
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA1801:ReviewUnusedParameters", MessageId = "usercomando")]
         private void ObservingStateMachine( string usercomando, ObservingStates state )
         {
                 switch( state )
