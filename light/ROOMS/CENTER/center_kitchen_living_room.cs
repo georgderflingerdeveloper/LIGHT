@@ -50,8 +50,6 @@ namespace HomeAutomation
         bool[] _InternalDigitalOutputState;
         long RemainingTime;
         PowerMeter _PowerMeter;
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1823:AvoidUnusedPrivateFields")]
-        int _PortNumberServer;
         bool RemoteControlLightOutsideActivated;
         bool AutoControlPowerPlug;
         bool AutoControlBoiler;
@@ -64,8 +62,6 @@ namespace HomeAutomation
 
         DigitalInputEventargs  _DigitalInputEventargs  = new DigitalInputEventargs( );
         DigitalOutputEventargs _DigitalOutputEventargs = new DigitalOutputEventargs( );
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1823:AvoidUnusedPrivateFields")]
-        LivingRoomConfig _livingroomconfig;
         #endregion
 
         // more objects share the same eventhandler in this case
@@ -90,10 +86,8 @@ namespace HomeAutomation
         {
             AutoControlPowerPlug = true;
             AutoControlBoiler    = true;
-            _livingroomconfig    = livingroomconfig;
             _GivenClientName     = InfoOperationMode.CENTER_KITCHEN_AND_LIVING_ROOM;
             _IpAdressServer      = livingroomconfig.IpAdressServer;
-            _PortNumberServer    = Convert.ToInt16( livingroomconfig.PortServer );
             _DigitalInputState   = new bool[GeneralConstants.NumberOfInputsIOCard];
             _DigitalOutputState  = new bool[GeneralConstants.NumberOfOutputsIOCard];
             _InternalDigitalOutputState = new bool[GeneralConstants.NumberOfOutputsIOCard];
@@ -300,8 +294,6 @@ namespace HomeAutomation
             HeaterAnteRoom.Reset( );
         }
 
-
-
         void Reset( bool command )
         {
             if (command == true)
@@ -415,12 +407,6 @@ namespace HomeAutomation
         void TurnWindowLedgeEast( bool command )
         {
             outputs[KitchenCenterIoDevices.indDigitalOutputWindowBoardEastDown] = command;
-        }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        void TurnHeaterBodyWest( bool command )
-        {
-            outputs[KitchenLivingRoomIOAssignment.indDigitalOutputHeaterWest] = command;
         }
 
         void TurLightOutside( bool command )

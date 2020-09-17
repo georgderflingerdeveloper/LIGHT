@@ -53,12 +53,6 @@ namespace HA_COMPONENTS
 
         #region CONSTRUCTOR
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Mobility", "CA1601:DoNotUseTimersThatPreventPowerStateChanges")]
-        public LightControl_NG( ) : base( )
-        {
-            Constructor( );
-        }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Mobility", "CA1601:DoNotUseTimersThatPreventPowerStateChanges")]
         public LightControl_NG( double AllOnTime, double SingleOffTime, int deviceindex )
             : base( AllOnTime, SingleOffTime )
         {
@@ -84,26 +78,7 @@ namespace HA_COMPONENTS
         }
 
 
-        // extended functionality - all devices off - even the desired remaining ones after timer elapsed
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Mobility", "CA1601:DoNotUseTimersThatPreventPowerStateChanges")]
-        public LightControl_NG( double AllOnTime,
-                                double AllOutputsOffTime,
-                                double SingleOffTime,
-                                double AutomaticOffTime,
-                                double AllFinalOffTime,
-		                        int    firstindex,
-                                int    lastindex
-                              )
-            : base( AllOnTime, SingleOffTime, AutomaticOffTime )
-        {
-            Constructor( AllOutputsOffTime, SingleOffTime, AutomaticOffTime, firstindex, lastindex );
-            
-			FinalAllAutomaticOff.Interval    = AllFinalOffTime;
-            FinalAllAutomaticOff.Elapsed    += FinalAllAutomaticOff_Elapsed;
-            base.ESingleDelayedIndexedOff_  += LightControl_ESingleDelayedIndexedOff_;
-            EUpdateOutputs                  += LightControlNG_EUpdateOutputs;
-        }
+
         #endregion
 
         #region PROPERTIES
@@ -471,35 +446,10 @@ namespace HA_COMPONENTS
             _ShowStateDigitalOutput = _DigOut;
         }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        protected void TurnOnWithDelayedOffSingleLight( InputChangeEventArgs e, double delayedofftime, int index )
-        {
-            if( e.Value == false )
-            {
-                ControlOutput( index, true );
-                base.StartSingleAutomaticOffTimer( index, delayedofftime );
-            }
-        }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        protected void TurnOnWithDelayedOffSingleLight( InputChangeEventArgs e, bool enable, double delayedofftime, int index )
-        {
-            if( enable == false )
-            {
-                return;
-            }
-            TurnOnWithDelayedOffSingleLight( e, delayedofftime, index );
-        }
+ 
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        protected void TurnOnWithDelayedOffSingleLight( bool command, double delayedofftime, int index )
-        {
-            if( command == false )
-            {
-                ControlOutput( index, true );
-                base.StartSingleAutomaticOffTimer( index, delayedofftime );
-            }
-        }
+ 
 
         // TODO BUGFIX !!!!
         protected bool TurnAllLightsOff( int startindex, int lastindex )
