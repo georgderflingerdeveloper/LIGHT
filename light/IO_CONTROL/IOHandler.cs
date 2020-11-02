@@ -1,8 +1,8 @@
-﻿using System;
+﻿using HomeControl.BASIC_COMPONENTS.Interfaces;
 using Phidgets;
 using Phidgets.Events;
+using System;
 using SystemServices;
-using HomeControl.BASIC_COMPONENTS.Interfaces;
 
 namespace BASIC_COMPONENTS
 {

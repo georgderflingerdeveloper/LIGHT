@@ -1,7 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using Quartz;
+﻿using Quartz;
 using Quartz.Impl;
+using System;
+using System.Collections.Generic;
 using SystemServices;
 
 namespace Scheduler
@@ -275,17 +275,7 @@ namespace Scheduler
             }
         }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1305:SpecifyIFormatProvider", MessageId = "System.Int32.ToString(System.String)")]
-        public static string TimeToString( int hour, int minute, int second )
-        {
-            string hour_    = hour.ToString( QuartzApplicationConstants.ZeroPartialTime );
-            string minute_  = minute.ToString( QuartzApplicationConstants.ZeroPartialTime );
-            string second_  = second.ToString( QuartzApplicationConstants.ZeroPartialTime );
-
-            return ( hour_ + ":" + minute_ + ":" + second_ );
-        }
-
+ 
         static bool IsTimeRangeOk( string time, int whichTime )
         {
             if (int.TryParse( time, out int time_ ))

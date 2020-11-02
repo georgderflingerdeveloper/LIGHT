@@ -1,7 +1,7 @@
 ﻿using System.Reflection;
+using System.Resources;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
-using System.Resources;
 
 // Allgemeine Informationen über eine Assembly werden über die folgenden 
 // Attribute gesteuert. Ändern Sie diese Attributwerte, um die Informationen zu ändern,
@@ -10,9 +10,9 @@ using System.Resources;
 [assembly: AssemblyDescription("control lights, heater, alarms, living comfort")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("private")]
-[assembly: AssemblyProduct( "Home Automation Control" )]
-[assembly: AssemblyCopyright( "Georg Derflinger" )]
-[assembly: AssemblyTrademark( "GED" )]
+[assembly: AssemblyProduct("Home Automation Control")]
+[assembly: AssemblyCopyright("Georg Derflinger")]
+[assembly: AssemblyTrademark("GED")]
 [assembly: AssemblyCulture("")]
 
 // Durch Festlegen von ComVisible auf "false" werden die Typen in dieser Assembly unsichtbar 
@@ -30,6 +30,6 @@ using System.Resources;
 //      Buildnummer
 //      Revision
 //
-[assembly: AssemblyVersion( "0.0.0.24" )]
-[assembly: AssemblyFileVersion( "0.0.0.24" )]
+[assembly: AssemblyVersion("0.0.0.24")]
+[assembly: AssemblyFileVersion("0.0.0.24")]
 [assembly: NeutralResourcesLanguageAttribute("en")]

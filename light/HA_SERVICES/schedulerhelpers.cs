@@ -1,6 +1,6 @@
-﻿using System;
+﻿using Communication.HAProtocoll;
+using System;
 using System.Collections.Generic;
-using Communication.HAProtocoll;
 
 
 namespace light_visu_classic

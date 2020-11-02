@@ -1,5 +1,5 @@
-﻿using System;
-using Phidgets;
+﻿using Phidgets;
+using System;
 using SystemServices;
 
 namespace IO_Control

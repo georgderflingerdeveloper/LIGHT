@@ -168,7 +168,7 @@ namespace HomeAutomation
                              {
                                IpAdressServer             = serveripadress,
                                PortServer                 = serverPort,
-                               softwareversion            = CompleteVersion,
+                               Softwareversion            = CompleteVersion,
                              } 
                        );  
                        if ( MyHomeKitchenLivingRoom.Attached )

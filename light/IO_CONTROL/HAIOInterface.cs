@@ -1,9 +1,9 @@
-﻿using System;
+﻿using HomeAutomation.HardConfig_Collected;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using HomeAutomation.HardConfig_Collected;
 
 namespace HAHardware
 {

@@ -5,6 +5,7 @@ using Equipment;
 using HA_COMPONENTS;
 using HomeAutomation.HardConfig_Collected;
 using HomeAutomation.rooms;
+using HomeAutomationProtocoll;
 using HomeControl.BASIC_COMPONENTS.Interfaces;
 using Phidgets.Events;
 using Quartz;
@@ -13,21 +14,19 @@ using Scheduler;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Runtime.CompilerServices;
 using System.Timers;
 using SystemServices;
-using HomeAutomationProtocoll;
-using System.Runtime.CompilerServices;
 
 namespace HomeAutomation
 {
     public class LivingRoomConfig
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", MessageId = "Ip")]
+        //[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", MessageId = "Ip")]
         public string IpAdressServer { get; set; }
         public string PortServer { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", MessageId = "softwareversion")]
-        public string softwareversion { get; set; }
-        public string HeatersLivingRoomAutomatic { get; set; }
+        //[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", MessageId = "softwareversion")]
+        public string Softwareversion { get; set; }
     }
 
     class Center_kitchen_living_room_NG : CommonRoom, IIOHandlerInfo, ICenter

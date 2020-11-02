@@ -1,11 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Timers;
-using Communication;
+﻿using Communication;
 using Communication.HAProtocoll;
+using HomeAutomation.Controls;
 using HomeAutomation.HardConfig_Collected;
 using Phidgets;
-using HomeAutomation.Controls;
+using System;
+using System.Collections.Generic;
+using System.Timers;
 
 
 namespace HomeAutomation

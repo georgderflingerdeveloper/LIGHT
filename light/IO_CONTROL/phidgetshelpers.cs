@@ -1,5 +1,5 @@
-﻿using System;
-using Phidgets;
+﻿using Phidgets;
+using System;
 
 namespace PhidgetsHelpers
 {

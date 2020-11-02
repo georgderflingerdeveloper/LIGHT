@@ -1,12 +1,12 @@
-﻿using NUnit.Framework;
-using Moq;
-using HomeAutomation;
+﻿using HomeAutomation;
 using HomeAutomation.HardConfig_Collected;
+using Moq;
+using NUnit.Framework;
 using Quartz;
 
 namespace CenterUnitTest
 {
-	public static class TestConstants
+    public static class TestConstants
 	{
 		static decimal TestTransaction                                = 00001;
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2211:NonConstantFieldsShouldNotBeVisible")]

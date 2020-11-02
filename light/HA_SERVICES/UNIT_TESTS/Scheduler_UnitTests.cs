@@ -1,6 +1,6 @@
-﻿using NUnit.Framework;
+﻿using NUnit.Compatibility;
+using NUnit.Framework;
 using Scheduler;
-using NUnit.Compatibility;
 
 namespace Communication.HA_SERVICES.UNIT_TESTS
 {

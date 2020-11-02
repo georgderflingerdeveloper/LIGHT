@@ -194,8 +194,6 @@ C:\Projekte\LIGHT\light\bin\Debug\nunit.engine.nuget.addins
 C:\Projekte\LIGHT\light\bin\Debug\light.exe.config
 C:\Projekte\LIGHT\light\bin\Debug\light.exe
 C:\Projekte\LIGHT\light\bin\Debug\light.pdb
-C:\Projekte\LIGHT\light\bin\Debug\light.exe.CodeAnalysisLog.xml
-C:\Projekte\LIGHT\light\bin\Debug\light.exe.lastcodeanalysissucceeded
 C:\Projekte\LIGHT\light\bin\Debug\AutoMoq.dll
 C:\Projekte\LIGHT\light\bin\Debug\Castle.Core.dll
 C:\Projekte\LIGHT\light\bin\Debug\EntityFramework.dll

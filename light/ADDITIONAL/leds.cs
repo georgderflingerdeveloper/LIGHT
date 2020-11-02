@@ -1,7 +1,7 @@
-﻿using System;
+﻿using HomeAutomation.HardConfig_Collected;
 using Phidgets;
-using HomeAutomation.HardConfig_Collected;
 using PhidgetsHelpers;
+using System;
 
 namespace HardwareDevices
 {
