@@ -18,8 +18,6 @@ namespace HA_COMPONENTS
             eCabinetFrontLights
         }
 
-        const int LastIndexFrontLights = 3;
-        const int NumberOfFrontLights = 3;
         int _index;
         int _lastindex;
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1823:AvoidUnusedPrivateFields")]
@@ -31,7 +29,7 @@ namespace HA_COMPONENTS
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1823:AvoidUnusedPrivateFields")]
         bool _AnyExternalDeviceOn;
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1823:AvoidUnusedPrivateFields")]
-        bool _AnyExternalDeviceOff;
+        bool _AnyExternalDeviceOff;       
         bool ToggleLightGroups = false;
         bool ToggleLightWindowBoardEastDown;
 

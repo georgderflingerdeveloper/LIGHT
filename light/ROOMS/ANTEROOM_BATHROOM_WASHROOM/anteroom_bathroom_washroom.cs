@@ -28,8 +28,6 @@ namespace HomeAutomation
           #region DECLARATION
           bool      _turnedAutoOff;
           int       _startindex;
-          const int LastIndexAnteRoomLights      = 1;
-          const int NumberOfAnteRoomLightGroups  = 2;
           int       _lastindex;
           bool      turnedDeviceGroupManuallyOff = false;
           bool      resetOnAutomaticOff;
