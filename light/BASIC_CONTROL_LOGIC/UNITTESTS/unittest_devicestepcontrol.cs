@@ -26,9 +26,8 @@ namespace BASIC_CONTROL_LOGIC
             StepControl.WatchForInputValueChange(false);
         }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores")]
         [Test]
-        public void Test_DeviceValueSwitch()
+        public void TestDeviceValueSwitch()
         {
             StepControl = new devicestepcontrol(NumberOfDevices, timernext);
 

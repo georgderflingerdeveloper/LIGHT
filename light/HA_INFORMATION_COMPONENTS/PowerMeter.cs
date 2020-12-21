@@ -16,8 +16,6 @@ namespace Equipment
         decimal                   _Index;
         double                    _DataStoreIntervall;
         double                    _DataCaptureIntervall;
-        const decimal             MS_PER_MINUTE = 60 * 1000;
-        const decimal             MS_PER_HOUR   = 60 * 60 * 1000;
         const decimal             MS_PER_SECOND = 1000;
         bool                      _CaptureMinuteStoreHour;
         bool                      _StartCapure;

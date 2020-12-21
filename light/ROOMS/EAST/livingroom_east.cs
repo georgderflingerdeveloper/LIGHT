@@ -61,7 +61,7 @@ namespace HomeAutomation
         UdpSend                               UDPSendData;
         Timer                                 TurnOffTimer;
 
-        public event DigitalInputChanged  EDigitalInputChanged;
+        public event DigitalInputChanged  DigitalInputChanged;
 
         DigitalInputEventargs  _DigitalInputEventargs  = new DigitalInputEventargs( );
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1823:AvoidUnusedPrivateFields")]
@@ -531,7 +531,7 @@ namespace HomeAutomation
             _DigitalInputEventargs.Value        = e.Value;
             _DigitalInputEventargs.SerialNumber = EventComesFromCardWithSerial;
              
-            EDigitalInputChanged?.Invoke( this, _DigitalInputEventargs );
+            DigitalInputChanged?.Invoke( this, _DigitalInputEventargs );
         }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Literale nicht als lokalisierte Parameter übergeben", MessageId = "Communication.UDP.UdpSend.SendStringSync(System.String)")]

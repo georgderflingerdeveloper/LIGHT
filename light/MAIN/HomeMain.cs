@@ -206,7 +206,7 @@ namespace HomeAutomation
                         {
                            SoftwareVersion = CompleteVersion
                         };
-                        MyHomeLivingRoomEast.EDigitalInputChanged += RoomsIoHandling_EDigitalInputChanged;
+                        MyHomeLivingRoomEast.DigitalInputChanged += RoomsIoHandling_EDigitalInputChanged;
                         WaitUntilKeyPressed( );
                         MyHomeLivingRoomEast.AllCardsOutputsOff( );
                         MyHomeLivingRoomEast.Close( ); 

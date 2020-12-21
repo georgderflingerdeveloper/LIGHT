@@ -367,7 +367,6 @@ namespace HomeAutomation
             Timer AliveTimer           = new Timer( Parameters.TimeIntervallAlive );
             Timer FinalAllAutomaticOff = new Timer();                                              // all configured devices off
             bool[] _StateDigitalOutput = new bool[GeneralConstants.NumberOfOutputsIOCard];         // fill state from outside
-            bool[] _ToggleOutput       = new bool[GeneralConstants.NumberOfOutputsIOCard];
             bool[] _ShowStateDigitalOutput = new bool[GeneralConstants.NumberOfOutputsIOCard];     // show internal state - reason is to ease testing
             protected                    InterfaceKitDigitalOutputCollection outputs_;
 
@@ -908,7 +907,6 @@ namespace HomeAutomation
             bool                         _PrimaryIOCardIsAttached;
             [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1823:AvoidUnusedPrivateFields")]
             bool[] _StateDigitalOutput               = new bool[GeneralConstants.NumberOfOutputsIOCard];    // fill state from outside
-            bool[] _ToggleOutput                     = new bool[GeneralConstants.NumberOfOutputsIOCard];
             bool[] _ShowStateDigitalOutput           = new bool[GeneralConstants.NumberOfOutputsIOCard];    // show internal state - reason is to ease testing
             protected bool[] _DigitalOutput          = new bool[GeneralConstants.NumberOfOutputsIOCard];    // 
             protected bool               _AllRoomLightsAreOn;
@@ -2033,10 +2031,8 @@ namespace HomeAutomation
             double                   _DelayTimeAllOnTimer                   = 1200;
             double                   _DelayTimeSlingleLightOff              = 700;
             protected bool           EnableStepLight                        = true;
-            bool                     _Toggle                                = false;
             protected bool           _AllLightsAreOn                        = false;
             LightControl             SelectLightControl;
-            string                   _SoftwareVersion;
 
             protected Timer AutoNextTimer              = new Timer( );
             protected Timer DelayAllOnTimer            = new Timer( );
