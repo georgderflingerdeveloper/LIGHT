@@ -66,12 +66,12 @@ namespace HomeAutomation
         // more objects share the same eventhandler in this case
         void CommonUsedEventHandlers()
         {
-            Kitchen.EUpdateOutputs_ += EShowUpdatedOutputs;
+            Kitchen.EUpdateOutputs_           += EShowUpdatedOutputs;
             HeatersLivingRoom.EUpdateOutputs_ += EShowUpdatedOutputs;
-            HeaterAnteRoom.EUpdateOutputs_ += EShowUpdatedOutputs;
-            CirculationPump.EUpdateOutputs_ += EShowUpdatedOutputs;
-            Outside.EUpdateOutputs += EShowUpdatedOutputs;
-            FanWashRoom.EUpdateOutputs_ += EShowUpdatedOutputs;
+            HeaterAnteRoom.EUpdateOutputs_    += EShowUpdatedOutputs;
+            CirculationPump.EUpdateOutputs_   += EShowUpdatedOutputs;
+            Outside.EUpdateOutputs            += EShowUpdatedOutputs;
+            FanWashRoom.EUpdateOutputs_       += EShowUpdatedOutputs;
         }
 
         #region CONSTRUCTOR
