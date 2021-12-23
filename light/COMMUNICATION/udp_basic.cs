@@ -144,9 +144,15 @@ namespace Communication
             }
         }
 
-        class UdpSend 
+        interface IUdpSend
         {
-            private string IP = UDPConfig.IpAdress;  
+            void SendString(string message);
+            void SendStringSync(string message);
+        }
+
+        class UdpSend : IUdpSend
+        {
+            private string IPAdress = UDPConfig.IpAdress;  
             public int port   = UDPConfig.port;  
 
             IPEndPoint remoteEndPoint;
@@ -154,7 +160,7 @@ namespace Communication
 
             public UdpSend ( )
             {
-                remoteEndPoint = new IPEndPoint( IPAddress.Parse( IP ), port );
+                remoteEndPoint = new IPEndPoint( IPAddress.Parse( IPAdress ), port );
                 client         = new UdpClient( );
             }
 
