@@ -44,7 +44,7 @@ namespace HomeAutomation
                     base.open( serialnumber_standardio );
                     Console.WriteLine( TimeUtil.GetTimestamp() + " " + "Waiting for InterfaceKit with serial number " + serialnumber_standardio.ToString( ) +" to be attached..." );
                     base.waitForAttachment( Parameters.AttachWaitTime );
-                    base.InputChange  += BuildingSection_InputChange;
+                    base.InputChange  += BuildingSectionInputChange;
                     base.OutputChange += BuildingSection_OutputChange;
                 }
                 catch( PhidgetException phiex_ )
@@ -75,7 +75,7 @@ namespace HomeAutomation
                     base.open();
                     Console.WriteLine( TimeUtil.GetTimestamp( ) + " " +  "Waiting for InterfaceKit to be attached..." );
                     base.waitForAttachment( Parameters.AttachWaitTime ); //
-                    base.InputChange  += BuildingSection_InputChange;
+                    base.InputChange  += BuildingSectionInputChange;
                     base.OutputChange += BuildingSection_OutputChange;
                 }
                 catch( PhidgetException phiex_ )
@@ -200,7 +200,7 @@ namespace HomeAutomation
                 _StateDigitalOutput[e.Index] =  e.Value ? true : false;
             }
 
-            virtual protected void BuildingSection_InputChange ( object sender, InputChangeEventArgs e )
+            virtual protected void BuildingSectionInputChange ( object sender, InputChangeEventArgs e )
             {
                 if( !_enableBase )
                     return;
@@ -2756,7 +2756,7 @@ namespace HomeAutomation
             }
 
             // ************* I N P U T S *****************
-            protected override void BuildingSection_InputChange ( object sender, InputChangeEventArgs e )
+            protected override void BuildingSectionInputChange ( object sender, InputChangeEventArgs e )
             {
                 CheckFireAlert( e );
 

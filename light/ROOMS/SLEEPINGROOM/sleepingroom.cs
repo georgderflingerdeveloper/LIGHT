@@ -100,7 +100,7 @@ namespace HomeAutomation
             }
         }
 
-        protected override void BuildingSection_InputChange( object sender, InputChangeEventArgs e )
+        protected override void BuildingSectionInputChange( object sender, InputChangeEventArgs e )
         {
             CheckFireAlert( e );
 
@@ -237,7 +237,7 @@ namespace HomeAutomation
             }
         }
 
-        protected override void BuildingSection_InputChange( object sender, InputChangeEventArgs e )
+        protected override void BuildingSectionInputChange( object sender, InputChangeEventArgs e )
         {
             ControlSequenceOnInputChange( e.Index, e.Value );
         }

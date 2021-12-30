@@ -149,7 +149,6 @@ C:\PROJECT\LIGHT\light\bin\Release\Microsoft.Practices.ServiceLocation.xml
 C:\PROJECT\LIGHT\light\bin\Release\Microsoft.Practices.Unity.Configuration.xml
 C:\PROJECT\LIGHT\light\bin\Release\Microsoft.Practices.Unity.xml
 C:\PROJECT\LIGHT\light\bin\Release\Microsoft.Practices.Unity.RegistrationByConvention.xml
-C:\PROJECT\LIGHT\light\obj\Release\light.csproj.CoreCompileInputs.cache
 C:\PROJECT\LIGHT\light\obj\Release\light.exe
 C:\PROJECT\LIGHT\light\obj\Release\light.pdb
 C:\PROJECT\LIGHT\light\bin\Release\HeaterController.dll
@@ -162,5 +161,6 @@ C:\Projekte\LIGHT\light\bin\Release\HomeAutomationProtocoll.pdb
 C:\Projekte\LIGHT\light\obj\Release\light.csproj.CopyComplete
 C:\PROJECT\LIGHT\light\bin\Release\HomeAutomationProtocoll.dll
 C:\PROJECT\LIGHT\light\bin\Release\HomeAutomationProtocoll.pdb
-C:\PROJECT\LIGHT\light\obj\Release\light.csprojAssemblyReference.cache
 C:\Projekte\LIGHT\light\obj\Release\light.csprojAssemblyReference.cache
+C:\PROJECT\LIGHT\light\bin\Release\CommonController.dll
+C:\PROJECT\LIGHT\light\bin\Release\CommonController.pdb

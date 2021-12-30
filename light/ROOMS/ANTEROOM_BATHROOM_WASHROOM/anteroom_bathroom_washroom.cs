@@ -945,7 +945,7 @@ namespace HomeAutomation
         #endregion
 
         #region IOEVENTHANDLERS
-        protected override void BuildingSection_InputChange ( object sender, InputChangeEventArgs e )
+        protected override void BuildingSectionInputChange ( object sender, InputChangeEventArgs e )
         {
             CheckFireAlert( e );
 

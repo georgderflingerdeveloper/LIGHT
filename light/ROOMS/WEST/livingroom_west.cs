@@ -383,7 +383,7 @@ namespace HomeAutomation
                                            e.Value.ToString( ) );
         }
 
-        protected override void BuildingSection_InputChange( object sender, InputChangeEventArgs e )
+        protected override void BuildingSectionInputChange( object sender, InputChangeEventArgs e )
         {
             try
             {

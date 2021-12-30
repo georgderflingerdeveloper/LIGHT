@@ -41,6 +41,7 @@ namespace HomeAutomation
         FeedData PrevSchedulerData = new FeedData( );
         UdpReceive UDPReceiveDataFromWebForwarder;
         UdpReceive UdpReceiveDataFromEastController;
+        IUdpSend UdpSender_;
         Timer TimerRecoverScheduler;
         Timer CommonUsedTick = new Timer( GeneralConstants.DURATION_COMMONTICK );
         bool[] _DigitalInputState;
@@ -61,6 +62,10 @@ namespace HomeAutomation
         DigitalInputEventargs _DigitalInputEventargs = new DigitalInputEventargs( );
         DigitalOutputEventargs _DigitalOutputEventargs = new DigitalOutputEventargs( );
         LivingRoomConfig _livingroomconfig;
+        public void InjectUdpSender( IUdpSend UdpSender  )
+        {
+            UdpSender_ = UdpSender;
+        }
         #endregion
 
         // more objects share the same eventhandler in this case
@@ -429,8 +434,7 @@ namespace HomeAutomation
             switch (index) // the index is the assigned input number
             {
                 case KitchenIOAssignment.indKitchenMainButton:
-                    //HeatersLivingRoom?.HeaterOn( Value ); => replace 
-
+ 
                     if( InhibitLightControlViaMainButton )
                     {
                         break;
@@ -575,6 +579,7 @@ namespace HomeAutomation
         void UdpDataReceived( object sender, ReceivedEventargs e )
         {
             string[] DatagrammSplitted = e.Payload.Split( ComandoString.Telegram.Seperator );
+            Console.WriteLine(TimeUtil.GetTimestamp_() + " Received telegramm: " + DatagrammSplitted[0] + " from " + e.Adress + " : " + e.Port);
 
             if (DatagrammSplitted.Length == ExpectedArrayElementsCommonCommand)
             {
@@ -715,7 +720,6 @@ namespace HomeAutomation
                         break;
 
                 }
-                Console.WriteLine( TimeUtil.GetTimestamp_( ) + " Received telegramm: " + DatagrammSplitted[0] + " from " + e.Adress + " : " + e.Port );
                 return;
             }
 
@@ -759,7 +763,7 @@ namespace HomeAutomation
         #endregion
 
         #region IOEVENTHANDLERS
-        protected override void BuildingSection_InputChange( object sender, InputChangeEventArgs e )
+        protected override void BuildingSectionInputChange( object sender, InputChangeEventArgs e )
         {
             ControlSequenceOnInputChange( e.Index, e.Value );
 
@@ -774,6 +778,21 @@ namespace HomeAutomation
             _DigitalInputEventargs.Value = e.Value;
             _DigitalInputEventargs.SerialNumber = base.SerialNumber;
             EDigitalInputChanged?.Invoke( sender, _DigitalInputEventargs );
+            string TimeStamp = TimeUtil.GetTimestamp_();
+            string Message = TimeStamp + "_" +
+                                    InfoOperationMode.CENTER_KITCHEN_AND_LIVING_ROOM +
+                                    "_" +
+                                    e.Index.ToString() +
+                                    "_" +
+                                    e.Value.ToString();
+            try
+            {
+                UdpSender_?.SendString(Message);
+            }
+            catch( Exception ex)
+            {
+                Console.WriteLine(TimeStamp + " " + "Send data failed " + ex.Message);
+            }
         }
 
         protected override void BuildingSection_OutputChange( object sender, OutputChangeEventArgs e )
